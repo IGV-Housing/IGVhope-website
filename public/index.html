@@ -1119,9 +1119,9 @@ function handleSubmitApplicationClick() {
   });
 }
 var FLOORPLAN_PDFS = {
-  'A': 'floorplans/osprey-unit-a-floorplan.pdf',
-  'B': 'floorplans/osprey-unit-b-floorplan.pdf',
-  'C': 'floorplans/osprey-unit-c-floorplan.pdf'
+  'A': '/assets/files/osprey-unit-a-floorplan.pdf',
+  'B': '/assets/files/osprey-unit-b-floorplan.pdf',
+  'C': '/assets/files/osprey-unit-c-floorplan.pdf'
 };
 var DOCUMENT_EVENT_WORKER_URL = 'https://floorplan-salesbrochure-event.igvhousing.workers.dev';
 function trackDocumentDownload(docType, unit) {
@@ -1148,7 +1148,7 @@ function downloadFloorplan() {
     alert('Floorplan not available for this listing yet.');
   }
 }
-var BROCHURE_PDF_URL = 'brochures/osprey-sales-brochure.pdf';
+var BROCHURE_PDF_URL = '/assets/files/osprey-sales-brochure.pdf';
 function downloadBrochure() {
   if (!gate1Unlocked) { openGate1(function() { downloadBrochure(); }); return; }
   if (!gate2Unlocked) { openGate2(function() { downloadBrochure(); }); return; }
@@ -3698,19 +3698,19 @@ document.addEventListener('click', function() {
   background-size: cover; background-position: center center; z-index: 0;
   /* Default (desktop): 1600px asset. WebP where supported, JPEG fallback first
      so older browsers that ignore image-set() still get a picture. */
-  background-image: url('images/hero-couple-v10-1600.jpg');
-  background-image: -webkit-image-set(url('images/hero-couple-v10-1600.webp') type('image/webp'), url('images/hero-couple-v10-1600.jpg') type('image/jpeg'));
-  background-image: image-set(url('images/hero-couple-v10-1600.webp') type('image/webp'), url('images/hero-couple-v10-1600.jpg') type('image/jpeg'));
+  background-image: url('/assets/img/hero-couple-v10-1600.jpg');
+  background-image: -webkit-image-set(url('/assets/img/hero-couple-v10-1600.webp') type('image/webp'), url('/assets/img/hero-couple-v10-1600.jpg') type('image/jpeg'));
+  background-image: image-set(url('/assets/img/hero-couple-v10-1600.webp') type('image/webp'), url('/assets/img/hero-couple-v10-1600.jpg') type('image/jpeg'));
 }
 /* Large or high-DPI screens get the 2400px asset */
 @media (min-width: 1500px), (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
-  #dash-hero-photo { background-image: url('images/hero-couple-v10-2400.jpg'); }
+  #dash-hero-photo { background-image: url('/assets/img/hero-couple-v10-2400.jpg'); }
 }
 #dash-hero-fade { position: absolute; inset: 0; background: linear-gradient(90deg, #123D36 0%, #123D36 20%, rgba(18,61,54,0.85) 32%, rgba(18,61,54,0.5) 44%, rgba(18,61,54,0.2) 56%, rgba(18,61,54,0) 68%); z-index: 1; pointer-events: none; }
 #dash-hero-inner { position: relative; z-index: 2; }
 #dash-hero-text { position: relative; }
 @media (max-width: 900px) {
-  #dash-hero-photo { opacity: 0.18; background-image: url('images/hero-couple-v10-800.jpg'); }
+  #dash-hero-photo { opacity: 0.18; background-image: url('/assets/img/hero-couple-v10-800.jpg'); }
   #dash-hero-content-wrap { min-height: 0; padding-bottom: 280px; background: #123D36; }
 }
 #dash-hero-inner { max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: 1fr 1fr; gap: 48px; align-items: end; }
@@ -4300,7 +4300,7 @@ select.gate1-input:invalid { color: #999; }
       </div>
       <div class="listings-grid">
 <div class="listing-card" data-region="Vancouver Island" onclick="if(!event.target.closest('.card-save-btn'))openListingDetail(this)">
-  <div class="card-img" style="background-image: url('images/img_012.jpg'); background-size: cover; background-position: center;">
+  <div class="card-img" style="background-image: url('/assets/img/img_012.jpg'); background-size: cover; background-position: center;">
     <div class="card-img-overlay"></div>
     <div class="card-price-tag">$460,000</div>
     <button class="card-save-btn" onclick="handleSaveClick(this)" title="Save listing"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></button>
@@ -4308,7 +4308,7 @@ select.gate1-input:invalid { color: #999; }
   </div>
   <div class="card-disclaimer">Subject to municipal approval</div>
   <div class="card-body">
-    <div class="card-title" data-video="https://www.youtube.com/embed/SKgFdyuzTrk?si=JF2eGde3J2UhgGhH" data-img="images/img_012.jpg" data-img2="images/img_010.jpg" data-img3="images/img_004.jpg">River Road - Unit B</div>
+    <div class="card-title" data-video="https://www.youtube.com/embed/SKgFdyuzTrk?si=JF2eGde3J2UhgGhH" data-img="/assets/img/img_012.jpg" data-img2="/assets/img/img_010.jpg" data-img3="/assets/img/img_004.jpg">River Road - Unit B</div>
     <div class="card-location"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg> Port Alberni, BC</div>
     <div class="card-meta">
       <span class="card-meta-item">2 bed</span>
@@ -4325,7 +4325,7 @@ select.gate1-input:invalid { color: #999; }
   </div>
 </div>
 <div class="listing-card" data-region="Vancouver Island" onclick="if(!event.target.closest('.card-save-btn'))openListingDetail(this)">
-  <div class="card-img" style="background-image: url('images/img_006.jpg'); background-size: cover; background-position: center;">
+  <div class="card-img" style="background-image: url('/assets/img/img_006.jpg'); background-size: cover; background-position: center;">
     <div class="card-img-overlay"></div>
     <div class="card-price-tag">$460,000</div>
     <button class="card-save-btn" onclick="handleSaveClick(this)" title="Save listing"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></button>
@@ -4333,7 +4333,7 @@ select.gate1-input:invalid { color: #999; }
   </div>
   <div class="card-disclaimer">Subject to municipal approval</div>
   <div class="card-body">
-    <div class="card-title" data-video="https://www.youtube.com/embed/SKgFdyuzTrk?si=JF2eGde3J2UhgGhH" data-img="images/img_006.jpg" data-img2="images/img_013.jpg" data-img3="images/img_010.jpg" data-img4="images/img_004.jpg">Compton Road - Unit B</div>
+    <div class="card-title" data-video="https://www.youtube.com/embed/SKgFdyuzTrk?si=JF2eGde3J2UhgGhH" data-img="/assets/img/img_006.jpg" data-img2="/assets/img/img_013.jpg" data-img3="/assets/img/img_010.jpg" data-img4="/assets/img/img_004.jpg">Compton Road - Unit B</div>
     <div class="card-location"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg> Port Alberni, BC</div>
     <div class="card-meta">
       <span class="card-meta-item">2 bed</span>
@@ -4350,7 +4350,7 @@ select.gate1-input:invalid { color: #999; }
   </div>
 </div>
 <div class="listing-card" data-region="Vancouver Island" onclick="if(!event.target.closest('.card-save-btn'))openListingDetail(this)">
-  <div class="card-img" style="background-image: url('images/img_004.jpg'); background-size: cover; background-position: center;">
+  <div class="card-img" style="background-image: url('/assets/img/img_004.jpg'); background-size: cover; background-position: center;">
     <div class="card-img-overlay"></div>
     <div class="card-price-tag">$450,000</div>
     <button class="card-save-btn" onclick="handleSaveClick(this)" title="Save listing"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></button>
@@ -4358,7 +4358,7 @@ select.gate1-input:invalid { color: #999; }
   </div>
   <div class="card-disclaimer">Subject to municipal approval</div>
   <div class="card-body">
-    <div class="card-title" data-video="https://www.youtube.com/embed/SKgFdyuzTrk?si=JF2eGde3J2UhgGhH" data-img="images/img_004.jpg" data-img2="images/img_012.jpg" data-img3="images/img_010.jpg">River Road - Unit C</div>
+    <div class="card-title" data-video="https://www.youtube.com/embed/SKgFdyuzTrk?si=JF2eGde3J2UhgGhH" data-img="/assets/img/img_004.jpg" data-img2="/assets/img/img_012.jpg" data-img3="/assets/img/img_010.jpg">River Road - Unit C</div>
     <div class="card-location"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg> Port Alberni, BC</div>
     <div class="card-meta">
       <span class="card-meta-item">2 bed</span>
@@ -4375,7 +4375,7 @@ select.gate1-input:invalid { color: #999; }
   </div>
 </div>
 <div class="listing-card" data-region="Vancouver Island" onclick="if(!event.target.closest('.card-save-btn'))openListingDetail(this)">
-  <div class="card-img" style="background-image: url('images/img_007.jpg'); background-size: cover; background-position: center;">
+  <div class="card-img" style="background-image: url('/assets/img/img_007.jpg'); background-size: cover; background-position: center;">
     <div class="card-img-overlay"></div>
     <div class="card-price-tag">$450,000</div>
     <button class="card-save-btn" onclick="handleSaveClick(this)" title="Save listing"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></button>
@@ -4383,7 +4383,7 @@ select.gate1-input:invalid { color: #999; }
   </div>
   <div class="card-disclaimer">Subject to municipal approval</div>
   <div class="card-body">
-    <div class="card-title" data-video="https://www.youtube.com/embed/SKgFdyuzTrk?si=JF2eGde3J2UhgGhH" data-img="images/img_007.jpg" data-img2="images/img_013.jpg" data-img3="images/img_010.jpg" data-img4="images/img_004.jpg">Compton Road - Unit C</div>
+    <div class="card-title" data-video="https://www.youtube.com/embed/SKgFdyuzTrk?si=JF2eGde3J2UhgGhH" data-img="/assets/img/img_007.jpg" data-img2="/assets/img/img_013.jpg" data-img3="/assets/img/img_010.jpg" data-img4="/assets/img/img_004.jpg">Compton Road - Unit C</div>
     <div class="card-location"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg> Port Alberni, BC</div>
     <div class="card-meta">
       <span class="card-meta-item">2 bed</span>
@@ -4400,7 +4400,7 @@ select.gate1-input:invalid { color: #999; }
   </div>
 </div>
 <div class="listing-card listing-temp-hidden" style="display:none;" data-region="Vancouver Island" onclick="if(!event.target.closest('.card-save-btn'))openListingDetail(this)">
-  <div class="card-img" style="background-image: url('images/rainforest-drive-aerial-3.jpg'); background-size: cover; background-position: center;">
+  <div class="card-img" style="background-image: url('/assets/img/rainforest-drive-aerial-3.jpg'); background-size: cover; background-position: center;">
     <div class="card-img-overlay"></div>
     <div class="card-price-tag">$541,000</div>
     <button class="card-save-btn" onclick="handleSaveClick(this)" title="Save listing"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></button>
@@ -4408,7 +4408,7 @@ select.gate1-input:invalid { color: #999; }
   </div>
   <div class="card-disclaimer">Subject to municipal approval</div>
   <div class="card-body">
-    <div class="card-title" data-video="https://www.youtube.com/embed/XK9raw1l1fI" data-img="images/rainforest-drive-aerial-3.jpg" data-img2="images/rainforest-drive-aerial-1.jpg" data-img3="images/rainforest-drive-aerial-2.jpg" data-img4="images/rainforest-drive-aerial-4.jpg" data-img5="images/img_003.jpg" data-img6="images/img_004.jpg" data-img7="images/img_001.jpg">Rainforest Drive - Unit B</div>
+    <div class="card-title" data-video="https://www.youtube.com/embed/XK9raw1l1fI" data-img="/assets/img/rainforest-drive-aerial-3.jpg" data-img2="/assets/img/rainforest-drive-aerial-1.jpg" data-img3="/assets/img/rainforest-drive-aerial-2.jpg" data-img4="/assets/img/rainforest-drive-aerial-4.jpg" data-img5="/assets/img/img_003.jpg" data-img6="/assets/img/img_004.jpg" data-img7="/assets/img/img_001.jpg">Rainforest Drive - Unit B</div>
     <div class="card-location"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg> Ucluelet, BC</div>
     <div class="card-meta">
       <span class="card-meta-item">2 bed</span>
@@ -4425,7 +4425,7 @@ select.gate1-input:invalid { color: #999; }
   </div>
 </div>
 <div class="listing-card listing-temp-hidden" style="display:none;" data-region="Vancouver Island" onclick="if(!event.target.closest('.card-save-btn'))openListingDetail(this)">
-  <div class="card-img" style="background-image: url('images/img_001.jpg'); background-size: cover; background-position: center;">
+  <div class="card-img" style="background-image: url('/assets/img/img_001.jpg'); background-size: cover; background-position: center;">
     <div class="card-img-overlay"></div>
     <div class="card-price-tag">$541,000</div>
     <button class="card-save-btn" onclick="handleSaveClick(this)" title="Save listing"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></button>
@@ -4433,7 +4433,7 @@ select.gate1-input:invalid { color: #999; }
   </div>
   <div class="card-disclaimer">Subject to municipal approval</div>
   <div class="card-body">
-    <div class="card-title" data-video="https://www.youtube.com/embed/XK9raw1l1fI" data-img="images/img_001.jpg" data-img2="images/rainforest-drive-aerial-1.jpg" data-img3="images/rainforest-drive-aerial-2.jpg" data-img4="images/rainforest-drive-aerial-3.jpg" data-img5="images/img_003.jpg" data-img6="images/img_004.jpg">Rainforest Drive - Unit C</div>
+    <div class="card-title" data-video="https://www.youtube.com/embed/XK9raw1l1fI" data-img="/assets/img/img_001.jpg" data-img2="/assets/img/rainforest-drive-aerial-1.jpg" data-img3="/assets/img/rainforest-drive-aerial-2.jpg" data-img4="/assets/img/rainforest-drive-aerial-3.jpg" data-img5="/assets/img/img_003.jpg" data-img6="/assets/img/img_004.jpg">Rainforest Drive - Unit C</div>
     <div class="card-location"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg> Ucluelet, BC</div>
     <div class="card-meta">
       <span class="card-meta-item">2 bed</span>
@@ -4450,7 +4450,7 @@ select.gate1-input:invalid { color: #999; }
   </div>
 </div>
 <div class="listing-card listing-temp-hidden" style="display:none;" data-region="Vancouver Island" onclick="if(!event.target.closest('.card-save-btn'))openListingDetail(this)">
-  <div class="card-img" style="background-image: url('images/rainforest-drive-aerial-4.jpg'); background-size: cover; background-position: center;">
+  <div class="card-img" style="background-image: url('/assets/img/rainforest-drive-aerial-4.jpg'); background-size: cover; background-position: center;">
     <div class="card-img-overlay"></div>
     <div class="card-price-tag">$541,000</div>
     <button class="card-save-btn" onclick="handleSaveClick(this)" title="Save listing"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></button>
@@ -4458,7 +4458,7 @@ select.gate1-input:invalid { color: #999; }
   </div>
   <div class="card-disclaimer">Subject to municipal approval</div>
   <div class="card-body">
-    <div class="card-title" data-video="https://www.youtube.com/embed/XK9raw1l1fI" data-img="images/rainforest-drive-aerial-4.jpg" data-img2="images/rainforest-drive-aerial-1.jpg" data-img3="images/rainforest-drive-aerial-2.jpg" data-img4="images/rainforest-drive-aerial-3.jpg" data-img5="images/img_003.jpg" data-img6="images/img_004.jpg" data-img7="images/img_001.jpg">Norah Street - Unit B</div>
+    <div class="card-title" data-video="https://www.youtube.com/embed/XK9raw1l1fI" data-img="/assets/img/rainforest-drive-aerial-4.jpg" data-img2="/assets/img/rainforest-drive-aerial-1.jpg" data-img3="/assets/img/rainforest-drive-aerial-2.jpg" data-img4="/assets/img/rainforest-drive-aerial-3.jpg" data-img5="/assets/img/img_003.jpg" data-img6="/assets/img/img_004.jpg" data-img7="/assets/img/img_001.jpg">Norah Street - Unit B</div>
     <div class="card-location"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg> Ucluelet, BC</div>
     <div class="card-meta">
       <span class="card-meta-item">2 bed</span>
@@ -4475,7 +4475,7 @@ select.gate1-input:invalid { color: #999; }
   </div>
 </div>
 <div class="listing-card listing-temp-hidden" style="display:none;" data-region="Vancouver Island" onclick="if(!event.target.closest('.card-save-btn'))openListingDetail(this)">
-  <div class="card-img" style="background-image: url('images/img_009.jpg'); background-size: cover; background-position: center;">
+  <div class="card-img" style="background-image: url('/assets/img/img_009.jpg'); background-size: cover; background-position: center;">
     <div class="card-img-overlay"></div>
     <div class="card-price-tag">$541,000</div>
     <button class="card-save-btn" onclick="handleSaveClick(this)" title="Save listing"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></button>
@@ -4483,7 +4483,7 @@ select.gate1-input:invalid { color: #999; }
   </div>
   <div class="card-disclaimer">Subject to municipal approval</div>
   <div class="card-body">
-    <div class="card-title" data-video="https://www.youtube.com/embed/XK9raw1l1fI" data-img="images/img_009.jpg" data-img2="images/rainforest-drive-aerial-3.jpg" data-img3="images/rainforest-drive-aerial-1.jpg" data-img4="images/rainforest-drive-aerial-2.jpg" data-img5="images/rainforest-drive-aerial-4.jpg" data-img6="images/img_003.jpg" data-img7="images/img_004.jpg" data-img8="images/img_001.jpg">Norah Street - Unit C</div>
+    <div class="card-title" data-video="https://www.youtube.com/embed/XK9raw1l1fI" data-img="/assets/img/img_009.jpg" data-img2="/assets/img/rainforest-drive-aerial-3.jpg" data-img3="/assets/img/rainforest-drive-aerial-1.jpg" data-img4="/assets/img/rainforest-drive-aerial-2.jpg" data-img5="/assets/img/rainforest-drive-aerial-4.jpg" data-img6="/assets/img/img_003.jpg" data-img7="/assets/img/img_004.jpg" data-img8="/assets/img/img_001.jpg">Norah Street - Unit C</div>
     <div class="card-location"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg> Ucluelet, BC</div>
     <div class="card-meta">
       <span class="card-meta-item">2 bed</span>
@@ -4500,7 +4500,7 @@ select.gate1-input:invalid { color: #999; }
   </div>
 </div>
 <div class="listing-card listing-temp-hidden" style="display:none;" data-region="Vancouver Island" onclick="if(!event.target.closest('.card-save-btn'))openListingDetail(this)">
-  <div class="card-img" style="background-image: url('images/weyerhaeuser-aerial.jpg'); background-size: cover; background-position: center;">
+  <div class="card-img" style="background-image: url('/assets/img/weyerhaeuser-aerial.jpg'); background-size: cover; background-position: center;">
     <div class="card-img-overlay"></div>
     <div class="card-price-tag">$541,000</div>
     <button class="card-save-btn" onclick="handleSaveClick(this)" title="Save listing"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></button>
@@ -4508,7 +4508,7 @@ select.gate1-input:invalid { color: #999; }
   </div>
   <div class="card-disclaimer">Subject to municipal approval</div>
   <div class="card-body">
-    <div class="card-title" data-video="https://video.gumlet.io/66041d40603db7e8cad20c31/672e4fa71f39ce9ec65b6a9b/672e4fa71f39ce9ec65b6a9b_0_540p.m3u8" data-img="images/weyerhaeuser-aerial.jpg" data-img2="images/img_011.jpg" data-img3="images/img_010.jpg" data-img4="images/img_004.jpg" data-img5="images/weyerhaeuser-site-overview.jpg" data-img6="images/weyerhaeuser-lot-marker.jpg" data-img7="images/weyerhaeuser-town-aerial.jpg">Ocean West - Unit B</div>
+    <div class="card-title" data-video="https://video.gumlet.io/66041d40603db7e8cad20c31/672e4fa71f39ce9ec65b6a9b/672e4fa71f39ce9ec65b6a9b_0_540p.m3u8" data-img="/assets/img/weyerhaeuser-aerial.jpg" data-img2="/assets/img/img_011.jpg" data-img3="/assets/img/img_010.jpg" data-img4="/assets/img/img_004.jpg" data-img5="/assets/img/weyerhaeuser-site-overview.jpg" data-img6="/assets/img/weyerhaeuser-lot-marker.jpg" data-img7="/assets/img/weyerhaeuser-town-aerial.jpg">Ocean West - Unit B</div>
     <div class="card-location"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg> Ucluelet, BC</div>
     <div class="card-meta">
       <span class="card-meta-item">2 bed</span>
@@ -4525,7 +4525,7 @@ select.gate1-input:invalid { color: #999; }
   </div>
 </div>
 <div class="listing-card listing-temp-hidden" style="display:none;" data-region="Vancouver Island" onclick="if(!event.target.closest('.card-save-btn'))openListingDetail(this)">
-  <div class="card-img" style="background-image: url('images/weyerhaeuser-community-garden.jpg'); background-size: cover; background-position: center;">
+  <div class="card-img" style="background-image: url('/assets/img/weyerhaeuser-community-garden.jpg'); background-size: cover; background-position: center;">
     <div class="card-img-overlay"></div>
     <div class="card-price-tag">$541,000</div>
     <button class="card-save-btn" onclick="handleSaveClick(this)" title="Save listing"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></button>
@@ -4533,7 +4533,7 @@ select.gate1-input:invalid { color: #999; }
   </div>
   <div class="card-disclaimer">Subject to municipal approval</div>
   <div class="card-body">
-    <div class="card-title" data-video="https://video.gumlet.io/66041d40603db7e8cad20c31/672e4fa71f39ce9ec65b6a9b/672e4fa71f39ce9ec65b6a9b_0_540p.m3u8" data-img="images/weyerhaeuser-community-garden.jpg" data-img2="images/img_011.jpg" data-img3="images/img_010.jpg" data-img4="images/img_004.jpg" data-img5="images/weyerhaeuser-aerial.jpg" data-img6="images/weyerhaeuser-site-overview.jpg" data-img7="images/weyerhaeuser-lot-marker.jpg" data-img8="images/weyerhaeuser-town-aerial.jpg">Ocean West - Unit C</div>
+    <div class="card-title" data-video="https://video.gumlet.io/66041d40603db7e8cad20c31/672e4fa71f39ce9ec65b6a9b/672e4fa71f39ce9ec65b6a9b_0_540p.m3u8" data-img="/assets/img/weyerhaeuser-community-garden.jpg" data-img2="/assets/img/img_011.jpg" data-img3="/assets/img/img_010.jpg" data-img4="/assets/img/img_004.jpg" data-img5="/assets/img/weyerhaeuser-aerial.jpg" data-img6="/assets/img/weyerhaeuser-site-overview.jpg" data-img7="/assets/img/weyerhaeuser-lot-marker.jpg" data-img8="/assets/img/weyerhaeuser-town-aerial.jpg">Ocean West - Unit C</div>
     <div class="card-location"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg> Ucluelet, BC</div>
     <div class="card-meta">
       <span class="card-meta-item">2 bed</span>
@@ -4550,7 +4550,7 @@ select.gate1-input:invalid { color: #999; }
   </div>
 </div>
 <div class="listing-card" data-region="Vancouver Island" onclick="if(!event.target.closest('.card-save-btn'))openListingDetail(this)">
-  <div class="card-img" style="background-image: url('images/img_008.jpg'); background-size: cover; background-position: center;">
+  <div class="card-img" style="background-image: url('/assets/img/img_008.jpg'); background-size: cover; background-position: center;">
     <div class="card-img-overlay"></div>
     <div class="card-price-tag">$450,000</div>
     <button class="card-save-btn" onclick="handleSaveClick(this)" title="Save listing"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></button>
@@ -4558,7 +4558,7 @@ select.gate1-input:invalid { color: #999; }
   </div>
   <div class="card-disclaimer">Subject to municipal approval</div>
   <div class="card-body">
-    <div class="card-title" data-video="https://www.youtube.com/embed/SKgFdyuzTrk?si=JF2eGde3J2UhgGhH" data-img="images/img_008.jpg" data-img2="images/img_003.jpg" data-img3="images/img_004.jpg">Compton Road - Unit A</div>
+    <div class="card-title" data-video="https://www.youtube.com/embed/SKgFdyuzTrk?si=JF2eGde3J2UhgGhH" data-img="/assets/img/img_008.jpg" data-img2="/assets/img/img_003.jpg" data-img3="/assets/img/img_004.jpg">Compton Road - Unit A</div>
     <div class="card-location"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg> Port Alberni, BC</div>
     <div class="card-meta">
       <span class="card-meta-item">3 bed</span>
@@ -4575,7 +4575,7 @@ select.gate1-input:invalid { color: #999; }
   </div>
 </div>
 <div class="listing-card" data-region="Vancouver Island" onclick="if(!event.target.closest('.card-save-btn'))openListingDetail(this)">
-  <div class="card-img" style="background-image: url('images/img_002.jpg'); background-size: cover; background-position: center;">
+  <div class="card-img" style="background-image: url('/assets/img/img_002.jpg'); background-size: cover; background-position: center;">
     <div class="card-img-overlay"></div>
     <div class="card-price-tag">$450,000</div>
     <button class="card-save-btn" onclick="handleSaveClick(this)" title="Save listing"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></button>
@@ -4583,7 +4583,7 @@ select.gate1-input:invalid { color: #999; }
   </div>
   <div class="card-disclaimer">Subject to municipal approval</div>
   <div class="card-body">
-    <div class="card-title" data-video="https://www.youtube.com/embed/SKgFdyuzTrk?si=JF2eGde3J2UhgGhH" data-img="images/img_002.jpg" data-img2="images/img_010.jpg" data-img3="images/img_004.jpg">River Road - Unit A</div>
+    <div class="card-title" data-video="https://www.youtube.com/embed/SKgFdyuzTrk?si=JF2eGde3J2UhgGhH" data-img="/assets/img/img_002.jpg" data-img2="/assets/img/img_010.jpg" data-img3="/assets/img/img_004.jpg">River Road - Unit A</div>
     <div class="card-location"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg> Port Alberni, BC</div>
     <div class="card-meta">
       <span class="card-meta-item">3 bed</span>
@@ -4600,7 +4600,7 @@ select.gate1-input:invalid { color: #999; }
   </div>
 </div>
 <div class="listing-card listing-temp-hidden" style="display:none;" data-region="Vancouver Island" onclick="if(!event.target.closest('.card-save-btn'))openListingDetail(this)">
-  <div class="card-img" style="background-image: url('images/img_006.jpg'); background-size: cover; background-position: center;">
+  <div class="card-img" style="background-image: url('/assets/img/img_006.jpg'); background-size: cover; background-position: center;">
     <div class="card-img-overlay"></div>
     <div class="card-price-tag">$781,000</div>
     <button class="card-save-btn" onclick="handleSaveClick(this)" title="Save listing"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></button>
@@ -4608,7 +4608,7 @@ select.gate1-input:invalid { color: #999; }
   </div>
   <div class="card-disclaimer">Subject to municipal approval</div>
   <div class="card-body">
-    <div class="card-title" data-video="https://www.youtube.com/embed/XK9raw1l1fI" data-img="images/img_006.jpg" data-img2="images/rainforest-drive-aerial-1.jpg" data-img3="images/rainforest-drive-aerial-2.jpg" data-img4="images/rainforest-drive-aerial-3.jpg" data-img5="images/rainforest-drive-aerial-4.jpg" data-img6="images/img_003.jpg" data-img7="images/img_004.jpg" data-img8="images/img_001.jpg">Rainforest Drive - Unit A</div>
+    <div class="card-title" data-video="https://www.youtube.com/embed/XK9raw1l1fI" data-img="/assets/img/img_006.jpg" data-img2="/assets/img/rainforest-drive-aerial-1.jpg" data-img3="/assets/img/rainforest-drive-aerial-2.jpg" data-img4="/assets/img/rainforest-drive-aerial-3.jpg" data-img5="/assets/img/rainforest-drive-aerial-4.jpg" data-img6="/assets/img/img_003.jpg" data-img7="/assets/img/img_004.jpg" data-img8="/assets/img/img_001.jpg">Rainforest Drive - Unit A</div>
     <div class="card-location"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg> Ucluelet, BC</div>
     <div class="card-meta">
       <span class="card-meta-item">3 bed</span>
@@ -4625,7 +4625,7 @@ select.gate1-input:invalid { color: #999; }
   </div>
 </div>
 <div class="listing-card listing-temp-hidden" style="display:none;" data-region="Vancouver Island" onclick="if(!event.target.closest('.card-save-btn'))openListingDetail(this)">
-  <div class="card-img" style="background-image: url('images/rainforest-drive-aerial-1.jpg'); background-size: cover; background-position: center;">
+  <div class="card-img" style="background-image: url('/assets/img/rainforest-drive-aerial-1.jpg'); background-size: cover; background-position: center;">
     <div class="card-img-overlay"></div>
     <div class="card-price-tag">$781,000</div>
     <button class="card-save-btn" onclick="handleSaveClick(this)" title="Save listing"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></button>
@@ -4633,7 +4633,7 @@ select.gate1-input:invalid { color: #999; }
   </div>
   <div class="card-disclaimer">Subject to municipal approval</div>
   <div class="card-body">
-    <div class="card-title" data-video="https://www.youtube.com/embed/XK9raw1l1fI" data-img="images/rainforest-drive-aerial-1.jpg" data-img2="images/rainforest-drive-aerial-2.jpg" data-img3="images/rainforest-drive-aerial-3.jpg" data-img4="images/rainforest-drive-aerial-4.jpg" data-img5="images/img_003.jpg" data-img6="images/img_004.jpg" data-img7="images/img_001.jpg">Norah Street - Unit A</div>
+    <div class="card-title" data-video="https://www.youtube.com/embed/XK9raw1l1fI" data-img="/assets/img/rainforest-drive-aerial-1.jpg" data-img2="/assets/img/rainforest-drive-aerial-2.jpg" data-img3="/assets/img/rainforest-drive-aerial-3.jpg" data-img4="/assets/img/rainforest-drive-aerial-4.jpg" data-img5="/assets/img/img_003.jpg" data-img6="/assets/img/img_004.jpg" data-img7="/assets/img/img_001.jpg">Norah Street - Unit A</div>
     <div class="card-location"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg> Ucluelet, BC</div>
     <div class="card-meta">
       <span class="card-meta-item">3 bed</span>
@@ -4650,7 +4650,7 @@ select.gate1-input:invalid { color: #999; }
   </div>
 </div>
 <div class="listing-card listing-temp-hidden" style="display:none;" data-region="Vancouver Island" onclick="if(!event.target.closest('.card-save-btn'))openListingDetail(this)">
-  <div class="card-img" style="background-image: url('images/img_011.jpg'); background-size: cover; background-position: center;">
+  <div class="card-img" style="background-image: url('/assets/img/img_011.jpg'); background-size: cover; background-position: center;">
     <div class="card-img-overlay"></div>
     <div class="card-price-tag">$781,000</div>
     <button class="card-save-btn" onclick="handleSaveClick(this)" title="Save listing"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></button>
@@ -4658,7 +4658,7 @@ select.gate1-input:invalid { color: #999; }
   </div>
   <div class="card-disclaimer">Subject to municipal approval</div>
   <div class="card-body">
-    <div class="card-title" data-video="https://video.gumlet.io/66041d40603db7e8cad20c31/672e4fa71f39ce9ec65b6a9b/672e4fa71f39ce9ec65b6a9b_0_540p.m3u8" data-img="images/img_011.jpg" data-img2="images/img_010.jpg" data-img3="images/img_004.jpg" data-img4="images/weyerhaeuser-aerial.jpg" data-img5="images/weyerhaeuser-site-overview.jpg" data-img6="images/weyerhaeuser-lot-marker.jpg" data-img7="images/weyerhaeuser-town-aerial.jpg">Ocean West - Unit A</div>
+    <div class="card-title" data-video="https://video.gumlet.io/66041d40603db7e8cad20c31/672e4fa71f39ce9ec65b6a9b/672e4fa71f39ce9ec65b6a9b_0_540p.m3u8" data-img="/assets/img/img_011.jpg" data-img2="/assets/img/img_010.jpg" data-img3="/assets/img/img_004.jpg" data-img4="/assets/img/weyerhaeuser-aerial.jpg" data-img5="/assets/img/weyerhaeuser-site-overview.jpg" data-img6="/assets/img/weyerhaeuser-lot-marker.jpg" data-img7="/assets/img/weyerhaeuser-town-aerial.jpg">Ocean West - Unit A</div>
     <div class="card-location"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg> Ucluelet, BC</div>
     <div class="card-meta">
       <span class="card-meta-item">3 bed</span>
