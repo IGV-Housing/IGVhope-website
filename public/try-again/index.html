@@ -1,0 +1,594 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="icon" type="image/x-icon" href="/assets/img/favicon.ico">
+<title>Not This Time | IGVhope</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root {
+  --teal: #1A5C50;
+  --teal-deep: #123D36;
+  --amber: #E8A24A;
+  --ochre: #da8d27;
+  --sage: #6B8E63;
+  --cream: #FBF7EF;
+  --ink: #1A2422;
+  --ink-soft: #5C6B67;
+  --border: #E2E8E6;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body { font-family: 'Montserrat', sans-serif; color: var(--ink); background: #ffffff; line-height: 1.6; -webkit-font-smoothing: antialiased; }
+a { color: inherit; }
+
+/* NAV — exact match to demand.igvhousing.com top nav (#dash-nav) */
+#dash-nav { flex-shrink: 0; height: 60px; background: #1a4848; display: flex; align-items: center; justify-content: space-between; padding: 0 32px; z-index: 100; position: sticky; top: 0; box-shadow: 0 2px 8px rgba(0,0,0,0.2); }
+/* Nav subpage links — matched to IGV Capital's .navlink: 0.9rem / 600 weight,
+   0.5rem 0.85rem padding, with the sliding underline hover (scaleX from left,
+   0.25s ease). Accent recoloured for the evergreen nav bar. */
+.nav-link {
+  display: inline-flex; align-items: center; position: relative;
+  padding: 0.5rem 0.85rem;
+  font-size: 0.9rem; font-weight: 600;
+  color: rgba(255,255,255,0.85); cursor: pointer; letter-spacing: 0.02em;
+  transition: color 0.18s; text-decoration: none; white-space: nowrap; flex-shrink: 0;
+}
+.nav-link:hover, .nav-link.current { color: #ffffff; }
+.nav-link::after {
+  content: "";
+  position: absolute;
+  left: 0.85rem; right: 0.85rem; bottom: 0.3rem;
+  height: 1.5px;
+  background-color: #E8A24A;
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.25s ease;
+}
+.nav-link:hover::after, .nav-link.is-active::after { transform: scaleX(1); }
+.nav-right { display: flex; align-items: center; gap: 8px; flex: 1; }
+/* Centred subpage group — mirrors IGV Capital's .nav-links-group */
+.nav-links-group { display: flex; align-items: center; justify-content: center; gap: 8px; flex: 1; flex-wrap: nowrap; }
+.nav-link, .nav-signup-btn, .nav-user, .nav-right-divider { white-space: nowrap; }
+.nav-right-divider { width: 1px; height: 20px; background: #ce7841; margin: 0 8px; }
+.nav-signup-btn { margin-left: 10px; font-family: 'Montserrat', sans-serif; font-size: 12px; font-weight: 700; letter-spacing: 0.03em; color: #123D36; background: #E8A24A; border: none; border-radius: 999px; padding: 10px 22px; cursor: pointer; transition: background 0.18s; }
+.nav-signup-btn:hover { background: #f0b269; }
+#nav-burger { display: none; background: none; border: none; cursor: pointer; padding: 6px; align-items: center; justify-content: center; }
+#mobile-nav-panel { display: none; flex-direction: column; position: absolute; top: 100%; left: 0; right: 0; background: #1a4848; padding: 8px 24px 20px; box-shadow: 0 12px 24px rgba(0,0,0,0.18); z-index: 200; }
+#mobile-nav-panel.open { display: flex; }
+.mobile-nav-link { color: rgba(255,255,255,0.85); font-size: 14px; font-weight: 500; padding: 14px 0; border-bottom: 1px solid rgba(255,255,255,0.1); text-decoration: none; display: block; }
+.mobile-nav-cta { margin-top: 16px; font-family: 'Montserrat', sans-serif; font-size: 13px; font-weight: 700; letter-spacing: 0.03em; color: #123D36; background: #E8A24A; border: none; border-radius: 999px; padding: 13px 20px; cursor: pointer; width: 100%; }
+@media (max-width: 640px) { .nav-right { display: none; } #nav-burger { display: flex; } }
+
+/* HERO */
+.course-hero { max-width: 720px; margin: 0 auto; padding: 56px 24px 8px; text-align: center; }
+.course-eyebrow { display: inline-block; font-size: 11.5px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--teal); background: rgba(26,92,80,0.08); padding: 6px 14px; border-radius: 999px; margin-bottom: 18px; }
+.course-heading { font-size: clamp(28px, 4vw, 38px); font-weight: 800; color: var(--teal-deep); line-height: 1.2; letter-spacing: -0.01em; margin-bottom: 14px; }
+.course-subtitle { font-size: 16px; color: var(--ink-soft); line-height: 1.6; max-width: 540px; margin: 0 auto 10px; }
+.course-meta { font-size: 13px; font-weight: 600; color: var(--teal); margin-bottom: 32px; }
+
+/* SECTIONS */
+.course-section { max-width: 640px; margin: 0 auto; padding: 28px 24px; }
+.section-header { font-size: 19px; font-weight: 800; color: var(--teal-deep); margin-bottom: 12px; }
+.section-body { font-size: 14.5px; color: var(--ink); line-height: 1.75; margin-bottom: 12px; }
+
+/* PAGE MAIN WRAPPER - positions the watermark behind the content,
+   flat against the bottom-right corner, matching the rest of the site */
+.page-main { position: relative; overflow: hidden; }
+.page-watermark { position: absolute; bottom: 0; right: 0; width: 520px; max-width: none; height: auto; opacity: 0.08; pointer-events: none; z-index: 0; }
+.page-content { position: relative; z-index: 1; }
+
+/* LESSON CARD - reuses the cream-card language from the rest of
+   the course pages, one per short lesson on this bridging page */
+.lesson-card { max-width: 640px; margin: 0 auto 20px; padding: 26px 28px; background: var(--cream); border: 1px solid #F0E4CE; border-radius: 14px; }
+.lesson-card-label { font-size: 11px; font-weight: 800; letter-spacing: 0.06em; text-transform: uppercase; color: var(--ochre); margin-bottom: 8px; }
+.lesson-card-title { font-size: 19px; font-weight: 800; color: var(--teal-deep); margin-bottom: 12px; line-height: 1.3; }
+.lesson-card-body { font-size: 14.5px; color: var(--ink); line-height: 1.75; margin-bottom: 12px; }
+.lesson-card-body:last-child { margin-bottom: 0; }
+.lesson-card-body strong { color: var(--teal-deep); }
+
+/* SHORT WIN CALLOUT */
+.short-win { background: rgba(26,92,80,0.06); border-left: 3px solid var(--teal); border-radius: 0 8px 8px 0; padding: 12px 16px; margin-bottom: 16px; font-size: 13.5px; color: var(--teal-deep); line-height: 1.6; }
+.short-win strong { font-weight: 800; }
+
+/* STRENGTHEN OPTIONS (Lesson B) */
+.strengthen-item { background: #ffffff; border: 1px solid var(--border); border-radius: 10px; padding: 16px 18px; margin-bottom: 12px; }
+.strengthen-item:last-child { margin-bottom: 0; }
+.strengthen-item-title { font-size: 14.5px; font-weight: 800; color: var(--teal-deep); margin-bottom: 8px; }
+.strengthen-item-row { font-size: 13px; color: var(--ink); line-height: 1.6; margin-bottom: 6px; }
+.strengthen-item-row:last-child { margin-bottom: 0; }
+.strengthen-item-row strong { color: var(--teal); font-weight: 700; }
+
+/* ACTION STEP CALLOUT */
+.action-step { max-width: 640px; margin: 0 auto 20px; padding: 18px 22px; background: rgba(218,141,39,0.08); border: 1.5px solid rgba(218,141,39,0.4); border-radius: 12px; font-size: 14px; color: var(--ink); line-height: 1.75; }
+.action-step strong { color: var(--teal-deep); font-weight: 800; }
+
+/* OPTION CARDS - the two paths (reapply now / take Course 1 first) */
+.option-grid { max-width: 640px; margin: 0 auto; padding: 0 0 8px; display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+@media (max-width: 640px) { .option-grid { grid-template-columns: 1fr; padding: 0 0 8px; } }
+.option-card { background: #ffffff; border: 1.5px solid var(--border); border-radius: 14px; padding: 22px 22px 20px; display: flex; flex-direction: column; }
+.option-card-title { font-size: 15.5px; font-weight: 800; color: var(--teal-deep); margin-bottom: 8px; line-height: 1.3; }
+.option-card-body { font-size: 13.5px; color: var(--ink-soft); line-height: 1.6; margin-bottom: 16px; flex: 1; }
+.option-card-btn { display: block; text-align: center; font-family: 'Montserrat', sans-serif; font-size: 13.5px; font-weight: 700; color: var(--teal-deep); background: rgba(26,92,80,0.08); border: none; border-radius: 8px; padding: 12px 18px; cursor: pointer; text-decoration: none; transition: background 0.15s; }
+.option-card-btn:hover { background: rgba(26,92,80,0.14); }
+.option-card-btn.primary { color: #123D36; background: var(--ochre); }
+.option-card-btn.primary:hover { background: #c67d21; }
+
+/* CTA */
+.course-cta-wrap { max-width: 640px; margin: 20px auto 60px; padding: 0 24px; text-align: center; }
+.course-primary-btn { display: inline-block; font-family: 'Montserrat', sans-serif; font-size: 15px; font-weight: 700; letter-spacing: 0.02em; color: #123D36; background: var(--ochre); border: none; border-radius: 999px; padding: 16px 36px; cursor: pointer; text-decoration: none; transition: background 0.18s; }
+.course-primary-btn:hover { background: #c67d21; }
+
+/* FOOTER — exact match to demand.igvhousing.com */
+#footer-sitemap { padding-top: 24px; padding-bottom: 24px; display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 24px; }
+.sitemap-heading { font-family: 'Montserrat', sans-serif; font-size: 11px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: #FFFFFF; margin-bottom: 14px; }
+.sitemap-col { display: flex; flex-direction: column; gap: 12px; }
+.sitemap-col a { font-family: 'Montserrat', sans-serif; font-size: 11px; font-weight: 600; letter-spacing: 0.03em; text-transform: uppercase; color: rgba(255,255,255,0.65); text-decoration: none; cursor: pointer; }
+.sitemap-col a:hover { color: #fff; }
+#sitemap-social { display: flex; gap: 10px; margin-top: 4px; }
+#sitemap-social a { width: 26px; height: 26px; border-radius: 6px; background: rgba(255,255,255,0.12); display: flex; align-items: center; justify-content: center; color: #fff; }
+#sitemap-social a:hover { background: rgba(255,255,255,0.22); }
+#footer-bottom-bar { padding-top: 16px; padding-bottom: 14px; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 10px; }
+#footer-copyright { font-size: 10px; letter-spacing: 0.02em; }
+#footer-bottom-links { display: flex; gap: 20px; }
+#footer-bottom-links a { font-family: 'Montserrat', sans-serif; font-size: 10px; font-weight: 500; color: rgba(255,255,255,0.55); text-decoration: none; }
+#footer-bottom-links a:hover { color: #fff; text-decoration: underline; }
+@media (max-width: 700px) {
+  #footer-sitemap { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+#dash-footer { width: 100%; background: #123D36; color: rgba(255,255,255,0.55); font-family: 'Montserrat', sans-serif; font-size: 10px; font-weight: 500; letter-spacing: 0.04em; display: flex; flex-direction: column; margin-top: 40px; }
+.footer-block { width: 100%; box-sizing: border-box; }
+.footer-divider { border-top: 1px solid rgba(255,255,255,0.15); }
+#footer-sitemap, #footer-bottom-bar { max-width: 1200px; margin: 0 auto; padding-left: 32px; padding-right: 32px; box-sizing: border-box; }
+#dash-footer a { color: rgba(255,255,255,0.55); text-decoration: none; transition: color 0.15s; }
+#dash-footer a:hover { color: #fff; }
+
+.exit-bar { background: var(--cream); padding: 10px 24px; text-align: left; }
+.exit-link { display: inline-flex; align-items: center; gap: 5px; font-size: 12px; font-weight: 700; color: var(--teal-deep); text-decoration: none; opacity: 0.75; transition: opacity 0.15s; }
+.exit-link:hover { opacity: 1; text-decoration: underline; }
+.exit-link svg { flex-shrink: 0; }
+
+.nav-user { display: none; align-items: center; gap: 10px; position: relative; cursor: pointer; user-select: none; }
+.nav-user.show { display: flex; }
+#nav-login-link.hide { display: none; }
+.nav-user-avatar { width: 32px; height: 32px; border-radius: 50%; background: #C8683A; color: white; font-size: 13px; font-weight: 700; display: flex; align-items: center; justify-content: center; text-transform: uppercase; flex-shrink: 0; }
+#profile-dropdown { display: none; position: absolute; top: calc(100% + 14px); right: 0; width: 220px; background: #ffffff; border-radius: 12px; box-shadow: 0 16px 40px rgba(0,0,0,0.22); overflow: hidden; z-index: 300; }
+#profile-dropdown.open { display: block; animation: dropdown-in 0.18s cubic-bezier(0.16,1,0.3,1) both; }
+@keyframes dropdown-in { from { opacity:0; transform:translateY(-8px) scale(0.97); } to { opacity:1; transform:none; } }
+.dropdown-header { padding: 14px 16px; background: #F5F1E8; border-bottom: 1px solid rgba(18,61,54,0.1); }
+.dropdown-header-name { font-family: 'Montserrat', sans-serif; font-size: 13px; font-weight: 700; color: #123D36; }
+.dropdown-header-role { font-family: 'Montserrat', sans-serif; font-size: 10px; font-weight: 500; color: #888; margin-top: 2px; }
+.dropdown-item { display: flex; align-items: center; gap: 10px; padding: 10px 16px; font-family: 'Montserrat', sans-serif; font-size: 12px; font-weight: 500; color: #333; text-decoration: none; cursor: pointer; transition: background 0.15s; }
+.dropdown-item:hover { background: #F5F1E8; }
+.dropdown-item-icon { display: flex; align-items: center; justify-content: center; color: #1A5C50; flex-shrink: 0; }
+.dropdown-item.danger { color: #C0392B; }
+.dropdown-item.danger .dropdown-item-icon { color: #C0392B; }
+.dropdown-divider { height: 1px; background: rgba(18,61,54,0.1); margin: 4px 0; }
+.nav-bell { background: none; border: none; cursor: pointer; display: flex; align-items: center; padding: 4px; position: relative; transition: opacity 0.18s; }
+.nav-bell:hover { opacity: 0.75; }
+
+/* ── PAGE WIPE TRANSITION ───────────────────────────────── */
+#page-wipe { position: fixed; inset: 0; z-index: 9999; pointer-events: none; overflow: hidden; }
+#page-wipe.active { pointer-events: auto; }
+#page-wipe .wipe-strip { position: absolute; top: 0; bottom: 0; width: 25%; }
+#page-wipe .wipe-strip-1 { left: 0%; background: var(--ochre); transform: translateX(-100%); transition: transform 0.2s cubic-bezier(0.76,0,0.24,1) 0s; }
+#page-wipe .wipe-strip-2 { left: 25%; background: var(--teal-deep); transform: translateX(-200%); transition: transform 0.2s cubic-bezier(0.76,0,0.24,1) 0.04s; }
+#page-wipe .wipe-strip-3 { left: 50%; background: var(--amber); transform: translateX(-300%); transition: transform 0.2s cubic-bezier(0.76,0,0.24,1) 0.08s; }
+#page-wipe .wipe-strip-4 { left: 75%; background: var(--teal); transform: translateX(-400%); transition: transform 0.2s cubic-bezier(0.76,0,0.24,1) 0.12s; }
+#page-wipe.active .wipe-strip-1,
+#page-wipe.active .wipe-strip-2,
+#page-wipe.active .wipe-strip-3,
+#page-wipe.active .wipe-strip-4 { transform: translateX(0%); }
+#page-wipe.reveal .wipe-strip-1 { transform: translateX(400%); transition: transform 0.2s cubic-bezier(0.76,0,0.24,1) 0.12s; }
+#page-wipe.reveal .wipe-strip-2 { transform: translateX(300%); transition: transform 0.2s cubic-bezier(0.76,0,0.24,1) 0.08s; }
+#page-wipe.reveal .wipe-strip-3 { transform: translateX(200%); transition: transform 0.2s cubic-bezier(0.76,0,0.24,1) 0.04s; }
+#page-wipe.reveal .wipe-strip-4 { transform: translateX(100%); transition: transform 0.2s cubic-bezier(0.76,0,0.24,1) 0s; }
+
+</style>
+</head>
+<body>
+<div id="page-wipe" class="active">
+  <div class="wipe-strip wipe-strip-1"></div>
+  <div class="wipe-strip wipe-strip-2"></div>
+  <div class="wipe-strip wipe-strip-3"></div>
+  <div class="wipe-strip wipe-strip-4"></div>
+</div>
+
+<nav id="dash-nav">
+  <a id="nav-logo" href="/" class="wipe-link" style="cursor:pointer;display:flex;align-items:center;" title="Back to IGVhope">
+    <svg width="130" height="30" viewBox="0 0 163 38" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M34.536 0.747925H39.4049V33.0843H32.427V2.93019C32.427 1.72954 33.3678 0.747925 34.536 0.747925Z" fill="#ffffff"/>
+      <path d="M88.8771 21.3374L96.2234 2.32986C96.5919 1.37259 97.4857 0.747925 98.4814 0.747925H104.393L91.8329 33.0843H85.9291L73.3611 0.747925H80.9191L88.8771 21.3293V21.3374Z" fill="#ffffff"/>
+      <path d="M67.5122 16.6144H72.2478V28.0855C69.1508 31.6631 64.8544 33.4478 59.374 33.4478C54.7874 33.4478 50.93 31.874 47.8174 28.7264C44.7048 25.5787 43.1445 21.6117 43.1445 16.8172C43.1445 12.0227 44.7283 8.02326 47.9036 4.81071C51.0789 1.60628 54.905 0 59.3897 0C63.8743 0 67.7709 1.52515 71.0796 4.57545L68.8294 7.93402C68.1238 8.98865 66.7282 9.28881 65.7089 8.5668C64.9641 8.03949 64.2663 7.64197 63.5921 7.37426C62.416 6.89562 61.138 6.66036 59.766 6.66036C57.116 6.66036 54.8815 7.5933 53.0625 9.45917C51.2436 11.325 50.3341 13.7831 50.3341 16.8334C50.3341 19.8837 51.2044 22.3337 52.9528 24.1671C54.7011 26.0006 56.7788 26.9173 59.1858 26.9173C61.5928 26.9173 63.6156 26.4386 65.2228 25.4814V18.9589C65.2228 17.6528 66.2421 16.5982 67.5044 16.5982L67.5122 16.6144Z" fill="#ffffff"/>
+      <path d="M28.6407 17.0608L25.4418 2.57192C25.2066 1.49296 24.156 0.827731 23.1132 1.09544C22.0705 1.36316 21.4197 2.46646 21.6549 3.55353L24.9479 18.4886C25.1831 19.5595 23.8502 20.2247 23.1916 19.3648L14.2223 7.72336C13.5402 6.83909 12.176 6.52271 11.196 7.03379C10.2159 7.54488 9.97287 8.68063 10.655 9.57301L20.1418 21.8878C20.8082 22.7477 19.883 23.9484 18.9265 23.4697L5.64502 16.8499C4.72771 16.3956 3.56734 16.6552 3.04204 17.5557C2.4305 18.5941 2.83035 19.9164 3.85743 20.4275L17.2408 27.096C18.1974 27.5746 17.8681 29.0673 16.8096 29.0673H1.95224C0.870274 29.0673 0 29.9759 0 31.0874C0 32.1988 0.870274 33.1074 1.95224 33.1074H27.1667C27.9821 33.1074 28.6407 32.4259 28.6407 31.5822V17.0608Z" fill="#FBB040"/>
+      <path d="M106.699 26.0738V33.2047H104.018V14.8624H106.699V22.4394C107.083 21.6282 107.655 20.9954 108.432 20.533C109.208 20.0706 110.039 19.8434 110.933 19.8434C112.368 19.8434 113.528 20.2977 114.414 21.2063C115.3 22.1149 115.739 23.4292 115.739 25.1409V33.2128H113.057V25.9846C113.057 23.559 112.085 22.3421 110.141 22.3421C109.216 22.3421 108.408 22.6585 107.726 23.2913C107.036 23.924 106.699 24.857 106.699 26.0738Z" fill="#ffffff"/>
+      <path d="M130.126 31.4276C128.848 32.7418 127.256 33.3989 125.343 33.3989C123.43 33.3989 121.831 32.7418 120.56 31.4276C119.283 30.1134 118.647 28.5071 118.647 26.6088C118.647 24.7104 119.283 23.1042 120.56 21.7899C121.838 20.4757 123.43 19.8186 125.343 19.8186C127.256 19.8186 128.848 20.4757 130.126 21.7899C131.404 23.1042 132.039 24.7104 132.039 26.6088C132.039 28.5071 131.404 30.1134 130.126 31.4276ZM122.458 29.724C123.218 30.5271 124.175 30.9246 125.343 30.9246C126.511 30.9246 127.468 30.5271 128.228 29.724C128.989 28.9208 129.365 27.8905 129.365 26.6169C129.365 25.3432 128.989 24.3129 128.228 23.5098C127.468 22.7067 126.511 22.3091 125.343 22.3091C124.175 22.3091 123.218 22.7067 122.458 23.5098C121.697 24.3129 121.321 25.3432 121.321 26.6169C121.321 27.8905 121.697 28.9208 122.458 29.724Z" fill="#ffffff"/>
+      <path d="M141.894 19.8362C143.603 19.8362 145.062 20.4446 146.277 21.6696C147.484 22.8946 148.096 24.5171 148.096 26.5452C148.096 28.5733 147.492 30.2283 146.292 31.4938C145.085 32.7675 143.682 33.4003 142.082 33.4003C140.483 33.4003 139.04 32.6702 137.762 31.218V38.0001H135.081V20.0228H137.762V22.3267C138.813 20.6637 140.193 19.8281 141.902 19.8281L141.894 19.8362ZM137.707 26.6426C137.707 27.9 138.076 28.9222 138.805 29.7253C139.542 30.5285 140.428 30.926 141.486 30.926C142.545 30.926 143.454 30.5285 144.238 29.7415C145.022 28.9546 145.414 27.9243 145.414 26.6588C145.414 25.3932 145.03 24.3467 144.27 23.5111C143.501 22.6756 142.584 22.2618 141.518 22.2618C140.451 22.2618 139.55 22.6756 138.813 23.5111C138.076 24.3467 137.715 25.3851 137.715 26.6426H137.707Z" fill="#ffffff"/>
+      <path d="M163 27.8253H153.019C153.082 28.7826 153.505 29.5532 154.289 30.1373C155.073 30.7214 155.967 31.0135 156.971 31.0135C158.562 31.0135 159.778 30.4943 160.609 29.4559L162.138 31.192C160.766 32.6603 158.978 33.3986 156.775 33.3986C154.987 33.3986 153.466 32.782 152.22 31.557C150.965 30.3239 150.338 28.6771 150.338 26.6084C150.338 24.5397 150.973 22.8929 152.251 21.6679C153.529 20.451 155.026 19.8345 156.759 19.8345C158.492 19.8345 159.958 20.378 161.173 21.457C162.388 22.5359 162.992 24.0286 162.992 25.927V27.8334L163 27.8253ZM153.019 25.6511H160.319C160.319 24.5478 159.981 23.696 159.315 23.1038C158.649 22.5116 157.818 22.2114 156.838 22.2114C155.857 22.2114 154.972 22.5197 154.195 23.1363C153.411 23.7528 153.019 24.5884 153.019 25.6511Z" fill="#ffffff"/>
+    </svg>
+  </a>
+  <div class="nav-right">
+    <div class="nav-links-group">
+      <a class="nav-link" href="/how-it-works">How It Works</a>
+      <a class="nav-link" href="/next-steps">Next Steps</a>
+      <a class="nav-link" href="/faq">FAQ</a>
+      <a class="nav-link" href="/about">About</a>
+    </div>
+    <div class="nav-right-divider"></div>
+    <a class="nav-link wipe-link" id="nav-login-link" href="/login">Log in</a>
+    <button class="nav-bell" id="nav-bell-btn" aria-label="Notifications" style="display:none;" onclick="window.location.href='/#account-progress'">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.75)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
+    </button>
+    <span class="nav-user" id="nav-user" onclick="toggleProfileDropdown(event)">
+      <div class="nav-user-avatar" id="nav-user-avatar">?</div>
+      <span id="nav-user-label" style="color:rgba(255,255,255,0.85);font-size:12px;font-weight:600;">Account</span>
+      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.5)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="margin-left:2px;"><polyline points="6 9 12 15 18 9"/></svg>
+      <div id="profile-dropdown">
+        <div class="dropdown-header">
+          <div class="dropdown-header-name" id="dropdown-header-name">IGVhope Member</div>
+          <div class="dropdown-header-role">IGVhope Participant</div>
+        </div>
+        <a class="dropdown-item wipe-link" href="/#account-progress">
+          <span class="dropdown-item-icon"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg></span>
+          My Account
+        </a>
+        <div class="dropdown-divider"></div>
+        <a class="dropdown-item" href="https://www.igvhousing.com" target="_blank" rel="noopener">
+          <span class="dropdown-item-icon"><img src="/assets/img/img_001.ico" alt="" width="15" height="15" style="border-radius:3px;"></span>
+          About IGV
+        </a>
+        <div class="dropdown-divider"></div>
+        <a class="dropdown-item danger" href="#" onclick="handleNavLogout(event)">
+          <span class="dropdown-item-icon"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg></span>
+          Log out
+        </a>
+      </div>
+    </span>
+    <button class="nav-signup-btn" onclick="navigateWithWipe('/')">Find Your Home</button>
+  </div>
+  <button id="nav-burger" onclick="toggleMobileNav()" aria-label="Open menu">
+    <svg id="nav-burger-icon-open" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+    <svg id="nav-burger-icon-close" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:none;"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+  </button>
+  <div id="mobile-nav-panel">
+    <a class="mobile-nav-link" href="/how-it-works">How It Works</a>
+    <a class="mobile-nav-link" href="/next-steps">Next Steps</a>
+    <a class="mobile-nav-link" href="/faq">FAQ</a>
+    <a class="mobile-nav-link" href="/about">About</a>
+    <a class="mobile-nav-link wipe-link" id="mobile-nav-login-link" href="/login">Log in</a>
+    <div id="mobile-nav-user" style="display:none;">
+      <div class="mobile-nav-link" id="mobile-nav-user-name"></div>
+      <a class="mobile-nav-link wipe-link" href="/#account-progress">My Account</a>
+      <a class="mobile-nav-link" href="#" id="mobile-nav-logout-link" onclick="handleNavLogout(event)">Log out</a>
+    </div>
+    <button class="mobile-nav-cta" onclick="toggleMobileNav();navigateWithWipe('/');">Find Your Home</button>
+  </div>
+</nav>
+
+<div class="page-main">
+  <svg class="page-watermark" viewBox="0 0 29 34" xmlns="http://www.w3.org/2000/svg"><path d="M28.6407 17.0608L25.4418 2.57192C25.2066 1.49296 24.156 0.827731 23.1132 1.09544C22.0705 1.36316 21.4197 2.46646 21.6549 3.55353L24.9479 18.4886C25.1831 19.5595 23.8502 20.2247 23.1916 19.3648L14.2223 7.72336C13.5402 6.83909 12.176 6.52271 11.196 7.03379C10.2159 7.54488 9.97287 8.68063 10.655 9.57301L20.1418 21.8878C20.8082 22.7477 19.883 23.9484 18.9265 23.4697L5.64502 16.8499C4.72771 16.3956 3.56734 16.6552 3.04204 17.5557C2.4305 18.5941 2.83035 19.9164 3.85743 20.4275L17.2408 27.096C18.1974 27.5746 17.8681 29.0673 16.8096 29.0673H1.95224C0.870274 29.0673 0 29.9759 0 31.0874C0 32.1988 0.870274 33.1074 1.95224 33.1074H27.1667C27.9821 33.1074 28.6407 32.4259 28.6407 31.5822V17.0608Z" fill="#123D36"/></svg>
+
+  <div class="page-content">
+
+<div class="exit-bar">
+  <a class="exit-link wipe-link" href="/next-steps"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></svg>Back to Next Steps</a>
+</div>
+
+<div class="course-hero">
+  <div class="course-eyebrow">For Applicants Not Yet Approved</div>
+  <h1 class="course-heading">Not This Time</h1>
+  <p class="course-subtitle">Not this time is not the same as not ever. Two short lessons on what happened, and what to do next.</p>
+  <p class="course-meta">2 lessons, about 5 minutes each</p>
+</div>
+
+<div class="course-section" style="padding-bottom:8px;">
+  <p class="section-body">A decision like this is not a judgment of you. Most applicants who are not approved on their first try are approved later, once the specific thing standing in the way has been addressed. This page is here to help you understand what that thing likely is, and what your options are from here.</p>
+</div>
+
+<div class="lesson-card">
+  <div class="lesson-card-label">Lesson A</div>
+  <div class="lesson-card-title">What likely stood in the way</div>
+  <p class="lesson-card-body">Applications are usually not approved for one of a small number of reasons: income relative to the occupancy contribution, credit history, existing debt load, or the timing of your application relative to available units. It is rarely about you as a person, and it is almost never permanent.</p>
+  <p class="lesson-card-body"><strong>The honest reframe:</strong> HOPE is built around a ten-year runway precisely because most people are not at their strongest financial moment when they first hear about it. If you were not approved this time, the program is telling you that a bit more preparation will make a real difference, not that the door is closed.</p>
+</div>
+
+<div class="lesson-card">
+  <div class="lesson-card-label">Lesson B</div>
+  <div class="lesson-card-title">Six ways to strengthen your next application</div>
+
+  <div class="short-win"><strong>Short win:</strong> You know which one or two options fit your gap, and you have a first step.</div>
+
+  <p class="lesson-card-body">You do not need all six of these. Read through them and pick the one or two that match the gap you identified in Lesson A.</p>
+
+  <div class="strengthen-item">
+    <div class="strengthen-item-title">1. Increase your income</div>
+    <div class="strengthen-item-row"><strong>What it is:</strong> raising the money coming in each month, through a second job, extra shifts, freelance work, or asking for a raise or more hours in your current role.</div>
+    <div class="strengthen-item-row"><strong>Why it helps:</strong> income is one of the main things the program measures. A higher, steady income improves how much home you can be approved for and grows your savings faster at the same time.</div>
+    <div class="strengthen-item-row"><strong>What to do:</strong> work out how much more monthly income would close your gap, then look at the most realistic way to add it. Even a few hundred dollars a month, showing up consistently, makes a real difference to how your application reads.</div>
+  </div>
+
+  <div class="strengthen-item">
+    <div class="strengthen-item-title">2. Add a guarantor</div>
+    <div class="strengthen-item-row"><strong>What it is:</strong> a parent or family member who formally backs your application, agreeing to support it with their own financial standing.</div>
+    <div class="strengthen-item-row"><strong>Why it helps:</strong> a guarantor can strengthen an application where your income or history on its own is not quite enough yet. Their backing lowers the risk the program is assessing.</div>
+    <div class="strengthen-item-row"><strong>What to do:</strong> think about whether you have a family member who might be willing and able to do this. Ask the IGVhope team to walk you through what a guarantor arrangement involves so you both are in with clear eyes.</div>
+  </div>
+
+  <div class="strengthen-item">
+    <div class="strengthen-item-title">3. Apply jointly with a spouse, partner, or friend</div>
+    <div class="strengthen-item-row"><strong>What it is:</strong> combining your application with another person so the program looks at your household income together than yours alone.</div>
+    <div class="strengthen-item-row"><strong>Why it helps:</strong> two incomes counted together are stronger than one. A joint application can lift you over an income threshold that a single application could not reach.</div>
+    <div class="strengthen-item-row"><strong>What to do:</strong> if you have a spouse, partner, or trusted friend who wants to work toward a home with you, talk about applying together. Make sure you both understand it as the long term shared commitment it is.</div>
+  </div>
+
+  <div class="strengthen-item">
+    <div class="strengthen-item-title">4. Look at a home with a mortgage helper unit</div>
+    <div class="strengthen-item-row"><strong>What it is:</strong> some homes include a separate self contained unit that can bring in occupancy contributions from someone living in it.</div>
+    <div class="strengthen-item-row"><strong>Why it helps:</strong> that extra income can offset your monthly costs and strengthen the overall picture of what you can afford. Where these homes are available in the program, they can make ownership reachable sooner.</div>
+    <div class="strengthen-item-row"><strong>What to do:</strong> ask the IGVhope team whether any available or upcoming homes include a mortgage helper unit, and how the income from it is treated in an application.</div>
+  </div>
+
+  <div class="strengthen-item">
+    <div class="strengthen-item-title">5. Get an employer backing letter</div>
+    <div class="strengthen-item-row"><strong>What it is:</strong> a letter from your employer confirming how long you have been there, your stability in the role, your career path, and any commission or bonus earnings on top of your base pay.</div>
+    <div class="strengthen-item-row"><strong>Why it helps:</strong> sometimes a decline on income comes down to the program not having the full picture of what you earn or where you are headed. A backing letter makes that visible.</div>
+    <div class="strengthen-item-row"><strong>What to do:</strong> think about whether your employer would write one. If your role has a clear path to higher earnings, or commission that does not show up in your base pay, a short letter from your manager or HR can make that clear.</div>
+  </div>
+
+  <div class="strengthen-item">
+    <div class="strengthen-item-title">6. Build a savings buffer</div>
+    <div class="strengthen-item-row"><strong>What it is:</strong> a pool of savings that shows you can handle your commitments and absorb a surprise without trouble.</div>
+    <div class="strengthen-item-row"><strong>Why it helps:</strong> a savings buffer is one of the clearest signals of readiness. It strengthens your application directly, and it is also what makes ownership genuinely comfortable once you are in it.</div>
+    <div class="strengthen-item-row"><strong>What to do:</strong> work out a monthly amount you can set aside automatically, even a small one, and start this week.</div>
+  </div>
+
+  <p class="lesson-card-body" style="margin-top:14px;">Not all six will fit, and that is exactly the point. If your gap was income, look at options 1, 3, and 5. If it was savings, option 6 and the budgeting lessons ahead are your path. If you were close and just need more strength in your file, a guarantor or joint application may be all it takes. Pick the one that fits your gap.</p>
+</div>
+
+<div class="action-step"><strong>Your action step:</strong> Look at the requirement you wrote down in Lesson A. Choose the one option from this list that best fits your gap and write down its first step. One gap. One option. One first step. The rest of this course helps you do it.</div>
+
+<div class="course-section" style="padding-top:8px; padding-bottom:8px;">
+  <h2 class="section-header">Where to go from here</h2>
+</div>
+
+<div class="option-grid">
+  <div class="option-card">
+    <div class="option-card-title">I know what needs to change</div>
+    <p class="option-card-body">You have a clear picture of what to work on. Reapply when you are ready, and our team will pick up your file from where it left off.</p>
+    <a class="option-card-btn primary wipe-link" href="/next-steps">Reapply when ready</a>
+  </div>
+  <div class="option-card">
+    <div class="option-card-title">I want to understand my finances first</div>
+    <p class="option-card-body">Take the Starting Course to work through the full picture of how HOPE works, then come back and try again with more confidence.</p>
+    <a class="option-card-btn wipe-link" href="/course-library/starting-course/">Start the Starting Course</a>
+  </div>
+</div>
+
+  </div>
+
+</div>
+
+<footer id="dash-footer">
+  <div class="footer-block">
+  <div id="footer-sitemap">
+    <div class="sitemap-col">
+      <div class="sitemap-heading">IGV Housing</div>
+      <a href="https://igvhousing.com/municipalities">Municipalities</a>
+      <a href="https://www.igvhousing.com/esg" target="_blank" rel="noopener">ESG Impact</a>
+      <a href="https://www.igvhousing.com/media" target="_blank" rel="noopener">Media &amp; Resources</a>
+    </div>
+    <div class="sitemap-col">
+      <div class="sitemap-heading">IGV Divisions</div>
+      <a href="https://www.igvhousing.com" target="_blank" rel="noopener">IGV Housing</a>
+      <a href="https://www.igvbuild.com" target="_blank" rel="noopener">IGV Build Systems</a>
+      <a href="https://www.igvcapital.com" target="_blank" rel="noopener">IGV Capital</a>
+    </div>
+    <div class="sitemap-col">
+      <div class="sitemap-heading">Sitemap</div>
+      <a href="/how-it-works">How It Works</a>
+      <a href="/next-steps">Next Steps</a>
+      <a href="/faq">FAQ</a>
+      <a href="/about">About</a>
+      <a href="/resources">Resources</a>
+      <a href="/course-library">Course Library</a>
+    </div>
+    <div class="sitemap-col">
+      <div class="sitemap-heading">Enquiries</div>
+      <a href="mailto:info@igvhousing.com">Investors</a>
+      <a href="mailto:info@igvhousing.com">Developer Partners</a>
+      <a href="mailto:info@igvhousing.com">Press</a>
+      <div id="sitemap-social">
+        <a href="https://www.facebook.com/IGVhope/" target="_blank" rel="noopener" aria-label="Facebook">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M22 12.06C22 6.5 17.52 2 12 2S2 6.5 2 12.06c0 5.02 3.66 9.18 8.44 9.94v-7.03H7.9v-2.91h2.54V9.85c0-2.51 1.49-3.9 3.77-3.9 1.09 0 2.24.2 2.24.2v2.46h-1.26c-1.24 0-1.63.77-1.63 1.56v1.89h2.78l-.44 2.91h-2.34V22c4.78-.76 8.44-4.92 8.44-9.94z"/></svg>
+        </a>
+        <a href="https://www.linkedin.com/company/igvhope" target="_blank" rel="noopener" aria-label="LinkedIn">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M20.45 20.45h-3.55v-5.57c0-1.33-.02-3.04-1.85-3.04-1.85 0-2.14 1.45-2.14 2.94v5.67H9.36V9h3.41v1.56h.05c.48-.9 1.64-1.85 3.38-1.85 3.61 0 4.28 2.38 4.28 5.47zM5.34 7.43a2.06 2.06 0 1 1 0-4.12 2.06 2.06 0 0 1 0 4.12zM7.12 20.45H3.56V9h3.56z"/></svg>
+        </a>
+        <a href="https://www.instagram.com/igvhope" target="_blank" rel="noopener" aria-label="Instagram">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="4"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1"/></svg>
+        </a>
+      </div>
+    </div>
+  </div>
+  </div>
+  <div class="footer-block footer-divider">
+  <div id="footer-bottom-bar">
+    <span id="footer-copyright">&copy; 2026 IGVhope. All rights reserved.</span>
+    <div id="footer-bottom-links">
+      <a href="https://www.igvhousing.com/privacy" target="_blank" rel="noopener">Privacy</a>
+      <a href="/terms" target="_blank" rel="noopener">Terms</a>
+      <a href="https://www.igvhousing.com/accessibility" target="_blank" rel="noopener">Accessibility</a>
+    </div>
+  </div>
+  </div>
+</footer>
+
+<script>
+/* ── MOBILE NAV BURGER ────────────────────────────────────── */
+function toggleMobileNav(){
+  const panel=document.getElementById('mobile-nav-panel');
+  const open=panel.classList.toggle('open');
+  document.getElementById('nav-burger-icon-open').style.display=open?'none':'';
+  document.getElementById('nav-burger-icon-close').style.display=open?'':'none';
+}
+
+/* Switches the nav to burger mode whenever the desktop nav-right
+   content would no longer fit on a single line, instead of relying
+   on a fixed pixel breakpoint. Runs on load, resize, and once fonts
+   finish loading (Montserrat swap-in can widen text after first
+   paint). */
+function checkNavFit(){
+  const nav = document.getElementById('dash-nav');
+  const navRight = document.querySelector('.nav-right');
+  const burger = document.getElementById('nav-burger');
+  const logo = document.getElementById('nav-logo');
+  if (!nav || !navRight || !burger || !logo) return;
+
+  navRight.style.display = 'flex';
+  const navPaddingH = 64;
+  const gapBuffer = 32;
+  const available = nav.clientWidth - logo.getBoundingClientRect().width - navPaddingH - gapBuffer;
+  const fits = navRight.scrollWidth <= available;
+
+  navRight.style.display = fits ? 'flex' : 'none';
+  burger.style.display = fits ? 'none' : 'flex';
+}
+let navFitTimer;
+window.addEventListener('resize', () => {
+  clearTimeout(navFitTimer);
+  navFitTimer = setTimeout(checkNavFit, 100);
+});
+window.addEventListener('load', checkNavFit);
+if (document.fonts && document.fonts.ready) {
+  document.fonts.ready.then(checkNavFit);
+}
+checkNavFit();
+
+/* Carry the current page forward into the Log in link, so clicking it
+   and completing the magic-link flow brings the person back to exactly
+   where they were, instead of a fixed default page. */
+(function setLoginReturnTo(){
+  const returnPath = encodeURIComponent(window.location.pathname + window.location.search);
+  const loginUrl = `/login?return=${returnPath}`;
+  const desktopLink = document.getElementById('nav-login-link');
+  const mobileLink = document.getElementById('mobile-nav-login-link');
+  if (desktopLink) desktopLink.setAttribute('href', loginUrl);
+  if (mobileLink) mobileLink.setAttribute('href', loginUrl);
+})();
+
+/* ── CONFIG ─────────────────────────────────────────────── */
+const MAGIC_LINK_WORKER = 'https://magic-link.igvhousing.workers.dev'; // confirm this matches your actual deployed Worker URL
+
+/* ── SHARED LOGIN SESSION CHECK ─────────────────────────────
+   Checks the same magic-link session used across the whole platform.
+   This page has no lesson-completion tracking of its own (it is a
+   short bridging page, not a numbered course), so this only swaps
+   the nav between "Log in" and the account avatar/dropdown. */
+(async function checkLoginSession(){
+  try {
+    const res = await fetch(`${MAGIC_LINK_WORKER}/session`, { credentials: 'include' });
+    const data = await res.json();
+    if (data.loggedIn) {
+      const displayName = data.firstName || (data.email ? data.email.split('@')[0] : 'Member');
+      const initial = displayName.charAt(0).toUpperCase();
+
+      const loginLink = document.getElementById('nav-login-link');
+      const userEl = document.getElementById('nav-user');
+      const avatarEl = document.getElementById('nav-user-avatar');
+      const headerNameEl = document.getElementById('dropdown-header-name');
+      const labelEl = document.getElementById('nav-user-label');
+      const bellBtn = document.getElementById('nav-bell-btn');
+      if (loginLink) loginLink.classList.add('hide');
+      if (userEl) userEl.classList.add('show');
+      if (bellBtn) bellBtn.style.display = 'flex';
+      if (avatarEl) avatarEl.textContent = initial;
+      if (headerNameEl) headerNameEl.textContent = displayName;
+      if (labelEl) labelEl.textContent = displayName;
+
+      const mobileLogin = document.getElementById('mobile-nav-login-link');
+      const mobileUser = document.getElementById('mobile-nav-user');
+      const mobileUserName = document.getElementById('mobile-nav-user-name');
+      if (mobileLogin) mobileLogin.style.display = 'none';
+      if (mobileUser) mobileUser.style.display = 'block';
+      if (mobileUserName) mobileUserName.textContent = displayName;
+
+      checkNavFit();
+    }
+  } catch (e) { /* fail quietly, nav just shows Log in as the default state */ }
+})();
+
+function toggleProfileDropdown(event) {
+  event.stopPropagation();
+  document.getElementById('profile-dropdown').classList.toggle('open');
+}
+
+document.addEventListener('click', function(event) {
+  const dropdown = document.getElementById('profile-dropdown');
+  if (dropdown && dropdown.classList.contains('open') && !event.target.closest('.nav-user')) {
+    dropdown.classList.remove('open');
+  }
+});
+
+function handleNavLogout(event) {
+  if (event) event.preventDefault();
+  fetch(`${MAGIC_LINK_WORKER}/logout`, { method: 'POST', credentials: 'include' })
+    .then(function(){ window.location.reload(); })
+    .catch(function(){ window.location.reload(); });
+}
+
+/* ── PAGE WIPE TRANSITION ─────────────────────────────────
+   Same colour-wipe visual used elsewhere on IGVhope. */
+function navigateWithWipe(url) {
+  const wipe = document.getElementById('page-wipe');
+  if (!wipe) { window.location.href = url; return; }
+  wipe.classList.remove('reveal');
+  wipe.classList.add('active');
+  setTimeout(function() {
+    window.location.href = url;
+  }, 340);
+}
+
+document.querySelectorAll('.wipe-link').forEach(function(el) {
+  el.addEventListener('click', function(e) {
+    if (e.metaKey || e.ctrlKey || e.shiftKey || e.button === 1) return;
+    const href = el.getAttribute('href');
+    if (!href || href === '#') return;
+    e.preventDefault();
+    navigateWithWipe(href);
+  });
+});
+
+(function revealOnLoad(){
+  const wipe = document.getElementById('page-wipe');
+  if (!wipe) return;
+  setTimeout(function() {
+    wipe.classList.add('reveal');
+    setTimeout(function() {
+      wipe.classList.remove('active');
+      wipe.classList.remove('reveal');
+    }, 350);
+  }, 150);
+})();
+window.addEventListener('pageshow', function(event) {
+  const wipe = document.getElementById('page-wipe');
+  if (!wipe || !event.persisted) return;
+  wipe.classList.remove('reveal');
+  wipe.classList.add('active');
+  void wipe.offsetWidth;
+  requestAnimationFrame(function() {
+    setTimeout(function() {
+      wipe.classList.add('reveal');
+      setTimeout(function() {
+        wipe.classList.remove('active');
+        wipe.classList.remove('reveal');
+      }, 350);
+    }, 50);
+  });
+});
+</script>
+
+</body>
+</html>

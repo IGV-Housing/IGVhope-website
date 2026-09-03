@@ -1,0 +1,2397 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="icon" type="image/x-icon" href="/assets/img/favicon.ico">
+<title>Your Next Steps on the Way to Owning Your Home | IGVhope</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+
+:root {
+  --teal: #1A5C50;
+  --teal-deep: #123D36;
+  --amber: #E8A24A;
+  --ochre: #da8d27;
+  --cream: #FBF7EF;
+  --ink: #1A2422;
+  --ink-soft: #5C6B67;
+  --border: #E2E8E6;
+  --warm-tint: #FDF3EA;
+  --warm-border: #F0DBC0;
+  --blue-tint: #EEF3FB;
+  --blue-border: #D6E3F5;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: 'Montserrat', sans-serif; color: var(--ink); background: #ffffff; line-height: 1.6; -webkit-font-smoothing: antialiased; }
+a { color: inherit; }
+
+/* NAV — exact match to demand.igvhousing.com top nav (#dash-nav) */
+#dash-nav { flex-shrink: 0; height: 60px; background: #1a4848; display: flex; align-items: center; justify-content: space-between; padding: 0 32px; z-index: 100; position: sticky; top: 0; box-shadow: 0 2px 8px rgba(0,0,0,0.2); }
+/* Nav subpage links — matched to IGV Capital's .navlink: 0.9rem / 600 weight,
+   0.5rem 0.85rem padding, with the sliding underline hover (scaleX from left,
+   0.25s ease). Accent recoloured for the evergreen nav bar. */
+.nav-link {
+  display: inline-flex; align-items: center; position: relative;
+  padding: 0.5rem 0.85rem;
+  font-size: 0.9rem; font-weight: 600;
+  color: rgba(255,255,255,0.85); cursor: pointer; letter-spacing: 0.02em;
+  transition: color 0.18s; text-decoration: none; white-space: nowrap; flex-shrink: 0;
+}
+.nav-link:hover, .nav-link.current { color: #ffffff; }
+.nav-link::after {
+  content: "";
+  position: absolute;
+  left: 0.85rem; right: 0.85rem; bottom: 0.3rem;
+  height: 1.5px;
+  background-color: #E8A24A;
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.25s ease;
+}
+.nav-link:hover::after, .nav-link.is-active::after { transform: scaleX(1); }
+.nav-right { display: flex; align-items: center; gap: 8px; flex: 1; }
+/* Centred subpage group — mirrors IGV Capital's .nav-links-group */
+.nav-links-group { display: flex; align-items: center; justify-content: center; gap: 8px; flex: 1; flex-wrap: nowrap; }
+.nav-link, .nav-signup-btn, .nav-user, .nav-right-divider { white-space: nowrap; }
+.nav-right-divider { width: 1px; height: 20px; background: #ce7841; margin: 0 8px; }
+.nav-signup-btn { margin-left: 10px; font-family: 'Montserrat', sans-serif; font-size: 12px; font-weight: 700; letter-spacing: 0.03em; color: #123D36; background: #E8A24A; border: none; border-radius: 999px; padding: 10px 22px; cursor: pointer; transition: background 0.18s; }
+.nav-signup-btn:hover { background: #f0b269; }
+#nav-burger { display: none; background: none; border: none; cursor: pointer; padding: 6px; align-items: center; justify-content: center; }
+#mobile-nav-panel { display: none; flex-direction: column; position: absolute; top: 100%; left: 0; right: 0; background: #1a4848; padding: 8px 24px 20px; box-shadow: 0 12px 24px rgba(0,0,0,0.18); z-index: 200; }
+#mobile-nav-panel.open { display: flex; }
+.mobile-nav-link { color: rgba(255,255,255,0.85); font-size: 14px; font-weight: 500; padding: 14px 0; border-bottom: 1px solid rgba(255,255,255,0.1); text-decoration: none; display: block; }
+.mobile-nav-cta { margin-top: 16px; font-family: 'Montserrat', sans-serif; font-size: 13px; font-weight: 700; letter-spacing: 0.03em; color: #123D36; background: #E8A24A; border: none; border-radius: 999px; padding: 13px 20px; cursor: pointer; width: 100%; }
+@media (max-width: 640px) { .nav-right { display: none; } #nav-burger { display: flex; } }
+
+
+/* LESSON PROGRESS STRIP */
+.lesson-progress-strip { background: var(--cream); padding: 10px 24px; display: flex; align-items: center; justify-content: center; gap: 8px; position: relative; font-size: 12px; font-weight: 700; color: var(--teal-deep); letter-spacing: 0.03em; }
+.exit-link { position: absolute; left: 24px; top: 50%; transform: translateY(-50%); display: flex; align-items: center; gap: 5px; font-size: 12px; font-weight: 700; color: var(--teal-deep); text-decoration: none; opacity: 0.75; transition: opacity 0.15s; }
+.exit-link:hover { opacity: 1; text-decoration: underline; }
+.exit-link svg { flex-shrink: 0; }
+@media (max-width: 640px) {
+  .lesson-progress-strip { flex-direction: column; align-items: center; justify-content: center; gap: 6px; padding: 14px 24px; }
+  .exit-link { position: static; transform: none; }
+}
+
+/* MAIN COLUMN */
+.lesson-main { max-width: 640px; margin: 0 auto; padding: 32px 24px 60px; }
+
+/* 1. LESSON HEADER */
+.lesson-eyebrow { font-size: 11.5px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--teal); margin-bottom: 8px; }
+.lesson-title { font-size: clamp(24px, 4vw, 32px); font-weight: 800; color: var(--teal-deep); line-height: 1.25; letter-spacing: -0.01em; margin-bottom: 10px; }
+.lesson-meta { font-size: 13px; color: var(--ink-soft); font-weight: 600; margin-bottom: 26px; }
+
+/* 2. SHORT WIN BANNER */
+.short-win { background: var(--cream); border-left: 3px solid var(--ochre); border-radius: 8px; padding: 14px 18px; font-style: italic; font-size: 14px; color: var(--teal-deep); line-height: 1.6; margin-bottom: 28px; }
+
+/* 3. BODY AND BULLETS */
+.lesson-body p { font-size: 15px; color: var(--ink); line-height: 1.8; margin-bottom: 18px; }
+.lesson-body ul { margin: 0 0 18px 20px; }
+.lesson-body li { font-size: 15px; color: var(--ink); line-height: 1.75; margin-bottom: 8px; }
+
+/* 5. COMPARISON BOX */
+.comparison-box { border: 1.5px solid var(--border); border-radius: 14px; overflow: hidden; margin: 24px 0; }
+.comparison-title { font-size: 12.5px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.05em; color: var(--teal-deep); background: #F7F5EF; padding: 14px 18px; border-bottom: 1.5px solid var(--border); }
+.comparison-cols { display: grid; grid-template-columns: 1fr 1fr; }
+@media (max-width: 560px) { .comparison-cols { grid-template-columns: 1fr; } }
+.comparison-col { padding: 18px; font-size: 13.5px; line-height: 1.7; }
+.comparison-col.conventional { background: var(--warm-tint); border-right: 1.5px solid var(--border); color: #6B4423; }
+@media (max-width: 560px) { .comparison-col.conventional { border-right: none; border-bottom: 1.5px solid var(--border); } }
+.comparison-col.hope { background: var(--teal); color: #ffffff; }
+.comparison-col-label { font-size: 11px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 8px; opacity: 0.75; }
+
+/* 6. WORKED EXAMPLE */
+.worked-example { background: var(--blue-tint); border: 1.5px solid var(--blue-border); border-radius: 12px; padding: 18px 20px; margin: 24px 0; }
+.worked-example-label { font-size: 11px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.06em; color: #3A5A8C; margin-bottom: 8px; }
+.worked-example p { font-size: 14px; color: #2E4258; line-height: 1.7; }
+
+/* 7. ACTION STEP */
+.action-step { border: 1.5px solid var(--teal); border-radius: 12px; padding: 18px 20px; margin: 24px 0; }
+.action-step-label { font-size: 11px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.06em; color: var(--teal); margin-bottom: 8px; }
+.action-step p { font-size: 14px; color: var(--ink); line-height: 1.7; }
+
+/* 8. SELF-CHECK BAR */
+.self-check { display: flex; align-items: center; gap: 14px; width: 100%; background: var(--cream); border: 1.5px solid #F0E4CE; border-radius: 999px; padding: 16px 22px; margin: 30px 0 8px; cursor: pointer; transition: background 0.18s, border-color 0.18s; font-family: 'Montserrat', sans-serif; text-align: left; }
+.self-check:hover { border-color: var(--ochre); }
+.self-check.checked { background: var(--teal); border-color: var(--teal); }
+.self-check-icon { width: 26px; height: 26px; border-radius: 50%; border: 2px solid var(--ochre); flex-shrink: 0; display: flex; align-items: center; justify-content: center; transition: all 0.18s; }
+.self-check.checked .self-check-icon { background: #ffffff; border-color: #ffffff; }
+.self-check-icon svg { opacity: 0; transition: opacity 0.18s; }
+.self-check.checked .self-check-icon svg { opacity: 1; }
+.self-check-text { font-size: 14px; font-weight: 700; color: var(--teal-deep); }
+.self-check.checked .self-check-text { color: #ffffff; }
+
+/* 9. TOOLS BOX */
+.tools-box { background: #F7F5EF; border-radius: 12px; padding: 18px 20px; margin: 20px 0; }
+.tools-box-label { font-size: 11px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.06em; color: var(--ink-soft); margin-bottom: 12px; }
+.tool-link { display: block; text-decoration: none; margin-bottom: 14px; }
+.tool-link:last-child { margin-bottom: 0; }
+.tool-link-name { font-size: 14px; font-weight: 700; color: var(--teal); margin-bottom: 3px; }
+.tool-link-desc { font-size: 12.5px; color: var(--ink-soft); }
+
+/* SOURCES LINE */
+.sources-line { font-size: 11px; color: #9AA8A4; line-height: 1.7; margin-top: 30px; padding-top: 18px; border-top: 1px solid var(--border); }
+
+/* NEXT LESSON CTA */
+.next-lesson-wrap { display: none; margin-top: 28px; text-align: center; }
+.next-lesson-wrap.show { display: block; animation: fadeUp 0.35s ease; }
+@keyframes fadeUp { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+.next-lesson-label { font-size: 12px; color: var(--ink-soft); margin-bottom: 10px; }
+.next-lesson-btn { display: inline-block; font-family: 'Montserrat', sans-serif; font-size: 14.5px; font-weight: 700; color: #123D36; background: var(--ochre); border: none; border-radius: 999px; padding: 15px 32px; cursor: pointer; text-decoration: none; }
+
+/* FOOTER — exact match to demand.igvhousing.com */
+#footer-disclosures { padding-top: 32px; padding-bottom: 32px; }
+#disclosures-title { font-family: 'Montserrat', sans-serif; font-size: 10px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: rgba(255,255,255,0.55); margin-bottom: 8px; }
+#footer-disclosures p { font-family: 'Montserrat', sans-serif; font-size: 9px; font-weight: 400; color: rgba(255,255,255,0.4); line-height: 1.7; margin-bottom: 8px; }
+#footer-disclosures a { color: rgba(255,255,255,0.55); text-decoration: underline; }
+#footer-disclosures a:hover { color: #fff; }
+#footer-sitemap { padding-top: 24px; padding-bottom: 24px; display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 24px; }
+.sitemap-heading { font-family: 'Montserrat', sans-serif; font-size: 11px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: #FFFFFF; margin-bottom: 14px; }
+.sitemap-col { display: flex; flex-direction: column; gap: 12px; }
+.sitemap-col a { font-family: 'Montserrat', sans-serif; font-size: 11px; font-weight: 600; letter-spacing: 0.03em; text-transform: uppercase; color: rgba(255,255,255,0.65); text-decoration: none; cursor: pointer; }
+.sitemap-col a:hover { color: #fff; }
+#sitemap-social { display: flex; gap: 10px; margin-top: 4px; }
+#sitemap-social a { width: 26px; height: 26px; border-radius: 6px; background: rgba(255,255,255,0.12); display: flex; align-items: center; justify-content: center; color: #fff; }
+#sitemap-social a:hover { background: rgba(255,255,255,0.22); }
+#footer-bottom-bar { padding-top: 16px; padding-bottom: 14px; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 10px; }
+#footer-copyright { font-size: 10px; letter-spacing: 0.02em; }
+#footer-bottom-links { display: flex; gap: 20px; }
+#footer-bottom-links a { font-family: 'Montserrat', sans-serif; font-size: 10px; font-weight: 500; color: rgba(255,255,255,0.55); text-decoration: none; }
+#footer-bottom-links a:hover { color: #fff; text-decoration: underline; }
+@media (max-width: 700px) {
+  #footer-sitemap { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+#dash-footer { width: 100%; background: #123D36; color: rgba(255,255,255,0.55); font-family: 'Montserrat', sans-serif; font-size: 10px; font-weight: 500; letter-spacing: 0.04em; display: flex; flex-direction: column; margin-top: 20px; }
+.footer-block { width: 100%; box-sizing: border-box; }
+.footer-divider { border-top: 1px solid rgba(255,255,255,0.15); }
+#footer-disclosures, #footer-sitemap, #footer-bottom-bar { max-width: 1200px; margin: 0 auto; padding-left: 32px; padding-right: 32px; box-sizing: border-box; }
+#dash-footer a { color: rgba(255,255,255,0.55); text-decoration: none; transition: color 0.15s; }
+#dash-footer a:hover { color: #fff; }
+
+
+/* INTERACTIVE TOOL (Tool A / Tool B) */
+.tool-widget { background: #F7F5EF; border-radius: 12px; padding: 20px; margin: 24px 0; }
+.tool-widget-label { font-size: 11px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.06em; color: var(--ink-soft); margin-bottom: 6px; }
+.tool-widget-question { font-size: 14.5px; font-weight: 700; color: var(--teal-deep); margin-bottom: 4px; }
+.tool-widget-hint { font-size: 12px; color: var(--ink-soft); margin-bottom: 14px; line-height: 1.6; }
+.tool-widget-field { margin-bottom: 12px; }
+.tool-widget-field label { display: block; font-size: 12.5px; font-weight: 600; color: var(--ink-soft); margin-bottom: 5px; }
+.tool-widget-input-wrap { position: relative; }
+.tool-widget-prefix { position: absolute; left: 14px; top: 50%; transform: translateY(-50%); font-size: 15px; font-weight: 600; color: var(--ink-soft); }
+.tool-widget-field input { width: 100%; padding: 11px 13px 11px 34px; border: 1.5px solid var(--border); border-radius: 9px; font-family: 'Montserrat', sans-serif; font-size: 15px; font-weight: 600; color: var(--ink); background: #ffffff; }
+.tool-widget-field input:focus { outline: none; border-color: var(--teal); }
+.tool-widget-btn { font-family: 'Montserrat', sans-serif; font-size: 13.5px; font-weight: 700; color: #ffffff; background: var(--teal); border: none; border-radius: 9px; padding: 12px 22px; cursor: pointer; margin-top: 6px; transition: background 0.18s; }
+.tool-widget-btn:hover { background: #164e44; }
+.tool-widget-result { display: none; margin-top: 16px; background: var(--teal-deep); border-radius: 10px; padding: 16px 18px; }
+.tool-widget-result.show { display: block; }
+.tool-widget-result-line { font-size: 13.5px; color: rgba(255,255,255,0.9); line-height: 1.7; }
+.tool-widget-result-line strong { color: #ffffff; }
+.tool-widget-skip { font-size: 12px; color: var(--ink-soft); margin-top: 10px; }
+.tool-widget-2col { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+@media (max-width: 480px) { .tool-widget-2col { grid-template-columns: 1fr; } }
+
+/* SECTION HEADER (Lesson 8 only) */
+.lesson-section-header { font-size: 17px; font-weight: 800; color: var(--teal-deep); margin: 30px 0 12px; }
+
+/* END OF COURSE — two doors */
+.end-of-course { margin: 34px 0 8px; text-align: center; }
+.end-of-course-closing { font-size: 14px; color: var(--ink-soft); line-height: 1.7; max-width: 480px; margin: 0 auto 22px; }
+.end-of-course-doors { display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; }
+.door-btn { display: inline-block; font-family: 'Montserrat', sans-serif; font-size: 14.5px; font-weight: 700; border-radius: 999px; padding: 15px 30px; cursor: pointer; text-decoration: none; transition: background 0.18s, transform 0.15s; border: none; }
+.door-btn.primary { color: #123D36; background: var(--ochre); }
+.door-btn.primary:hover { background: #c67d21; }
+.door-btn.secondary { color: var(--teal-deep); background: var(--cream); border: 1.5px solid #F0E4CE; }
+.door-btn.secondary:hover { border-color: var(--teal); }
+
+/* MULTI-LESSON PANELS */
+.lesson-panel { display: none; }
+.lesson-panel.active { display: block; animation: panelFade 0.3s ease; }
+@keyframes panelFade { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
+
+/* RP CHIP */
+.rp-chip { display: inline-block; font-size: 11px; font-weight: 800; color: var(--teal); background: rgba(26,92,80,0.1); padding: 2px 9px; border-radius: 999px; letter-spacing: 0.02em; }
+#progress-rp-total { font-weight: 700; color: var(--ochre); }
+
+/* JOURNAL PANEL */
+.journal-panel { background: #FBF3F6; border: 1.5px solid #ECD9E2; border-left: 4px solid #7A3F5A; border-radius: 12px; margin-top: 26px; overflow: hidden; }
+.jp-head { display: flex; align-items: center; gap: 10px; padding: 12px 16px; background: rgba(122,63,90,0.06); flex-wrap: wrap; }
+.jp-icon { flex: 0 0 24px; height: 24px; border-radius: 6px; background: #7A3F5A; color: #fff; display: flex; align-items: center; justify-content: center; font-size: 12px; }
+.jp-title { font-size: 13.5px; font-weight: 700; color: #7A3F5A; flex: 1; }
+.jp-tag { font-size: 10.5px; color: rgba(122,63,90,0.65); background: rgba(122,63,90,0.1); padding: 3px 9px; border-radius: 999px; }
+.jp-body { padding: 14px 16px; display: flex; flex-direction: column; gap: 12px; }
+.jf label { display: block; font-size: 12px; font-weight: 700; color: #7A3F5A; margin-bottom: 5px; }
+.jf .opt { font-weight: 400; opacity: 0.7; }
+.jf textarea { width: 100%; min-height: 52px; border: 1px solid rgba(122,63,90,0.25); border-radius: 8px; padding: 9px 11px; font-size: 13px; font-family: 'Montserrat', sans-serif; color: var(--ink); background: #fff; resize: vertical; }
+.jf textarea:focus { outline: none; border-color: #7A3F5A; box-shadow: 0 0 0 2px rgba(122,63,90,0.12); }
+.radio-row { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 6px; }
+.radio-row label { display: flex; align-items: center; gap: 5px; font-size: 12.5px; font-weight: 400; cursor: pointer; background: #fff; border: 1px solid rgba(122,63,90,0.2); border-radius: 7px; padding: 5px 10px; color: var(--ink); }
+.radio-row input { accent-color: #7A3F5A; }
+.jp-save-row { display: flex; align-items: center; justify-content: flex-end; gap: 10px; }
+.jp-saved { font-size: 12px; color: #7A3F5A; font-weight: 700; opacity: 0; transition: opacity 0.3s; }
+.jp-saved.show { opacity: 1; }
+.jp-btn { font-family: 'Montserrat', sans-serif; background: #7A3F5A; color: #fff; border: none; border-radius: 8px; padding: 9px 16px; font-size: 12.5px; font-weight: 700; cursor: pointer; }
+.jp-btn:hover { filter: brightness(0.93); }
+
+/* BADGE CELEBRATION (shown when all 8 lessons complete) */
+.badge-celebration { display: none; text-align: center; background: var(--cream); border: 1.5px solid #F0E4CE; border-radius: 16px; padding: 26px 22px; margin: 20px 0; }
+.badge-celebration.show { display: block; animation: panelFade 0.4s ease; }
+.badge-icon { width: 56px; height: 56px; border-radius: 50%; background: var(--ochre); color: #fff; font-size: 26px; display: flex; align-items: center; justify-content: center; margin: 0 auto 14px; }
+.badge-title { font-size: 18px; font-weight: 800; color: var(--teal-deep); margin-bottom: 6px; }
+.badge-desc { font-size: 13.5px; color: var(--ink-soft); }
+.badge-desc strong { color: var(--teal-deep); }
+
+/* TOAST (RP earned) */
+.rp-toast { position: fixed; bottom: 22px; left: 50%; transform: translateX(-50%) translateY(120px); background: var(--teal-deep); color: #fff; padding: 11px 20px; border-radius: 999px; font-size: 13px; font-weight: 600; box-shadow: 0 10px 28px rgba(0,0,0,0.25); transition: transform 0.35s cubic-bezier(.2,.8,.2,1); z-index: 500; }
+.rp-toast.show { transform: translateX(-50%) translateY(0); }
+.rp-toast-tag { background: var(--ochre); color: #123D36; font-weight: 800; border-radius: 999px; padding: 2px 9px; font-size: 11.5px; margin-right: 8px; }
+
+/* ── EMBEDDED TOOL WRAPPER ─────────────────────────────── */
+.embedded-tool { margin: 24px 0; }
+.embedded-tool .tool-title { font-size: 16px; font-weight: 800; color: var(--t-teal-dark); line-height: 1.3; margin-bottom: 8px; }
+
+
+/* Tool-scoped design tokens (prefixed to avoid collision with platform brand vars) */
+:root {
+  --t-teal:#00796B; --t-teal-dark:#004D40; --t-teal-mid:#00897B; --t-teal-lite:#E0F2F1;
+  --t-teal-faint:#F0FAF9; --t-sage:#E8F0EE; --t-amber:#F59E0B; --t-amber-lite:#FFFBEB;
+  --t-green:#059669; --t-green-lite:#ECFDF5; --t-red:#DC2626; --t-red-lite:#FEF2F2;
+  --t-surface:#FFFFFF; --t-border:#E2E8E6;
+  --t-text:#1A2422; --t-text-mid:#4A5D59; --t-text-soft:#7A8E8A;
+  --t-radius:14px; --t-radius-sm:8px; --t-shadow:0 2px 12px rgba(0,0,0,0.06);
+}
+
+/* TOOL HEADER */
+.lesson-tag{display:inline-block;font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--t-teal);background:var(--t-teal-lite);padding:4px 10px;border-radius:20px;margin-bottom:10px}
+.tool-title{font-size:21px;font-weight:800;color:var(--t-teal-dark);line-height:1.25;letter-spacing:-.02em;margin-bottom:8px}
+.tool-intro{font-size:13.5px;color:var(--t-text-mid);line-height:1.65;margin-bottom:20px}
+
+/* STEPS */
+.step-block{background:var(--t-surface);border:1px solid var(--t-border);border-radius:var(--t-radius);padding:20px;margin-bottom:14px;box-shadow:var(--t-shadow)}
+.step-label{display:flex;align-items:center;gap:10px;margin-bottom:14px}
+.step-num{width:28px;height:28px;border-radius:50%;background:var(--t-teal);color:#fff;font-size:13px;font-weight:800;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.step-title{font-size:14px;font-weight:700;color:var(--t-teal-dark)}
+
+/* INPUTS */
+label{display:block;font-size:13px;font-weight:600;color:var(--t-text-mid);margin-bottom:6px}
+.input-wrap{position:relative;margin-bottom:14px}
+.input-prefix{position:absolute;left:14px;top:50%;transform:translateY(-50%);font-size:16px;font-weight:600;color:var(--t-text-soft);pointer-events:none}
+input[type="number"],input[type="text"]{width:100%;padding:13px 14px;font-size:17px;font-weight:600;color:var(--t-text);background:var(--t-teal-faint);border:2px solid var(--t-teal-lite);border-radius:var(--t-radius-sm);outline:none;transition:border-color .2s,box-shadow .2s;-moz-appearance:textfield}
+input[type="number"]::-webkit-outer-spin-button,input[type="number"]::-webkit-inner-spin-button{-webkit-appearance:none}
+input[type="number"]:focus,input[type="text"]:focus{border-color:var(--t-teal);box-shadow:0 0 0 3px rgba(0,121,107,.12);background:#fff}
+.has-prefix input{padding-left:30px}
+.input-hint{font-size:12px;color:var(--t-text-soft);margin-top:-8px;margin-bottom:12px;line-height:1.5}
+
+/* PROPERTY SELECTOR */
+.prop-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:14px}
+.prop-card{border:2px solid var(--t-border);border-radius:10px;padding:12px;cursor:pointer;background:var(--t-surface);transition:all .15s;-webkit-tap-highlight-color:transparent;text-align:left}
+.prop-card:hover{border-color:var(--t-teal);background:var(--t-teal-faint)}
+.prop-card.selected{border-color:var(--t-teal);background:var(--t-teal-lite)}
+.prop-card .prop-type{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.05em;color:var(--t-text-soft);margin-bottom:3px}
+.prop-card .prop-price{font-size:16px;font-weight:800;color:var(--t-teal-dark)}
+.prop-card .prop-loc{font-size:11px;color:var(--t-text-soft);margin-top:2px}
+.or-divider{text-align:center;font-size:12px;color:var(--t-text-soft);margin:6px 0;font-style:italic}
+
+/* BUTTON */
+.btn{width:100%;padding:15px;font-size:15px;font-weight:700;color:#fff;background:var(--t-teal);border:none;border-radius:var(--t-radius-sm);cursor:pointer;letter-spacing:.01em;transition:background .2s,transform .1s;-webkit-tap-highlight-color:transparent}
+.btn:hover{background:var(--t-teal-mid)}
+.btn:active{transform:scale(.98)}
+.btn-sm{padding:11px;font-size:13px}
+.btn-outline{width:100%;padding:11px;font-size:13px;font-weight:600;color:var(--t-text-soft);background:none;border:1.5px solid var(--t-border);border-radius:var(--t-radius-sm);cursor:pointer;margin-top:8px;transition:border-color .2s,color .2s}
+.btn-outline:hover{border-color:var(--t-teal);color:var(--t-teal)}
+.btn-add{width:100%;padding:11px;font-size:13px;font-weight:600;color:var(--t-teal);background:var(--t-teal-faint);border:1.5px dashed var(--t-teal-lite);border-radius:var(--t-radius-sm);cursor:pointer;margin-top:10px;margin-bottom:12px;transition:background .2s}
+.btn-add:hover{background:var(--t-teal-lite)}
+
+/* RESULTS */
+.result{display:none}
+.result.show{display:block;animation:resultReveal .4s cubic-bezier(.34,1.56,.64,1)}
+@keyframes resultReveal{from{opacity:0;transform:translateY(14px) scale(.98)}to{opacity:1;transform:translateY(0) scale(1)}}
+.result-hero{background:linear-gradient(135deg,var(--t-teal-dark) 0%,var(--t-teal-mid) 100%);border-radius:var(--t-radius);padding:24px 20px;color:#fff;margin-bottom:12px;position:relative;overflow:hidden}
+.result-hero::after{content:'';position:absolute;top:-30px;right:-30px;width:110px;height:110px;border-radius:50%;background:rgba(255,255,255,.06)}
+.r-label{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:rgba(255,255,255,.6);margin-bottom:5px}
+.r-number{font-size:34px;font-weight:900;letter-spacing:-.03em;line-height:1.1;margin-bottom:7px}
+.r-text{font-size:13px;line-height:1.6;color:rgba(255,255,255,.85)}
+.result-card{background:var(--t-teal-faint);border:1px solid var(--t-teal-lite);border-radius:var(--t-radius-sm);padding:15px;margin-bottom:11px;font-size:13.5px;line-height:1.65;color:var(--t-text-mid)}
+.result-card strong{color:var(--t-teal-dark)}
+.hl-card{background:var(--t-amber-lite);border:1.5px solid #FDE68A;border-radius:var(--t-radius-sm);padding:15px;margin-bottom:11px}
+.hl-card .hl-label{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:var(--t-amber);margin-bottom:5px}
+.hl-card p{font-size:13.5px;color:var(--t-text);line-height:1.65}
+.info-card{background:var(--t-green-lite);border:1px solid #A7F3D0;border-radius:var(--t-radius-sm);padding:15px;margin-bottom:11px;font-size:13.5px;color:var(--t-text-mid);line-height:1.65}
+
+/* DISCLAIMER */
+.disclaimer{background:var(--t-sage);border-radius:var(--t-radius-sm);padding:12px 14px;font-size:11.5px;color:var(--t-text-soft);line-height:1.6;margin-top:12px}
+.disclaimer strong{color:var(--t-text-mid)}
+
+/* SCREENSHOT HINT */
+.screenshot-hint{display:flex;align-items:center;gap:8px;font-size:12px;color:var(--t-text-soft);background:var(--t-sage);border-radius:var(--t-radius-sm);padding:10px 14px;margin-top:12px}
+
+/* STEP LOCKING / PROGRESSIVE REVEAL */
+.step-locked{background:var(--t-surface);border:1.5px dashed var(--t-border);border-radius:var(--t-radius);padding:18px 20px;margin-bottom:14px;opacity:0.7}
+.step-locked .step-label{margin-bottom:6px}
+.step-num-locked{background:var(--t-text-soft)}
+.step-locked .step-title{color:var(--t-text-soft)}
+.step-lock-icon{color:var(--t-text-soft);margin-left:auto}
+.step-locked-hint{font-size:12.5px;color:var(--t-text-soft);line-height:1.5;padding-left:38px}
+.step-hidden{display:none!important}
+.step-reveal{animation:fadeUp .35s ease}
+
+/* RATE PRESETS + SLIDER (Lesson 4) */
+.rate-presets{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:16px}
+.rate-preset{border:2px solid var(--t-border);border-radius:10px;padding:10px 6px;cursor:pointer;background:var(--t-surface);text-align:center;transition:all .15s;-webkit-tap-highlight-color:transparent}
+.rate-preset:hover{border-color:var(--t-teal);background:var(--t-teal-faint)}
+.rate-preset.active{border-color:var(--t-teal);background:var(--t-teal-lite)}
+.rate-preset-name{font-size:11.5px;font-weight:700;color:var(--t-teal-dark);line-height:1.3}
+.rate-preset-val{font-size:11px;color:var(--t-text-soft);margin-top:2px}
+.rate-slider-block{background:var(--t-teal-faint);border:1px solid var(--t-teal-lite);border-radius:var(--t-radius-sm);padding:14px;margin-bottom:14px}
+.rate-slider-top{display:flex;justify-content:space-between;align-items:center;margin-bottom:8px}
+.rate-slider-top span:first-child{font-size:12.5px;font-weight:600;color:var(--t-text-mid)}
+.rate-badge{font-size:14px;font-weight:800;color:var(--t-teal-dark);background:#fff;padding:2px 12px;border-radius:20px;border:1px solid var(--t-teal-lite)}
+
+/* FORMULA / METHODOLOGY DISCLOSURE */
+.formula-card{background:var(--t-surface);border:1px solid var(--t-border);border-radius:var(--t-radius-sm);padding:0;margin-bottom:11px;overflow:hidden}
+.formula-card summary{padding:13px 15px;font-size:13px;font-weight:700;color:var(--t-teal-dark);cursor:pointer;list-style:none;display:flex;align-items:center;gap:6px;-webkit-tap-highlight-color:transparent}
+.formula-card summary::-webkit-details-marker{display:none}
+.formula-card summary::before{content:'▸';color:var(--t-teal);transition:transform .18s;font-size:11px}
+.formula-card[open] summary::before{transform:rotate(90deg)}
+.formula-card p{padding:0 15px 15px;font-size:12.5px;color:var(--t-text-mid);line-height:1.7}
+.formula-card code{background:var(--t-teal-faint);color:var(--t-teal-dark);padding:1px 5px;border-radius:4px;font-size:12px}
+
+/* MINI LINE CHART */
+#t1-chart-wrap{position:relative}
+.t1-chart-svg{width:100%;height:auto;display:block}
+.t1-chart-line{fill:none;stroke:var(--t-teal);stroke-width:2.5;stroke-linecap:round;stroke-linejoin:round}
+.t1-chart-area{fill:url(#t1-chart-grad)}
+.t1-chart-dot{fill:var(--t-teal-dark);stroke:#fff;stroke-width:2}
+.t1-chart-hit{fill:transparent;pointer-events:all;cursor:pointer}
+.t1-chart-axis{stroke:var(--t-border);stroke-width:1}
+.t1-chart-label{font-size:9px;fill:var(--t-text-soft);font-family:'Montserrat',-apple-system,BlinkMacSystemFont,'Segoe UI',system-ui,sans-serif}
+.t1-chart-tooltip{position:absolute;pointer-events:none;background:var(--t-teal-dark);color:#fff;font-size:11px;font-weight:700;padding:5px 10px;border-radius:6px;white-space:nowrap;opacity:0;transition:opacity .12s ease;transform:translate(-50%,-135%);z-index:20;box-shadow:0 4px 10px rgba(0,0,0,0.18)}
+
+/* SPENDING GRID */
+.tip-box{background:var(--t-amber-lite);border:1px solid #FDE68A;border-radius:var(--t-radius-sm);padding:12px 14px;font-size:12.5px;color:#92400E;line-height:1.6;margin-bottom:14px}
+.tip-box strong{color:#78350F}
+.grid-scroll{overflow-x:auto;-webkit-overflow-scrolling:touch;margin-bottom:4px}
+table.spend-grid{width:100%;border-collapse:collapse;min-width:360px}
+table.spend-grid th{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.04em;color:var(--t-text-soft);padding:8px 6px;text-align:center;background:var(--t-teal-faint);border-bottom:2px solid var(--t-teal-lite)}
+table.spend-grid th:first-child{text-align:left;padding-left:10px}
+table.spend-grid td{padding:5px 4px;border-bottom:1px solid var(--t-border);vertical-align:middle}
+table.spend-grid td:first-child{font-size:12.5px;font-weight:600;color:var(--t-text-mid);padding-left:10px;padding-right:8px;min-width:120px}
+table.spend-grid td.cat-sub{font-size:10.5px;color:var(--t-text-soft);font-style:italic;padding-left:10px}
+table.spend-grid input[type="number"]{padding:9px 8px;font-size:14px;font-weight:600;text-align:center;border-radius:6px;width:72px}
+.avg-cell{font-size:14px;font-weight:800;color:var(--t-teal-dark);text-align:center;min-width:70px;padding:0 4px}
+.bar-row{display:flex;align-items:center;gap:8px;margin-bottom:9px}
+.bar-cat{font-size:12px;font-weight:600;color:var(--t-text-mid);width:105px;flex-shrink:0;line-height:1.3}
+.bar-track{flex:1;height:26px;background:var(--t-teal-faint);border-radius:6px;overflow:hidden}
+.bar-fill{height:100%;background:linear-gradient(90deg,var(--t-teal) 0%,var(--t-teal-mid) 100%);border-radius:6px;transition:width .6s cubic-bezier(.34,1.56,.64,1);min-width:0}
+.bar-fill.highest{background:linear-gradient(90deg,var(--t-amber) 0%,#FBBF24 100%)}
+.bar-val{font-size:12px;font-weight:700;color:var(--t-teal-dark);width:54px;text-align:right;flex-shrink:0}
+
+/* CREDIT SLIDERS */
+.factor-block{margin-bottom:12px}
+.factor-top{display:flex;justify-content:space-between;align-items:center;margin-bottom:3px}
+.factor-name{font-size:13.5px;font-weight:700;color:var(--t-text)}
+.factor-wt{font-size:11px;color:var(--t-text-soft);font-weight:500}
+.factor-badge{font-size:13px;font-weight:800;color:var(--t-teal-dark);background:var(--t-teal-lite);padding:2px 10px;border-radius:20px}
+.factor-desc{font-size:12px;color:var(--t-text-soft);margin-bottom:9px;line-height:1.5}
+.slider-wrap{display:flex;align-items:center;gap:8px}
+.sl-min,.sl-max{font-size:10px;color:var(--t-text-soft);flex-shrink:0;width:26px}
+.sl-max{text-align:right}
+input[type="range"]{flex:1;-webkit-appearance:none;height:6px;background:var(--t-teal-lite);border-radius:3px;outline:none}
+input[type="range"]::-webkit-slider-thumb{-webkit-appearance:none;width:22px;height:22px;border-radius:50%;background:var(--t-teal);cursor:pointer;box-shadow:0 2px 6px rgba(0,121,107,.3);border:3px solid #fff;transition:transform .15s}
+input[type="range"]:active::-webkit-slider-thumb{transform:scale(1.2)}
+input[type="range"]::-moz-range-thumb{width:22px;height:22px;border-radius:50%;background:var(--t-teal);cursor:pointer;border:3px solid #fff}
+.sl-labels{display:flex;justify-content:space-between;font-size:10px;color:var(--t-text-soft);margin-top:3px;padding:0 2px}
+.sl-labels-3{position:relative;height:14px;font-size:10px;color:var(--t-text-soft);margin-top:3px;padding:0 2px}
+.sl-labels-3 span:nth-child(1){position:absolute;left:2px}
+.sl-labels-3 span:nth-child(2){position:absolute;left:50%;transform:translateX(-50%)}
+.sl-labels-3 span:nth-child(3){position:absolute;right:2px}
+.divider{height:1px;background:var(--t-border);margin:12px 0}
+
+/* SCORE BAND */
+.score-band-box{display:flex;align-items:center;gap:14px;padding:14px;border-radius:var(--t-radius-sm);border:1.5px solid;margin-top:10px}
+.score-big{font-size:38px;font-weight:900;letter-spacing:-.04em;line-height:1;flex-shrink:0}
+.score-band-name{font-size:15px;font-weight:700}
+.score-band-desc{font-size:12px;line-height:1.5;margin-top:2px}
+
+/* UTIL ROWS */
+.util-entry{padding-top:12px;margin-top:12px;border-top:1px solid var(--t-border)}
+.util-cols{display:flex;gap:10px}
+.util-cols .input-wrap{flex:1;margin-bottom:0}
+.util-cols label{font-size:12px}
+.util-result-row{display:flex;align-items:center;gap:12px;margin-bottom:10px;margin-top:8px}
+.util-pct-big{font-size:36px;font-weight:900;letter-spacing:-.03em;line-height:1;flex-shrink:0}
+.util-status-name{font-size:14px;font-weight:700}
+.util-status-detail{font-size:12px;color:var(--t-text-soft)}
+.prog-track{height:12px;background:var(--t-teal-faint);border-radius:6px;overflow:hidden;margin-bottom:5px}
+.prog-fill{height:100%;border-radius:6px;transition:width .6s ease,background .3s}
+.prog-labels{display:flex;justify-content:space-between;font-size:10px;color:var(--t-text-soft)}
+
+/* PROGRAM CARDS */
+.prog-card{background:var(--t-surface);border:1px solid var(--t-border);border-radius:var(--t-radius);overflow:hidden;margin-bottom:14px;box-shadow:var(--t-shadow)}
+.prog-hdr{background:var(--t-teal-dark);padding:14px 16px;display:flex;align-items:flex-start;gap:12px}
+.prog-icon{width:40px;height:40px;background:var(--t-teal-mid);border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0}
+.prog-hdr-text .prog-acronym{font-size:15px;font-weight:800;color:#fff;line-height:1.1}
+.prog-hdr-text .prog-fullname{font-size:11px;color:rgba(255,255,255,.65);line-height:1.3}
+.prog-body{padding:16px}
+.prog-amount{display:inline-block;font-size:19px;font-weight:800;color:var(--t-teal-dark);background:var(--t-teal-lite);padding:3px 14px;border-radius:20px;margin-bottom:12px}
+.prog-what{font-size:13.5px;color:var(--t-text);line-height:1.65;margin-bottom:12px}
+.prog-row{display:flex;gap:8px;margin-bottom:8px;align-items:flex-start}
+.prog-key{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.05em;color:var(--t-teal);width:72px;flex-shrink:0;padding-top:1px}
+.prog-val{font-size:13px;color:var(--t-text-mid);line-height:1.5;flex:1}
+.bc-badge{display:inline-block;background:#1565C0;color:#fff;font-size:10px;font-weight:700;padding:2px 7px;border-radius:4px;margin-left:6px;vertical-align:middle;letter-spacing:.03em}
+.prog-link{display:inline-flex;align-items:center;gap:5px;font-size:12px;font-weight:600;color:var(--t-teal);text-decoration:none;background:var(--t-teal-faint);border:1px solid var(--t-teal-lite);padding:7px 13px;border-radius:20px;transition:background .2s;margin-top:4px}
+.prog-link:hover{background:var(--t-teal-lite)}
+.prog-link::after{content:'→'}
+
+/* ELIGIBILITY */
+.elig-qs{margin-bottom:8px}
+.elig-q{margin-bottom:12px}
+.elig-q-text{font-size:13.5px;font-weight:600;color:var(--t-text);margin-bottom:7px}
+.elig-opts{display:flex;gap:7px;flex-wrap:wrap}
+.elig-opt{padding:9px 14px;font-size:13px;font-weight:600;border:2px solid var(--t-border);border-radius:var(--t-radius-sm);background:var(--t-surface);cursor:pointer;color:var(--t-text-mid);transition:all .15s;-webkit-tap-highlight-color:transparent}
+.elig-opt:hover{border-color:var(--t-teal);color:var(--t-teal)}
+.elig-opt.sel{border-color:var(--t-teal);background:var(--t-teal-lite);color:var(--t-teal-dark)}
+.elig-chips{display:flex;flex-wrap:wrap;gap:6px;margin-top:10px}
+.chip{display:inline-flex;align-items:center;gap:5px;font-size:12px;font-weight:600;padding:6px 11px;border-radius:20px}
+.chip.yes{background:var(--t-green-lite);color:var(--t-green)}
+.chip.maybe{background:var(--t-amber-lite);color:#92400E}
+.chip.no{background:#F3F4F6;color:var(--t-text-soft)}
+
+/* UTILS */
+.hidden{display:none!important}
+.err{font-size:12px;color:var(--t-red);background:var(--t-red-lite);border-radius:6px;padding:8px 12px;margin-bottom:10px}
+
+/* COPY-MONTHS CONFIRMATION MODAL (Lesson 8) */
+.copy-modal-overlay{display:none;position:fixed;inset:0;background:rgba(10,20,18,0.55);z-index:500;align-items:flex-end;justify-content:center;padding:0}
+.copy-modal-overlay.show{display:flex;animation:copyModalFade .2s ease}
+@keyframes copyModalFade{from{opacity:0}to{opacity:1}}
+.copy-modal-card{background:var(--t-surface);border-radius:18px 18px 0 0;padding:22px 20px 26px;width:100%;max-width:460px;box-shadow:0 -8px 30px rgba(0,0,0,0.25);animation:copyModalUp .25s cubic-bezier(.34,1.56,.64,1)}
+@keyframes copyModalUp{from{opacity:0;transform:translateY(24px)}to{opacity:1;transform:translateY(0)}}
+.copy-modal-icon{width:38px;height:38px;border-radius:10px;background:var(--t-teal-lite);color:var(--t-teal-dark);display:flex;align-items:center;justify-content:center;margin-bottom:12px}
+.copy-modal-title{font-size:16px;font-weight:800;color:var(--t-teal-dark);line-height:1.3;margin-bottom:8px}
+.copy-modal-text{font-size:13px;color:var(--t-text-mid);line-height:1.6;margin-bottom:18px}
+.copy-modal-text strong{color:var(--t-teal-dark)}
+.copy-modal-actions{display:flex;flex-direction:column;gap:8px}
+.copy-modal-actions .btn,.copy-modal-actions .btn-outline{margin:0}
+@media (min-width:520px){
+  .copy-modal-overlay{align-items:center}
+  .copy-modal-card{border-radius:18px;max-width:400px}
+}
+
+
+
+.nav-user { display: none; align-items: center; gap: 10px; position: relative; cursor: pointer; user-select: none; }
+.nav-user.show { display: flex; }
+#nav-login-link.hide { display: none; }
+.nav-user-avatar { width: 32px; height: 32px; border-radius: 50%; background: #C8683A; color: white; font-size: 13px; font-weight: 700; display: flex; align-items: center; justify-content: center; text-transform: uppercase; flex-shrink: 0; }
+#profile-dropdown { display: none; position: absolute; top: calc(100% + 14px); right: 0; width: 220px; background: #ffffff; border-radius: 12px; box-shadow: 0 16px 40px rgba(0,0,0,0.22); overflow: hidden; z-index: 300; }
+#profile-dropdown.open { display: block; animation: dropdown-in 0.18s cubic-bezier(0.16,1,0.3,1) both; }
+@keyframes dropdown-in { from { opacity:0; transform:translateY(-8px) scale(0.97); } to { opacity:1; transform:none; } }
+.dropdown-header { padding: 14px 16px; background: #F5F1E8; border-bottom: 1px solid rgba(18,61,54,0.1); }
+.dropdown-header-name { font-family: 'Montserrat', sans-serif; font-size: 13px; font-weight: 700; color: #123D36; }
+.dropdown-header-role { font-family: 'Montserrat', sans-serif; font-size: 10px; font-weight: 500; color: #888; margin-top: 2px; }
+.dropdown-item { display: flex; align-items: center; gap: 10px; padding: 10px 16px; font-family: 'Montserrat', sans-serif; font-size: 12px; font-weight: 500; color: #333; text-decoration: none; cursor: pointer; transition: background 0.15s; }
+.dropdown-item:hover { background: #F5F1E8; }
+.dropdown-item-icon { display: flex; align-items: center; justify-content: center; color: #1A5C50; flex-shrink: 0; }
+.dropdown-item.danger { color: #C0392B; }
+.dropdown-item.danger .dropdown-item-icon { color: #C0392B; }
+.dropdown-divider { height: 1px; background: rgba(18,61,54,0.1); margin: 4px 0; }
+.nav-bell { background: none; border: none; cursor: pointer; display: flex; align-items: center; padding: 4px; position: relative; transition: opacity 0.18s; }
+.nav-bell:hover { opacity: 0.75; }
+
+
+/* ── PAGE WIPE TRANSITION ───────────────────────────────── */
+#page-wipe { position: fixed; inset: 0; z-index: 9999; pointer-events: none; overflow: hidden; }
+#page-wipe.active { pointer-events: auto; }
+#page-wipe .wipe-strip { position: absolute; top: 0; bottom: 0; width: 25%; }
+#page-wipe .wipe-strip-1 { left: 0%; background: var(--ochre); transform: translateX(-100%); transition: transform 0.2s cubic-bezier(0.76,0,0.24,1) 0s; }
+#page-wipe .wipe-strip-2 { left: 25%; background: var(--teal-deep); transform: translateX(-200%); transition: transform 0.2s cubic-bezier(0.76,0,0.24,1) 0.04s; }
+#page-wipe .wipe-strip-3 { left: 50%; background: var(--amber); transform: translateX(-300%); transition: transform 0.2s cubic-bezier(0.76,0,0.24,1) 0.08s; }
+#page-wipe .wipe-strip-4 { left: 75%; background: var(--teal); transform: translateX(-400%); transition: transform 0.2s cubic-bezier(0.76,0,0.24,1) 0.12s; }
+#page-wipe.active .wipe-strip-1,
+#page-wipe.active .wipe-strip-2,
+#page-wipe.active .wipe-strip-3,
+#page-wipe.active .wipe-strip-4 { transform: translateX(0%); }
+#page-wipe.reveal .wipe-strip-1 { transform: translateX(400%); transition: transform 0.2s cubic-bezier(0.76,0,0.24,1) 0.12s; }
+#page-wipe.reveal .wipe-strip-2 { transform: translateX(300%); transition: transform 0.2s cubic-bezier(0.76,0,0.24,1) 0.08s; }
+#page-wipe.reveal .wipe-strip-3 { transform: translateX(200%); transition: transform 0.2s cubic-bezier(0.76,0,0.24,1) 0.04s; }
+#page-wipe.reveal .wipe-strip-4 { transform: translateX(100%); transition: transform 0.2s cubic-bezier(0.76,0,0.24,1) 0s; }
+
+</style>
+</head>
+<body>
+<div id="page-wipe" class="active">
+  <div class="wipe-strip wipe-strip-1"></div>
+  <div class="wipe-strip wipe-strip-2"></div>
+  <div class="wipe-strip wipe-strip-3"></div>
+  <div class="wipe-strip wipe-strip-4"></div>
+</div>
+
+<nav id="dash-nav">
+  <a id="nav-logo" href="/" class="wipe-link" style="cursor:pointer;display:flex;align-items:center;" title="Back to IGVhope">
+    <svg width="130" height="30" viewBox="0 0 163 38" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M34.536 0.747925H39.4049V33.0843H32.427V2.93019C32.427 1.72954 33.3678 0.747925 34.536 0.747925Z" fill="#ffffff"/>
+      <path d="M88.8771 21.3374L96.2234 2.32986C96.5919 1.37259 97.4857 0.747925 98.4814 0.747925H104.393L91.8329 33.0843H85.9291L73.3611 0.747925H80.9191L88.8771 21.3293V21.3374Z" fill="#ffffff"/>
+      <path d="M67.5122 16.6144H72.2478V28.0855C69.1508 31.6631 64.8544 33.4478 59.374 33.4478C54.7874 33.4478 50.93 31.874 47.8174 28.7264C44.7048 25.5787 43.1445 21.6117 43.1445 16.8172C43.1445 12.0227 44.7283 8.02326 47.9036 4.81071C51.0789 1.60628 54.905 0 59.3897 0C63.8743 0 67.7709 1.52515 71.0796 4.57545L68.8294 7.93402C68.1238 8.98865 66.7282 9.28881 65.7089 8.5668C64.9641 8.03949 64.2663 7.64197 63.5921 7.37426C62.416 6.89562 61.138 6.66036 59.766 6.66036C57.116 6.66036 54.8815 7.5933 53.0625 9.45917C51.2436 11.325 50.3341 13.7831 50.3341 16.8334C50.3341 19.8837 51.2044 22.3337 52.9528 24.1671C54.7011 26.0006 56.7788 26.9173 59.1858 26.9173C61.5928 26.9173 63.6156 26.4386 65.2228 25.4814V18.9589C65.2228 17.6528 66.2421 16.5982 67.5044 16.5982L67.5122 16.6144Z" fill="#ffffff"/>
+      <path d="M28.6407 17.0608L25.4418 2.57192C25.2066 1.49296 24.156 0.827731 23.1132 1.09544C22.0705 1.36316 21.4197 2.46646 21.6549 3.55353L24.9479 18.4886C25.1831 19.5595 23.8502 20.2247 23.1916 19.3648L14.2223 7.72336C13.5402 6.83909 12.176 6.52271 11.196 7.03379C10.2159 7.54488 9.97287 8.68063 10.655 9.57301L20.1418 21.8878C20.8082 22.7477 19.883 23.9484 18.9265 23.4697L5.64502 16.8499C4.72771 16.3956 3.56734 16.6552 3.04204 17.5557C2.4305 18.5941 2.83035 19.9164 3.85743 20.4275L17.2408 27.096C18.1974 27.5746 17.8681 29.0673 16.8096 29.0673H1.95224C0.870274 29.0673 0 29.9759 0 31.0874C0 32.1988 0.870274 33.1074 1.95224 33.1074H27.1667C27.9821 33.1074 28.6407 32.4259 28.6407 31.5822V17.0608Z" fill="#FBB040"/>
+      <path d="M106.699 26.0738V33.2047H104.018V14.8624H106.699V22.4394C107.083 21.6282 107.655 20.9954 108.432 20.533C109.208 20.0706 110.039 19.8434 110.933 19.8434C112.368 19.8434 113.528 20.2977 114.414 21.2063C115.3 22.1149 115.739 23.4292 115.739 25.1409V33.2128H113.057V25.9846C113.057 23.559 112.085 22.3421 110.141 22.3421C109.216 22.3421 108.408 22.6585 107.726 23.2913C107.036 23.924 106.699 24.857 106.699 26.0738Z" fill="#ffffff"/>
+      <path d="M130.126 31.4276C128.848 32.7418 127.256 33.3989 125.343 33.3989C123.43 33.3989 121.831 32.7418 120.56 31.4276C119.283 30.1134 118.647 28.5071 118.647 26.6088C118.647 24.7104 119.283 23.1042 120.56 21.7899C121.838 20.4757 123.43 19.8186 125.343 19.8186C127.256 19.8186 128.848 20.4757 130.126 21.7899C131.404 23.1042 132.039 24.7104 132.039 26.6088C132.039 28.5071 131.404 30.1134 130.126 31.4276ZM122.458 29.724C123.218 30.5271 124.175 30.9246 125.343 30.9246C126.511 30.9246 127.468 30.5271 128.228 29.724C128.989 28.9208 129.365 27.8905 129.365 26.6169C129.365 25.3432 128.989 24.3129 128.228 23.5098C127.468 22.7067 126.511 22.3091 125.343 22.3091C124.175 22.3091 123.218 22.7067 122.458 23.5098C121.697 24.3129 121.321 25.3432 121.321 26.6169C121.321 27.8905 121.697 28.9208 122.458 29.724Z" fill="#ffffff"/>
+      <path d="M141.894 19.8362C143.603 19.8362 145.062 20.4446 146.277 21.6696C147.484 22.8946 148.096 24.5171 148.096 26.5452C148.096 28.5733 147.492 30.2283 146.292 31.4938C145.085 32.7675 143.682 33.4003 142.082 33.4003C140.483 33.4003 139.04 32.6702 137.762 31.218V38.0001H135.081V20.0228H137.762V22.3267C138.813 20.6637 140.193 19.8281 141.902 19.8281L141.894 19.8362ZM137.707 26.6426C137.707 27.9 138.076 28.9222 138.805 29.7253C139.542 30.5285 140.428 30.926 141.486 30.926C142.545 30.926 143.454 30.5285 144.238 29.7415C145.022 28.9546 145.414 27.9243 145.414 26.6588C145.414 25.3932 145.03 24.3467 144.27 23.5111C143.501 22.6756 142.584 22.2618 141.518 22.2618C140.451 22.2618 139.55 22.6756 138.813 23.5111C138.076 24.3467 137.715 25.3851 137.715 26.6426H137.707Z" fill="#ffffff"/>
+      <path d="M163 27.8253H153.019C153.082 28.7826 153.505 29.5532 154.289 30.1373C155.073 30.7214 155.967 31.0135 156.971 31.0135C158.562 31.0135 159.778 30.4943 160.609 29.4559L162.138 31.192C160.766 32.6603 158.978 33.3986 156.775 33.3986C154.987 33.3986 153.466 32.782 152.22 31.557C150.965 30.3239 150.338 28.6771 150.338 26.6084C150.338 24.5397 150.973 22.8929 152.251 21.6679C153.529 20.451 155.026 19.8345 156.759 19.8345C158.492 19.8345 159.958 20.378 161.173 21.457C162.388 22.5359 162.992 24.0286 162.992 25.927V27.8334L163 27.8253ZM153.019 25.6511H160.319C160.319 24.5478 159.981 23.696 159.315 23.1038C158.649 22.5116 157.818 22.2114 156.838 22.2114C155.857 22.2114 154.972 22.5197 154.195 23.1363C153.411 23.7528 153.019 24.5884 153.019 25.6511Z" fill="#ffffff"/>
+    </svg>
+  </a>
+  <div class="nav-right">
+    <div class="nav-links-group">
+      <a class="nav-link" href="/how-it-works">How It Works</a>
+      <a class="nav-link" href="/next-steps">Next Steps</a>
+      <a class="nav-link" href="/faq">FAQ</a>
+      <a class="nav-link" href="/about">About</a>
+    </div>
+    <div class="nav-right-divider"></div>
+    <a class="nav-link wipe-link" id="nav-login-link" href="/login">Log in</a>
+    <button class="nav-bell" id="nav-bell-btn" aria-label="Notifications" style="display:none;" onclick="window.location.href='/#account-progress'">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.75)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
+    </button>
+    <span class="nav-user" id="nav-user" onclick="toggleProfileDropdown(event)">
+      <div class="nav-user-avatar" id="nav-user-avatar">?</div>
+      <span id="nav-user-label" style="color:rgba(255,255,255,0.85);font-size:12px;font-weight:600;">Account</span>
+      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.5)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="margin-left:2px;"><polyline points="6 9 12 15 18 9"/></svg>
+      <div id="profile-dropdown">
+        <div class="dropdown-header">
+          <div class="dropdown-header-name" id="dropdown-header-name">IGVhope Member</div>
+          <div class="dropdown-header-role">IGVhope Participant</div>
+        </div>
+        <a class="dropdown-item wipe-link" href="/#account-progress">
+          <span class="dropdown-item-icon"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg></span>
+          My Account
+        </a>
+        <div class="dropdown-divider"></div>
+        <a class="dropdown-item" href="https://www.igvhousing.com" target="_blank" rel="noopener">
+          <span class="dropdown-item-icon"><img src="/assets/img/img_001.ico" alt="" width="15" height="15" style="border-radius:3px;"></span>
+          About IGV
+        </a>
+        <div class="dropdown-divider"></div>
+        <a class="dropdown-item danger" href="#" onclick="handleNavLogout(event)">
+          <span class="dropdown-item-icon"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg></span>
+          Log out
+        </a>
+      </div>
+    </span>
+    <button class="nav-signup-btn" onclick="navigateWithWipe('/')">Find Your Home</button>
+  </div>
+  <button id="nav-burger" onclick="toggleMobileNav()" aria-label="Open menu">
+    <svg id="nav-burger-icon-open" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+    <svg id="nav-burger-icon-close" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:none;"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+  </button>
+  <div id="mobile-nav-panel">
+    <a class="mobile-nav-link" href="/how-it-works">How It Works</a>
+    <a class="mobile-nav-link" href="/next-steps">Next Steps</a>
+    <a class="mobile-nav-link" href="/faq">FAQ</a>
+    <a class="mobile-nav-link" href="/about">About</a>
+    <a class="mobile-nav-link wipe-link" id="mobile-nav-login-link" href="/login">Log in</a>
+    <div id="mobile-nav-user" style="display:none;">
+      <div class="mobile-nav-link" id="mobile-nav-user-name"></div>
+      <a class="mobile-nav-link wipe-link" href="/#account-progress">My Account</a>
+      <a class="mobile-nav-link" href="#" id="mobile-nav-logout-link" onclick="handleNavLogout(event)">Log out</a>
+    </div>
+    <button class="mobile-nav-cta" onclick="toggleMobileNav();navigateWithWipe('/');">Find Your Home</button>
+  </div>
+</nav>
+
+<div class="lesson-progress-strip" id="lesson-progress-strip"><a class="exit-link wipe-link" href="../"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></svg>Exit to course overview</a><span class="lesson-progress-info"><span id="lesson-progress-strip-text">Lesson 1 of 8</span> &nbsp;&middot;&nbsp; <span id="progress-rp-total">0 points earned</span></span></div>
+
+<main class="lesson-main">
+
+<section class="lesson-panel active" id="lesson-panel-1" data-lesson="1">
+
+
+  <div class="lesson-eyebrow">Lesson 1</div>
+  <h1 class="lesson-title">What actually stands between you and home ownership</h1>
+  <div class="lesson-meta">About 12 minutes &nbsp;&middot;&nbsp; <span class="rp-chip">80 points</span></div>
+
+  <div class="short-win">Short win: You understand what is actually standing between you and home ownership, and why trying harder on the conventional path is not always the answer.</div>
+
+  <div class="lesson-body">
+    <p>If you can comfortably afford a monthly mortgage payment but cannot save the down payment fast enough, you are not doing something wrong. You are experiencing a structural problem that affects hundreds of thousands of Canadians.</p>
+
+    <p>Here is the structure. BC home prices have grown an average of roughly 98 percent per decade for 80 years of recorded history. That means prices typically rise faster than wages and faster than savings can accumulate.</p>
+
+    <p>What that looks like in practice today:</p>
+    <ul>
+      <li>According to the National Bank of Canada Housing Affordability Monitor, owning a home in Greater Vancouver took about 81.9 percent of median income in early 2026, more than double the long-term average of around 40 percent.</li>
+      <li>Statistics Canada's Survey of Financial Security shows the median net worth of homeowners under 35 is $457,100, against $44,000 for renters the same age. A ten-to-one gap.</li>
+      <li>CMHC data shows Vancouver apartment rents averaged $2,630 a month as of January 2026, roughly $31,560 a year.</li>
+    </ul>
+
+    <p>The conventional advice, save harder and buy sooner, runs into a simple maths problem. If prices rise $80,000 in a year and you save $10,000, you are moving backward.</p>
+
+    <p>That gap is structural, not personal. Understanding it is the first step to navigating it, whether the path you choose is conventional, HOPE, or something else entirely.</p>
+  </div>
+
+  <div class="worked-example">
+    <div class="worked-example-label">Worked example</div>
+    <p>Casey and Jordan earn good combined incomes and can comfortably afford the monthly payment on a home they want. What they cannot do is save a $70,000 down payment fast enough while prices keep moving. They are not irresponsible. They are caught in a structural timing gap.</p>
+  </div>
+
+  <div class="action-step">
+    <div class="action-step-label">Your action step</div>
+    <p>Write down in your own words: what is the gap between what you can afford monthly and what the conventional path is currently asking of you?</p>
+  </div>
+
+  <button class="self-check" id="self-check-btn-1" onclick="completeLesson(1)">
+    <div class="self-check-icon"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#1A5C50" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></div>
+    <div class="self-check-text" id="self-check-text-1">Self-check: I understand why the conventional path to home ownership is harder than it used to be, and that the barrier is structural, not personal.</div>
+  </button>
+
+  <div class="next-lesson-wrap" id="next-lesson-wrap-1">
+    <div class="next-lesson-label">Next lesson</div>
+    <a class="next-lesson-btn wipe-link" id="next-lesson-btn-1" href="?lesson=2">Starting from your strongest position</a>
+  </div>
+
+  <div class="sources-line">National Bank of Canada Housing Affordability Monitor (nbc.ca) | Statistics Canada Survey of Financial Security 2023 (statcan.gc.ca) | CMHC Rental Market Report January 2026 (cmhc-schl.gc.ca) | BCREA Historical Housing Statistics (bcrea.bc.ca)</div>
+
+
+
+<div class="journal-panel" id="journal-panel-1">
+  <div class="jp-head">
+    <span class="jp-icon">&#9998;</span>
+    <span class="jp-title">My journal &mdash; Lesson 1</span>
+    <span class="jp-tag">Optional. Private. Stored only on this device.</span>
+  </div>
+  <div class="jp-body">
+    <div class="jf">
+      <label>My reflection <span class="opt">(optional)</span></label>
+      <textarea rows="2" data-jk="c0l1_ref" placeholder="What came up for you in this lesson?"></textarea>
+    </div>
+    <div class="jf">
+      <label>Did I do the action step? <span class="opt">(optional)</span></label>
+      <div class="radio-row">
+        <label><input type="radio" name="done_1" value="yes" onchange="jSave('c0l1_done', this.value)"> Yes</label>
+        <label><input type="radio" name="done_1" value="not_yet" onchange="jSave('c0l1_done', this.value)"> Not yet</label>
+        <label><input type="radio" name="done_1" value="no" onchange="jSave('c0l1_done', this.value)"> No</label>
+      </div>
+      <textarea rows="2" data-jk="c0l1_act" placeholder="What happened, or what got in the way?"></textarea>
+    </div>
+    <div class="jf">
+      <label>My goal from this lesson <span class="opt">(optional)</span></label>
+      <textarea rows="2" data-jk="c0l1_goal" placeholder="Something I want to do, change, or remember..."></textarea>
+    </div>
+    <div class="jf feedback">
+      <label>Questions or ideas for IGVhope <span class="opt">(goes to our team)</span></label>
+      <textarea rows="2" data-jk="c0l1_fb" placeholder="Something this lesson didn't cover? An idea for a future lesson?"></textarea>
+    </div>
+    <div class="jp-save-row">
+      <span class="jp-saved" id="jp-saved-1">Saved &#10003;</span>
+      <button class="jp-btn" onclick="saveJournal(1)">Save journal entry</button>
+    </div>
+  </div>
+</div>
+
+</section>
+
+<section class="lesson-panel" id="lesson-panel-2" data-lesson="2">
+
+
+  <div class="lesson-eyebrow">Lesson 2</div>
+  <h1 class="lesson-title">Starting from your strongest position</h1>
+  <div class="lesson-meta">About 11 minutes &nbsp;&middot;&nbsp; <span class="rp-chip">80 points</span></div>
+
+  <div class="short-win">Short win: You understand why the timing of ownership matters as much as the decision to own, and what starting from strength rather than maximum stretch actually looks like.</div>
+
+  <div class="lesson-body">
+    <p>Most first-time buyers face the same pressure: get in now before prices rise further. The question worth asking before you act on that pressure is: what position will you be in when you close? And what position could you be in if you waited until you were genuinely ready?</p>
+
+    <p>The conventional path does the opposite. To buy today, a first-time buyer typically:</p>
+    <ul>
+      <li>Depletes savings for a down payment of $45,000 to $75,000 on a $700,000 home</li>
+      <li>Takes on a mortgage at 90 to 95 percent of the property price</li>
+      <li>Pays a CMHC mortgage insurance premium of approximately $26,600 added to the loan</li>
+      <li>Enters home ownership at 35 to 39 percent of gross income going to housing, the very ceiling of what lenders will approve</li>
+    </ul>
+
+    <p>That is not a comfortable start. It is a leveraged one.</p>
+
+    <p>The data shows the cost of that stretched entry. Mortgage delinquency balances in BC rose approximately 36 percent year over year in Q1 2026. The share of first-time buyers with savings to cover unexpected expenses fell from 78 percent to 50 percent in a single year. And 74 percent of adult children whose parents co-signed their mortgage would not have qualified without that support.</p>
+
+    <p>So what can you do about it? There are a few levers available to anyone working toward ownership:</p>
+    <ul>
+      <li>Buy with a longer runway. The more time between your decision and your mortgage, the stronger your position can be.</li>
+      <li>Reduce non-housing debt before your mortgage application. Every dollar of car loan or credit card debt reduces what you can borrow.</li>
+      <li>Build a buffer before you close, not after. Entering ownership with a financial cushion changes how ownership feels.</li>
+    </ul>
+
+    <p>One arrangement separates living in the home from completing the purchase, which gives you time to build that position before the mortgage is arranged. Under IGVhope, a participant moves in on Day One and uses a ten-year period to build savings, improve credit, and arrive at a lower LVR than most first-time buyers ever achieve.</p>
+
+    <p>The risk does not disappear. It moves to a much better moment.</p>
+  </div>
+
+  <div class="comparison-box">
+    <div class="comparison-title">The difference at entry</div>
+    <div class="comparison-cols">
+      <div class="comparison-col conventional">
+        <div class="comparison-col-label">Conventional</div>
+        $45,000 to $75,000 cash required day one. 90 to 95 percent LVR. $26,600 CMHC premium. Housing costs at 35 to 39 percent of income.
+      </div>
+      <div class="comparison-col hope">
+        <div class="comparison-col-label">HOPE</div>
+        No deposit. No CMHC premium at entry. Market-aligned occupancy contributions. A building period to strengthen your position.
+      </div>
+    </div>
+  </div>
+
+  <div class="worked-example">
+    <div class="worked-example-label">Worked example</div>
+    <p>Picture two people with the same income, the same home, the same goal. One stretches to buy today at 95 percent LVR, maximum debt and minimum buffer. The other moves in on Day One under HOPE, builds across a decade, and completes the purchase at roughly 55 to 65 percent LVR. Same home. Same person. Completely different financial position on arrival.</p>
+  </div>
+
+  <div class="action-step">
+    <div class="action-step-label">Your action step</div>
+    <p>Think about what owning from a position of strength, rather than maximum stretch, would actually feel like in your life. What would be different?</p>
+  </div>
+
+  <button class="self-check" id="self-check-btn-2" onclick="completeLesson(2)">
+    <div class="self-check-icon"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#1A5C50" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></div>
+    <div class="self-check-text" id="self-check-text-2">Self-check: I understand the difference between buying from a stretched position and buying from a position of genuine readiness, and what each means for the years ahead.</div>
+  </button>
+
+  <div class="next-lesson-wrap" id="next-lesson-wrap-2">
+    <div class="next-lesson-label">Next lesson</div>
+    <a class="next-lesson-btn wipe-link" id="next-lesson-btn-2" href="?lesson=3">Locking in your price</a>
+  </div>
+
+  <div class="tools-box">
+    <div class="tools-box-label">Tools</div>
+    <a class="tool-link" href="https://www.cmhc-schl.gc.ca/consumers/home-buying/calculators/affordability-calculator" target="_blank" rel="noopener">
+      <div class="tool-link-name">CMHC Affordability Calculator</div>
+      <div class="tool-link-desc">See what conventional buying currently requires for your income.</div>
+    </a>
+    <a class="tool-link" href="https://itools-ioutils.fcac-acfc.gc.ca/BP-PB/budget-planner" target="_blank" rel="noopener">
+      <div class="tool-link-name">FCAC Budget Planner</div>
+      <div class="tool-link-desc">Build a baseline of where you stand today.</div>
+    </a>
+  </div>
+
+  <div class="sources-line">Equifax Canada Q1 2026 Market Pulse | CMHC Mortgage Consumer Survey 2025 (cmhc-schl.gc.ca) | Bank of Canada, Housing Affordability and Parental Income Support, April 2026</div>
+
+
+
+<div class="journal-panel" id="journal-panel-2">
+  <div class="jp-head">
+    <span class="jp-icon">&#9998;</span>
+    <span class="jp-title">My journal &mdash; Lesson 2</span>
+    <span class="jp-tag">Optional. Private. Stored only on this device.</span>
+  </div>
+  <div class="jp-body">
+    <div class="jf">
+      <label>My reflection <span class="opt">(optional)</span></label>
+      <textarea rows="2" data-jk="c0l2_ref" placeholder="What came up for you in this lesson?"></textarea>
+    </div>
+    <div class="jf">
+      <label>Did I do the action step? <span class="opt">(optional)</span></label>
+      <div class="radio-row">
+        <label><input type="radio" name="done_2" value="yes" onchange="jSave('c0l2_done', this.value)"> Yes</label>
+        <label><input type="radio" name="done_2" value="not_yet" onchange="jSave('c0l2_done', this.value)"> Not yet</label>
+        <label><input type="radio" name="done_2" value="no" onchange="jSave('c0l2_done', this.value)"> No</label>
+      </div>
+      <textarea rows="2" data-jk="c0l2_act" placeholder="What happened, or what got in the way?"></textarea>
+    </div>
+    <div class="jf">
+      <label>My goal from this lesson <span class="opt">(optional)</span></label>
+      <textarea rows="2" data-jk="c0l2_goal" placeholder="Something I want to do, change, or remember..."></textarea>
+    </div>
+    <div class="jf feedback">
+      <label>Questions or ideas for IGVhope <span class="opt">(goes to our team)</span></label>
+      <textarea rows="2" data-jk="c0l2_fb" placeholder="Something this lesson didn't cover? An idea for a future lesson?"></textarea>
+    </div>
+    <div class="jp-save-row">
+      <span class="jp-saved" id="jp-saved-2">Saved &#10003;</span>
+      <button class="jp-btn" onclick="saveJournal(2)">Save journal entry</button>
+    </div>
+  </div>
+</div>
+
+</section>
+
+<section class="lesson-panel" id="lesson-panel-3" data-lesson="3">
+
+
+  <div class="lesson-eyebrow">Lesson 3</div>
+  <h1 class="lesson-title">Locking in your price so the market can't leave you behind</h1>
+  <div class="lesson-meta">About 13 minutes &nbsp;&middot;&nbsp; <span class="rp-chip">90 points</span></div>
+
+  <div class="short-win">Short win: You understand how a locked-in purchase price works, what it protects you from, and what it cannot promise.</div>
+
+  <div class="lesson-body">
+    <p>One of the biggest risks in any long-term path to ownership is that the market moves faster than your savings. A purchase price agreed at the start of your journey, and held fixed regardless of what happens to the market, removes that risk. It is the mechanism that makes a ten-year pathway to ownership work.</p>
+
+    <p>Under the conventional path, the target keeps moving. Prices rise, the deposit required grows with them, and the goalpost shifts every year. A locked-in price stops that. It gives you a fixed target to build toward, regardless of what the market does between now and completion.</p>
+
+    <p>What the agreed price is:</p>
+    <ul>
+      <li>The figure set in the Ownership Pathway Agreement at entry</li>
+      <li>The price the participant pays to complete the purchase at Year 10</li>
+      <li>Completely independent of market movements between Day One and completion</li>
+    </ul>
+
+    <p>What the agreed price is not:</p>
+    <ul>
+      <li>A promise about what the home will be worth in 10 years</li>
+      <li>A guaranteed financial gain, since no program can make that promise</li>
+      <li>Something that changes based on market conditions</li>
+    </ul>
+
+    <p>Now consider what BC's 80-year price record tells us. In eight consecutive decades, nominal BC home prices have grown an average of roughly 98 percent each decade. Not once has a full decade ended with prices lower than it started. In the softest decade on record, 1994 to 2004, prices still rose 32 percent.</p>
+
+    <p>If that pattern holds, a participant who locks in a $700,000 purchase price today and completes in ten years is buying an asset that may be worth substantially more, at the price agreed at the start. The conventional buyer who waits ten years to save a deposit faces a price that has historically been roughly double what it was a decade earlier.</p>
+
+    <p>What can you do about a market that keeps moving? The general approaches people use:</p>
+    <ul>
+      <li>Buy as soon as you can qualify, but this requires having the deposit, which is exactly the problem for most buyers.</li>
+      <li>Save aggressively toward a deposit and accept that the target will keep moving while you save.</li>
+      <li>Look for any arrangement that lets you fix your purchase price before completion, removing the market from the equation for the period you need.</li>
+    </ul>
+
+    <p>That third approach is what a locked-in purchase price does. Under IGVhope, the purchase price is agreed and recorded on Day One. It does not change regardless of what the market does between then and completion at Year 10.</p>
+
+    <p>Many buyers are waiting anxiously for the Bank of Canada to announce a drop, hold or rise in rates. Often the published notes show its own deliberations noted rates could move in either direction. Market uncertainty is real. A fixed purchase price removes that uncertainty from your equation.</p>
+  </div>
+
+  <div class="comparison-box">
+    <div class="comparison-title">Where each path leaves you in 10 years</div>
+    <div class="comparison-cols">
+      <div class="comparison-col conventional">
+        <div class="comparison-col-label">Conventional</div>
+        Buying at the future market price, historically around double today's. Down payment required on that future price.
+      </div>
+      <div class="comparison-col hope">
+        <div class="comparison-col-label">HOPE</div>
+        Completing at the agreed price set on Day One. Where the market has moved across the decade, that change in value sits with the participant when they transition to mortgage in Year 10.
+      </div>
+    </div>
+  </div>
+
+  <div class="worked-example">
+    <div class="worked-example-label">Worked example</div>
+    <p>Priya locked in her purchase price the day she moved in. Over the following years, interest rates shifted and local prices moved up and down. Her number did not. While friends saving for a deposit watched their target drift further away each year, Priya always knew exactly what she was building toward.</p>
+  </div>
+
+  <div class="action-step">
+    <div class="action-step-label">Your action step</div>
+    <p>Look up current average prices for homes in your target community. Now imagine that price growing at BC's 80-year average of roughly 98 percent per decade. Note what conventional ownership would require you to have saved by then.</p>
+  </div>
+
+  <div class="embedded-tool">
+  <div class="tool-title">See How the Agreed Price Could Work for You</div>
+  <p class="tool-intro">This tool helps you model how IGVhope works using a real example property. Choose an example home below, or type in any price, and see what could happen over a 10-year building period based on BC's long-run historical average.</p>
+
+  <!-- STEP 1: Choose a property -->
+  <div class="step-block">
+    <div class="step-label"><div class="step-num">1</div><div class="step-title">Pick an example property to model</div></div>
+    <div class="prop-grid">
+      <button class="prop-card" onclick="selectProp(480000,this)">
+        <div class="prop-type">Condo</div>
+        <div class="prop-price">$480,000</div>
+        <div class="prop-loc">Port Alberni area</div>
+      </button>
+      <button class="prop-card" onclick="selectProp(620000,this)">
+        <div class="prop-type">Townhouse</div>
+        <div class="prop-price">$620,000</div>
+        <div class="prop-loc">Mid-Vancouver Island</div>
+      </button>
+      <button class="prop-card" onclick="selectProp(780000,this)">
+        <div class="prop-type">Townhouse</div>
+        <div class="prop-price">$780,000</div>
+        <div class="prop-loc">Nanaimo area</div>
+      </button>
+      <button class="prop-card" onclick="selectProp(950000,this)">
+        <div class="prop-type">House</div>
+        <div class="prop-price">$950,000</div>
+        <div class="prop-loc">Greater Victoria</div>
+      </button>
+    </div>
+    <div class="or-divider">or enter your own</div>
+    <label for="home-price">Enter a home value</label>
+    <div class="input-wrap has-prefix">
+      <span class="input-prefix">$</span>
+      <input type="text" inputmode="numeric" id="home-price" placeholder="e.g. 550,000" oninput="formatHomePriceInput(this);clearPropSelection();clearT1();checkStep1Complete()">
+    </div>
+    <div id="t1-err" class="err hidden">Please select an example property or enter a value above $100,000.</div>
+  </div>
+
+  <!-- STEP 2 LOCKED PREVIEW (shown until Step 1 is completed) -->
+  <div class="step-locked" id="step2-locked">
+    <div class="step-label">
+      <div class="step-num step-num-locked">2</div>
+      <div class="step-title">Choose a growth assumption</div>
+      <svg class="step-lock-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+    </div>
+    <p class="step-locked-hint">Pick a property or enter a home value in Step 1 to unlock this step.</p>
+  </div>
+
+  <!-- STEP 2: Choose a growth assumption -->
+  <div class="step-block step-hidden" id="step2-block">
+    <div class="step-label"><div class="step-num">2</div><div class="step-title">Choose a growth assumption</div></div>
+    <p style="font-size:13px;color:var(--t-text-mid);margin-bottom:14px;line-height:1.6;">Property growth isn't one jump at Year 10, it compounds year over year. Pick a scenario below, or set your own annual rate, to see how it plays out.</p>
+    <div class="rate-presets">
+      <button class="rate-preset" data-rate="4" onclick="setRatePreset(4,this)">
+        <div class="rate-preset-name">Conservative</div>
+        <div class="rate-preset-val">~4%/yr</div>
+      </button>
+      <button class="rate-preset active" data-rate="7.1" onclick="setRatePreset(7.1,this)">
+        <div class="rate-preset-name">BC 80-yr avg</div>
+        <div class="rate-preset-val">~7.1%/yr</div>
+      </button>
+      <button class="rate-preset" data-rate="9" onclick="setRatePreset(9,this)">
+        <div class="rate-preset-name">Strong market</div>
+        <div class="rate-preset-val">~9%/yr</div>
+      </button>
+    </div>
+    <div class="rate-slider-block">
+      <div class="rate-slider-top"><span>Custom annual growth rate</span><span class="rate-badge" id="rate-badge">7.1%</span></div>
+      <input type="range" id="rate-slider" min="1" max="12" step="0.1" value="7.1" oninput="onRateSlider(this.value)">
+      <div class="sl-labels"><span>1%/yr</span><span>12%/yr</span></div>
+      <p class="input-hint" id="rate-decade-equiv" style="margin-top:8px;margin-bottom:0;">At 7.1% per year, that compounds to approximately 98% growth over 10 years.</p>
+    </div>
+    <button class="btn" onclick="calcTool1()" style="margin-top:6px;">Calculate my illustration</button>
+  </div>
+
+  <!-- RESULT -->
+  <div class="result" id="t1-result">
+    <div class="result-hero">
+      <div class="r-label">Today's agreed price, locked in on Day 1</div>
+      <div class="r-number" id="t1-today">$0</div>
+      <div class="r-text">This is what you would pay at completion, regardless of what the market does.</div>
+    </div>
+
+    <div class="result-card" id="t1-comparison">
+    </div>
+
+    <div class="step-block" style="padding:16px;">
+      <div class="step-title" style="margin-bottom:10px;">Year-by-year projection</div>
+      <div id="t1-chart-wrap"></div>
+      <div class="grid-scroll" style="margin-top:12px;">
+        <table class="spend-grid" id="t1-table">
+          <thead><tr><th>Year</th><th>Projected value</th><th>Growth vs Year 0</th></tr></thead>
+          <tbody id="t1-table-body"></tbody>
+        </table>
+      </div>
+    </div>
+
+    <details class="formula-card">
+      <summary>How we calculated this</summary>
+      <p id="t1-formula-text"></p>
+    </details>
+
+    <div class="hl-card">
+      <div class="hl-label">Why this matters</div>
+      <p id="t1-why"></p>
+    </div>
+
+    <div class="disclaimer">
+      <strong>Illustration only.</strong> Market appreciation shown here is illustrative. These figures are estimates based on historical market data and general economic trends, IGVhope does not guarantee future market performance or property appreciation. All real estate carries risk, and outcomes may differ materially from any projection shown. This calculator does not constitute financial, legal, or investment advice. Consult a licensed mortgage professional, financial advisor, and independent legal counsel before making any property or investment decision.
+    </div>
+    <div class="screenshot-hint">📸 Take a screenshot to paste into your lesson journal.</div>
+    <button class="btn-outline" onclick="resetT1()">Start over</button>
+  </div>
+</div>
+
+  <button class="self-check" id="self-check-btn-3" onclick="completeLesson(3)">
+    <div class="self-check-icon"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#1A5C50" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></div>
+    <div class="self-check-text" id="self-check-text-3">Self-check: I understand how a locked-in purchase price works and what it protects against in a market that keeps moving.</div>
+  </button>
+
+  <div class="next-lesson-wrap" id="next-lesson-wrap-3">
+    <div class="next-lesson-label">Next lesson</div>
+    <a class="next-lesson-btn wipe-link" id="next-lesson-btn-3" href="?lesson=4">What you contribute</a>
+  </div>
+
+  <div class="tools-box">
+    <div class="tools-box-label">Tools</div>
+    <a class="tool-link" href="https://www.cmhc-schl.gc.ca/consumers/home-buying/buying-guides/home-buying" target="_blank" rel="noopener">
+      <div class="tool-link-name">CMHC Homebuying Step by Step Guide</div>
+      <div class="tool-link-desc">Understand what conventional buying involves end to end.</div>
+    </a>
+  </div>
+
+  <div class="sources-line">BCREA Historical Housing Statistics (bcrea.bc.ca) | Statistics Canada (statcan.gc.ca) | Bank of Canada (bankofcanada.ca)</div>
+
+
+
+<div class="journal-panel" id="journal-panel-3">
+  <div class="jp-head">
+    <span class="jp-icon">&#9998;</span>
+    <span class="jp-title">My journal &mdash; Lesson 3</span>
+    <span class="jp-tag">Optional. Private. Stored only on this device.</span>
+  </div>
+  <div class="jp-body">
+    <div class="jf">
+      <label>My reflection <span class="opt">(optional)</span></label>
+      <textarea rows="2" data-jk="c0l3_ref" placeholder="What came up for you in this lesson?"></textarea>
+    </div>
+    <div class="jf">
+      <label>Did I do the action step? <span class="opt">(optional)</span></label>
+      <div class="radio-row">
+        <label><input type="radio" name="done_3" value="yes" onchange="jSave('c0l3_done', this.value)"> Yes</label>
+        <label><input type="radio" name="done_3" value="not_yet" onchange="jSave('c0l3_done', this.value)"> Not yet</label>
+        <label><input type="radio" name="done_3" value="no" onchange="jSave('c0l3_done', this.value)"> No</label>
+      </div>
+      <textarea rows="2" data-jk="c0l3_act" placeholder="What happened, or what got in the way?"></textarea>
+    </div>
+    <div class="jf">
+      <label>My goal from this lesson <span class="opt">(optional)</span></label>
+      <textarea rows="2" data-jk="c0l3_goal" placeholder="Something I want to do, change, or remember..."></textarea>
+    </div>
+    <div class="jf feedback">
+      <label>Questions or ideas for IGVhope <span class="opt">(goes to our team)</span></label>
+      <textarea rows="2" data-jk="c0l3_fb" placeholder="Something this lesson didn't cover? An idea for a future lesson?"></textarea>
+    </div>
+    <div class="jp-save-row">
+      <span class="jp-saved" id="jp-saved-3">Saved &#10003;</span>
+      <button class="jp-btn" onclick="saveJournal(3)">Save journal entry</button>
+    </div>
+  </div>
+</div>
+
+</section>
+
+<section class="lesson-panel" id="lesson-panel-4" data-lesson="4">
+
+
+  <div class="lesson-eyebrow">Lesson 4</div>
+  <h1 class="lesson-title">What you contribute along the way, and how it works for you</h1>
+  <div class="lesson-meta">About 12 minutes &nbsp;&middot;&nbsp; <span class="rp-chip">80 points</span></div>
+
+  <div class="short-win">Short win: You understand exactly what you pay as a HOPE participant, how it compares to renting and to a conventional mortgage, and what the legal structure behind it means for you.</div>
+
+  <div class="lesson-body">
+    <p>Anyone with a roof over their head is paying housing costs one way or another. Often this is rent to a landlord with no path forward, but the alternative could be monthly costs with a clear ownership path agreed. Understanding exactly what you are paying, what it covers, and what legal structure sits behind it is one of the most important things to understand before signing anything.</p>
+
+    <p>Under IGVhope, participants pay what is called an occupancy contribution each month. It is not rent, and the distinction is not just wordplay.</p>
+
+    <p>What makes it different from rent:</p>
+    <ul>
+      <li>It is made under an Ownership Pathway Agreement, not a tenancy agreement under the Residential Tenancy Act</li>
+      <li>It sits inside a committed pathway whose destination is ownership, not a temporary arrangement</li>
+      <li>It comes with predictable, capped annual increases written into the agreement at entry, not subject to market rent movements</li>
+      <li>The legal framework behind it gives the participant a formal right to purchase, not just the right to occupy</li>
+    </ul>
+
+    <p>The occupancy contribution is a monthly payment for occupying the home and is used to cover the costs while your purchase price is being held for you such as strata fees, property taxes and building insurance.</p>
+
+    <p>There is no inflated forced-savings premium. IGVhope works closely with local agents and market comparables to set occupancy contributions that align with the local market, while ensuring the holding costs are covered to protect your home for the long term at your secured price. A HOPE participant pays a market-aligned amount, but under a completely different legal structure, toward a completely different destination.</p>
+
+    <p>Compare that to a conventional mortgage at $3,500 to $3,650 a month on the same $700,000 home, plus the $26,600 CMHC premium already added to the loan, plus the $45,000 or more depleted from savings at entry. The occupancy contribution is a different path to the same home, with the purchase price agreed from the start.</p>
+  </div>
+
+  <div class="comparison-box">
+    <div class="comparison-title">Monthly housing cost comparison</div>
+    <div class="comparison-cols">
+      <div class="comparison-col conventional">
+        <div class="comparison-col-label">Conventional</div>
+        Around $3,500 to $3,650 a month mortgage on a $700,000 home at 4 percent. Plus a $26,600 CMHC premium. Plus $45,000 to $75,000 upfront cash.
+      </div>
+      <div class="comparison-col hope">
+        <div class="comparison-col-label">HOPE</div>
+        Market-aligned occupancy contributions. No premium. No upfront cash depleted.
+      </div>
+    </div>
+  </div>
+
+  <div class="worked-example">
+    <div class="worked-example-label">Worked example</div>
+    <p>Devon used to think of his housing payment as money gone. As a HOPE participant, the same monthly act feels different. Each contribution is a step along a structured legal pathway with a defined destination. The amount is comparable to what he paid before. The legal structure, and the destination, are completely different.</p>
+  </div>
+
+  <div class="action-step">
+    <div class="action-step-label">Your action step</div>
+    <p>Compare your current or expected monthly housing cost to what a conventional mortgage would cost on a comparable home. Note the difference, and what you could do with it across a decade.</p>
+  </div>
+
+  <div class="tool-widget">
+    <div class="tool-widget-label">Try it</div>
+    <div class="tool-widget-question">What are you paying now?</div>
+    <div class="tool-widget-hint">This helps us understand what people can afford. It is optional and you can skip it.</div>
+    <div class="tool-widget-field">
+      <label for="tool-a-input-4">Your current monthly housing cost</label>
+      <div class="tool-widget-input-wrap">
+        <span class="tool-widget-prefix">$</span>
+        <input type="number" id="tool-a-input-4" placeholder="0" inputmode="numeric">
+      </div>
+    </div>
+    <button class="tool-widget-btn" onclick="submitToolA(4)">See the comparison</button>
+    <div class="tool-widget-result" id="tool-a-result-4">
+      <div class="tool-widget-result-line" id="tool-a-result-line-4"></div>
+    </div>
+  </div>
+
+  <button class="self-check" id="self-check-btn-4" onclick="completeLesson(4)">
+    <div class="self-check-icon"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#1A5C50" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></div>
+    <div class="self-check-text" id="self-check-text-4">Self-check: I understand occupancy contributions and how they compare to both rent and a conventional mortgage.</div>
+  </button>
+
+  <div class="next-lesson-wrap" id="next-lesson-wrap-4">
+    <div class="next-lesson-label">Next lesson</div>
+    <a class="next-lesson-btn wipe-link" id="next-lesson-btn-4" href="?lesson=5">Your ten years to build readiness</a>
+  </div>
+
+  <div class="sources-line">Ownership Pathway Agreement v2.8 (IGVhope) | CMHC Rental Market Report January 2026 (cmhc-schl.gc.ca)</div>
+
+
+
+<div class="journal-panel" id="journal-panel-4">
+  <div class="jp-head">
+    <span class="jp-icon">&#9998;</span>
+    <span class="jp-title">My journal &mdash; Lesson 4</span>
+    <span class="jp-tag">Optional. Private. Stored only on this device.</span>
+  </div>
+  <div class="jp-body">
+    <div class="jf">
+      <label>My reflection <span class="opt">(optional)</span></label>
+      <textarea rows="2" data-jk="c0l4_ref" placeholder="What came up for you in this lesson?"></textarea>
+    </div>
+    <div class="jf">
+      <label>Did I do the action step? <span class="opt">(optional)</span></label>
+      <div class="radio-row">
+        <label><input type="radio" name="done_4" value="yes" onchange="jSave('c0l4_done', this.value)"> Yes</label>
+        <label><input type="radio" name="done_4" value="not_yet" onchange="jSave('c0l4_done', this.value)"> Not yet</label>
+        <label><input type="radio" name="done_4" value="no" onchange="jSave('c0l4_done', this.value)"> No</label>
+      </div>
+      <textarea rows="2" data-jk="c0l4_act" placeholder="What happened, or what got in the way?"></textarea>
+    </div>
+    <div class="jf">
+      <label>My goal from this lesson <span class="opt">(optional)</span></label>
+      <textarea rows="2" data-jk="c0l4_goal" placeholder="Something I want to do, change, or remember..."></textarea>
+    </div>
+    <div class="jf feedback">
+      <label>Questions or ideas for IGVhope <span class="opt">(goes to our team)</span></label>
+      <textarea rows="2" data-jk="c0l4_fb" placeholder="Something this lesson didn't cover? An idea for a future lesson?"></textarea>
+    </div>
+    <div class="jp-save-row">
+      <span class="jp-saved" id="jp-saved-4">Saved &#10003;</span>
+      <button class="jp-btn" onclick="saveJournal(4)">Save journal entry</button>
+    </div>
+  </div>
+</div>
+
+</section>
+
+<section class="lesson-panel" id="lesson-panel-5" data-lesson="5">
+
+
+  <div class="lesson-eyebrow">Lesson 5</div>
+  <h1 class="lesson-title">Your ten years to build readiness and arrive ready to own</h1>
+  <div class="lesson-meta">About 13 minutes &nbsp;&middot;&nbsp; <span class="rp-chip">90 points</span></div>
+
+  <div class="short-win">Short win: You understand what ten years of deliberate building produces, and why arriving at a mortgage in a strong position matters more than when you arrive.</div>
+
+  <div class="lesson-body">
+    <p>The ten years between moving in and completing the purchase are called the building period. This is the time used to build the financial position that makes ownership genuinely comfortable, not fragile.</p>
+
+    <p>What typically strengthens across the ten years:</p>
+    <ul>
+      <li>Income, as careers progress</li>
+      <li>Credit scores, as a clean payment history accumulates over years</li>
+      <li>Savings, built steadily across the decade rather than depleted at the start</li>
+      <li>Financial resilience: the savings buffer, the emergency fund, the ability to absorb a surprise without crisis</li>
+    </ul>
+
+    <p>At Year 10, a HOPE participant arrives at their mortgage application as a fundamentally different borrower than the conventional buyer who stretched at entry. Their credit reflects a decade of clean housing payments. Their savings reflect a decade of building rather than recovering from depletion. Their LVR is roughly 55 to 65 percent, not 90 to 95 percent.</p>
+
+    <p>That difference in LVR is not abstract. On a $700,000 home:</p>
+    <ul>
+      <li>At 90 to 95 percent LVR: a mortgage of roughly $665,000 to $691,600. Monthly payment approximately $3,500 to $3,650. No buffer.</li>
+      <li>At 55 to 65 percent LVR: a mortgage of roughly $385,000 to $455,000. Monthly payment approximately $2,000 to $2,400. Room to breathe.</li>
+    </ul>
+
+    <p>The building period has a natural shape, and knowing it helps:</p>
+    <ul>
+      <li>Years 1 to 2, Belonging. High energy, settling in, establishing habits.</li>
+      <li>Years 3 to 7, the Steady Middle. The quieter stretch where Year 10 feels far away. Normal, not a problem.</li>
+      <li>Years 8 to 10, Ownership Anticipation. Focus returns and mortgage preparation begins in earnest.</li>
+    </ul>
+
+    <p>The program supports all three stages with annual check-ins, financial coaching, and the IGVhope community. Support is available anytime you reach out. You are not navigating a decade on willpower.</p>
+  </div>
+
+  <div class="comparison-box">
+    <div class="comparison-title">The borrower at Year 10</div>
+    <div class="comparison-cols">
+      <div class="comparison-col conventional">
+        <div class="comparison-col-label">Conventional</div>
+        Ten-year mortgage history. Savings largely rebuilt from depletion. LVR declining gradually from 95 percent.
+      </div>
+      <div class="comparison-col hope">
+        <div class="comparison-col-label">HOPE</div>
+        Ten-year clean occupancy history. Savings built, rather than depleted then rebuilt. LVR at completion of 55 to 65 percent.
+      </div>
+    </div>
+  </div>
+
+  <div class="worked-example">
+    <div class="worked-example-label">Worked example</div>
+    <p>By Year 8, Maya looked back at who she had been at move-in. Her income had grown, her credit score had risen from the 640s to the 760s, her savings were real and growing, and her family was rooted in the community. By the time her mortgage application landed on a broker's desk, it was the strongest file she could have produced. None of that happened by waiting. It happened by building.</p>
+  </div>
+
+  <div class="action-step">
+    <div class="action-step-label">Your action step</div>
+    <p>Pick one of the four areas above, income, credit, savings or resilience, and write down one thing you could do in the next twelve months to strengthen it.</p>
+  </div>
+
+  <div class="tools-box">
+    <div class="tools-box-label">Tools</div>
+    <a class="tool-link" href="https://www.getsmarteraboutmoney.ca/calculators/emergency-fund-calculator" target="_blank" rel="noopener">
+      <div class="tool-link-name">GetSmarterAboutMoney Emergency Fund Calculator</div>
+      <div class="tool-link-desc">Build your buffer alongside your savings.</div>
+    </a>
+  </div>
+
+  <button class="self-check" id="self-check-btn-5" onclick="completeLesson(5)">
+    <div class="self-check-icon"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#1A5C50" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></div>
+    <div class="self-check-text" id="self-check-text-5">Self-check: I understand the building period and what it produces by Year 10.</div>
+  </button>
+
+  <div class="next-lesson-wrap" id="next-lesson-wrap-5">
+    <div class="next-lesson-label">Next lesson</div>
+    <a class="next-lesson-btn wipe-link" id="next-lesson-btn-5" href="?lesson=6">The agreement that protects you</a>
+  </div>
+
+  <div class="sources-line">CMHC homebuying (cmhc-schl.gc.ca)</div>
+
+
+
+<div class="journal-panel" id="journal-panel-5">
+  <div class="jp-head">
+    <span class="jp-icon">&#9998;</span>
+    <span class="jp-title">My journal &mdash; Lesson 5</span>
+    <span class="jp-tag">Optional. Private. Stored only on this device.</span>
+  </div>
+  <div class="jp-body">
+    <div class="jf">
+      <label>My reflection <span class="opt">(optional)</span></label>
+      <textarea rows="2" data-jk="c0l5_ref" placeholder="What came up for you in this lesson?"></textarea>
+    </div>
+    <div class="jf">
+      <label>Did I do the action step? <span class="opt">(optional)</span></label>
+      <div class="radio-row">
+        <label><input type="radio" name="done_5" value="yes" onchange="jSave('c0l5_done', this.value)"> Yes</label>
+        <label><input type="radio" name="done_5" value="not_yet" onchange="jSave('c0l5_done', this.value)"> Not yet</label>
+        <label><input type="radio" name="done_5" value="no" onchange="jSave('c0l5_done', this.value)"> No</label>
+      </div>
+      <textarea rows="2" data-jk="c0l5_act" placeholder="What happened, or what got in the way?"></textarea>
+    </div>
+    <div class="jf">
+      <label>My goal from this lesson <span class="opt">(optional)</span></label>
+      <textarea rows="2" data-jk="c0l5_goal" placeholder="Something I want to do, change, or remember..."></textarea>
+    </div>
+    <div class="jf feedback">
+      <label>Questions or ideas for IGVhope <span class="opt">(goes to our team)</span></label>
+      <textarea rows="2" data-jk="c0l5_fb" placeholder="Something this lesson didn't cover? An idea for a future lesson?"></textarea>
+    </div>
+    <div class="jp-save-row">
+      <span class="jp-saved" id="jp-saved-5">Saved &#10003;</span>
+      <button class="jp-btn" onclick="saveJournal(5)">Save journal entry</button>
+    </div>
+  </div>
+</div>
+
+</section>
+
+<section class="lesson-panel" id="lesson-panel-6" data-lesson="6">
+
+
+  <div class="lesson-eyebrow">Lesson 6</div>
+  <h1 class="lesson-title">The agreement that protects you on the path to ownership</h1>
+  <div class="lesson-meta">About 13 minutes &nbsp;&middot;&nbsp; <span class="rp-chip">90 points</span></div>
+
+  <div class="short-win">Short win: You understand what the Ownership Pathway Agreement does, what it protects, and what questions to bring to your own solicitor before you sign anything.</div>
+
+  <div class="lesson-body">
+    <p>Before signing any arrangement that leads to home ownership, there is one question that matters most: what document protects your right to complete the purchase, and what does it actually do?</p>
+
+    <p>Most informal arrangements rely on a tenancy agreement or a verbal understanding. Neither is designed to protect a long-term path to ownership. What you need is a formal legal document that records your right to purchase, your price, and your protections, from the first day.</p>
+
+    <p>In IGVhope, that document is the Ownership Pathway Agreement. It is what separates a structured ownership pathway from a landlord's promise.</p>
+
+    <p>What the Ownership Pathway Agreement does:</p>
+    <ul>
+      <li>Records the agreed purchase price and the commitment to sell at that price at Year 10</li>
+      <li>Sets out the participant's formal right to purchase from Day One, in a legal document, not just in an email</li>
+      <li>Sets out occupancy contributions and their capped annual increases</li>
+      <li>Governs the ownership pass-through costs the participant is responsible for</li>
+    </ul>
+
+    <p>The Ownership Pathway Agreement is the most important protection in the program. A conventional landlord can sell a property and a tenancy can end. Under HOPE, the right to purchase is set out in a formal legal document from Day One.</p>
+
+    <p>This is a committed pathway, and the legal structure reflects that. The program is designed to carry participants through the full decade. Where life circumstances make completion impossible, the IGVhope team handles those situations individually and with care.</p>
+
+    <p>Anyone considering HOPE is encouraged to read their Ownership Pathway Agreement with their own solicitor before signing. We can help with simplified documents with all the essentials, but the program is designed to be fully transparent and working with your solicitor is important preparation for that.</p>
+  </div>
+
+  <div class="comparison-box">
+    <div class="comparison-title">The legal protection</div>
+    <div class="comparison-cols">
+      <div class="comparison-col conventional">
+        <div class="comparison-col-label">Conventional</div>
+        You own the title from day one. Full legal protection of ownership.
+      </div>
+      <div class="comparison-col hope">
+        <div class="comparison-col-label">HOPE</div>
+        Your right to purchase is set out in the Ownership Pathway Agreement from Day One. A formal legal document recording your commitment, your price, and your protections.
+      </div>
+    </div>
+  </div>
+
+  <div class="worked-example">
+    <div class="worked-example-label">Worked example</div>
+    <p>When Sam first heard the term Ownership Pathway Agreement, it sounded like jargon. His solicitor explained it in five minutes. The Ownership Pathway Agreement sets out his right to buy the home, at the agreed price, at Year 10. In writing, in a formal legal document, from Day One. Once Sam understood that, the whole thing felt solid. Not a promise, a legal instrument.</p>
+  </div>
+
+  <div class="action-step">
+    <div class="action-step-label">Your action step</div>
+    <p>If you are evaluating HOPE, write down any questions about the legal structure you would want answered before signing. Bring them to the IGVhope team or your own solicitor.</p>
+  </div>
+
+  <button class="self-check" id="self-check-btn-6" onclick="completeLesson(6)">
+    <div class="self-check-icon"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#1A5C50" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></div>
+    <div class="self-check-text" id="self-check-text-6">Self-check: I understand what an Ownership Pathway Agreement is and why the legal protections it sets out matter.</div>
+  </button>
+
+  <div class="next-lesson-wrap" id="next-lesson-wrap-6">
+    <div class="next-lesson-label">Next lesson</div>
+    <a class="next-lesson-btn wipe-link" id="next-lesson-btn-6" href="?lesson=7">Planning your costs</a>
+  </div>
+
+  <div class="tools-box">
+    <div class="tools-box-label">Tools</div>
+    <a class="tool-link" href="https://www.bcfsa.ca" target="_blank" rel="noopener">
+      <div class="tool-link-name">BCFSA consumer protection resources</div>
+      <div class="tool-link-desc">Independent information on housing and financial consumer protection in BC.</div>
+    </a>
+  </div>
+
+  <div class="sources-line">Ownership Pathway Agreement v2.8 (IGVhope) | BCFSA (bcfsa.ca)</div>
+
+
+
+<div class="journal-panel" id="journal-panel-6">
+  <div class="jp-head">
+    <span class="jp-icon">&#9998;</span>
+    <span class="jp-title">My journal &mdash; Lesson 6</span>
+    <span class="jp-tag">Optional. Private. Stored only on this device.</span>
+  </div>
+  <div class="jp-body">
+    <div class="jf">
+      <label>My reflection <span class="opt">(optional)</span></label>
+      <textarea rows="2" data-jk="c0l6_ref" placeholder="What came up for you in this lesson?"></textarea>
+    </div>
+    <div class="jf">
+      <label>Did I do the action step? <span class="opt">(optional)</span></label>
+      <div class="radio-row">
+        <label><input type="radio" name="done_6" value="yes" onchange="jSave('c0l6_done', this.value)"> Yes</label>
+        <label><input type="radio" name="done_6" value="not_yet" onchange="jSave('c0l6_done', this.value)"> Not yet</label>
+        <label><input type="radio" name="done_6" value="no" onchange="jSave('c0l6_done', this.value)"> No</label>
+      </div>
+      <textarea rows="2" data-jk="c0l6_act" placeholder="What happened, or what got in the way?"></textarea>
+    </div>
+    <div class="jf">
+      <label>My goal from this lesson <span class="opt">(optional)</span></label>
+      <textarea rows="2" data-jk="c0l6_goal" placeholder="Something I want to do, change, or remember..."></textarea>
+    </div>
+    <div class="jf feedback">
+      <label>Questions or ideas for IGVhope <span class="opt">(goes to our team)</span></label>
+      <textarea rows="2" data-jk="c0l6_fb" placeholder="Something this lesson didn't cover? An idea for a future lesson?"></textarea>
+    </div>
+    <div class="jp-save-row">
+      <span class="jp-saved" id="jp-saved-6">Saved &#10003;</span>
+      <button class="jp-btn" onclick="saveJournal(6)">Save journal entry</button>
+    </div>
+  </div>
+</div>
+
+</section>
+
+<section class="lesson-panel" id="lesson-panel-7" data-lesson="7">
+
+
+  <div class="lesson-eyebrow">Lesson 7</div>
+  <h1 class="lesson-title">Planning your costs with the full picture, nothing hidden</h1>
+  <div class="lesson-meta">About 12 minutes &nbsp;&middot;&nbsp; <span class="rp-chip">80 points</span></div>
+
+  <div class="short-win">Short win: You have a complete picture of the costs involved in HOPE participation, nothing hidden, nothing that should arrive as a surprise.</div>
+
+  <div class="lesson-body">
+    <p>HOPE has no deposit and no mortgage insurance premium at entry. But it does have ongoing costs that participants are responsible for, and understanding them is part of making an informed decision.</p>
+
+    <p>Costs a HOPE participant is responsible for are clearly set out in your agreement. We map the capped increases over the full ten year term so you have complete certainty and can plan ahead.</p>
+
+    <p>Your occupancy costs are used to cover the outgoing expenses to hold your property for the ten year period until you become the owner. The costs an owner usually pays include:</p>
+    <ul>
+      <li>Occupancy contributions, the market-aligned Occupancy Base Amount</li>
+      <li>Property taxes, the municipal tax on the home, typically billed annually</li>
+      <li>Strata fees, the monthly contribution to shared building maintenance, insurance and the reserve fund</li>
+      <li>Strata special levies, occasional one-off charges for major building repairs</li>
+      <li>Contents insurance, to cover personal belongings, since building insurance is at strata level</li>
+      <li>Utilities: electricity, gas, internet</li>
+    </ul>
+
+    <p>Where these are passed on to you it is clear, transparent and mapped ahead so there are no surprises and you are in control of your financial plan.</p>
+
+    <p>Now compare the conventional picture on a $700,000 home:</p>
+    <ul>
+      <li>Down payment: $45,000 minimum</li>
+      <li>CMHC premium: around $26,600 added to the loan</li>
+      <li>Property Transfer Tax: up to $12,000, with partial relief for some buyers under $835,000</li>
+      <li>Legal fees and closing costs: $5,000 to $12,000</li>
+      <li>Then the same ongoing costs: property taxes, strata fees, contents insurance, utilities</li>
+    </ul>
+
+    <p>Under HOPE, there is no day-one cash required and no mortgage insurance. The ongoing costs are comparable. The position at entry is dramatically different.</p>
+  </div>
+
+  <div class="comparison-box">
+    <div class="comparison-title">True cost of entry</div>
+    <div class="comparison-cols">
+      <div class="comparison-col conventional">
+        <div class="comparison-col-label">Conventional</div>
+        $45,000 to $75,000 cash on day one. A $26,600 CMHC premium. $12,000 property transfer tax. $5,000 to $12,000 closing costs.
+      </div>
+      <div class="comparison-col hope">
+        <div class="comparison-col-label">HOPE</div>
+        Nothing upfront beyond a nominal consideration. Ongoing: occupancy contributions plus pass-through costs, clearly set out and capped for the full term.
+      </div>
+    </div>
+  </div>
+
+  <div class="worked-example">
+    <div class="worked-example-label">Worked example</div>
+    <p>Devon estimated his ownership pass-through costs at about $230 a month, property taxes divided by twelve plus contents insurance. He set it aside automatically. When the tax bill arrived, it was a non-event. The bill that stresses many first-time buyers was, for him, already paid.</p>
+  </div>
+
+  <div class="action-step">
+    <div class="action-step-label">Your action step</div>
+    <p>Estimate your likely ownership pass-through costs and convert each one to a monthly figure. Add them up. That total is your true monthly cost of HOPE participation, and the number to compare against the conventional path.</p>
+  </div>
+
+  <div class="tool-widget">
+    <div class="tool-widget-label">Try it</div>
+    <div class="tool-widget-question">Your monthly pass-through estimate</div>
+    <div class="tool-widget-hint">All fields are optional. This helps us understand what people can afford, and you can skip it.</div>
+    <div class="tool-widget-2col">
+      <div class="tool-widget-field">
+        <label for="tool-b-taxes-7">Property taxes a year</label>
+        <div class="tool-widget-input-wrap"><span class="tool-widget-prefix">$</span><input type="number" id="tool-b-taxes-7" placeholder="0" inputmode="numeric"></div>
+      </div>
+      <div class="tool-widget-field">
+        <label for="tool-b-strata-7">Strata fees a month</label>
+        <div class="tool-widget-input-wrap"><span class="tool-widget-prefix">$</span><input type="number" id="tool-b-strata-7" placeholder="0" inputmode="numeric"></div>
+      </div>
+      <div class="tool-widget-field">
+        <label for="tool-b-insurance-7">Contents insurance a year</label>
+        <div class="tool-widget-input-wrap"><span class="tool-widget-prefix">$</span><input type="number" id="tool-b-insurance-7" placeholder="0" inputmode="numeric"></div>
+      </div>
+      <div class="tool-widget-field">
+        <label for="tool-b-utilities-7">Utilities a month</label>
+        <div class="tool-widget-input-wrap"><span class="tool-widget-prefix">$</span><input type="number" id="tool-b-utilities-7" placeholder="0" inputmode="numeric"></div>
+      </div>
+    </div>
+    <button class="tool-widget-btn" onclick="submitToolB(7)">Calculate my estimate</button>
+    <div class="tool-widget-result" id="tool-b-result-7">
+      <div class="tool-widget-result-line" id="tool-b-result-line-7"></div>
+    </div>
+  </div>
+
+  <button class="self-check" id="self-check-btn-7" onclick="completeLesson(7)">
+    <div class="self-check-icon"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#1A5C50" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></div>
+    <div class="self-check-text" id="self-check-text-7">Self-check: I understand every cost involved in HOPE participation and how they compare to conventional ownership.</div>
+  </button>
+
+  <div class="next-lesson-wrap" id="next-lesson-wrap-7">
+    <div class="next-lesson-label">Last lesson</div>
+    <a class="next-lesson-btn wipe-link" id="next-lesson-btn-7" href="?lesson=8">Comparing your pathways</a>
+  </div>
+
+  <div class="sources-line">Ownership Pathway Agreement v2.8 (IGVhope) | BCFSA strata (bcfsa.ca) | CMHC homebuying (cmhc-schl.gc.ca)</div>
+
+
+
+<div class="journal-panel" id="journal-panel-7">
+  <div class="jp-head">
+    <span class="jp-icon">&#9998;</span>
+    <span class="jp-title">My journal &mdash; Lesson 7</span>
+    <span class="jp-tag">Optional. Private. Stored only on this device.</span>
+  </div>
+  <div class="jp-body">
+    <div class="jf">
+      <label>My reflection <span class="opt">(optional)</span></label>
+      <textarea rows="2" data-jk="c0l7_ref" placeholder="What came up for you in this lesson?"></textarea>
+    </div>
+    <div class="jf">
+      <label>Did I do the action step? <span class="opt">(optional)</span></label>
+      <div class="radio-row">
+        <label><input type="radio" name="done_7" value="yes" onchange="jSave('c0l7_done', this.value)"> Yes</label>
+        <label><input type="radio" name="done_7" value="not_yet" onchange="jSave('c0l7_done', this.value)"> Not yet</label>
+        <label><input type="radio" name="done_7" value="no" onchange="jSave('c0l7_done', this.value)"> No</label>
+      </div>
+      <textarea rows="2" data-jk="c0l7_act" placeholder="What happened, or what got in the way?"></textarea>
+    </div>
+    <div class="jf">
+      <label>My goal from this lesson <span class="opt">(optional)</span></label>
+      <textarea rows="2" data-jk="c0l7_goal" placeholder="Something I want to do, change, or remember..."></textarea>
+    </div>
+    <div class="jf feedback">
+      <label>Questions or ideas for IGVhope <span class="opt">(goes to our team)</span></label>
+      <textarea rows="2" data-jk="c0l7_fb" placeholder="Something this lesson didn't cover? An idea for a future lesson?"></textarea>
+    </div>
+    <div class="jp-save-row">
+      <span class="jp-saved" id="jp-saved-7">Saved &#10003;</span>
+      <button class="jp-btn" onclick="saveJournal(7)">Save journal entry</button>
+    </div>
+  </div>
+</div>
+
+</section>
+
+<section class="lesson-panel" id="lesson-panel-8" data-lesson="8">
+
+
+  <div class="lesson-eyebrow">Lesson 8</div>
+  <h1 class="lesson-title">Comparing your pathways to ownership</h1>
+  <div class="lesson-meta">About 14 minutes &nbsp;&middot;&nbsp; <span class="rp-chip">110 points</span></div>
+
+  <div class="short-win">Short win: You have a clear, honest comparison of the main pathways to ownership and what each one asks of you, so you can make the decision that fits your situation.</div>
+
+  <div class="lesson-body">
+    <p>This final lesson puts HOPE directly alongside the two paths people most often compare it to, rent-to-own and conventional purchasing, so you can see the differences clearly.</p>
+
+    <div class="lesson-section-header">HOPE versus typical rent-to-own</div>
+    <ul>
+      <li>Deposit. Rent-to-own typically requires $20,000 to $80,000 upfront, non-refundable. HOPE requires none.</li>
+      <li>Monthly cost. Rent-to-own inflates rent with a forced-savings premium. HOPE uses market-aligned occupancy contributions.</li>
+      <li>What you lose if you exit. Rent-to-own keeps your deposit and premiums. Under HOPE there is no deposit or premium to lose.</li>
+      <li>Legal structure. Rent-to-own is usually a lease option with limited formal protection. HOPE uses an Ownership Pathway Agreement, a structured legal document that sets out your right to purchase, your price, and your protections from Day One.</li>
+      <li>Price certainty. Some rent-to-own arrangements set the purchase price at market when the option is exercised. Under HOPE the price is agreed and fixed at entry.</li>
+      <li>Support. Rent-to-own typically offers none. HOPE provides financial coaching, annual check-ins, and community across the full decade. Support is available anytime you reach out.</li>
+    </ul>
+
+    <div class="lesson-section-header">HOPE versus conventional ownership, the Year 10 picture</div>
+    <ul>
+      <li>The conventional buyer who purchased today at 90 to 95 percent LVR arrives at Year 10 with their mortgage partially paid down, but their financial position reflecting a decade of maximum-stretch payments.</li>
+      <li>The HOPE participant who completes at Year 10 arrives with the agreed price from Day One, a decade of built savings and improved credit, and a mortgage at roughly 55 to 65 percent LVR, entering ownership as a fundamentally stronger borrower.</li>
+      <li>In a BC market that has historically roughly doubled every decade, the participant who locked in today's price and completes in ten years may be completing a purchase well below the then-current market value.</li>
+    </ul>
+
+    <p>If the conventional path is right for you, if you have the deposit, the buffer, and the financial comfort to buy now, the resources at the end of this lesson will help you do it well.</p>
+
+    <p>If the conventional path is not yet reachable, if the deposit gap is real, the stretch is genuine, and the timing is wrong, then the question is what a better-timed entry looks like for your situation. That is what the rest of this comparison is designed to help you think through.</p>
+  </div>
+
+  <div class="worked-example">
+    <div class="worked-example-label">Worked example</div>
+    <p>After going through this course, Priya sat down and compared both paths for her situation honestly. The conventional path required $68,000 upfront and $3,500 a month, stretching her to the limit. HOPE required no deposit and market-aligned occupancy contributions, with her purchase price fixed at today's figure. In BC's historical context, she could not find a reason why waiting ten years to save conventionally was better than locking in now and building across a decade. She joined.</p>
+  </div>
+
+  <div class="action-step">
+    <div class="action-step-label">Your action step</div>
+    <p>Make your own honest comparison. What does the conventional path actually require of you right now, and what does HOPE offer instead?</p>
+  </div>
+
+  <button class="self-check" id="self-check-btn-8" onclick="completeLesson(8)">
+    <div class="self-check-icon"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#1A5C50" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></div>
+    <div class="self-check-text" id="self-check-text-8">Self-check: I have an honest picture of my main pathways to ownership and what each one would require of me.</div>
+  </button>
+
+  <div class="badge-celebration" id="badge-celebration">
+    <div class="badge-icon">&#9733;</div>
+    <div class="badge-title">Welcome Home badge earned</div>
+    <div class="badge-desc">You've completed all 8 lessons and earned <strong id="badge-total-rp">690 points</strong>. Nice work.</div>
+  </div>
+
+  <div class="next-lesson-wrap" id="next-lesson-wrap-8">
+    <div class="end-of-course">
+      <p class="end-of-course-closing">You have the full picture now. Whichever path you choose, you are better equipped for it.</p>
+      <div class="end-of-course-doors">
+        <a class="door-btn primary wipe-link" id="gate3-door-8" href="/next-steps">Build your profile, be first when a home matches you</a>
+        <a class="door-btn secondary wipe-link" href="/course-library">See live homes available now</a>
+      </div>
+    </div>
+  </div>
+
+  <div class="tools-box">
+    <div class="tools-box-label">Tools</div>
+    <a class="tool-link" href="https://itools-ioutils.fcac-acfc.gc.ca/MQ-HQ/MQ-EAPH-eng.aspx" target="_blank" rel="noopener">
+      <div class="tool-link-name">FCAC Mortgage Qualifier</div>
+      <div class="tool-link-desc">The stress test tool lenders use to assess conventional borrowers.</div>
+    </a>
+    <a class="tool-link" href="https://www.cmhc-schl.gc.ca/consumers/home-buying/calculators/affordability-calculator" target="_blank" rel="noopener">
+      <div class="tool-link-name">CMHC Affordability Calculator</div>
+      <div class="tool-link-desc">See what conventional buying currently requires for your income.</div>
+    </a>
+    <a class="tool-link" href="https://www.borrowell.com" target="_blank" rel="noopener">
+      <div class="tool-link-name">Borrowell</div>
+      <div class="tool-link-desc">Free Equifax credit score.</div>
+    </a>
+    <a class="tool-link" href="https://www.creditkarma.ca" target="_blank" rel="noopener">
+      <div class="tool-link-name">Credit Karma Canada</div>
+      <div class="tool-link-desc">Free TransUnion score.</div>
+    </a>
+    <a class="tool-link" href="https://www.cmhc-schl.gc.ca/consumers/home-buying/buying-guides/home-buying" target="_blank" rel="noopener">
+      <div class="tool-link-name">CMHC Homebuying Step by Step Guide</div>
+      <div class="tool-link-desc">Understand what conventional buying involves end to end.</div>
+    </a>
+  </div>
+
+  <div class="sources-line">FCAC (canada.ca/en/financial-consumer-agency) | BCREA Historical Housing Statistics (bcrea.bc.ca)</div>
+
+
+
+<div class="journal-panel" id="journal-panel-8">
+  <div class="jp-head">
+    <span class="jp-icon">&#9998;</span>
+    <span class="jp-title">My journal &mdash; Lesson 8</span>
+    <span class="jp-tag">Optional. Private. Stored only on this device.</span>
+  </div>
+  <div class="jp-body">
+    <div class="jf">
+      <label>My reflection <span class="opt">(optional)</span></label>
+      <textarea rows="2" data-jk="c0l8_ref" placeholder="What came up for you in this lesson?"></textarea>
+    </div>
+    <div class="jf">
+      <label>Did I do the action step? <span class="opt">(optional)</span></label>
+      <div class="radio-row">
+        <label><input type="radio" name="done_8" value="yes" onchange="jSave('c0l8_done', this.value)"> Yes</label>
+        <label><input type="radio" name="done_8" value="not_yet" onchange="jSave('c0l8_done', this.value)"> Not yet</label>
+        <label><input type="radio" name="done_8" value="no" onchange="jSave('c0l8_done', this.value)"> No</label>
+      </div>
+      <textarea rows="2" data-jk="c0l8_act" placeholder="What happened, or what got in the way?"></textarea>
+    </div>
+    <div class="jf">
+      <label>My goal from this lesson <span class="opt">(optional)</span></label>
+      <textarea rows="2" data-jk="c0l8_goal" placeholder="Something I want to do, change, or remember..."></textarea>
+    </div>
+    <div class="jf feedback">
+      <label>Questions or ideas for IGVhope <span class="opt">(goes to our team)</span></label>
+      <textarea rows="2" data-jk="c0l8_fb" placeholder="Something this lesson didn't cover? An idea for a future lesson?"></textarea>
+    </div>
+    <div class="jp-save-row">
+      <span class="jp-saved" id="jp-saved-8">Saved &#10003;</span>
+      <button class="jp-btn" onclick="saveJournal(8)">Save journal entry</button>
+    </div>
+  </div>
+</div>
+
+</section>
+
+</main>
+
+<footer id="dash-footer">
+  <div class="footer-block footer-divider">
+  <div id="footer-sitemap">
+    <div class="sitemap-col">
+      <div class="sitemap-heading">IGV Housing</div>
+      <a href="https://igvhousing.com/municipalities">Municipalities</a>
+      <a href="https://www.igvhousing.com/esg" target="_blank" rel="noopener">ESG Impact</a>
+      <a href="https://www.igvhousing.com/media" target="_blank" rel="noopener">Media &amp; Resources</a>
+    </div>
+    <div class="sitemap-col">
+      <div class="sitemap-heading">IGV Divisions</div>
+      <a href="https://www.igvhousing.com" target="_blank" rel="noopener">IGV Housing</a>
+      <a href="https://www.igvbuild.com" target="_blank" rel="noopener">IGV Build Systems</a>
+      <a href="https://www.igvcapital.com" target="_blank" rel="noopener">IGV Capital</a>
+    </div>
+    <div class="sitemap-col">
+      <div class="sitemap-heading">Sitemap</div>
+      <a href="/how-it-works">How It Works</a>
+      <a href="/next-steps">Next Steps</a>
+      <a href="/faq">FAQ</a>
+      <a href="/about">About</a>
+      <a href="/resources">Resources</a>
+      <a href="/course-library">Course Library</a>
+    </div>
+    <div class="sitemap-col">
+      <div class="sitemap-heading">Enquiries</div>
+      <a href="mailto:info@igvhousing.com">Investors</a>
+      <a href="mailto:info@igvhousing.com">Developer Partners</a>
+      <a href="mailto:info@igvhousing.com">Press</a>
+      <div id="sitemap-social">
+        <a href="https://www.facebook.com/IGVhope/" target="_blank" rel="noopener" aria-label="Facebook">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M22 12.06C22 6.5 17.52 2 12 2S2 6.5 2 12.06c0 5.02 3.66 9.18 8.44 9.94v-7.03H7.9v-2.91h2.54V9.85c0-2.51 1.49-3.9 3.77-3.9 1.09 0 2.24.2 2.24.2v2.46h-1.26c-1.24 0-1.63.77-1.63 1.56v1.89h2.78l-.44 2.91h-2.34V22c4.78-.76 8.44-4.92 8.44-9.94z"/></svg>
+        </a>
+        <a href="https://www.linkedin.com/company/igvhope" target="_blank" rel="noopener" aria-label="LinkedIn">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M20.45 20.45h-3.55v-5.57c0-1.33-.02-3.04-1.85-3.04-1.85 0-2.14 1.45-2.14 2.94v5.67H9.36V9h3.41v1.56h.05c.48-.9 1.64-1.85 3.38-1.85 3.61 0 4.28 2.38 4.28 5.47zM5.34 7.43a2.06 2.06 0 1 1 0-4.12 2.06 2.06 0 0 1 0 4.12zM7.12 20.45H3.56V9h3.56z"/></svg>
+        </a>
+        <a href="https://www.instagram.com/igvhope" target="_blank" rel="noopener" aria-label="Instagram">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="4"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1"/></svg>
+        </a>
+      </div>
+    </div>
+  </div>
+  </div>
+  <div class="footer-block footer-divider">
+  <div id="footer-bottom-bar">
+    <span id="footer-copyright">&copy; 2026 IGVhope. All rights reserved.</span>
+    <div id="footer-bottom-links">
+      <a href="https://www.igvhousing.com/privacy" target="_blank" rel="noopener">Privacy</a>
+      <a href="/terms" target="_blank" rel="noopener">Terms</a>
+      <a href="https://www.igvhousing.com/accessibility" target="_blank" rel="noopener">Accessibility</a>
+    </div>
+  </div>
+  </div>
+</footer>
+
+<script>
+/* ── MOBILE NAV BURGER ────────────────────────────────────── */
+function toggleMobileNav(){
+  const panel=document.getElementById('mobile-nav-panel');
+  const open=panel.classList.toggle('open');
+  document.getElementById('nav-burger-icon-open').style.display=open?'none':'';
+  document.getElementById('nav-burger-icon-close').style.display=open?'':'none';
+}
+
+/* Switches the nav to burger mode whenever the desktop nav-right
+   content would no longer fit on a single line, instead of relying
+   on a fixed pixel breakpoint. A static breakpoint can't get this
+   right for both states at once, since the logged-in state (avatar
+   + name) is meaningfully wider than the logged-out "Log in" link.
+   Runs on load, on resize, and again once login state swaps in the
+   wider markup. */
+function checkNavFit(){
+  const nav = document.getElementById('dash-nav');
+  const navRight = document.querySelector('.nav-right');
+  const burger = document.getElementById('nav-burger');
+  const logo = document.getElementById('nav-logo');
+  if (!nav || !navRight || !burger || !logo) return;
+
+  navRight.style.display = 'flex';
+  const navPaddingH = 64; // #dash-nav has 32px padding on each side
+  const gapBuffer = 24;   // breathing room between logo and nav-right
+  const available = nav.clientWidth - logo.getBoundingClientRect().width - navPaddingH - gapBuffer;
+  const fits = navRight.scrollWidth <= available;
+
+  navRight.style.display = fits ? 'flex' : 'none';
+  burger.style.display = fits ? 'none' : 'flex';
+}
+let navFitTimer;
+window.addEventListener('resize', () => {
+  clearTimeout(navFitTimer);
+  navFitTimer = setTimeout(checkNavFit, 100);
+});
+window.addEventListener('load', checkNavFit);
+checkNavFit();
+
+/* Carry the current page forward into the Log in link, so clicking it
+   and completing the magic-link flow brings the person back to exactly
+   where they were, instead of a fixed default page. */
+(function setLoginReturnTo(){
+  const returnPath = encodeURIComponent(window.location.pathname + window.location.search);
+  const loginUrl = `/login?return=${returnPath}`;
+  const desktopLink = document.getElementById('nav-login-link');
+  const mobileLink = document.getElementById('mobile-nav-login-link');
+  if (desktopLink) desktopLink.setAttribute('href', loginUrl);
+  if (mobileLink) mobileLink.setAttribute('href', loginUrl);
+})();
+
+const HUBSPOT_PORTAL_ID = '342997618';
+const JOURNAL_FEEDBACK_FORM_GUID = '049b0aee-013d-4510-b366-b65f9b00a63b';
+const COURSE_SLUG = 'starting-course';
+const TOTAL_LESSONS = 8;
+const LESSON_TITLES = {
+  1: 'The problem nobody solved, until now',
+  2: 'Own when you are strongest',
+  3: 'The agreed price',
+  4: 'Occupancy contributions',
+  5: 'The building period',
+  6: 'The Ownership Pathway Agreement',
+  7: 'Costs to plan for',
+  8: 'The clear comparison'
+};
+let CURRENT_LESSON = 1;
+
+function getLessonFromUrl(){
+  const params = new URLSearchParams(window.location.search);
+  let n = parseInt(params.get('lesson'), 10);
+  if (!n || n < 1 || n > TOTAL_LESSONS) n = 1;
+  return n;
+}
+
+function showLesson(n){
+  document.querySelectorAll('.lesson-panel').forEach(p => {
+    p.classList.toggle('active', parseInt(p.dataset.lesson, 10) === n);
+  });
+  document.getElementById('lesson-progress-strip-text').textContent = `Lesson ${n} of ${TOTAL_LESSONS}`;
+  CURRENT_LESSON = n;
+  window.scrollTo(0, 0);
+}
+
+/* Intercept in-page lesson links so switching lessons doesn't reload the page */
+document.addEventListener('click', function(e){
+  const a = e.target.closest('a[href^="?lesson="]');
+  if (!a) return;
+  e.preventDefault();
+  const url = new URL(a.getAttribute('href'), window.location.href);
+  const n = parseInt(url.searchParams.get('lesson'), 10);
+  history.pushState({}, '', url.pathname + url.search);
+  showLesson(n);
+});
+
+window.addEventListener('popstate', function(){
+  showLesson(getLessonFromUrl());
+});
+
+const LESSON_RP = {1:80, 2:80, 3:90, 4:80, 5:90, 6:90, 7:80, 8:100};
+const TOTAL_RP = Object.values(LESSON_RP).reduce((a,b)=>a+b, 0);
+
+function getCompletedLessons(){
+  try { return JSON.parse(localStorage.getItem('c0_completed_lessons')) || []; }
+  catch(e) { return []; }
+}
+function markLessonCompletedLocally(n){
+  const done = getCompletedLessons();
+  if (!done.includes(n)) done.push(n);
+  localStorage.setItem('c0_completed_lessons', JSON.stringify(done));
+  return done;
+}
+function computeRpTotal(doneList){
+  return doneList.reduce((sum, n) => sum + (LESSON_RP[n] || 0), 0);
+}
+function updateRpDisplay(){
+  const done = getCompletedLessons();
+  const total = computeRpTotal(done);
+  const el = document.getElementById('progress-rp-total');
+  if (el) el.textContent = `${total} points earned`;
+  if (done.length >= 8){
+    const badge = document.getElementById('badge-celebration');
+    const badgeRp = document.getElementById('badge-total-rp');
+    if (badgeRp) badgeRp.textContent = `${total} points`;
+    if (badge) badge.classList.add('show');
+  }
+}
+function showRpToast(rp){
+  let toast = document.getElementById('rp-toast');
+  if (!toast){
+    toast = document.createElement('div');
+    toast.id = 'rp-toast';
+    toast.className = 'rp-toast';
+    document.body.appendChild(toast);
+  }
+  toast.innerHTML = `<span class="rp-toast-tag">+${rp} points</span>Lesson complete`;
+  toast.classList.add('show');
+  clearTimeout(window._rpToastTimer);
+  window._rpToastTimer = setTimeout(() => toast.classList.remove('show'), 2600);
+}
+
+/* ── JOURNAL (private, client-side only — never sent to HubSpot) ──── */
+/* Reads HubSpot's own visitor-tracking cookie so submissions carry
+   proper lead-source attribution, same as the Gate forms. */
+function getHubspotUtk(){
+  const match = document.cookie.match(/(?:^|;\s*)hubspotutk=([^;]+)/);
+  return match ? match[1] : null;
+}
+
+/* Submits directly to HubSpot's public Forms API - no secret token
+   involved, same pattern used for Gate 1/2/3 on the demand platform.
+   Fails quietly so a HubSpot hiccup never blocks the journal save. */
+function submitToHubspot(formGuid, fields){
+  if (!formGuid || formGuid.indexOf('REPLACE_WITH') === 0){
+    console.warn('HubSpot form GUID not set yet - skipping submission. Fields that would have been sent:', fields);
+    return;
+  }
+  const url = `https://api-na3.hsforms.com/submissions/v3/integration/submit/${HUBSPOT_PORTAL_ID}/${formGuid}`;
+  const payload = {
+    fields: fields.map(f => ({ name: f.name, value: f.value })),
+    context: { pageUri: window.location.href, pageName: document.title }
+  };
+  const utk = getHubspotUtk();
+  if (utk) payload.context.hutk = utk;
+  fetch(url, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(payload)
+  }).then(res => {
+    if (!res.ok) return res.json().then(err => console.error('HubSpot journal-feedback submission failed:', res.status, err));
+  }).catch(e => { /* fail quietly, the journal entry already saved locally */ });
+}
+
+const JOURNAL_KEY = 'c0_journal';
+function loadJournalStore(){
+  try { return JSON.parse(localStorage.getItem(JOURNAL_KEY)) || {}; }
+  catch(e) { return {}; }
+}
+function jSave(key, value){
+  const store = loadJournalStore();
+  store[key] = value;
+  localStorage.setItem(JOURNAL_KEY, JSON.stringify(store));
+}
+function saveJournal(n){
+  const panel = document.getElementById(`journal-panel-${n}`);
+  panel.querySelectorAll('[data-jk]').forEach(el => jSave(el.getAttribute('data-jk'), el.value));
+  const saved = document.getElementById(`jp-saved-${n}`);
+  if (saved){
+    saved.classList.add('show');
+    setTimeout(() => saved.classList.remove('show'), 1800);
+  }
+
+  /* "Questions or ideas for IGVhope" is the only field that goes to
+     the team - send it to HubSpot as a Form submission. Deduped
+     against the last-sent text so re-saving an unchanged entry
+     doesn't create a duplicate submission. */
+  const fbEl = panel.querySelector('.feedback [data-jk]');
+  if (fbEl){
+    const text = fbEl.value.trim();
+    const fbKey = fbEl.getAttribute('data-jk');
+    const lastSentFlag = `${fbKey}_sent`;
+    if (text && text !== sessionStorage.getItem(lastSentFlag)){
+      const email = (window.__igvUser && window.__igvUser.email) || '';
+      submitToHubspot(JOURNAL_FEEDBACK_FORM_GUID, [
+        { name: 'email', value: email },
+        { name: 'igvhope_suggestions', value: text }
+      ]);
+      sessionStorage.setItem(lastSentFlag, text);
+    }
+  }
+}
+function restoreJournal(){
+  const store = loadJournalStore();
+  document.querySelectorAll('[data-jk]').forEach(el => {
+    const k = el.getAttribute('data-jk');
+    if (store[k] !== undefined) el.value = store[k];
+  });
+  document.querySelectorAll('.radio-row input[type="radio"]').forEach(r => {
+    const key = `c0l${r.name.replace('done_', '')}_done`;
+    if (store[key] === r.value) r.checked = true;
+  });
+}
+document.addEventListener('input', e => {
+  const jk = e.target.getAttribute && e.target.getAttribute('data-jk');
+  if (jk) jSave(jk, e.target.value);
+});
+
+/* Syncs real completion to the shared magic-link session/HubSpot record.
+   Uses MAGIC_LINK_WORKER, declared further down in this same script - safe
+   to reference here since this function is only ever called from a click
+   handler, long after the whole script has finished running once. If the
+   person isn't logged in, this call 401s harmlessly and the checkmark
+   still shows locally either way - it just won't sync to their account
+   until they log in. */
+async function syncLessonProgress(n){
+  try {
+    await fetch(`${MAGIC_LINK_WORKER}/course-progress/update`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      credentials: 'include',
+      body: JSON.stringify({ lessonId: `${COURSE_SLUG}-${n}` })
+    });
+  } catch (e) { /* fail quietly, the checkmark already showed */ }
+}
+
+async function completeLesson(n){
+  const btn = document.getElementById(`self-check-btn-${n}`);
+  if (btn.classList.contains('checked')) return; // one-way, can't be undone by accident
+  btn.classList.add('checked');
+  const nextWrap = document.getElementById(`next-lesson-wrap-${n}`);
+  nextWrap.classList.add('show');
+  markLessonCompletedLocally(n);
+  updateRpDisplay();
+  showRpToast(LESSON_RP[n] || 0);
+  await syncLessonProgress(n);
+}
+
+/* ── TOOL A (Lesson 4) ──────────────────────────────────── */
+async function submitToolA(n){
+  const input = document.getElementById(`tool-a-input-${n}`);
+  const value = parseFloat(input.value);
+  const resultBox = document.getElementById(`tool-a-result-${n}`);
+  const resultLine = document.getElementById(`tool-a-result-line-${n}`);
+  if (!value || value <= 0){
+    resultLine.innerHTML = 'Enter a number above to see how it compares.';
+    resultBox.classList.add('show');
+    return;
+  }
+  resultLine.innerHTML = `You said <strong>$${value.toLocaleString('en-CA')}</strong> a month. A conventional mortgage on a $700,000 home at 4 percent runs about <strong>$3,500 to $3,650</strong> a month.`;
+  resultBox.classList.add('show');
+}
+
+/* ── TOOL B (Lesson 7) ──────────────────────────────────── */
+async function submitToolB(n){
+  const taxes = parseFloat(document.getElementById(`tool-b-taxes-${n}`).value) || 0;
+  const strata = parseFloat(document.getElementById(`tool-b-strata-${n}`).value) || 0;
+  const insurance = parseFloat(document.getElementById(`tool-b-insurance-${n}`).value) || 0;
+  const utilities = parseFloat(document.getElementById(`tool-b-utilities-${n}`).value) || 0;
+
+  const monthlyTaxes = taxes / 12;
+  const monthlyInsurance = insurance / 12;
+  const total = monthlyTaxes + strata + monthlyInsurance + utilities;
+
+  const resultBox = document.getElementById(`tool-b-result-${n}`);
+  const resultLine = document.getElementById(`tool-b-result-line-${n}`);
+
+  if (total <= 0){
+    resultLine.innerHTML = 'Enter at least one figure above to see your estimate.';
+    resultBox.classList.add('show');
+    return;
+  }
+
+  resultLine.innerHTML = `Your estimated monthly pass-through cost is <strong>$${Math.round(total).toLocaleString('en-CA')}</strong> a month.`;
+  resultBox.classList.add('show');
+}
+
+/* ── INIT ───────────────────────────────────────────────── */
+(function init(){
+  const startLesson = getLessonFromUrl();
+  showLesson(startLesson);
+
+  restoreJournal();
+  updateRpDisplay();
+
+  // Restore checked state and revealed next-lesson blocks for lessons already completed on this device
+  getCompletedLessons().forEach(n => {
+    const btn = document.getElementById(`self-check-btn-${n}`);
+    const nextWrap = document.getElementById(`next-lesson-wrap-${n}`);
+    if (btn) btn.classList.add('checked');
+    if (nextWrap) nextWrap.classList.add('show');
+  });
+})();
+
+
+/* ── EMBEDDED TOOL: AGREED PRICE (Lesson 3) ─────────────── */
+function fmtCAD(n){return'$'+Math.round(n).toLocaleString('en-CA')}
+let selectedPropPrice=null;
+let currentRate=7.1;
+
+function formatHomePriceInput(el){
+  const cursorPos=el.selectionStart;
+  const digitsBeforeCursor=el.value.slice(0,cursorPos).replace(/[^0-9]/g,'').length;
+  const raw=el.value.replace(/[^0-9]/g,'');
+  const formatted=raw?Number(raw).toLocaleString('en-CA'):'';
+  el.value=formatted;
+  let pos=0,digitsSeen=0;
+  while(pos<formatted.length&&digitsSeen<digitsBeforeCursor){
+    if(/[0-9]/.test(formatted[pos]))digitsSeen++;
+    pos++;
+  }
+  el.setSelectionRange(pos,pos);
+}
+function getHomePriceValue(){
+  const raw=document.getElementById('home-price').value.replace(/,/g,'');
+  return parseFloat(raw);
+}
+
+function selectProp(price,btn){
+  document.querySelectorAll('.prop-card').forEach(c=>c.classList.remove('selected'));
+  btn.classList.add('selected');
+  selectedPropPrice=price;
+  document.getElementById('home-price').value=price.toLocaleString('en-CA');
+  clearT1();
+  checkStep1Complete();
+}
+function clearPropSelection(){selectedPropPrice=null;document.querySelectorAll('.prop-card').forEach(c=>c.classList.remove('selected'))}
+function clearT1(){document.getElementById('t1-result').classList.remove('show')}
+
+let step2Unlocked=false;
+function unlockStep2(){
+  if(step2Unlocked)return;
+  step2Unlocked=true;
+  document.getElementById('step2-locked').classList.add('step-hidden');
+  const block=document.getElementById('step2-block');
+  block.classList.remove('step-hidden');
+  block.classList.add('step-reveal');
+}
+function lockStep2(){
+  step2Unlocked=false;
+  document.getElementById('step2-locked').classList.remove('step-hidden');
+  const block=document.getElementById('step2-block');
+  block.classList.add('step-hidden');
+  block.classList.remove('step-reveal');
+}
+function checkStep1Complete(){
+  const val=selectedPropPrice||getHomePriceValue();
+  if(val&&val>=100000)unlockStep2();
+}
+
+function resetT1(){
+  clearT1();clearPropSelection();
+  document.getElementById('home-price').value='';
+  document.getElementById('t1-err').classList.add('hidden');
+  setRatePreset(7.1, document.querySelector('.rate-preset[data-rate="7.1"]'));
+  lockStep2();
+}
+
+function updateRateBadge(r){
+  document.getElementById('rate-badge').textContent=r+'%';
+  const decade=(Math.pow(1+r/100,10)-1)*100;
+  document.getElementById('rate-decade-equiv').textContent=`At ${r}% per year, that compounds to approximately ${Math.round(decade)}% growth over 10 years.`;
+}
+function setRatePreset(r,btn){
+  currentRate=parseFloat(r);
+  document.querySelectorAll('.rate-preset').forEach(b=>b.classList.remove('active'));
+  if(btn)btn.classList.add('active');
+  document.getElementById('rate-slider').value=currentRate;
+  updateRateBadge(currentRate);
+  clearT1();
+}
+function onRateSlider(v){
+  currentRate=parseFloat(v);
+  document.querySelectorAll('.rate-preset').forEach(b=>{
+    b.classList.toggle('active', Math.abs(parseFloat(b.dataset.rate)-currentRate)<0.05);
+  });
+  updateRateBadge(currentRate);
+  clearT1();
+}
+
+function buildT1Chart(values){
+  const w=520,h=180,padL=44,padR=14,padT=14,padB=22;
+  const maxV=Math.max(...values), minV=Math.min(...values);
+  const range=maxV-minV||1;
+  const stepX=(w-padL-padR)/(values.length-1);
+  const pts=values.map((v,i)=>{
+    const x=padL+i*stepX;
+    const y=padT+(h-padT-padB)*(1-(v-minV)/range);
+    return [x,y];
+  });
+  const linePath=pts.map((p,i)=>(i===0?'M':'L')+p[0].toFixed(1)+' '+p[1].toFixed(1)).join(' ');
+  const areaPath=linePath+` L${pts[pts.length-1][0].toFixed(1)} ${h-padB} L${pts[0][0].toFixed(1)} ${h-padB} Z`;
+  const dots=pts.map((p,i)=>`<circle class="t1-chart-dot" cx="${p[0].toFixed(1)}" cy="${p[1].toFixed(1)}" r="${i===0||i===pts.length-1?4:2.5}"/>`).join('');
+  const hits=pts.map((p,i)=>`<circle class="t1-chart-hit" cx="${p[0].toFixed(1)}" cy="${p[1].toFixed(1)}" r="12" onmouseenter="showT1Tip(event,${i},${values[i]})" onmouseleave="hideT1Tip()"/>`).join('');
+  const yLabels=[0,2,4,6,8,10].map(y=>{
+    const x=padL+y*stepX;
+    return `<text class="t1-chart-label" x="${x}" y="${h-4}" text-anchor="middle">Y${y}</text>`;
+  }).join('');
+  return `<svg class="t1-chart-svg" viewBox="0 0 ${w} ${h}" xmlns="http://www.w3.org/2000/svg">
+    <defs><linearGradient id="t1-chart-grad" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#00897B" stop-opacity="0.28"/>
+      <stop offset="100%" stop-color="#00897B" stop-opacity="0"/>
+    </linearGradient></defs>
+    <line class="t1-chart-axis" x1="${padL}" y1="${h-padB}" x2="${w-padR}" y2="${h-padB}"/>
+    <path class="t1-chart-area" d="${areaPath}"/>
+    <path class="t1-chart-line" d="${linePath}"/>
+    ${dots}
+    ${yLabels}
+    ${hits}
+  </svg>
+  <div class="t1-chart-tooltip" id="t1-chart-tooltip"></div>`;
+}
+
+function showT1Tip(evt,year,value){
+  const tip=document.getElementById('t1-chart-tooltip');
+  const wrap=document.getElementById('t1-chart-wrap');
+  const rect=wrap.getBoundingClientRect();
+  const x=evt.clientX-rect.left;
+  const y=evt.clientY-rect.top;
+  tip.textContent=`Year ${year}: ${fmtCAD(value)}`;
+  tip.style.left=x+'px';
+  tip.style.top=y+'px';
+  tip.style.opacity='1';
+}
+function hideT1Tip(){
+  const tip=document.getElementById('t1-chart-tooltip');
+  if(tip)tip.style.opacity='0';
+}
+
+function calcTool1(){
+  const val=selectedPropPrice||getHomePriceValue();
+  const err=document.getElementById('t1-err');
+  if(!val||val<100000){err.classList.remove('hidden');return}
+  err.classList.add('hidden');
+
+  const rate=currentRate;
+  const years=[];
+  for(let y=0;y<=10;y++) years.push(val*Math.pow(1+rate/100,y));
+  const projected=years[10];
+  const gain=projected-val;
+  const decadeTotal=Math.round((Math.pow(1+rate/100,10)-1)*100);
+
+  document.getElementById('t1-today').textContent=fmtCAD(val);
+  document.getElementById('t1-comparison').innerHTML=
+    `At a ${rate}% annual growth rate, a home worth <strong>${fmtCAD(val)}</strong> today could reach approximately <strong>${fmtCAD(projected)}</strong> by Year 10, a total increase of about <strong>${decadeTotal}%</strong> over the decade.<br><br>Someone buying at the market price in Year 10 could face a price around <strong>${fmtCAD(projected)}</strong>. Your agreed price, set today, is <strong>${fmtCAD(val)}</strong>. That's a potential difference of <strong>${fmtCAD(gain)}</strong> in what you pay compared to what the market could charge.`;
+  document.getElementById('t1-why').textContent=
+    `With IGVhope, your purchase price is set on Day 1. Whatever happens to BC's property market over your 10-year building period, your agreed price does not change. You are locking in today's price while living in the home and building toward ownership.`;
+
+  // Year-by-year table
+  const tbody=document.getElementById('t1-table-body');
+  tbody.innerHTML=years.map((v,y)=>{
+    const growthPct=y===0?', ':Math.round(((v/val)-1)*100)+'%';
+    return `<tr><td style="font-weight:700;color:var(--teal-dark);">Year ${y}${y===0?' (today)':''}${y===10?' (target)':''}</td><td class="avg-cell" style="text-align:right;font-weight:400;">${fmtCAD(v)}</td><td style="text-align:right;color:var(--text-soft);font-size:12.5px;">${growthPct}</td></tr>`;
+  }).join('');
+
+  // Chart
+  document.getElementById('t1-chart-wrap').innerHTML=buildT1Chart(years);
+
+  // Formula breakdown
+  document.getElementById('t1-formula-text').innerHTML=
+    `We compound your annual growth rate over 10 years, the way real property values actually move, a bit each year, not one jump at the end:<br><br>
+    <code>Year 10 value = Today's price × (1 + rate)<sup>10</sup></code><br><br>
+    <code>${fmtCAD(val)} × (1 + ${rate}%)<sup>10</sup> ≈ ${fmtCAD(projected)}</code><br><br>
+    That works out to roughly ${decadeTotal}% total growth across the decade at this rate. Try a different preset or slide the rate to see how sensitive the outcome is to the assumption.`;
+
+  const r=document.getElementById('t1-result');
+  r.classList.add('show');r.scrollIntoView({behavior:'smooth',block:'nearest'});
+}
+
+/* ── TOOL 2 ────────────────────────────────────────────────── */
+
+
+
+/* ── SHARED LOGIN SESSION CHECK ─────────────────────────────
+   Checks the same magic-link session used across the whole platform
+   (demand.igvhousing.com, Home Search, etc). If logged in, swaps the
+   "Log in" link for the person's name + a Log out option. */
+const MAGIC_LINK_WORKER = 'https://magic-link.igvhousing.workers.dev'; // confirm this matches your actual deployed Worker URL
+
+/* Applies real completed-lesson state from HubSpot the same way the local
+   init() applies locally-stored state - checks the self-check button and
+   reveals the next-lesson block. Also mirrors it into local storage, so a
+   lesson completed on another device shows correctly here even before the
+   next fetch, and the two sources stay in agreement on this device. */
+function applyRemoteCompletedLessons(completedLessons){
+  completedLessons.forEach(lessonId => {
+    const prefix = `${COURSE_SLUG}-`;
+    if (!lessonId.startsWith(prefix)) return; // ignore lesson IDs from other courses
+    const n = parseInt(lessonId.slice(prefix.length), 10);
+    if (!n || n < 1 || n > TOTAL_LESSONS) return;
+    markLessonCompletedLocally(n);
+    const btn = document.getElementById(`self-check-btn-${n}`);
+    const nextWrap = document.getElementById(`next-lesson-wrap-${n}`);
+    if (btn) btn.classList.add('checked');
+    if (nextWrap) nextWrap.classList.add('show');
+  });
+  updateRpDisplay();
+}
+
+async function loadRemoteProgress(){
+  try {
+    const res = await fetch(`${MAGIC_LINK_WORKER}/course-progress`, { credentials: 'include' });
+    if (!res.ok) return; // not logged in, or a transient error - local-only state still works
+    const data = await res.json();
+    applyRemoteCompletedLessons(data.completedLessons || []);
+  } catch (e) { /* fail quietly, local-only state still works */ }
+}
+
+/* ── SHARED LOGIN SESSION CHECK ─────────────────────────────
+   Checks the same magic-link session used across the whole platform
+   (demand.igvhousing.com, Home Search, etc). If logged in, swaps the
+   "Log in" link for the person's name + a Log out option, and pulls in
+   their real completed-lesson state from HubSpot. */
+(async function checkLoginSession(){
+  try {
+    const res = await fetch(`${MAGIC_LINK_WORKER}/session`, { credentials: 'include' });
+    const data = await res.json();
+    if (data.loggedIn) {
+      window.__igvUser = { email: data.email || '', firstName: data.firstName || '' };
+      const displayName = data.firstName || (data.email ? data.email.split('@')[0] : 'Member');
+      const initial = displayName.charAt(0).toUpperCase();
+
+      const loginLink = document.getElementById('nav-login-link');
+      const userEl = document.getElementById('nav-user');
+      const avatarEl = document.getElementById('nav-user-avatar');
+      const headerNameEl = document.getElementById('dropdown-header-name');
+      const labelEl = document.getElementById('nav-user-label');
+      const bellBtn = document.getElementById('nav-bell-btn');
+      if (loginLink) loginLink.classList.add('hide');
+      if (userEl) userEl.classList.add('show');
+      if (bellBtn) bellBtn.style.display = 'flex';
+      if (avatarEl) avatarEl.textContent = initial;
+      if (headerNameEl) headerNameEl.textContent = displayName;
+      if (labelEl) labelEl.textContent = displayName;
+
+      const mobileLogin = document.getElementById('mobile-nav-login-link');
+      const mobileUser = document.getElementById('mobile-nav-user');
+      const mobileUserName = document.getElementById('mobile-nav-user-name');
+      if (mobileLogin) mobileLogin.style.display = 'none';
+      if (mobileUser) mobileUser.style.display = 'block';
+      if (mobileUserName) mobileUserName.textContent = displayName;
+
+      await loadRemoteProgress();
+      checkNavFit();
+    }
+  } catch (e) { /* fail quietly, nav just shows Log in as the default state */ }
+})();
+
+function toggleProfileDropdown(event) {
+  event.stopPropagation();
+  document.getElementById('profile-dropdown').classList.toggle('open');
+}
+
+document.addEventListener('click', function(event) {
+  const dropdown = document.getElementById('profile-dropdown');
+  if (dropdown && dropdown.classList.contains('open') && !event.target.closest('.nav-user')) {
+    dropdown.classList.remove('open');
+  }
+});
+
+function handleNavLogout(event) {
+  if (event) event.preventDefault();
+  fetch(`${MAGIC_LINK_WORKER}/logout`, { method: 'POST', credentials: 'include' })
+    .then(function(){ window.location.reload(); })
+    .catch(function(){ window.location.reload(); });
+}
+
+
+/* ── PAGE WIPE TRANSITION ─────────────────────────────────
+   Same colour-wipe visual used elsewhere on IGVhope, adapted here
+   for real page-to-page navigation: covers the screen, then
+   navigates once fully covered. The wipe starts already "active"
+   (see the inline class on #page-wipe), so the very first thing
+   any visitor sees is a brief covered moment that reveals the page -
+   whether they arrived via a wipe-linked click, a fresh visit, or
+   the back button. */
+function navigateWithWipe(url) {
+  const wipe = document.getElementById('page-wipe');
+  if (!wipe) { window.location.href = url; return; }
+  wipe.classList.remove('reveal');
+  wipe.classList.add('active');
+  setTimeout(function() {
+    window.location.href = url;
+  }, 340);
+}
+
+document.querySelectorAll('.wipe-link').forEach(function(el) {
+  el.addEventListener('click', function(e) {
+    if (e.metaKey || e.ctrlKey || e.shiftKey || e.button === 1) return; // let modifier-clicks (new tab etc.) behave normally
+    const href = el.getAttribute('href');
+    if (!href || href === '#') return;
+    e.preventDefault();
+    navigateWithWipe(href);
+  });
+});
+
+(function revealOnLoad(){
+  const wipe = document.getElementById('page-wipe');
+  if (!wipe) return;
+  setTimeout(function() {
+    wipe.classList.add('reveal');
+    setTimeout(function() {
+      wipe.classList.remove('active');
+      wipe.classList.remove('reveal');
+    }, 350);
+  }, 150);
+})();
+/* Handles the browser back/forward cache (bfcache): if this page is
+   restored from bfcache (e.g. someone hits the back button after this
+   page navigated away mid-wipe), the browser can restore it frozen in
+   whatever state it was in when they left - including stuck mid-cover.
+   pageshow with event.persisted=true is the reliable signal for this,
+   and we force a fresh reveal whenever it fires. */
+window.addEventListener('pageshow', function(event) {
+  const wipe = document.getElementById('page-wipe');
+  if (!wipe || !event.persisted) return;
+  wipe.classList.remove('reveal');
+  wipe.classList.add('active');
+  void wipe.offsetWidth; // force reflow so "active" is registered before animating away
+  requestAnimationFrame(function() {
+    setTimeout(function() {
+      wipe.classList.add('reveal');
+      setTimeout(function() {
+        wipe.classList.remove('active');
+        wipe.classList.remove('reveal');
+      }, 350);
+    }, 50);
+  });
+});
+
+
+</script>
+
+</body>
+</html>
