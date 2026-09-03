@@ -13,6 +13,8 @@ igvhope/
 ├── public/                     ← web root
 │   ├── index.html               (homepage)
 │   ├── _headers
+│   ├── robots.txt               (explicitly allows search + AI crawlers)
+│   ├── sitemap.xml
 │   ├── about/index.html
 │   ├── faq/index.html
 │   ├── how-it-works/index.html
@@ -77,6 +79,22 @@ of things that didn't belong in a public marketing-site repo. This pass:
   still links out to `supply.igvhousing.com`, `demand.igvhousing.com`
   and `management.igvhousing.com` as external destinations, which is
   unaffected by this exclusion.
+
+---
+
+## Crawling / AI indexing
+
+`public/robots.txt` allows all crawlers, with explicit entries for the
+known AI crawlers (GPTBot, ChatGPT-User, OAI-SearchBot, ClaudeBot,
+Claude-Web, anthropic-ai, Google-Extended, PerplexityBot, CCBot, Bingbot)
+so the site can be crawled and cited by AI search/assistants as well as
+traditional search engines. `public/sitemap.xml` lists the site's
+indexable pages (marketing pages, resources articles, course-library).
+`login`, `login/choose` and `try-again` are deliberately left out of the
+sitemap — they're not content pages, and the sitemap should only include
+pages worth being discovered. If the goal ever flips to blocking AI
+training crawlers while keeping normal search indexing, that's a
+`Disallow:` per AI bot in the same file, not a site-wide change.
 
 ---
 
