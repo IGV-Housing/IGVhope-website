@@ -1,0 +1,1352 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="icon" type="image/x-icon" href="../../images/favicon.ico">
+<title>Steady Through the Middle Years | IGVhope</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+
+:root {
+  --teal: #1A5C50;
+  --teal-deep: #123D36;
+  --amber: #E8A24A;
+  --ochre: #da8d27;
+  --cream: #FBF7EF;
+  --ink: #1A2422;
+  --ink-soft: #5C6B67;
+  --border: #E2E8E6;
+  --warm-tint: #FDF3EA;
+  --warm-border: #F0DBC0;
+  --blue-tint: #EEF3FB;
+  --blue-border: #D6E3F5;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: 'Montserrat', sans-serif; color: var(--ink); background: #ffffff; line-height: 1.6; -webkit-font-smoothing: antialiased; }
+a { color: inherit; }
+
+/* NAV — exact match to demand.igvhousing.com top nav (#dash-nav) */
+#dash-nav { flex-shrink: 0; height: 60px; background: #1a4848; display: flex; align-items: center; justify-content: space-between; padding: 0 32px; z-index: 100; position: sticky; top: 0; box-shadow: 0 2px 8px rgba(0,0,0,0.2); }
+/* Nav subpage links — matched to IGV Capital's .navlink: 0.9rem / 600 weight,
+   0.5rem 0.85rem padding, with the sliding underline hover (scaleX from left,
+   0.25s ease). Accent recoloured for the evergreen nav bar. */
+.nav-link {
+  display: inline-flex; align-items: center; position: relative;
+  padding: 0.5rem 0.85rem;
+  font-size: 0.9rem; font-weight: 600;
+  color: rgba(255,255,255,0.85); cursor: pointer; letter-spacing: 0.02em;
+  transition: color 0.18s; text-decoration: none; white-space: nowrap; flex-shrink: 0;
+}
+.nav-link:hover, .nav-link.current { color: #ffffff; }
+.nav-link::after {
+  content: "";
+  position: absolute;
+  left: 0.85rem; right: 0.85rem; bottom: 0.3rem;
+  height: 1.5px;
+  background-color: #E8A24A;
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.25s ease;
+}
+.nav-link:hover::after, .nav-link.is-active::after { transform: scaleX(1); }
+.nav-right { display: flex; align-items: center; gap: 8px; flex: 1; }
+/* Centred subpage group — mirrors IGV Capital's .nav-links-group */
+.nav-links-group { display: flex; align-items: center; justify-content: center; gap: 8px; flex: 1; flex-wrap: nowrap; }
+.nav-link, .nav-signup-btn, .nav-user, .nav-right-divider { white-space: nowrap; }
+.nav-right-divider { width: 1px; height: 20px; background: #ce7841; margin: 0 8px; }
+.nav-signup-btn { margin-left: 10px; font-family: 'Montserrat', sans-serif; font-size: 12px; font-weight: 700; letter-spacing: 0.03em; color: #123D36; background: #E8A24A; border: none; border-radius: 999px; padding: 10px 22px; cursor: pointer; transition: background 0.18s; }
+.nav-signup-btn:hover { background: #f0b269; }
+#nav-burger { display: none; background: none; border: none; cursor: pointer; padding: 6px; align-items: center; justify-content: center; }
+#mobile-nav-panel { display: none; flex-direction: column; position: absolute; top: 100%; left: 0; right: 0; background: #1a4848; padding: 8px 24px 20px; box-shadow: 0 12px 24px rgba(0,0,0,0.18); z-index: 200; }
+#mobile-nav-panel.open { display: flex; }
+.mobile-nav-link { color: rgba(255,255,255,0.85); font-size: 14px; font-weight: 500; padding: 14px 0; border-bottom: 1px solid rgba(255,255,255,0.1); text-decoration: none; display: block; }
+.mobile-nav-cta { margin-top: 16px; font-family: 'Montserrat', sans-serif; font-size: 13px; font-weight: 700; letter-spacing: 0.03em; color: #123D36; background: #E8A24A; border: none; border-radius: 999px; padding: 13px 20px; cursor: pointer; width: 100%; }
+@media (max-width: 640px) { .nav-right { display: none; } #nav-burger { display: flex; } }
+
+
+/* LESSON PROGRESS STRIP */
+.lesson-progress-strip { background: var(--cream); padding: 10px 24px; display: flex; align-items: center; justify-content: center; gap: 8px; position: relative; font-size: 12px; font-weight: 700; color: var(--teal-deep); letter-spacing: 0.03em; }
+.exit-link { position: absolute; left: 24px; top: 50%; transform: translateY(-50%); display: flex; align-items: center; gap: 5px; font-size: 12px; font-weight: 700; color: var(--teal-deep); text-decoration: none; opacity: 0.75; transition: opacity 0.15s; }
+.exit-link:hover { opacity: 1; text-decoration: underline; }
+.exit-link svg { flex-shrink: 0; }
+
+/* MAIN COLUMN */
+.lesson-main { max-width: 640px; margin: 0 auto; padding: 32px 24px 60px; }
+
+/* 1. LESSON HEADER */
+.lesson-eyebrow { font-size: 11.5px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--teal); margin-bottom: 8px; }
+.lesson-title { font-size: clamp(24px, 4vw, 32px); font-weight: 800; color: var(--teal-deep); line-height: 1.25; letter-spacing: -0.01em; margin-bottom: 10px; }
+.lesson-meta { font-size: 13px; color: var(--ink-soft); font-weight: 600; margin-bottom: 26px; }
+
+/* 2. SHORT WIN BANNER */
+.short-win { background: var(--cream); border-left: 3px solid var(--ochre); border-radius: 8px; padding: 14px 18px; font-style: italic; font-size: 14px; color: var(--teal-deep); line-height: 1.6; margin-bottom: 28px; }
+
+/* 3. BODY AND BULLETS */
+.lesson-body p { font-size: 15px; color: var(--ink); line-height: 1.8; margin-bottom: 18px; }
+.lesson-body ul { margin: 0 0 18px 20px; }
+.lesson-body li { font-size: 15px; color: var(--ink); line-height: 1.75; margin-bottom: 8px; }
+
+/* 5. COMPARISON BOX */
+.comparison-box { border: 1.5px solid var(--border); border-radius: 14px; overflow: hidden; margin: 24px 0; }
+.comparison-title { font-size: 12.5px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.05em; color: var(--teal-deep); background: #F7F5EF; padding: 14px 18px; border-bottom: 1.5px solid var(--border); }
+.comparison-cols { display: grid; grid-template-columns: 1fr 1fr; }
+@media (max-width: 560px) { .comparison-cols { grid-template-columns: 1fr; } }
+.comparison-col { padding: 18px; font-size: 13.5px; line-height: 1.7; }
+.comparison-col.conventional { background: var(--warm-tint); border-right: 1.5px solid var(--border); color: #6B4423; }
+@media (max-width: 560px) { .comparison-col.conventional { border-right: none; border-bottom: 1.5px solid var(--border); } }
+.comparison-col.hope { background: var(--teal); color: #ffffff; }
+.comparison-col-label { font-size: 11px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 8px; opacity: 0.75; }
+
+/* 6. WORKED EXAMPLE */
+.worked-example { background: var(--blue-tint); border: 1.5px solid var(--blue-border); border-radius: 12px; padding: 18px 20px; margin: 24px 0; }
+.worked-example-label { font-size: 11px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.06em; color: #3A5A8C; margin-bottom: 8px; }
+.worked-example p { font-size: 14px; color: #2E4258; line-height: 1.7; }
+
+/* 7. ACTION STEP */
+.action-step { border: 1.5px solid var(--teal); border-radius: 12px; padding: 18px 20px; margin: 24px 0; }
+.action-step-label { font-size: 11px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.06em; color: var(--teal); margin-bottom: 8px; }
+.action-step p { font-size: 14px; color: var(--ink); line-height: 1.7; }
+
+/* 8. SELF-CHECK BAR */
+.self-check { display: flex; align-items: center; gap: 14px; width: 100%; background: var(--cream); border: 1.5px solid #F0E4CE; border-radius: 999px; padding: 16px 22px; margin: 30px 0 8px; cursor: pointer; transition: background 0.18s, border-color 0.18s; font-family: 'Montserrat', sans-serif; text-align: left; }
+.self-check:hover { border-color: var(--ochre); }
+.self-check.checked { background: var(--teal); border-color: var(--teal); }
+.self-check-icon { width: 26px; height: 26px; border-radius: 50%; border: 2px solid var(--ochre); flex-shrink: 0; display: flex; align-items: center; justify-content: center; transition: all 0.18s; }
+.self-check.checked .self-check-icon { background: #ffffff; border-color: #ffffff; }
+.self-check-icon svg { opacity: 0; transition: opacity 0.18s; }
+.self-check.checked .self-check-icon svg { opacity: 1; }
+.self-check-text { font-size: 14px; font-weight: 700; color: var(--teal-deep); }
+.self-check.checked .self-check-text { color: #ffffff; }
+
+/* 9. TOOLS BOX */
+.tools-box { background: #F7F5EF; border-radius: 12px; padding: 18px 20px; margin: 20px 0; }
+.tools-box-label { font-size: 11px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.06em; color: var(--ink-soft); margin-bottom: 12px; }
+.tool-link { display: block; text-decoration: none; margin-bottom: 14px; }
+.tool-link:last-child { margin-bottom: 0; }
+.tool-link-name { font-size: 14px; font-weight: 700; color: var(--teal); margin-bottom: 3px; }
+.tool-link-desc { font-size: 12.5px; color: var(--ink-soft); }
+
+/* SOURCES LINE */
+.sources-line { font-size: 11px; color: #9AA8A4; line-height: 1.7; margin-top: 30px; padding-top: 18px; border-top: 1px solid var(--border); }
+
+/* NEXT LESSON CTA */
+.next-lesson-wrap { display: none; margin-top: 28px; text-align: center; }
+.next-lesson-wrap.show { display: block; animation: fadeUp 0.35s ease; }
+@keyframes fadeUp { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+.next-lesson-label { font-size: 12px; color: var(--ink-soft); margin-bottom: 10px; }
+.next-lesson-btn { display: inline-block; font-family: 'Montserrat', sans-serif; font-size: 14.5px; font-weight: 700; color: #123D36; background: var(--ochre); border: none; border-radius: 999px; padding: 15px 32px; cursor: pointer; text-decoration: none; }
+
+/* FOOTER — exact match to demand.igvhousing.com */
+#footer-disclosures { padding-top: 32px; padding-bottom: 32px; }
+#disclosures-title { font-family: 'Montserrat', sans-serif; font-size: 10px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: rgba(255,255,255,0.55); margin-bottom: 8px; }
+#footer-disclosures p { font-family: 'Montserrat', sans-serif; font-size: 9px; font-weight: 400; color: rgba(255,255,255,0.4); line-height: 1.7; margin-bottom: 8px; }
+#footer-disclosures a { color: rgba(255,255,255,0.55); text-decoration: underline; }
+#footer-disclosures a:hover { color: #fff; }
+#footer-sitemap { padding-top: 24px; padding-bottom: 24px; display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 24px; }
+.sitemap-heading { font-family: 'Montserrat', sans-serif; font-size: 11px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: #FFFFFF; margin-bottom: 14px; }
+.sitemap-col { display: flex; flex-direction: column; gap: 12px; }
+.sitemap-col a { font-family: 'Montserrat', sans-serif; font-size: 11px; font-weight: 600; letter-spacing: 0.03em; text-transform: uppercase; color: rgba(255,255,255,0.65); text-decoration: none; cursor: pointer; }
+.sitemap-col a:hover { color: #fff; }
+#sitemap-social { display: flex; gap: 10px; margin-top: 4px; }
+#sitemap-social a { width: 26px; height: 26px; border-radius: 6px; background: rgba(255,255,255,0.12); display: flex; align-items: center; justify-content: center; color: #fff; }
+#sitemap-social a:hover { background: rgba(255,255,255,0.22); }
+#footer-bottom-bar { padding-top: 16px; padding-bottom: 14px; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 10px; }
+#footer-copyright { font-size: 10px; letter-spacing: 0.02em; }
+#footer-bottom-links { display: flex; gap: 20px; }
+#footer-bottom-links a { font-family: 'Montserrat', sans-serif; font-size: 10px; font-weight: 500; color: rgba(255,255,255,0.55); text-decoration: none; }
+#footer-bottom-links a:hover { color: #fff; text-decoration: underline; }
+@media (max-width: 700px) {
+  #footer-sitemap { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+#dash-footer { width: 100%; background: #123D36; color: rgba(255,255,255,0.55); font-family: 'Montserrat', sans-serif; font-size: 10px; font-weight: 500; letter-spacing: 0.04em; display: flex; flex-direction: column; margin-top: 20px; }
+.footer-block { width: 100%; box-sizing: border-box; }
+.footer-divider { border-top: 1px solid rgba(255,255,255,0.15); }
+#footer-disclosures, #footer-sitemap, #footer-bottom-bar { max-width: 1200px; margin: 0 auto; padding-left: 32px; padding-right: 32px; box-sizing: border-box; }
+#dash-footer a { color: rgba(255,255,255,0.55); text-decoration: none; transition: color 0.15s; }
+#dash-footer a:hover { color: #fff; }
+
+
+/* INTERACTIVE TOOL (Tool A / Tool B) */
+.tool-widget { background: #F7F5EF; border-radius: 12px; padding: 20px; margin: 24px 0; }
+.tool-widget-label { font-size: 11px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.06em; color: var(--ink-soft); margin-bottom: 6px; }
+.tool-widget-question { font-size: 14.5px; font-weight: 700; color: var(--teal-deep); margin-bottom: 4px; }
+.tool-widget-hint { font-size: 12px; color: var(--ink-soft); margin-bottom: 14px; line-height: 1.6; }
+.tool-widget-field { margin-bottom: 12px; }
+.tool-widget-field label { display: block; font-size: 12.5px; font-weight: 600; color: var(--ink-soft); margin-bottom: 5px; }
+.tool-widget-input-wrap { position: relative; }
+.tool-widget-prefix { position: absolute; left: 13px; top: 50%; transform: translateY(-50%); font-size: 15px; font-weight: 600; color: var(--ink-soft); }
+.tool-widget-field input { width: 100%; padding: 11px 13px 11px 26px; border: 1.5px solid var(--border); border-radius: 9px; font-family: 'Montserrat', sans-serif; font-size: 15px; font-weight: 600; color: var(--ink); background: #ffffff; }
+.tool-widget-field input:focus { outline: none; border-color: var(--teal); }
+.tool-widget-btn { font-family: 'Montserrat', sans-serif; font-size: 13.5px; font-weight: 700; color: #ffffff; background: var(--teal); border: none; border-radius: 9px; padding: 12px 22px; cursor: pointer; margin-top: 6px; transition: background 0.18s; }
+.tool-widget-btn:hover { background: #164e44; }
+.tool-widget-result { display: none; margin-top: 16px; background: var(--teal-deep); border-radius: 10px; padding: 16px 18px; }
+.tool-widget-result.show { display: block; }
+.tool-widget-result-line { font-size: 13.5px; color: rgba(255,255,255,0.9); line-height: 1.7; }
+.tool-widget-result-line strong { color: #ffffff; }
+.tool-widget-skip { font-size: 12px; color: var(--ink-soft); margin-top: 10px; }
+.tool-widget-2col { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+@media (max-width: 480px) { .tool-widget-2col { grid-template-columns: 1fr; } }
+
+/* SECTION HEADER (Lesson 8 only) */
+.lesson-section-header { font-size: 17px; font-weight: 800; color: var(--teal-deep); margin: 30px 0 12px; }
+
+/* END OF COURSE — two doors */
+.end-of-course { margin: 34px 0 8px; text-align: center; }
+.end-of-course-closing { font-size: 14px; color: var(--ink-soft); line-height: 1.7; max-width: 480px; margin: 0 auto 22px; }
+.end-of-course-doors { display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; }
+.door-btn { display: inline-block; font-family: 'Montserrat', sans-serif; font-size: 14.5px; font-weight: 700; border-radius: 999px; padding: 15px 30px; cursor: pointer; text-decoration: none; transition: background 0.18s, transform 0.15s; border: none; }
+.door-btn.primary { color: #123D36; background: var(--ochre); }
+.door-btn.primary:hover { background: #c67d21; }
+.door-btn.secondary { color: var(--teal-deep); background: var(--cream); border: 1.5px solid #F0E4CE; }
+.door-btn.secondary:hover { border-color: var(--teal); }
+
+/* MULTI-LESSON PANELS */
+.lesson-panel { display: none; }
+.lesson-panel.active { display: block; animation: panelFade 0.3s ease; }
+@keyframes panelFade { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
+
+/* RP CHIP */
+.rp-chip { display: inline-block; font-size: 11px; font-weight: 800; color: var(--teal); background: rgba(26,92,80,0.1); padding: 2px 9px; border-radius: 999px; letter-spacing: 0.02em; }
+#progress-rp-total { font-weight: 700; color: var(--ochre); }
+
+/* JOURNAL PANEL */
+.journal-panel { background: #FBF3F6; border: 1.5px solid #ECD9E2; border-left: 4px solid #7A3F5A; border-radius: 12px; margin-top: 26px; overflow: hidden; }
+.jp-head { display: flex; align-items: center; gap: 10px; padding: 12px 16px; background: rgba(122,63,90,0.06); flex-wrap: wrap; }
+.jp-icon { flex: 0 0 24px; height: 24px; border-radius: 6px; background: #7A3F5A; color: #fff; display: flex; align-items: center; justify-content: center; font-size: 12px; }
+.jp-title { font-size: 13.5px; font-weight: 700; color: #7A3F5A; flex: 1; }
+.jp-tag { font-size: 10.5px; color: rgba(122,63,90,0.65); background: rgba(122,63,90,0.1); padding: 3px 9px; border-radius: 999px; }
+.jp-body { padding: 14px 16px; display: flex; flex-direction: column; gap: 12px; }
+.jf label { display: block; font-size: 12px; font-weight: 700; color: #7A3F5A; margin-bottom: 5px; }
+.jf .opt { font-weight: 400; opacity: 0.7; }
+.jf textarea { width: 100%; border: 1px solid rgba(122,63,90,0.25); border-radius: 8px; padding: 9px 11px; font-size: 13px; font-family: 'Montserrat', sans-serif; color: var(--ink); background: #fff; resize: vertical; }
+.jf textarea:focus { outline: none; border-color: #7A3F5A; box-shadow: 0 0 0 2px rgba(122,63,90,0.12); }
+.radio-row { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 6px; }
+.radio-row label { display: flex; align-items: center; gap: 5px; font-size: 12.5px; font-weight: 400; cursor: pointer; background: #fff; border: 1px solid rgba(122,63,90,0.2); border-radius: 7px; padding: 5px 10px; color: var(--ink); }
+.radio-row input { accent-color: #7A3F5A; }
+.jp-save-row { display: flex; align-items: center; justify-content: flex-end; gap: 10px; }
+.jp-saved { font-size: 12px; color: #7A3F5A; font-weight: 700; opacity: 0; transition: opacity 0.3s; }
+.jp-saved.show { opacity: 1; }
+.jp-btn { font-family: 'Montserrat', sans-serif; background: #7A3F5A; color: #fff; border: none; border-radius: 8px; padding: 9px 16px; font-size: 12.5px; font-weight: 700; cursor: pointer; }
+.jp-btn:hover { filter: brightness(0.93); }
+
+/* BADGE CELEBRATION (shown when all 8 lessons complete) */
+.badge-celebration { display: none; text-align: center; background: var(--cream); border: 1.5px solid #F0E4CE; border-radius: 16px; padding: 26px 22px; margin: 20px 0; }
+.badge-celebration.show { display: block; animation: panelFade 0.4s ease; }
+.badge-icon { width: 56px; height: 56px; border-radius: 50%; background: var(--ochre); color: #fff; font-size: 26px; display: flex; align-items: center; justify-content: center; margin: 0 auto 14px; }
+.badge-title { font-size: 18px; font-weight: 800; color: var(--teal-deep); margin-bottom: 6px; }
+.badge-desc { font-size: 13.5px; color: var(--ink-soft); }
+.badge-desc strong { color: var(--teal-deep); }
+
+/* TOAST (RP earned) */
+.rp-toast { position: fixed; bottom: 22px; left: 50%; transform: translateX(-50%) translateY(120px); background: var(--teal-deep); color: #fff; padding: 11px 20px; border-radius: 999px; font-size: 13px; font-weight: 600; box-shadow: 0 10px 28px rgba(0,0,0,0.25); transition: transform 0.35s cubic-bezier(.2,.8,.2,1); z-index: 500; }
+.rp-toast.show { transform: translateX(-50%) translateY(0); }
+.rp-toast-tag { background: var(--ochre); color: #123D36; font-weight: 800; border-radius: 999px; padding: 2px 9px; font-size: 11.5px; margin-right: 8px; }
+
+
+.nav-user { display: none; align-items: center; gap: 10px; position: relative; cursor: pointer; user-select: none; }
+.nav-user.show { display: flex; }
+#nav-login-link.hide { display: none; }
+.nav-user-avatar { width: 32px; height: 32px; border-radius: 50%; background: #C8683A; color: white; font-size: 13px; font-weight: 700; display: flex; align-items: center; justify-content: center; text-transform: uppercase; flex-shrink: 0; }
+#profile-dropdown { display: none; position: absolute; top: calc(100% + 14px); right: 0; width: 220px; background: #ffffff; border-radius: 12px; box-shadow: 0 16px 40px rgba(0,0,0,0.22); overflow: hidden; z-index: 300; }
+#profile-dropdown.open { display: block; animation: dropdown-in 0.18s cubic-bezier(0.16,1,0.3,1) both; }
+@keyframes dropdown-in { from { opacity:0; transform:translateY(-8px) scale(0.97); } to { opacity:1; transform:none; } }
+.dropdown-header { padding: 14px 16px; background: #F5F1E8; border-bottom: 1px solid rgba(18,61,54,0.1); }
+.dropdown-header-name { font-family: 'Montserrat', sans-serif; font-size: 13px; font-weight: 700; color: #123D36; }
+.dropdown-header-role { font-family: 'Montserrat', sans-serif; font-size: 10px; font-weight: 500; color: #888; margin-top: 2px; }
+.dropdown-item { display: flex; align-items: center; gap: 10px; padding: 10px 16px; font-family: 'Montserrat', sans-serif; font-size: 12px; font-weight: 500; color: #333; text-decoration: none; cursor: pointer; transition: background 0.15s; }
+.dropdown-item:hover { background: #F5F1E8; }
+.dropdown-item-icon { display: flex; align-items: center; justify-content: center; color: #1A5C50; flex-shrink: 0; }
+.dropdown-item.danger { color: #C0392B; }
+.dropdown-item.danger .dropdown-item-icon { color: #C0392B; }
+.dropdown-divider { height: 1px; background: rgba(18,61,54,0.1); margin: 4px 0; }
+.nav-bell { background: none; border: none; cursor: pointer; display: flex; align-items: center; padding: 4px; position: relative; transition: opacity 0.18s; }
+.nav-bell:hover { opacity: 0.75; }
+
+</style>
+</head>
+<body>
+
+<nav id="dash-nav">
+  <a id="nav-logo" href="https://www.igvhope.com" style="cursor:pointer;display:flex;align-items:center;" title="Back to IGVhope">
+    <svg width="130" height="30" viewBox="0 0 163 38" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M34.536 0.747925H39.4049V33.0843H32.427V2.93019C32.427 1.72954 33.3678 0.747925 34.536 0.747925Z" fill="#ffffff"/>
+      <path d="M88.8771 21.3374L96.2234 2.32986C96.5919 1.37259 97.4857 0.747925 98.4814 0.747925H104.393L91.8329 33.0843H85.9291L73.3611 0.747925H80.9191L88.8771 21.3293V21.3374Z" fill="#ffffff"/>
+      <path d="M67.5122 16.6144H72.2478V28.0855C69.1508 31.6631 64.8544 33.4478 59.374 33.4478C54.7874 33.4478 50.93 31.874 47.8174 28.7264C44.7048 25.5787 43.1445 21.6117 43.1445 16.8172C43.1445 12.0227 44.7283 8.02326 47.9036 4.81071C51.0789 1.60628 54.905 0 59.3897 0C63.8743 0 67.7709 1.52515 71.0796 4.57545L68.8294 7.93402C68.1238 8.98865 66.7282 9.28881 65.7089 8.5668C64.9641 8.03949 64.2663 7.64197 63.5921 7.37426C62.416 6.89562 61.138 6.66036 59.766 6.66036C57.116 6.66036 54.8815 7.5933 53.0625 9.45917C51.2436 11.325 50.3341 13.7831 50.3341 16.8334C50.3341 19.8837 51.2044 22.3337 52.9528 24.1671C54.7011 26.0006 56.7788 26.9173 59.1858 26.9173C61.5928 26.9173 63.6156 26.4386 65.2228 25.4814V18.9589C65.2228 17.6528 66.2421 16.5982 67.5044 16.5982L67.5122 16.6144Z" fill="#ffffff"/>
+      <path d="M28.6407 17.0608L25.4418 2.57192C25.2066 1.49296 24.156 0.827731 23.1132 1.09544C22.0705 1.36316 21.4197 2.46646 21.6549 3.55353L24.9479 18.4886C25.1831 19.5595 23.8502 20.2247 23.1916 19.3648L14.2223 7.72336C13.5402 6.83909 12.176 6.52271 11.196 7.03379C10.2159 7.54488 9.97287 8.68063 10.655 9.57301L20.1418 21.8878C20.8082 22.7477 19.883 23.9484 18.9265 23.4697L5.64502 16.8499C4.72771 16.3956 3.56734 16.6552 3.04204 17.5557C2.4305 18.5941 2.83035 19.9164 3.85743 20.4275L17.2408 27.096C18.1974 27.5746 17.8681 29.0673 16.8096 29.0673H1.95224C0.870274 29.0673 0 29.9759 0 31.0874C0 32.1988 0.870274 33.1074 1.95224 33.1074H27.1667C27.9821 33.1074 28.6407 32.4259 28.6407 31.5822V17.0608Z" fill="#FBB040"/>
+      <path d="M106.699 26.0738V33.2047H104.018V14.8624H106.699V22.4394C107.083 21.6282 107.655 20.9954 108.432 20.533C109.208 20.0706 110.039 19.8434 110.933 19.8434C112.368 19.8434 113.528 20.2977 114.414 21.2063C115.3 22.1149 115.739 23.4292 115.739 25.1409V33.2128H113.057V25.9846C113.057 23.559 112.085 22.3421 110.141 22.3421C109.216 22.3421 108.408 22.6585 107.726 23.2913C107.036 23.924 106.699 24.857 106.699 26.0738Z" fill="#ffffff"/>
+      <path d="M130.126 31.4276C128.848 32.7418 127.256 33.3989 125.343 33.3989C123.43 33.3989 121.831 32.7418 120.56 31.4276C119.283 30.1134 118.647 28.5071 118.647 26.6088C118.647 24.7104 119.283 23.1042 120.56 21.7899C121.838 20.4757 123.43 19.8186 125.343 19.8186C127.256 19.8186 128.848 20.4757 130.126 21.7899C131.404 23.1042 132.039 24.7104 132.039 26.6088C132.039 28.5071 131.404 30.1134 130.126 31.4276ZM122.458 29.724C123.218 30.5271 124.175 30.9246 125.343 30.9246C126.511 30.9246 127.468 30.5271 128.228 29.724C128.989 28.9208 129.365 27.8905 129.365 26.6169C129.365 25.3432 128.989 24.3129 128.228 23.5098C127.468 22.7067 126.511 22.3091 125.343 22.3091C124.175 22.3091 123.218 22.7067 122.458 23.5098C121.697 24.3129 121.321 25.3432 121.321 26.6169C121.321 27.8905 121.697 28.9208 122.458 29.724Z" fill="#ffffff"/>
+      <path d="M141.894 19.8362C143.603 19.8362 145.062 20.4446 146.277 21.6696C147.484 22.8946 148.096 24.5171 148.096 26.5452C148.096 28.5733 147.492 30.2283 146.292 31.4938C145.085 32.7675 143.682 33.4003 142.082 33.4003C140.483 33.4003 139.04 32.6702 137.762 31.218V38.0001H135.081V20.0228H137.762V22.3267C138.813 20.6637 140.193 19.8281 141.902 19.8281L141.894 19.8362ZM137.707 26.6426C137.707 27.9 138.076 28.9222 138.805 29.7253C139.542 30.5285 140.428 30.926 141.486 30.926C142.545 30.926 143.454 30.5285 144.238 29.7415C145.022 28.9546 145.414 27.9243 145.414 26.6588C145.414 25.3932 145.03 24.3467 144.27 23.5111C143.501 22.6756 142.584 22.2618 141.518 22.2618C140.451 22.2618 139.55 22.6756 138.813 23.5111C138.076 24.3467 137.715 25.3851 137.715 26.6426H137.707Z" fill="#ffffff"/>
+      <path d="M163 27.8253H153.019C153.082 28.7826 153.505 29.5532 154.289 30.1373C155.073 30.7214 155.967 31.0135 156.971 31.0135C158.562 31.0135 159.778 30.4943 160.609 29.4559L162.138 31.192C160.766 32.6603 158.978 33.3986 156.775 33.3986C154.987 33.3986 153.466 32.782 152.22 31.557C150.965 30.3239 150.338 28.6771 150.338 26.6084C150.338 24.5397 150.973 22.8929 152.251 21.6679C153.529 20.451 155.026 19.8345 156.759 19.8345C158.492 19.8345 159.958 20.378 161.173 21.457C162.388 22.5359 162.992 24.0286 162.992 25.927V27.8334L163 27.8253ZM153.019 25.6511H160.319C160.319 24.5478 159.981 23.696 159.315 23.1038C158.649 22.5116 157.818 22.2114 156.838 22.2114C155.857 22.2114 154.972 22.5197 154.195 23.1363C153.411 23.7528 153.019 24.5884 153.019 25.6511Z" fill="#ffffff"/>
+    </svg>
+  </a>
+  <div class="nav-right">
+    <div class="nav-links-group">
+      <a class="nav-link" href="https://www.igvhope.com/how-it-works">How It Works</a>
+      <a class="nav-link" href="https://www.igvhope.com/next-steps">Next Steps</a>
+      <a class="nav-link" href="https://www.igvhope.com/faq">FAQ</a>
+      <a class="nav-link" href="https://www.igvhope.com/about">About</a>
+    </div>
+    <div class="nav-right-divider"></div>
+    <a class="nav-link" id="nav-login-link" href="https://www.igvhope.com/login">Log in</a>
+    <button class="nav-bell" id="nav-bell-btn" aria-label="Notifications" style="display:none;" onclick="window.location.href='https://www.igvhope.com/#account-progress'">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.75)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
+    </button>
+    <span class="nav-user" id="nav-user" onclick="toggleProfileDropdown(event)">
+      <div class="nav-user-avatar" id="nav-user-avatar">?</div>
+      <span id="nav-user-label" style="color:rgba(255,255,255,0.85);font-size:12px;font-weight:600;">Account</span>
+      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.5)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="margin-left:2px;"><polyline points="6 9 12 15 18 9"/></svg>
+      <div id="profile-dropdown">
+        <div class="dropdown-header">
+          <div class="dropdown-header-name" id="dropdown-header-name">IGVhope Member</div>
+          <div class="dropdown-header-role">IGVhope Participant</div>
+        </div>
+        <a class="dropdown-item" href="https://www.igvhope.com/#account-progress">
+          <span class="dropdown-item-icon"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg></span>
+          My Account
+        </a>
+        <div class="dropdown-divider"></div>
+        <a class="dropdown-item" href="https://www.igvhousing.com" target="_blank" rel="noopener">
+          <span class="dropdown-item-icon"><img src="images/img_001.ico" alt="" width="15" height="15" style="border-radius:3px;"></span>
+          About IGV
+        </a>
+        <div class="dropdown-divider"></div>
+        <a class="dropdown-item danger" href="#" onclick="handleNavLogout(event)">
+          <span class="dropdown-item-icon"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg></span>
+          Log out
+        </a>
+      </div>
+    </span>
+    <button class="nav-signup-btn" onclick="window.location.href='https://www.igvhope.com'">Find Your Home</button>
+  </div>
+  <button id="nav-burger" onclick="toggleMobileNav()" aria-label="Open menu">
+    <svg id="nav-burger-icon-open" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+    <svg id="nav-burger-icon-close" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:none;"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+  </button>
+  <div id="mobile-nav-panel">
+    <a class="mobile-nav-link" href="https://www.igvhope.com/how-it-works">How It Works</a>
+    <a class="mobile-nav-link" href="https://www.igvhope.com/next-steps">Next Steps</a>
+    <a class="mobile-nav-link" href="https://www.igvhope.com/faq">FAQ</a>
+    <a class="mobile-nav-link" href="https://www.igvhope.com/about">About</a>
+    <a class="mobile-nav-link" id="mobile-nav-login-link" href="https://www.igvhope.com/login">Log in</a>
+    <div id="mobile-nav-user" style="display:none;">
+      <div class="mobile-nav-link" id="mobile-nav-user-name"></div>
+      <a class="mobile-nav-link" href="https://www.igvhope.com/#account-progress">My Account</a>
+      <a class="mobile-nav-link" href="#" id="mobile-nav-logout-link" onclick="handleNavLogout(event)">Log out</a>
+    </div>
+    <button class="mobile-nav-cta" onclick="toggleMobileNav();window.location.href='https://www.igvhope.com';">Find Your Home</button>
+  </div>
+</nav>
+
+<div class="lesson-progress-strip" id="lesson-progress-strip"><a class="exit-link" href="../"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></svg>Exit to course overview</a><span id="lesson-progress-strip-text">Lesson 1 of 8</span> &nbsp;&middot;&nbsp; <span id="progress-rp-total">0 points earned</span></div>
+
+<main class="lesson-main">
+
+<section class="lesson-panel active" id="lesson-panel-1" data-lesson="1">
+  <div class="lesson-eyebrow">Lesson 1</div>
+  <h1 class="lesson-title">Why the middle feels flat, and why that is fine</h1>
+  <div class="lesson-meta">About 6 minutes &nbsp;&middot;&nbsp; <span class="rp-chip">70 points</span></div>
+
+  <div class="short-win">Short win: You stop reading normal drift as failure and start seeing it as the predictable shape of a long journey.</div>
+
+  <div class="lesson-body">
+    <p>Whether you're in the IGVhope program and your homeownership path is locked in, or you're doing the hard work of saving for your deposit, those middle years can feel long. If you're in IGVhope and the excitement of the early days has faded, nothing has gone wrong. This is the most predictable stage of any long commitment.</p>
+    <p>Why the middle feels different:</p>
+    <ul>
+      <li>The start carried the energy of something new, a decision made, a home entered, momentum high</li>
+      <li>The finish carries the pull of something close, Year 10 visible, mortgage preparation beginning</li>
+      <li>The middle has neither, and so it can feel flat</li>
+    </ul>
+    <p>People often mistake that flatness for a problem. They think drifting attention means they are failing. It means they are human, and they are in exactly the right part of the journey for the rest of this course to matter.</p>
+  </div>
+
+  <div class="worked-example">
+    <div class="worked-example-label">Worked example</div>
+    <p>A participant in Year 5 wrote in the community that she felt guilty for not thinking about her pathway much anymore. A dozen people replied that they felt the same. That thread did more for all of them than any motivational content could.</p>
+  </div>
+
+  <div class="action-step">
+    <div class="action-step-label">Your action step</div>
+    <p>Post one honest sentence in the IGVhope community about where you are in the journey right now. You do not need to be positive. Just honest.</p>
+  </div>
+
+  <button class="self-check" id="self-check-btn-1" onclick="completeLesson(1)">
+    <div class="self-check-icon"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#1A5C50" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></div>
+    <div class="self-check-text" id="self-check-text-1">Self-check: I understand that middle-years drift is normal, not a signal to worry about.</div>
+  </button>
+
+  <div class="next-lesson-wrap" id="next-lesson-wrap-1">
+    <div class="next-lesson-label">Next lesson</div>
+    <a class="next-lesson-btn" id="next-lesson-btn-1" href="?lesson=2">Small wins are real wins</a>
+  </div>
+
+  <div class="sources-line">FCAC managing money (canada.ca/en/financial-consumer-agency)</div>
+
+
+<div class="journal-panel" id="journal-panel-1">
+  <div class="jp-head">
+    <span class="jp-icon">&#9998;</span>
+    <span class="jp-title">My journal &mdash; Lesson 1</span>
+    <span class="jp-tag">Optional. Private. Stored only on this device.</span>
+  </div>
+  <div class="jp-body">
+    <div class="jf">
+      <label>My reflection <span class="opt">(optional)</span></label>
+      <textarea rows="2" data-jk="c3l1_ref" placeholder="What came up for you in this lesson?"></textarea>
+    </div>
+    <div class="jf">
+      <label>Did I do the action step? <span class="opt">(optional)</span></label>
+      <div class="radio-row">
+        <label><input type="radio" name="done3_1" value="yes" onchange="jSave('c3l1_done', this.value)"> Yes</label>
+        <label><input type="radio" name="done3_1" value="not_yet" onchange="jSave('c3l1_done', this.value)"> Not yet</label>
+        <label><input type="radio" name="done3_1" value="no" onchange="jSave('c3l1_done', this.value)"> No</label>
+      </div>
+      <textarea rows="1" data-jk="c3l1_act" placeholder="What happened, or what got in the way?"></textarea>
+    </div>
+    <div class="jf">
+      <label>My goal from this lesson <span class="opt">(optional)</span></label>
+      <textarea rows="1" data-jk="c3l1_goal" placeholder="Something I want to do, change, or remember..."></textarea>
+    </div>
+    <div class="jf feedback">
+      <label>Questions or ideas for IGVhope <span class="opt">(goes to our team)</span></label>
+      <textarea rows="1" data-jk="c3l1_fb" placeholder="Something this lesson didn't cover? An idea for a future lesson?"></textarea>
+    </div>
+    <div class="jp-save-row">
+      <span class="jp-saved" id="jp-saved-1">Saved &#10003;</span>
+      <button class="jp-btn" onclick="saveJournal(1)">Save journal entry</button>
+    </div>
+  </div>
+</div>
+
+</section>
+
+<section class="lesson-panel" id="lesson-panel-2" data-lesson="2">
+  <div class="lesson-eyebrow">Lesson 2</div>
+  <h1 class="lesson-title">Small wins are real wins</h1>
+  <div class="lesson-meta">About 6 minutes &nbsp;&middot;&nbsp; <span class="rp-chip">80 points</span></div>
+
+  <div class="short-win">Short win: You start seeing and banking the progress you are already making, including the progress you had been dismissing.</div>
+
+  <div class="lesson-body">
+    <p>In the middle years, Year 10 is too far away to motivate you day to day. So you need smaller markers, and they are everywhere if you look.</p>
+    <p>Small wins worth logging:</p>
+    <ul>
+      <li>Paying off a credit card</li>
+      <li>Hitting a savings milestone</li>
+      <li>Watching your credit score cross into the next band</li>
+      <li>Holding your budget for a full quarter</li>
+      <li>Making it through an expensive month without using a credit card</li>
+      <li>Any month where your net worth grew, even slightly</li>
+    </ul>
+    <p>These feel small against a ten-year horizon. Do not dismiss them. A decade of progress is made entirely of moments that each felt minor while they were happening. Start a running log.</p>
+  </div>
+
+  <div class="worked-example">
+    <div class="worked-example-label">Worked example</div>
+    <p>Devon kept a note on his phone titled Small Wins. By Year 5 it had nineteen entries. On the days the pathway felt pointless, he opened it and saw nineteen reasons it was not.</p>
+  </div>
+
+  <div class="action-step">
+    <div class="action-step-label">Your action step</div>
+    <p>Start a Small Wins log, in your journal, your phone, or anywhere you will return to it. Add the most recent win you can think of right now.</p>
+  </div>
+
+  <button class="self-check" id="self-check-btn-2" onclick="completeLesson(2)">
+    <div class="self-check-icon"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#1A5C50" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></div>
+    <div class="self-check-text" id="self-check-text-2">Self-check: I am actively tracking small wins across my building period.</div>
+  </button>
+
+  <div class="next-lesson-wrap" id="next-lesson-wrap-2">
+    <div class="next-lesson-label">Next lesson</div>
+    <a class="next-lesson-btn" id="next-lesson-btn-2" href="?lesson=3">When money gets tight, act early</a>
+  </div>
+
+  <div class="sources-line">FCAC managing money (canada.ca/en/financial-consumer-agency)</div>
+
+
+<div class="journal-panel" id="journal-panel-2">
+  <div class="jp-head">
+    <span class="jp-icon">&#9998;</span>
+    <span class="jp-title">My journal &mdash; Lesson 2</span>
+    <span class="jp-tag">Optional. Private. Stored only on this device.</span>
+  </div>
+  <div class="jp-body">
+    <div class="jf">
+      <label>My reflection <span class="opt">(optional)</span></label>
+      <textarea rows="2" data-jk="c3l2_ref" placeholder="What came up for you in this lesson?"></textarea>
+    </div>
+    <div class="jf">
+      <label>Did I do the action step? <span class="opt">(optional)</span></label>
+      <div class="radio-row">
+        <label><input type="radio" name="done3_2" value="yes" onchange="jSave('c3l2_done', this.value)"> Yes</label>
+        <label><input type="radio" name="done3_2" value="not_yet" onchange="jSave('c3l2_done', this.value)"> Not yet</label>
+        <label><input type="radio" name="done3_2" value="no" onchange="jSave('c3l2_done', this.value)"> No</label>
+      </div>
+      <textarea rows="1" data-jk="c3l2_act" placeholder="What happened, or what got in the way?"></textarea>
+    </div>
+    <div class="jf">
+      <label>My goal from this lesson <span class="opt">(optional)</span></label>
+      <textarea rows="1" data-jk="c3l2_goal" placeholder="Something I want to do, change, or remember..."></textarea>
+    </div>
+    <div class="jf feedback">
+      <label>Questions or ideas for IGVhope <span class="opt">(goes to our team)</span></label>
+      <textarea rows="1" data-jk="c3l2_fb" placeholder="Something this lesson didn't cover? An idea for a future lesson?"></textarea>
+    </div>
+    <div class="jp-save-row">
+      <span class="jp-saved" id="jp-saved-2">Saved &#10003;</span>
+      <button class="jp-btn" onclick="saveJournal(2)">Save journal entry</button>
+    </div>
+  </div>
+</div>
+
+</section>
+
+<section class="lesson-panel" id="lesson-panel-3" data-lesson="3">
+  <div class="lesson-eyebrow">Lesson 3</div>
+  <h1 class="lesson-title">When money gets tight, act early</h1>
+  <div class="lesson-meta">About 7 minutes &nbsp;&middot;&nbsp; <span class="rp-chip">90 points</span></div>
+
+  <div class="short-win">Short win: You know the single most important move when financial pressure hits: speak up before you miss a payment.</div>
+
+  <div class="lesson-body">
+    <p>Across ten years, financial pressure will visit almost everyone at some point. A job change, an illness, a major unexpected cost. This is not a failure of planning. It is life.</p>
+    <p>IGVhope recognises that real life happens and it is designed to help you build your resilience to financial pressure. When circumstances change and financial pressure is higher, reach out as early as possible so we can guide you through the next steps. Contact the team before you miss a payment, not after.</p>
+    <p>Early contact means there is room to plan. Late contact means managing the consequences instead.</p>
+    <p>Reaching out early is not a sign of weakness. It is exactly what the support structure exists for. The participants who navigate hard stretches best are the ones who speak up first. Silence is the only real mistake.</p>
+  </div>
+
+  <div class="worked-example">
+    <div class="worked-example-label">Worked example</div>
+    <p>When Priya's hours were cut for three months, she contacted the team in the first week, before any payment was due. Together they worked out a short-term plan that held the pathway steady. She later said the hardest part was making the call, and it turned out to be the easiest conversation.</p>
+  </div>
+
+  <div class="action-step">
+    <div class="action-step-label">Your action step</div>
+    <p>Save the IGVhope team contact in your phone right now: support@igvhope.com. That is the whole action step.</p>
+  </div>
+
+  <button class="self-check" id="self-check-btn-3" onclick="completeLesson(3)">
+    <div class="self-check-icon"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#1A5C50" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></div>
+    <div class="self-check-text" id="self-check-text-3">Self-check: I know to contact the team early if financial pressure hits, and I have their contact saved.</div>
+  </button>
+
+  <div class="next-lesson-wrap" id="next-lesson-wrap-3">
+    <div class="next-lesson-label">Next lesson</div>
+    <a class="next-lesson-btn" id="next-lesson-btn-3" href="?lesson=4">Use your annual check-in honestly</a>
+  </div>
+
+
+<div class="journal-panel" id="journal-panel-3">
+  <div class="jp-head">
+    <span class="jp-icon">&#9998;</span>
+    <span class="jp-title">My journal &mdash; Lesson 3</span>
+    <span class="jp-tag">Optional. Private. Stored only on this device.</span>
+  </div>
+  <div class="jp-body">
+    <div class="jf">
+      <label>My reflection <span class="opt">(optional)</span></label>
+      <textarea rows="2" data-jk="c3l3_ref" placeholder="What came up for you in this lesson?"></textarea>
+    </div>
+    <div class="jf">
+      <label>Did I do the action step? <span class="opt">(optional)</span></label>
+      <div class="radio-row">
+        <label><input type="radio" name="done3_3" value="yes" onchange="jSave('c3l3_done', this.value)"> Yes</label>
+        <label><input type="radio" name="done3_3" value="not_yet" onchange="jSave('c3l3_done', this.value)"> Not yet</label>
+        <label><input type="radio" name="done3_3" value="no" onchange="jSave('c3l3_done', this.value)"> No</label>
+      </div>
+      <textarea rows="1" data-jk="c3l3_act" placeholder="What happened, or what got in the way?"></textarea>
+    </div>
+    <div class="jf">
+      <label>My goal from this lesson <span class="opt">(optional)</span></label>
+      <textarea rows="1" data-jk="c3l3_goal" placeholder="Something I want to do, change, or remember..."></textarea>
+    </div>
+    <div class="jf feedback">
+      <label>Questions or ideas for IGVhope <span class="opt">(goes to our team)</span></label>
+      <textarea rows="1" data-jk="c3l3_fb" placeholder="Something this lesson didn't cover? An idea for a future lesson?"></textarea>
+    </div>
+    <div class="jp-save-row">
+      <span class="jp-saved" id="jp-saved-3">Saved &#10003;</span>
+      <button class="jp-btn" onclick="saveJournal(3)">Save journal entry</button>
+    </div>
+  </div>
+</div>
+
+</section>
+
+<section class="lesson-panel" id="lesson-panel-4" data-lesson="4">
+  <div class="lesson-eyebrow">Lesson 4</div>
+  <h1 class="lesson-title">Use your annual check-in honestly</h1>
+  <div class="lesson-meta">About 6 minutes &nbsp;&middot;&nbsp; <span class="rp-chip">80 points</span></div>
+
+  <div class="short-win">Short win: You turn your check-in from a formality into the most useful 30 minutes of your year.</div>
+
+  <div class="lesson-body">
+    <p>Each year, the IGVhope program offers a financial check-in. It is easy to treat this as a box to tick. That is a missed opportunity.</p>
+    <p>The check-in works only if you are honest in it:</p>
+    <ul>
+      <li>If your savings have slipped, say so</li>
+      <li>If debt has crept up, say so</li>
+      <li>If you stopped looking at your budget, say so</li>
+    </ul>
+    <p>None of this is a test you can fail. It is a support conversation.</p>
+    <p>Come prepared:</p>
+    <ul>
+      <li>Your current credit score, from Borrowell or Credit Karma</li>
+      <li>Your current savings position</li>
+      <li>Any change in employment or income</li>
+      <li>One thing you want help thinking through</li>
+    </ul>
+    <p>Honesty at each annual check-in, repeated across the building period, is one of the strongest things you can do to arrive at Year 10 on track.</p>
+  </div>
+
+  <div class="worked-example">
+    <div class="worked-example-label">Worked example</div>
+    <p>At his Year 4 check-in, Devon admitted he had stopped doing his monthly review and his savings had stalled. Rather than judgment, he got a simple reset plan. By his next check-in he was back on track. The honesty bought him time he would otherwise have lost.</p>
+  </div>
+
+  <div class="action-step">
+    <div class="action-step-label">Your action step</div>
+    <p>Book or confirm your next check-in. Start a prep note for it, three things you want to be honest about.</p>
+  </div>
+
+  <button class="self-check" id="self-check-btn-4" onclick="completeLesson(4)">
+    <div class="self-check-icon"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#1A5C50" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></div>
+    <div class="self-check-text" id="self-check-text-4">Self-check: I have my next check-in booked and a prep note started.</div>
+  </button>
+
+  <div class="next-lesson-wrap" id="next-lesson-wrap-4">
+    <div class="next-lesson-label">Next lesson</div>
+    <a class="next-lesson-btn" id="next-lesson-btn-4" href="?lesson=5">Look back to see how far you have come</a>
+  </div>
+
+
+<div class="journal-panel" id="journal-panel-4">
+  <div class="jp-head">
+    <span class="jp-icon">&#9998;</span>
+    <span class="jp-title">My journal &mdash; Lesson 4</span>
+    <span class="jp-tag">Optional. Private. Stored only on this device.</span>
+  </div>
+  <div class="jp-body">
+    <div class="jf">
+      <label>My reflection <span class="opt">(optional)</span></label>
+      <textarea rows="2" data-jk="c3l4_ref" placeholder="What came up for you in this lesson?"></textarea>
+    </div>
+    <div class="jf">
+      <label>Did I do the action step? <span class="opt">(optional)</span></label>
+      <div class="radio-row">
+        <label><input type="radio" name="done3_4" value="yes" onchange="jSave('c3l4_done', this.value)"> Yes</label>
+        <label><input type="radio" name="done3_4" value="not_yet" onchange="jSave('c3l4_done', this.value)"> Not yet</label>
+        <label><input type="radio" name="done3_4" value="no" onchange="jSave('c3l4_done', this.value)"> No</label>
+      </div>
+      <textarea rows="1" data-jk="c3l4_act" placeholder="What happened, or what got in the way?"></textarea>
+    </div>
+    <div class="jf">
+      <label>My goal from this lesson <span class="opt">(optional)</span></label>
+      <textarea rows="1" data-jk="c3l4_goal" placeholder="Something I want to do, change, or remember..."></textarea>
+    </div>
+    <div class="jf feedback">
+      <label>Questions or ideas for IGVhope <span class="opt">(goes to our team)</span></label>
+      <textarea rows="1" data-jk="c3l4_fb" placeholder="Something this lesson didn't cover? An idea for a future lesson?"></textarea>
+    </div>
+    <div class="jp-save-row">
+      <span class="jp-saved" id="jp-saved-4">Saved &#10003;</span>
+      <button class="jp-btn" onclick="saveJournal(4)">Save journal entry</button>
+    </div>
+  </div>
+</div>
+
+</section>
+
+<section class="lesson-panel" id="lesson-panel-5" data-lesson="5">
+  <div class="lesson-eyebrow">Lesson 5</div>
+  <h1 class="lesson-title">Look back to see how far you have come</h1>
+  <div class="lesson-meta">About 6 minutes &nbsp;&middot;&nbsp; <span class="rp-chip">80 points</span></div>
+
+  <div class="short-win">Short win: You use your own records to see the progress that daily life hides.</div>
+
+  <div class="lesson-body">
+    <p>Progress across a decade is almost impossible to feel day to day. The way to see it is to look back at what you have already written down.</p>
+    <p>You have two records from earlier in your pathway:</p>
+    <ul>
+      <li>Your monthly financial dashboard from the budgeting course. Six lines: income, fixed expenses, variable expenses, savings rate, total debt, and net worth</li>
+      <li>Your Small Wins log from earlier in this course</li>
+    </ul>
+    <p>How to use them well:</p>
+    <ul>
+      <li>Read them as a tool for an honest conversation with yourself, not a grade</li>
+      <li>Compare this year to last year. Movement you cannot see month to month becomes visible year on year</li>
+      <li>Note one thing that improved, and one thing to focus on for the next twelve months</li>
+    </ul>
+    <p>Keep them together. Reading three years in a row at Year 5 shows progress that daily life hides.</p>
+  </div>
+
+  <div class="worked-example">
+    <div class="worked-example-label">Worked example</div>
+    <p>When Maya lined up her dashboard from Year 3, Year 4 and Year 5 side by side, the progress was undeniable. Her savings had grown steadily and her debt line had shrunk each year. She had felt stuck. Her own records proved she was not.</p>
+  </div>
+
+  <div class="action-step">
+    <div class="action-step-label">Your action step</div>
+    <p>Open your dashboard and your Small Wins log. Compare where you are now to where you were twelve months ago. Note one thing that has improved.</p>
+  </div>
+
+  <button class="self-check" id="self-check-btn-5" onclick="completeLesson(5)">
+    <div class="self-check-icon"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#1A5C50" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></div>
+    <div class="self-check-text" id="self-check-text-5">Self-check: I have reviewed my own records and can see measurable progress.</div>
+  </button>
+
+  <div class="next-lesson-wrap" id="next-lesson-wrap-5">
+    <div class="next-lesson-label">Next lesson</div>
+    <a class="next-lesson-btn" id="next-lesson-btn-5" href="?lesson=6">Community as your support system</a>
+  </div>
+
+  <div class="sources-line">FCAC managing money (canada.ca/en/financial-consumer-agency)</div>
+
+
+<div class="journal-panel" id="journal-panel-5">
+  <div class="jp-head">
+    <span class="jp-icon">&#9998;</span>
+    <span class="jp-title">My journal &mdash; Lesson 5</span>
+    <span class="jp-tag">Optional. Private. Stored only on this device.</span>
+  </div>
+  <div class="jp-body">
+    <div class="jf">
+      <label>My reflection <span class="opt">(optional)</span></label>
+      <textarea rows="2" data-jk="c3l5_ref" placeholder="What came up for you in this lesson?"></textarea>
+    </div>
+    <div class="jf">
+      <label>Did I do the action step? <span class="opt">(optional)</span></label>
+      <div class="radio-row">
+        <label><input type="radio" name="done3_5" value="yes" onchange="jSave('c3l5_done', this.value)"> Yes</label>
+        <label><input type="radio" name="done3_5" value="not_yet" onchange="jSave('c3l5_done', this.value)"> Not yet</label>
+        <label><input type="radio" name="done3_5" value="no" onchange="jSave('c3l5_done', this.value)"> No</label>
+      </div>
+      <textarea rows="1" data-jk="c3l5_act" placeholder="What happened, or what got in the way?"></textarea>
+    </div>
+    <div class="jf">
+      <label>My goal from this lesson <span class="opt">(optional)</span></label>
+      <textarea rows="1" data-jk="c3l5_goal" placeholder="Something I want to do, change, or remember..."></textarea>
+    </div>
+    <div class="jf feedback">
+      <label>Questions or ideas for IGVhope <span class="opt">(goes to our team)</span></label>
+      <textarea rows="1" data-jk="c3l5_fb" placeholder="Something this lesson didn't cover? An idea for a future lesson?"></textarea>
+    </div>
+    <div class="jp-save-row">
+      <span class="jp-saved" id="jp-saved-5">Saved &#10003;</span>
+      <button class="jp-btn" onclick="saveJournal(5)">Save journal entry</button>
+    </div>
+  </div>
+</div>
+
+</section>
+
+<section class="lesson-panel" id="lesson-panel-6" data-lesson="6">
+  <div class="lesson-eyebrow">Lesson 6</div>
+  <h1 class="lesson-title">Community as your support system</h1>
+  <div class="lesson-meta">About 6 minutes &nbsp;&middot;&nbsp; <span class="rp-chip">60 points</span></div>
+
+  <div class="short-win">Short win: You realise you are not carrying the middle years alone, and you do not have to.</div>
+
+  <div class="lesson-body">
+    <p>Isolation makes the middle years harder. Connection makes them manageable.</p>
+    <p>How the community helps:</p>
+    <ul>
+      <li>People ahead of you in the journey have already walked through Years 4, 5 and 6, and know it is survivable</li>
+      <li>People behind you are reassured by your steadiness, whether you see it or not</li>
+      <li>Shared experience normalises the flat stretches in a way no individual willpower can replace</li>
+      <li>Even reading others' honest posts, without posting yourself, is enough to break isolation</li>
+    </ul>
+    <p>You do not have to share everything. You do not have to post constantly. But staying connected, even passively, is a habit that protects your pathway.</p>
+  </div>
+
+  <div class="worked-example">
+    <div class="worked-example-label">Worked example</div>
+    <p>Sam rarely posted in the community, but he read the community posts most weeks. In Year 6, a stranger's post about nearly giving up, and then not, was the thing that kept him going through his own low patch. He never replied. It still mattered.</p>
+  </div>
+
+  <div class="action-step">
+    <div class="action-step-label">Your action step</div>
+    <p>Reply to one other participant's post in the IGVhope community this week. One sentence is enough.</p>
+  </div>
+
+  <button class="self-check" id="self-check-btn-6" onclick="completeLesson(6)">
+    <div class="self-check-icon"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#1A5C50" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></div>
+    <div class="self-check-text" id="self-check-text-6">Self-check: I am staying connected to the community through the middle years.</div>
+  </button>
+
+  <div class="next-lesson-wrap" id="next-lesson-wrap-6">
+    <div class="next-lesson-label">Next lesson</div>
+    <a class="next-lesson-btn" id="next-lesson-btn-6" href="?lesson=7">Return to your why</a>
+  </div>
+
+
+<div class="journal-panel" id="journal-panel-6">
+  <div class="jp-head">
+    <span class="jp-icon">&#9998;</span>
+    <span class="jp-title">My journal &mdash; Lesson 6</span>
+    <span class="jp-tag">Optional. Private. Stored only on this device.</span>
+  </div>
+  <div class="jp-body">
+    <div class="jf">
+      <label>My reflection <span class="opt">(optional)</span></label>
+      <textarea rows="2" data-jk="c3l6_ref" placeholder="What came up for you in this lesson?"></textarea>
+    </div>
+    <div class="jf">
+      <label>Did I do the action step? <span class="opt">(optional)</span></label>
+      <div class="radio-row">
+        <label><input type="radio" name="done3_6" value="yes" onchange="jSave('c3l6_done', this.value)"> Yes</label>
+        <label><input type="radio" name="done3_6" value="not_yet" onchange="jSave('c3l6_done', this.value)"> Not yet</label>
+        <label><input type="radio" name="done3_6" value="no" onchange="jSave('c3l6_done', this.value)"> No</label>
+      </div>
+      <textarea rows="1" data-jk="c3l6_act" placeholder="What happened, or what got in the way?"></textarea>
+    </div>
+    <div class="jf">
+      <label>My goal from this lesson <span class="opt">(optional)</span></label>
+      <textarea rows="1" data-jk="c3l6_goal" placeholder="Something I want to do, change, or remember..."></textarea>
+    </div>
+    <div class="jf feedback">
+      <label>Questions or ideas for IGVhope <span class="opt">(goes to our team)</span></label>
+      <textarea rows="1" data-jk="c3l6_fb" placeholder="Something this lesson didn't cover? An idea for a future lesson?"></textarea>
+    </div>
+    <div class="jp-save-row">
+      <span class="jp-saved" id="jp-saved-6">Saved &#10003;</span>
+      <button class="jp-btn" onclick="saveJournal(6)">Save journal entry</button>
+    </div>
+  </div>
+</div>
+
+</section>
+
+<section class="lesson-panel" id="lesson-panel-7" data-lesson="7">
+  <div class="lesson-eyebrow">Lesson 7</div>
+  <h1 class="lesson-title">Return to your why</h1>
+  <div class="lesson-meta">About 6 minutes &nbsp;&middot;&nbsp; <span class="rp-chip">60 points</span></div>
+
+  <div class="short-win">Short win: You reconnect with the deeper reason that started this, the one that carries you when the numbers stop being enough.</div>
+
+  <div class="lesson-body">
+    <p>Numbers and habits carry you a long way. In the flat middle they can stop feeling like enough.</p>
+    <p>That is when the deeper reason matters:</p>
+    <ul>
+      <li>Stability for your children, no more moving schools</li>
+      <li>Roots in a community you chose</li>
+      <li>A home that is genuinely yours after years of building</li>
+      <li>Proving to yourself that you could do something that once felt impossible</li>
+    </ul>
+    <p>Take a few minutes now to think back to your why and what achieving home ownership means for you and your life.</p>
+    <p>The participants who finish strong are almost always the ones who never lost sight of why they started.</p>
+  </div>
+
+  <div class="worked-example">
+    <div class="worked-example-label">Worked example</div>
+    <p>Priya had written her why on the back of a photo of her two kids: so they never have to move schools again. In Year 6, tired and stretched, she found it in a drawer. It put the whole pathway back in perspective in a way no spreadsheet could.</p>
+  </div>
+
+  <div class="action-step">
+    <div class="action-step-label">Your action step</div>
+    <p>Find or rewrite your why. Put it somewhere you will see it, your phone wallpaper, your bathroom mirror, the front of your journal.</p>
+  </div>
+
+  <button class="self-check" id="self-check-btn-7" onclick="completeLesson(7)">
+    <div class="self-check-icon"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#1A5C50" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></div>
+    <div class="self-check-text" id="self-check-text-7">Self-check: I have reconnected with my reason for being on this pathway.</div>
+  </button>
+
+  <div class="next-lesson-wrap" id="next-lesson-wrap-7">
+    <div class="next-lesson-label">Next lesson</div>
+    <a class="next-lesson-btn" id="next-lesson-btn-7" href="?lesson=8">Shared savings in your community</a>
+  </div>
+
+
+<div class="journal-panel" id="journal-panel-7">
+  <div class="jp-head">
+    <span class="jp-icon">&#9998;</span>
+    <span class="jp-title">My journal &mdash; Lesson 7</span>
+    <span class="jp-tag">Optional. Private. Stored only on this device.</span>
+  </div>
+  <div class="jp-body">
+    <div class="jf">
+      <label>My reflection <span class="opt">(optional)</span></label>
+      <textarea rows="2" data-jk="c3l7_ref" placeholder="What came up for you in this lesson?"></textarea>
+    </div>
+    <div class="jf">
+      <label>Did I do the action step? <span class="opt">(optional)</span></label>
+      <div class="radio-row">
+        <label><input type="radio" name="done3_7" value="yes" onchange="jSave('c3l7_done', this.value)"> Yes</label>
+        <label><input type="radio" name="done3_7" value="not_yet" onchange="jSave('c3l7_done', this.value)"> Not yet</label>
+        <label><input type="radio" name="done3_7" value="no" onchange="jSave('c3l7_done', this.value)"> No</label>
+      </div>
+      <textarea rows="1" data-jk="c3l7_act" placeholder="What happened, or what got in the way?"></textarea>
+    </div>
+    <div class="jf">
+      <label>My goal from this lesson <span class="opt">(optional)</span></label>
+      <textarea rows="1" data-jk="c3l7_goal" placeholder="Something I want to do, change, or remember..."></textarea>
+    </div>
+    <div class="jf feedback">
+      <label>Questions or ideas for IGVhope <span class="opt">(goes to our team)</span></label>
+      <textarea rows="1" data-jk="c3l7_fb" placeholder="Something this lesson didn't cover? An idea for a future lesson?"></textarea>
+    </div>
+    <div class="jp-save-row">
+      <span class="jp-saved" id="jp-saved-7">Saved &#10003;</span>
+      <button class="jp-btn" onclick="saveJournal(7)">Save journal entry</button>
+    </div>
+  </div>
+</div>
+
+</section>
+
+<section class="lesson-panel" id="lesson-panel-8" data-lesson="8">
+  <div class="lesson-eyebrow">Lesson 8</div>
+  <h1 class="lesson-title">Shared savings in your community</h1>
+  <div class="lesson-meta">About 6 minutes &nbsp;&middot;&nbsp; <span class="rp-chip">80 points</span></div>
+
+  <div class="short-win">Short win: You discover that being part of an IGVhope community has practical financial benefits, not just emotional ones.</div>
+
+  <div class="lesson-body">
+    <p>Being part of an IGVhope community is not only emotional support. It can also lower your costs.</p>
+    <p>We have negotiated discounts for participants through the IGVhope benefits portal. It is a separate site, not part of this community. You register once and then use it whenever you need it.</p>
+    <p>Beyond the portal, participants often organise savings together:</p>
+    <ul>
+      <li>Bulk purchasing of household essentials at reduced unit cost</li>
+      <li>Pooling knowledge about local providers: who offers the best rates on insurance, internet and tradespeople</li>
+      <li>Group buying for services that offer volume discounts</li>
+    </ul>
+    <p>Keep an eye on the IGVhope community for new arrangements as they are added. These are small savings individually. Across years and across a growing community they add up, and the act of participating tends to deepen the connections that carry everyone through the middle years.</p>
+  </div>
+
+  <div class="worked-example">
+    <div class="worked-example-label">Worked example</div>
+    <p>A HOPE community organised a shared bulk order of cleaning and household supplies. Each household saved a modest amount. The coordination became a social fixture, and a practical reminder that the community had real financial value, not just emotional support.</p>
+  </div>
+
+  <div class="action-step">
+    <div class="action-step-label">Your action step</div>
+    <p>Look for or suggest one shared-savings opportunity in your community. Post it in the IGVhope community if it might benefit others.</p>
+  </div>
+
+  <button class="self-check" id="self-check-btn-8" onclick="completeLesson(8)">
+    <div class="self-check-icon"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#1A5C50" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></div>
+    <div class="self-check-text" id="self-check-text-8">Self-check: I know how my community can help lower my costs, and I am looking for opportunities to participate.</div>
+  </button>
+
+  <div class="badge-celebration" id="badge-celebration">
+    <div class="badge-icon">&#9733;</div>
+    <div class="badge-title">Steady Through the Middle badge earned</div>
+    <div class="badge-desc">You've completed all 8 lessons and earned <strong id="badge-total-rp">0 points</strong>. Nice work.</div>
+  </div>
+
+  <div class="next-lesson-wrap" id="next-lesson-wrap-8">
+    <div class="end-of-course">
+      <p class="end-of-course-closing">You have completed Steady Through the Middle Years. The flat stretches are easier now that you know how to name them, and how to keep moving through them.</p>
+      <div class="end-of-course-doors">
+        <a class="door-btn primary" href="/">Back to the Course Library</a>
+      </div>
+    </div>
+  </div>
+
+
+<div class="journal-panel" id="journal-panel-8">
+  <div class="jp-head">
+    <span class="jp-icon">&#9998;</span>
+    <span class="jp-title">My journal &mdash; Lesson 8</span>
+    <span class="jp-tag">Optional. Private. Stored only on this device.</span>
+  </div>
+  <div class="jp-body">
+    <div class="jf">
+      <label>My reflection <span class="opt">(optional)</span></label>
+      <textarea rows="2" data-jk="c3l8_ref" placeholder="What came up for you in this lesson?"></textarea>
+    </div>
+    <div class="jf">
+      <label>Did I do the action step? <span class="opt">(optional)</span></label>
+      <div class="radio-row">
+        <label><input type="radio" name="done3_8" value="yes" onchange="jSave('c3l8_done', this.value)"> Yes</label>
+        <label><input type="radio" name="done3_8" value="not_yet" onchange="jSave('c3l8_done', this.value)"> Not yet</label>
+        <label><input type="radio" name="done3_8" value="no" onchange="jSave('c3l8_done', this.value)"> No</label>
+      </div>
+      <textarea rows="1" data-jk="c3l8_act" placeholder="What happened, or what got in the way?"></textarea>
+    </div>
+    <div class="jf">
+      <label>My goal from this lesson <span class="opt">(optional)</span></label>
+      <textarea rows="1" data-jk="c3l8_goal" placeholder="Something I want to do, change, or remember..."></textarea>
+    </div>
+    <div class="jf feedback">
+      <label>Questions or ideas for IGVhope <span class="opt">(goes to our team)</span></label>
+      <textarea rows="1" data-jk="c3l8_fb" placeholder="Something this lesson didn't cover? An idea for a future lesson?"></textarea>
+    </div>
+    <div class="jp-save-row">
+      <span class="jp-saved" id="jp-saved-8">Saved &#10003;</span>
+      <button class="jp-btn" onclick="saveJournal(8)">Save journal entry</button>
+    </div>
+  </div>
+</div>
+
+</section>
+
+</main>
+
+<footer id="dash-footer">
+  <div class="footer-block footer-divider">
+  <div id="footer-sitemap">
+    <div class="sitemap-col">
+      <div class="sitemap-heading">IGV Housing</div>
+      <a href="https://igvhousing.com/municipalities">Municipalities</a>
+      <a href="https://www.igvhousing.com/esg" target="_blank" rel="noopener">ESG Impact</a>
+      <a href="https://www.igvhousing.com/media" target="_blank" rel="noopener">Media &amp; Resources</a>
+    </div>
+    <div class="sitemap-col">
+      <div class="sitemap-heading">IGV Divisions</div>
+      <a href="https://www.igvhousing.com" target="_blank" rel="noopener">IGV Housing</a>
+      <a href="https://www.igvbuild.com" target="_blank" rel="noopener">IGV Build Systems</a>
+      <a href="https://www.igvcapital.com" target="_blank" rel="noopener">IGV Capital</a>
+    </div>
+    <div class="sitemap-col">
+      <div class="sitemap-heading">Sitemap</div>
+      <a href="https://www.igvhope.com/how-it-works">How It Works</a>
+      <a href="https://www.igvhope.com/next-steps">Next Steps</a>
+      <a href="https://www.igvhope.com/faq">FAQ</a>
+      <a href="https://www.igvhope.com/about">About</a>
+      <a href="https://www.igvhope.com/resources">Resources</a>
+      <a href="/">Course Library</a>
+    </div>
+    <div class="sitemap-col">
+      <div class="sitemap-heading">Enquiries</div>
+      <a href="mailto:info@igvhousing.com">Investors</a>
+      <a href="mailto:info@igvhousing.com">Developer Partners</a>
+      <a href="mailto:info@igvhousing.com">Press</a>
+      <div id="sitemap-social">
+        <a href="https://www.facebook.com/IGVhope/" target="_blank" rel="noopener" aria-label="Facebook">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M22 12.06C22 6.5 17.52 2 12 2S2 6.5 2 12.06c0 5.02 3.66 9.18 8.44 9.94v-7.03H7.9v-2.91h2.54V9.85c0-2.51 1.49-3.9 3.77-3.9 1.09 0 2.24.2 2.24.2v2.46h-1.26c-1.24 0-1.63.77-1.63 1.56v1.89h2.78l-.44 2.91h-2.34V22c4.78-.76 8.44-4.92 8.44-9.94z"/></svg>
+        </a>
+        <a href="https://www.linkedin.com/company/igvhope" target="_blank" rel="noopener" aria-label="LinkedIn">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M20.45 20.45h-3.55v-5.57c0-1.33-.02-3.04-1.85-3.04-1.85 0-2.14 1.45-2.14 2.94v5.67H9.36V9h3.41v1.56h.05c.48-.9 1.64-1.85 3.38-1.85 3.61 0 4.28 2.38 4.28 5.47zM5.34 7.43a2.06 2.06 0 1 1 0-4.12 2.06 2.06 0 0 1 0 4.12zM7.12 20.45H3.56V9h3.56z"/></svg>
+        </a>
+        <a href="https://www.instagram.com/igvhope" target="_blank" rel="noopener" aria-label="Instagram">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="4"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1"/></svg>
+        </a>
+      </div>
+    </div>
+  </div>
+  </div>
+  <div class="footer-block footer-divider">
+  <div id="footer-bottom-bar">
+    <span id="footer-copyright">&copy; 2026 IGVhope. All rights reserved.</span>
+    <div id="footer-bottom-links">
+      <a href="https://www.igvhousing.com/privacy" target="_blank" rel="noopener">Privacy</a>
+      <a href="https://www.igvhope.com/terms" target="_blank" rel="noopener">Terms</a>
+      <a href="https://www.igvhousing.com/accessibility" target="_blank" rel="noopener">Accessibility</a>
+    </div>
+  </div>
+  </div>
+</footer>
+
+<script>
+
+function toggleMobileNav(){
+  const panel=document.getElementById('mobile-nav-panel');
+  const open=panel.classList.toggle('open');
+  document.getElementById('nav-burger-icon-open').style.display=open?'none':'';
+  document.getElementById('nav-burger-icon-close').style.display=open?'':'none';
+}
+
+/* Switches the top nav to burger mode as soon as its content would no
+   longer fit on a single line, instead of relying on a fixed pixel
+   breakpoint. A static breakpoint can't get this right for both states
+   at once, since the logged-in state (avatar + name) is meaningfully
+   wider than the logged-out "Log in" link. Runs on load, on resize,
+   and again once login state swaps in the wider markup. */
+function checkNavFit(){
+  const nav = document.getElementById('dash-nav');
+  const navRight = document.querySelector('.nav-right');
+  const burger = document.getElementById('nav-burger');
+  const logo = document.getElementById('nav-logo');
+  if (!nav || !navRight || !burger || !logo) return;
+
+  navRight.style.display = 'flex';
+  const navPaddingH = 64; // #dash-nav has 32px padding on each side
+  const gapBuffer = 24;   // breathing room between logo and nav-right
+  const available = nav.clientWidth - logo.getBoundingClientRect().width - navPaddingH - gapBuffer;
+  const fits = navRight.scrollWidth <= available;
+
+  navRight.style.display = fits ? 'flex' : 'none';
+  burger.style.display = fits ? 'none' : 'flex';
+}
+let navFitTimer;
+window.addEventListener('resize', () => {
+  clearTimeout(navFitTimer);
+  navFitTimer = setTimeout(checkNavFit, 100);
+});
+window.addEventListener('load', checkNavFit);
+checkNavFit();
+
+const COURSE0_WORKER = 'https://academy.igvhousing.workers.dev'; // placeholder, update on deploy
+const COURSE_ID = 3;
+const TOTAL_LESSONS = 8;
+
+function getToken(){
+  const params = new URLSearchParams(window.location.search);
+  const fromUrl = params.get('p');
+  if (fromUrl) { localStorage.setItem('c0_token', fromUrl); return fromUrl; }
+  return localStorage.getItem('c0_token');
+}
+
+function appendTokenTo(url, token){
+  const u = new URL(url, window.location.href);
+  u.searchParams.set('p', token);
+  return u.pathname + u.search;
+}
+
+function getLessonFromUrl(){
+  const params = new URLSearchParams(window.location.search);
+  let n = parseInt(params.get('lesson'), 10);
+  if (!n || n < 1 || n > TOTAL_LESSONS) n = 1;
+  return n;
+}
+
+function showLesson(n){
+  document.querySelectorAll('.lesson-panel').forEach(p => {
+    p.classList.toggle('active', parseInt(p.dataset.lesson, 10) === n);
+  });
+  document.getElementById('lesson-progress-strip-text').textContent = `Lesson ${n} of 8`;
+  window.scrollTo(0, 0);
+}
+
+function appendTokenToInternalLinks(token){
+  if (!token) return;
+  document.querySelectorAll('a[href^="?lesson="]').forEach(a => {
+    const url = new URL(a.getAttribute('href'), window.location.href);
+    url.searchParams.set('p', token);
+    a.setAttribute('href', url.pathname + url.search);
+  });
+}
+
+document.addEventListener('click', function(e){
+  const a = e.target.closest('a[href^="?lesson="]');
+  if (!a) return;
+  e.preventDefault();
+  const url = new URL(a.getAttribute('href'), window.location.href);
+  const n = parseInt(url.searchParams.get('lesson'), 10);
+  history.pushState({}, '', url.pathname + url.search);
+  showLesson(n);
+  const token = getToken();
+  if (token) recordView(token, n);
+});
+
+window.addEventListener('popstate', function(){
+  showLesson(getLessonFromUrl());
+});
+
+async function recordView(token, lessonNum){
+  try {
+    await fetch(`${COURSE0_WORKER}/view`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ token, course: COURSE_ID, lesson: lessonNum })
+    });
+  } catch (e) { /* fail quietly, page still works */ }
+}
+
+const LESSON_RP = {1:70, 2:80, 3:90, 4:80, 5:80, 6:60, 7:60, 8:80};
+
+function getCompletedLessons(){
+  try { return JSON.parse(localStorage.getItem(`c${COURSE_ID}_completed_lessons`)) || []; }
+  catch(e) { return []; }
+}
+function markLessonCompletedLocally(n){
+  const done = getCompletedLessons();
+  if (!done.includes(n)) done.push(n);
+  localStorage.setItem(`c${COURSE_ID}_completed_lessons`, JSON.stringify(done));
+  return done;
+}
+function computeRpTotal(doneList){
+  return doneList.reduce((sum, n) => sum + (LESSON_RP[n] || 0), 0);
+}
+function updateRpDisplay(){
+  const done = getCompletedLessons();
+  const total = computeRpTotal(done);
+  const el = document.getElementById('progress-rp-total');
+  if (el) el.textContent = `${total} points earned`;
+  if (done.length >= TOTAL_LESSONS){
+    const badge = document.getElementById('badge-celebration');
+    const badgeRp = document.getElementById('badge-total-rp');
+    if (badgeRp) badgeRp.textContent = `${total} points`;
+    if (badge) badge.classList.add('show');
+  }
+}
+function showRpToast(rp){
+  let toast = document.getElementById('rp-toast');
+  if (!toast){
+    toast = document.createElement('div');
+    toast.id = 'rp-toast';
+    toast.className = 'rp-toast';
+    document.body.appendChild(toast);
+  }
+  toast.innerHTML = `<span class="rp-toast-tag">+${rp} points</span>Lesson complete`;
+  toast.classList.add('show');
+  clearTimeout(window._rpToastTimer);
+  window._rpToastTimer = setTimeout(() => toast.classList.remove('show'), 2600);
+}
+
+const JOURNAL_KEY = `c${COURSE_ID}_journal`;
+function loadJournalStore(){
+  try { return JSON.parse(localStorage.getItem(JOURNAL_KEY)) || {}; }
+  catch(e) { return {}; }
+}
+function jSave(key, value){
+  const store = loadJournalStore();
+  store[key] = value;
+  localStorage.setItem(JOURNAL_KEY, JSON.stringify(store));
+}
+function saveJournal(n){
+  const panel = document.getElementById(`journal-panel-${n}`);
+  panel.querySelectorAll('[data-jk]').forEach(el => jSave(el.getAttribute('data-jk'), el.value));
+  const saved = document.getElementById(`jp-saved-${n}`);
+  if (saved){
+    saved.classList.add('show');
+    setTimeout(() => saved.classList.remove('show'), 1800);
+  }
+}
+function restoreJournal(){
+  const store = loadJournalStore();
+  document.querySelectorAll('[data-jk]').forEach(el => {
+    const k = el.getAttribute('data-jk');
+    if (store[k] !== undefined) el.value = store[k];
+  });
+  document.querySelectorAll('.radio-row input[type="radio"]').forEach(r => {
+    const key = `c${COURSE_ID}l${r.name.split('_')[1]}_done`;
+    if (store[key] === r.value) r.checked = true;
+  });
+}
+document.addEventListener('input', e => {
+  const jk = e.target.getAttribute && e.target.getAttribute('data-jk');
+  if (jk) jSave(jk, e.target.value);
+});
+
+async function recordToolClick(){
+  const token = getToken();
+  if (!token) return;
+  try {
+    await fetch(`${COURSE0_WORKER}/tool-click`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ token, course: COURSE_ID })
+    });
+  } catch (e) { /* fail quietly */ }
+}
+document.querySelectorAll('.tool-link').forEach(a => a.addEventListener('click', recordToolClick));
+
+async function completeLesson(n){
+  const btn = document.getElementById(`self-check-btn-${n}`);
+  if (btn.classList.contains('checked')) return;
+  btn.classList.add('checked');
+  const token = getToken();
+  const nextWrap = document.getElementById(`next-lesson-wrap-${n}`);
+  if (token) {
+    nextWrap.querySelectorAll('a').forEach(a => {
+      a.setAttribute('href', appendTokenTo(a.getAttribute('href'), token));
+    });
+  }
+  nextWrap.classList.add('show');
+  markLessonCompletedLocally(n);
+  updateRpDisplay();
+  showRpToast(LESSON_RP[n] || 0);
+  try {
+    await fetch(`${COURSE0_WORKER}/complete`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ token, course: COURSE_ID, lesson: n })
+    });
+  } catch (e) { /* fail quietly, the checkmark already showed */ }
+}
+
+
+
+(function init(){
+  const token = getToken();
+  const startLesson = getLessonFromUrl();
+  showLesson(startLesson);
+  appendTokenToInternalLinks(token);
+  if (token) recordView(token, startLesson);
+
+  restoreJournal();
+  updateRpDisplay();
+
+  getCompletedLessons().forEach(n => {
+    const btn = document.getElementById(`self-check-btn-${n}`);
+    const nextWrap = document.getElementById(`next-lesson-wrap-${n}`);
+    if (btn) btn.classList.add('checked');
+    if (nextWrap) {
+      if (token) {
+        nextWrap.querySelectorAll('a').forEach(a => {
+          a.setAttribute('href', appendTokenTo(a.getAttribute('href'), token));
+        });
+      }
+      nextWrap.classList.add('show');
+    }
+  });
+})();
+
+
+/* ── SHARED LOGIN SESSION CHECK ─────────────────────────────
+   Checks the same magic-link session used across the whole platform
+   (demand.igvhousing.com, Home Search, etc). If logged in, swaps the
+   "Log in" link for the person's name + a Log out option. */
+const MAGIC_LINK_WORKER = 'https://magic-link.igvhousing.workers.dev'; // confirm this matches your actual deployed Worker URL
+
+(async function checkLoginSession(){
+  try {
+    const res = await fetch(`${MAGIC_LINK_WORKER}/session`, { credentials: 'include' });
+    const data = await res.json();
+    if (data.loggedIn) {
+      const displayName = data.firstName || (data.email ? data.email.split('@')[0] : 'Member');
+      const initial = displayName.charAt(0).toUpperCase();
+
+      const loginLink = document.getElementById('nav-login-link');
+      const userEl = document.getElementById('nav-user');
+      const avatarEl = document.getElementById('nav-user-avatar');
+      const headerNameEl = document.getElementById('dropdown-header-name');
+      const labelEl = document.getElementById('nav-user-label');
+      const bellBtn = document.getElementById('nav-bell-btn');
+      if (loginLink) loginLink.classList.add('hide');
+      if (userEl) userEl.classList.add('show');
+      if (bellBtn) bellBtn.style.display = 'flex';
+      if (avatarEl) avatarEl.textContent = initial;
+      if (headerNameEl) headerNameEl.textContent = displayName;
+      if (labelEl) labelEl.textContent = displayName;
+
+      const mobileLogin = document.getElementById('mobile-nav-login-link');
+      const mobileUser = document.getElementById('mobile-nav-user');
+      const mobileUserName = document.getElementById('mobile-nav-user-name');
+      if (mobileLogin) mobileLogin.style.display = 'none';
+      if (mobileUser) mobileUser.style.display = 'block';
+      if (mobileUserName) mobileUserName.textContent = displayName;
+
+      checkNavFit();
+    }
+  } catch (e) { /* fail quietly, nav just shows Log in as the default state */ }
+})();
+
+function toggleProfileDropdown(event) {
+  event.stopPropagation();
+  document.getElementById('profile-dropdown').classList.toggle('open');
+}
+
+document.addEventListener('click', function(event) {
+  const dropdown = document.getElementById('profile-dropdown');
+  if (dropdown && dropdown.classList.contains('open') && !event.target.closest('.nav-user')) {
+    dropdown.classList.remove('open');
+  }
+});
+
+function handleNavLogout(event) {
+  if (event) event.preventDefault();
+  fetch(`${MAGIC_LINK_WORKER}/logout`, { method: 'POST', credentials: 'include' })
+    .then(function(){ window.location.reload(); })
+    .catch(function(){ window.location.reload(); });
+}
+
+</script>
+
+</body>
+</html>

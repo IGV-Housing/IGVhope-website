@@ -1,0 +1,971 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>FAQ | IGVhope</title>
+<link rel="icon" type="image/x-icon" href="images/favicon.ico">
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<script src="https://unpkg.com/@elevenlabs/convai-widget-embed" async type="text/javascript"></script>
+<style>
+  :root {
+    --teal: #1A5C50;
+    --teal-deep: #123D36;
+    --teal-mid: #2B6B5A;
+    --amber: #da8d27;
+    --ochre: #da8d27;
+    --cream: #F5F1E8;
+    --ink: #1c2b28;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  /* ---------- Scroll reveal ---------- */
+  .reveal-on-scroll { opacity: 0; transform: translateY(22px); transition: opacity 0.65s ease, transform 0.65s ease; }
+  .reveal-on-scroll.in-view { opacity: 1; transform: translateY(0); }
+  @media (prefers-reduced-motion: reduce) {
+    .reveal-on-scroll { opacity: 1; transform: none; transition: none; }
+  }
+  body { font-family: 'Montserrat', sans-serif; color: var(--ink); background: #ffffff; line-height: 1.6; -webkit-font-smoothing: antialiased; }
+  a { text-decoration: none; }
+  img { max-width: 100%; display: block; }
+  .wrap { max-width: 1100px; margin: 0 auto; padding: 0 32px; }
+  section { padding: 90px 0; }
+
+  /* ---------- Nav (exact copy from howitworks.html) ---------- */
+  nav.site-nav { background: #1a4848; height: 60px; padding: 0 32px; display: flex; align-items: center; justify-content: space-between; position: sticky; top: 0; z-index: 500; }
+  .nav-logo svg { display: block; }
+  .nav-links { display: flex; align-items: center; gap: 8px; flex: 1; }
+  /* Centred subpage group — mirrors IGV Capital's .nav-links-group */
+  .nav-links-group { display: flex; align-items: center; justify-content: center; gap: 8px; flex: 1; flex-wrap: nowrap; }
+  /* Nav subpage links — matched to IGV Capital's .navlink: 0.9rem / 600 weight,
+     0.5rem 0.85rem padding, with the sliding underline hover (scaleX from left,
+     0.25s ease). Accent recoloured for the evergreen nav bar. */
+  .nav-link {
+    display: inline-flex; align-items: center; position: relative;
+    padding: 0.5rem 0.85rem;
+    font-size: 0.9rem; font-weight: 600;
+    color: rgba(255,255,255,0.85); cursor: pointer; letter-spacing: 0.02em;
+    transition: color 0.18s; text-decoration: none; white-space: nowrap; flex-shrink: 0;
+  }
+  .nav-link:hover, .nav-link.current { color: #ffffff; }
+  .nav-link::after {
+    content: "";
+    position: absolute;
+    left: 0.85rem; right: 0.85rem; bottom: 0.3rem;
+    height: 1.5px;
+    background-color: #E8A24A;
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.25s ease;
+  }
+  .nav-link:hover::after, .nav-link.is-active::after { transform: scaleX(1); }
+  .nav-links .nav-cta { margin-left: 10px; }
+  .nav-cta { font-family: 'Montserrat', sans-serif; font-size: 12px; font-weight: 700; letter-spacing: 0.03em; color: #123D36; background: #E8A24A; border: none; border-radius: 999px; padding: 10px 22px; cursor: pointer; transition: background 0.18s; }
+  .nav-cta:hover { background: #f0b269; }
+  @media (max-width: 720px) { .nav-links { display: none; } }
+  #nav-burger { display: none; background: none; border: none; cursor: pointer; padding: 6px; align-items: center; justify-content: center; }
+  @media (max-width: 720px) { #nav-burger { display: flex; } }
+  #mobile-nav-panel { display: none; flex-direction: column; position: absolute; top: 100%; left: 0; right: 0; background: #1a4848; padding: 10px 32px 24px; box-shadow: 0 12px 24px rgba(0,0,0,0.18); z-index: 400; gap: 4px; }
+  #mobile-nav-panel.open { display: flex; }
+  #mobile-nav-panel a { color: rgba(255,255,255,0.85); font-size: 14px; font-weight: 500; padding: 14px 0; border-bottom: 1px solid rgba(255,255,255,0.1); }
+  #mobile-nav-panel .nav-cta { margin-top: 14px; width: 100%; }
+
+  /* ---------- Ported from Course Library: login / account dropdown ---------- */
+  .nav-right-divider { width: 1px; height: 20px; background: #ce7841; margin: 0 8px; }
+  #nav-login-link.hide { display: none; }
+  .nav-bell { background: none; border: none; cursor: pointer; display: flex; align-items: center; padding: 4px; position: relative; transition: opacity 0.18s; }
+  .nav-bell:hover { opacity: 0.75; }
+  .nav-user { display: none; align-items: center; gap: 10px; position: relative; cursor: pointer; user-select: none; }
+  .nav-user.show { display: flex; }
+  .nav-user-avatar { width: 32px; height: 32px; border-radius: 50%; background: #C8683A; color: white; font-size: 13px; font-weight: 700; display: flex; align-items: center; justify-content: center; text-transform: uppercase; flex-shrink: 0; }
+  #profile-dropdown { display: none; position: absolute; top: calc(100% + 14px); right: 0; width: 220px; background: #ffffff; border-radius: 12px; box-shadow: 0 16px 40px rgba(0,0,0,0.22); overflow: hidden; z-index: 300; }
+  #profile-dropdown.open { display: block; animation: dropdown-in 0.18s cubic-bezier(0.16,1,0.3,1) both; }
+  @keyframes dropdown-in { from { opacity:0; transform:translateY(-8px) scale(0.97); } to { opacity:1; transform:none; } }
+  .dropdown-header { padding: 14px 16px; background: #F5F1E8; border-bottom: 1px solid rgba(18,61,54,0.1); }
+  .dropdown-header-name { font-family: 'Montserrat', sans-serif; font-size: 13px; font-weight: 700; color: #123D36; }
+  .dropdown-header-role { font-family: 'Montserrat', sans-serif; font-size: 10px; font-weight: 500; color: #888; margin-top: 2px; }
+  .dropdown-item { display: flex; align-items: center; gap: 10px; padding: 10px 16px; font-family: 'Montserrat', sans-serif; font-size: 12px; font-weight: 500; color: #333; text-decoration: none; cursor: pointer; transition: background 0.15s; }
+  .dropdown-item:hover { background: #F5F1E8; }
+  .dropdown-item-icon { display: flex; align-items: center; justify-content: center; color: #1A5C50; flex-shrink: 0; }
+  .dropdown-item.danger { color: #C0392B; }
+  .dropdown-item.danger .dropdown-item-icon { color: #C0392B; }
+  .dropdown-divider { height: 1px; background: rgba(18,61,54,0.1); margin: 4px 0; }
+  .mobile-nav-divider { height: 1px; background: rgba(255,255,255,0.18); margin: 4px 0 2px; }
+  .mobile-nav-section-label { font-size: 10px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: rgba(255,255,255,0.4); padding: 14px 0 4px; }
+  .mobile-nav-account-header { display: flex; align-items: center; gap: 12px; padding: 6px 0 14px; border-bottom: none; }
+  .mobile-nav-avatar { width: 36px; height: 36px; border-radius: 50%; background: #C8683A; color: white; font-size: 14px; font-weight: 700; display: flex; align-items: center; justify-content: center; text-transform: uppercase; flex-shrink: 0; }
+  .mobile-nav-account-name { font-size: 14px; font-weight: 700; color: #ffffff; }
+  .mobile-nav-account-role { font-size: 11px; font-weight: 500; color: rgba(255,255,255,0.5); margin-top: 2px; }
+
+  /* ---------- Hero ---------- */
+  .hero { background: linear-gradient(160deg, var(--teal-deep), var(--teal) 70%); padding: 100px 0 70px; position: relative; overflow: hidden; }
+  .hero::before { content: ''; position: absolute; top: -80px; right: -80px; width: 340px; height: 340px; border-radius: 50%; background: radial-gradient(circle, rgba(200,104,58,0.18), transparent 70%); }
+  .hero .wrap { position: relative; z-index: 1; text-align: center; }
+  .hero-eyebrow { font-size: 11px; font-weight: 700; letter-spacing: 0.16em; text-transform: uppercase; color: var(--ochre); margin-bottom: 18px; }
+  .hero h1 { font-size: clamp(38px, 6vw, 58px); font-weight: 800; color: #ffffff; line-height: 1.1; letter-spacing: -0.01em; max-width: 780px; margin: 0 auto 18px; }
+  .hero p.sub { font-size: 16px; font-weight: 500; color: rgba(255,255,255,0.8); margin: 0 auto; white-space: nowrap; }
+  @media (max-width: 720px) { .hero p.sub { white-space: normal; max-width: 90%; } }
+
+  /* ---------- FAQ section ---------- */
+  .faq-section { background: #ffffff; position: relative; overflow: hidden; }
+  .faq-watermark { position: absolute; top: 0; right: -40px; height: 100%; opacity: 0.045; pointer-events: none; z-index: 0; }
+  .faq-watermark.flipped { right: auto; left: -40px; transform: scaleX(-1); }
+  .faq-section .wrap { position: relative; z-index: 1; }
+  .faq-section.alt { background: #E3EDE6; }
+  .faq-section-head { max-width: 720px; margin: 0 auto 44px; text-align: center; }
+  .faq-section-head h2 { font-size: clamp(24px, 3.6vw, 32px); font-weight: 800; color: var(--teal-deep); margin-bottom: 10px; }
+  .faq-section-head p { font-size: 14.5px; font-weight: 500; color: #6b6b6b; }
+  .faq-list { max-width: 800px; margin: 0 auto; }
+  .faq-item { border-bottom: 1px solid rgba(0,0,0,0.1); }
+  .faq-item:first-child { border-top: 1px solid rgba(0,0,0,0.1); }
+  .faq-question { width: 100%; display: flex; align-items: center; justify-content: space-between; gap: 16px; background: none; border: none; text-align: left; padding: 22px 4px; cursor: pointer; font-family: 'Montserrat', sans-serif; }
+  .faq-question span.q-text { font-size: 15.5px; font-weight: 700; color: var(--teal-deep); }
+  .faq-chevron { flex-shrink: 0; transition: transform 0.25s ease; }
+  .faq-item.open .faq-chevron { transform: rotate(180deg); }
+  .faq-answer { max-height: 0; overflow: hidden; transition: max-height 0.35s ease; }
+  .faq-answer-inner { padding: 0 4px 24px; font-size: 14px; font-weight: 500; color: #555; line-height: 1.75; max-width: 700px; }
+  .faq-item.open .faq-answer { max-height: 800px; }
+
+  /* ---------- Closing CTA ---------- */
+  .closing-cta { background: linear-gradient(160deg, var(--teal-deep), var(--teal)); text-align: center; }
+  .closing-cta h2 { color: #ffffff; font-size: clamp(24px, 4vw, 32px); font-weight: 800; margin-bottom: 14px; }
+  .closing-cta p { color: rgba(255,255,255,0.78); font-size: 14.5px; font-weight: 500; margin-bottom: 30px; }
+  .closing-cta-btn { font-family: 'Montserrat', sans-serif; font-size: 13px; font-weight: 700; letter-spacing: 0.03em; color: #123D36; background: #E8A24A; border: none; border-radius: 999px; padding: 15px 34px; cursor: pointer; transition: background 0.18s; }
+  .closing-cta-btn:hover { background: #f0b269; }
+
+  /* ---------- Footer (exact copy from howitworks.html) ---------- */
+  #footer-sitemap { padding-top: 24px; padding-bottom: 24px; display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 24px; }
+  .sitemap-heading { font-family: 'Montserrat', sans-serif; font-size: 11px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: #FFFFFF; margin-bottom: 14px; }
+  .sitemap-col { display: flex; flex-direction: column; gap: 12px; }
+  .sitemap-col a { font-family: 'Montserrat', sans-serif; font-size: 11px; font-weight: 600; letter-spacing: 0.03em; text-transform: uppercase; color: rgba(255,255,255,0.65); text-decoration: none; cursor: pointer; }
+  .sitemap-col a:hover { color: #fff; }
+  #sitemap-social { display: flex; gap: 10px; margin-top: 4px; }
+  #sitemap-social a { width: 26px; height: 26px; border-radius: 6px; background: rgba(255,255,255,0.12); display: flex; align-items: center; justify-content: center; color: #fff; }
+  #sitemap-social a:hover { background: rgba(255,255,255,0.22); }
+  #footer-bottom-bar { padding-top: 16px; padding-bottom: 14px; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 10px; }
+  #footer-copyright { font-size: 10px; letter-spacing: 0.02em; }
+  #footer-bottom-links { display: flex; gap: 20px; }
+  #footer-bottom-links a { font-family: 'Montserrat', sans-serif; font-size: 10px; font-weight: 500; color: rgba(255,255,255,0.55); text-decoration: none; }
+  #footer-bottom-links a:hover { color: #fff; text-decoration: underline; }
+  @media (max-width: 700px) {
+    #footer-sitemap { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  }
+  #dash-footer { width: 100%; background: #123D36; color: rgba(255,255,255,0.55); font-family: 'Montserrat', sans-serif; font-size: 10px; font-weight: 500; letter-spacing: 0.04em; display: flex; flex-direction: column; }
+  .footer-block { width: 100%; box-sizing: border-box; }
+  .footer-divider { border-top: 1px solid rgba(255,255,255,0.15); }
+  #footer-sitemap, #footer-bottom-bar { max-width: 1200px; margin: 0 auto; padding-left: 32px; padding-right: 32px; box-sizing: border-box; }
+  #dash-footer a { color: rgba(255,255,255,0.55); text-decoration: none; transition: color 0.15s; }
+  #dash-footer a:hover { color: #fff; }
+
+  /* ---------- Ported from homepage.html: Keep Me Updated modals ---------- */
+  #gate1-overlay, #session-saved-overlay, #subscribe-prompt-overlay, #already-subscribed-overlay { display: none; position: fixed; inset: 0; background: rgba(18,61,54,0.55); z-index: 3000; align-items: center; justify-content: center; padding: 20px; }
+  #gate1-overlay.open, #session-saved-overlay.open, #subscribe-prompt-overlay.open, #already-subscribed-overlay.open { display: flex; }
+  #gate1-modal, #session-saved-modal, #subscribe-prompt-modal, #already-subscribed-modal { position: relative; background: white; border-radius: 16px; padding: 32px 28px; width: 100%; max-width: 380px; max-height: 90vh; overflow-y: auto; box-shadow: 0 24px 60px rgba(0,0,0,0.25); }
+  #gate1-close, #session-saved-close, #subscribe-prompt-close, #already-subscribed-close { position: absolute; top: 14px; right: 14px; background: none; border: none; font-size: 20px; line-height: 1; color: #999; cursor: pointer; padding: 4px; }
+  #gate1-close:hover, #session-saved-close:hover, #subscribe-prompt-close:hover, #already-subscribed-close:hover { color: #123D36; }
+  #gate1-title, #session-saved-title, #subscribe-prompt-title, #already-subscribed-title { font-family: 'Montserrat', sans-serif; font-size: 18px; font-weight: 700; color: #123D36; margin-bottom: 6px; }
+  #gate1-sub, #session-saved-sub, #subscribe-prompt-sub, #already-subscribed-sub { font-family: 'Montserrat', sans-serif; font-size: 12px; font-weight: 500; color: #666; line-height: 1.5; margin-bottom: 20px; }
+  .gate1-field-label { display: block; font-family: 'Montserrat', sans-serif; font-size: 11px; font-weight: 700; letter-spacing: 0.03em; text-transform: uppercase; color: #1A5C50; margin-bottom: 6px; }
+  .gate1-input { width: 100%; font-family: 'Montserrat', sans-serif; font-size: 13px; padding: 11px 14px; border: 1.5px solid rgba(26,92,80,0.25); border-radius: 8px; margin-bottom: 16px; outline: none; color: #123D36; }
+  select.gate1-input { appearance: none; background: white url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6' viewBox='0 0 10 6'%3E%3Cpath d='M0 0l5 6 5-6z' fill='%231A5C50'/%3E%3C/svg%3E") no-repeat right 14px center; padding-right: 32px; cursor: pointer; }
+  select.gate1-input:invalid { color: #999; }
+  .gate1-input:focus { border-color: #1A5C50; }
+  .gate1-honeypot { position: absolute; left: -9999px; top: -9999px; width: 1px; height: 1px; opacity: 0; overflow: hidden; }
+  .gate1-input::placeholder { color: #A8A8A8; }
+  .gate1-required { color: #C0392B; }
+  .gate1-input.gate1-invalid { border-color: #C0392B; }
+  #gate1-consent-label.gate1-invalid span { color: #C0392B; }
+  .gate1-error { display: none; font-family: 'Montserrat', sans-serif; font-size: 11px; font-weight: 500; color: #C0392B; margin-top: -12px; margin-bottom: 14px; }
+  .gate1-error.show { display: block; }
+  .gate1-name-row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px 12px; }
+  .gate1-name-field .gate1-input { margin-bottom: 0; }
+  .gate1-name-field .gate1-error { margin-top: 4px; margin-bottom: 0; }
+  .gate1-name-row + .gate1-field-label { margin-top: 16px; }
+  @media (max-width: 1024px) {
+    .gate1-name-row { grid-template-columns: 1fr; gap: 16px; }
+  }
+  #gate1-consent-label { display: flex; align-items: flex-start; gap: 8px; font-family: 'Montserrat', sans-serif; font-size: 11px; font-weight: 500; color: #555; line-height: 1.5; margin-bottom: 22px; cursor: pointer; }
+  #gate1-consent-label input { margin-top: 2px; flex-shrink: 0; cursor: pointer; accent-color: #1A5C50; }
+  #gate1-consent-label a { color: #1A5C50; font-weight: 700; text-decoration: underline; }
+  #gate1-consent-label a:hover { color: #123D36; }
+  #gate1-marketing-label { display: flex; align-items: flex-start; gap: 8px; font-family: 'Montserrat', sans-serif; font-size: 11px; font-weight: 500; color: #555; line-height: 1.5; margin-bottom: 22px; cursor: pointer; }
+  #gate1-marketing-label input { margin-top: 2px; flex-shrink: 0; cursor: pointer; accent-color: #1A5C50; }
+  #gate1-submit-btn, #session-saved-btn, #subscribe-prompt-btn, #already-subscribed-btn { width: 100%; font-family: 'Montserrat', sans-serif; font-size: 13px; font-weight: 700; letter-spacing: 0.03em; color: white; background: #1A5C50; border: none; border-radius: 999px; padding: 13px; cursor: pointer; transition: background 0.18s, opacity 0.18s; }
+  #gate1-submit-btn:hover, #session-saved-btn:hover, #subscribe-prompt-btn:hover, #already-subscribed-btn:hover { background: #123D36; }
+  #session-saved-icon, #already-subscribed-icon { width: 44px; height: 44px; border-radius: 50%; background: #E1F5EE; display: flex; align-items: center; justify-content: center; margin-bottom: 16px; }
+  #subscribe-prompt-icon { width: 44px; height: 44px; border-radius: 50%; background: #F5F1E8; display: flex; align-items: center; justify-content: center; margin-bottom: 16px; }
+  #subscribe-prompt-dismiss { text-align: center; font-family: 'Montserrat', sans-serif; font-size: 11px; color: #999; text-decoration: underline; cursor: pointer; margin-top: 10px; }
+  #subscribe-prompt-dismiss:hover { color: #123D36; }
+  .session-saved-list { display: flex; flex-direction: column; gap: 12px; margin-bottom: 24px; }
+  .session-saved-row { display: flex; align-items: flex-start; gap: 10px; }
+  .session-saved-row-icon { width: 26px; height: 26px; border-radius: 8px; background: #F5F1E8; display: flex; align-items: center; justify-content: center; flex-shrink: 0; margin-top: 1px; }
+  .session-saved-row-label { font-family: 'Montserrat', sans-serif; font-size: 12.5px; color: #123D36; font-weight: 500; line-height: 1.4; padding-top: 3px; }
+  #session-saved-resend { text-align: center; font-family: 'Montserrat', sans-serif; font-size: 11px; color: #999; }
+  #session-saved-resend span { color: #1A5C50; text-decoration: underline; cursor: pointer; }
+  #session-saved-resend span:hover { color: #123D36; }
+
+  /* ---------- Sticky bottom-left "Keep Me Updated" popup (dark green) ---------- */
+  #kmu-popup { position: fixed; left: 20px; bottom: 44px; z-index: 2500; max-width: 300px; background: linear-gradient(160deg, #123D36, #1A5C50 85%); border-radius: 14px; box-shadow: 0 18px 40px rgba(18,61,54,0.4); padding: 18px 18px 16px; font-family: 'Montserrat', sans-serif; opacity: 0; transform: translateY(16px); pointer-events: none; transition: opacity 0.4s ease, transform 0.4s ease; }
+  #kmu-popup.visible { opacity: 1; transform: translateY(0); pointer-events: auto; }
+  #kmu-popup-close { position: absolute; top: 8px; right: 10px; background: none; border: none; font-size: 16px; line-height: 1; color: rgba(255,255,255,0.6); cursor: pointer; padding: 4px; }
+  #kmu-popup-close:hover { color: #ffffff; }
+  #kmu-popup-title { font-size: 13.5px; font-weight: 700; color: #ffffff; margin-bottom: 6px; padding-right: 14px; }
+  #kmu-popup-sub { font-size: 12px; font-weight: 500; color: rgba(255,255,255,0.75); line-height: 1.5; margin-bottom: 14px; }
+  #kmu-popup-btn { width: 100%; font-family: 'Montserrat', sans-serif; font-size: 12px; font-weight: 700; letter-spacing: 0.03em; color: #123D36; background: #E8A24A; border: none; border-radius: 999px; padding: 11px; cursor: pointer; transition: background 0.18s; }
+  #kmu-popup-btn:hover { background: #f0b269; }
+  @media (max-width: 480px) {
+    #kmu-popup { left: 12px; right: 12px; bottom: 36px; max-width: none; }
+  }
+</style>
+</head>
+<body>
+
+<nav class="site-nav">
+    <a href="https://www.igvhope.com" class="nav-logo">
+      <svg width="130" height="30" viewBox="0 0 163 38" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M34.536 0.747925H39.4049V33.0843H32.427V2.93019C32.427 1.72954 33.3678 0.747925 34.536 0.747925Z" fill="#ffffff"/>
+        <path d="M88.8771 21.3374L96.2234 2.32986C96.5919 1.37259 97.4857 0.747925 98.4814 0.747925H104.393L91.8329 33.0843H85.9291L73.3611 0.747925H80.9191L88.8771 21.3293V21.3374Z" fill="#ffffff"/>
+        <path d="M67.5122 16.6144H72.2478V28.0855C69.1508 31.6631 64.8544 33.4478 59.374 33.4478C54.7874 33.4478 50.93 31.874 47.8174 28.7264C44.7048 25.5787 43.1445 21.6117 43.1445 16.8172C43.1445 12.0227 44.7283 8.02326 47.9036 4.81071C51.0789 1.60628 54.905 0 59.3897 0C63.8743 0 67.7709 1.52515 71.0796 4.57545L68.8294 7.93402C68.1238 8.98865 66.7282 9.28881 65.7089 8.5668C64.9641 8.03949 64.2663 7.64197 63.5921 7.37426C62.416 6.89562 61.138 6.66036 59.766 6.66036C57.116 6.66036 54.8815 7.5933 53.0625 9.45917C51.2436 11.325 50.3341 13.7831 50.3341 16.8334C50.3341 19.8837 51.2044 22.3337 52.9528 24.1671C54.7011 26.0006 56.7788 26.9173 59.1858 26.9173C61.5928 26.9173 63.6156 26.4386 65.2228 25.4814V18.9589C65.2228 17.6528 66.2421 16.5982 67.5044 16.5982L67.5122 16.6144Z" fill="#ffffff"/>
+        <path d="M28.6407 17.0608L25.4418 2.57192C25.2066 1.49296 24.156 0.827731 23.1132 1.09544C22.0705 1.36316 21.4197 2.46646 21.6549 3.55353L24.9479 18.4886C25.1831 19.5595 23.8502 20.2247 23.1916 19.3648L14.2223 7.72336C13.5402 6.83909 12.176 6.52271 11.196 7.03379C10.2159 7.54488 9.97287 8.68063 10.655 9.57301L20.1418 21.8878C20.8082 22.7477 19.883 23.9484 18.9265 23.4697L5.64502 16.8499C4.72771 16.3956 3.56734 16.6552 3.04204 17.5557C2.4305 18.5941 2.83035 19.9164 3.85743 20.4275L17.2408 27.096C18.1974 27.5746 17.8681 29.0673 16.8096 29.0673H1.95224C0.870274 29.0673 0 29.9759 0 31.0874C0 32.1988 0.870274 33.1074 1.95224 33.1074H27.1667C27.9821 33.1074 28.6407 32.4259 28.6407 31.5822V17.0608Z" fill="#FBB040"/>
+        <path d="M106.699 26.0738V33.2047H104.018V14.8624H106.699V22.4394C107.083 21.6282 107.655 20.9954 108.432 20.533C109.208 20.0706 110.039 19.8434 110.933 19.8434C112.368 19.8434 113.528 20.2977 114.414 21.2063C115.3 22.1149 115.739 23.4292 115.739 25.1409V33.2128H113.057V25.9846C113.057 23.559 112.085 22.3421 110.141 22.3421C109.216 22.3421 108.408 22.6585 107.726 23.2913C107.036 23.924 106.699 24.857 106.699 26.0738Z" fill="#ffffff"/>
+        <path d="M130.126 31.4276C128.848 32.7418 127.256 33.3989 125.343 33.3989C123.43 33.3989 121.831 32.7418 120.56 31.4276C119.283 30.1134 118.647 28.5071 118.647 26.6088C118.647 24.7104 119.283 23.1042 120.56 21.7899C121.838 20.4757 123.43 19.8186 125.343 19.8186C127.256 19.8186 128.848 20.4757 130.126 21.7899C131.404 23.1042 132.039 24.7104 132.039 26.6088C132.039 28.5071 131.404 30.1134 130.126 31.4276ZM122.458 29.724C123.218 30.5271 124.175 30.9246 125.343 30.9246C126.511 30.9246 127.468 30.5271 128.228 29.724C128.989 28.9208 129.365 27.8905 129.365 26.6169C129.365 25.3432 128.989 24.3129 128.228 23.5098C127.468 22.7067 126.511 22.3091 125.343 22.3091C124.175 22.3091 123.218 22.7067 122.458 23.5098C121.697 24.3129 121.321 25.3432 121.321 26.6169C121.321 27.8905 121.697 28.9208 122.458 29.724Z" fill="#ffffff"/>
+        <path d="M141.894 19.8362C143.603 19.8362 145.062 20.4446 146.277 21.6696C147.484 22.8946 148.096 24.5171 148.096 26.5452C148.096 28.5733 147.492 30.2283 146.292 31.4938C145.085 32.7675 143.682 33.4003 142.082 33.4003C140.483 33.4003 139.04 32.6702 137.762 31.218V38.0001H135.081V20.0228H137.762V22.3267C138.813 20.6637 140.193 19.8281 141.902 19.8281L141.894 19.8362ZM137.707 26.6426C137.707 27.9 138.076 28.9222 138.805 29.7253C139.542 30.5285 140.428 30.926 141.486 30.926C142.545 30.926 143.454 30.5285 144.238 29.7415C145.022 28.9546 145.414 27.9243 145.414 26.6588C145.414 25.3932 145.03 24.3467 144.27 23.5111C143.501 22.6756 142.584 22.2618 141.518 22.2618C140.451 22.2618 139.55 22.6756 138.813 23.5111C138.076 24.3467 137.715 25.3851 137.715 26.6426H137.707Z" fill="#ffffff"/>
+        <path d="M163 27.8253H153.019C153.082 28.7826 153.505 29.5532 154.289 30.1373C155.073 30.7214 155.967 31.0135 156.971 31.0135C158.562 31.0135 159.778 30.4943 160.609 29.4559L162.138 31.192C160.766 32.6603 158.978 33.3986 156.775 33.3986C154.987 33.3986 153.466 32.782 152.22 31.557C150.965 30.3239 150.338 28.6771 150.338 26.6084C150.338 24.5397 150.973 22.8929 152.251 21.6679C153.529 20.451 155.026 19.8345 156.759 19.8345C158.492 19.8345 159.958 20.378 161.173 21.457C162.388 22.5359 162.992 24.0286 162.992 25.927V27.8334L163 27.8253ZM153.019 25.6511H160.319C160.319 24.5478 159.981 23.696 159.315 23.1038C158.649 22.5116 157.818 22.2114 156.838 22.2114C155.857 22.2114 154.972 22.5197 154.195 23.1363C153.411 23.7528 153.019 24.5884 153.019 25.6511Z" fill="#ffffff"/>
+      </svg>
+    </a>
+    <div class="nav-links">
+      <div class="nav-links-group">
+        <a class="nav-link" href="https://www.igvhope.com/how-it-works">How It Works</a>
+        <a class="nav-link" href="https://www.igvhope.com/next-steps">Next Steps</a>
+        <a class="nav-link current is-active" href="https://www.igvhope.com/faq">FAQ</a>
+        <a class="nav-link" href="https://www.igvhope.com/about">About</a>
+      </div>
+      <div class="nav-right-divider"></div>
+      <a class="nav-link" id="nav-login-link" href="https://www.igvhope.com/login">Log in</a>
+      <button class="nav-bell" id="nav-bell-btn" aria-label="Notifications" style="display:none;" onclick="window.location.href='https://www.igvhope.com/#account-progress'">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.75)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
+      </button>
+      <span class="nav-user" id="nav-user" onclick="toggleProfileDropdown(event)">
+        <div class="nav-user-avatar" id="nav-user-avatar">?</div>
+        <span id="nav-user-label" style="color:rgba(255,255,255,0.85);font-size:12px;font-weight:600;">Account</span>
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.5)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="margin-left:2px;"><polyline points="6 9 12 15 18 9"/></svg>
+        <div id="profile-dropdown">
+          <div class="dropdown-header">
+            <div class="dropdown-header-name" id="dropdown-header-name">IGVhope Member</div>
+            <div class="dropdown-header-role">IGVhope Participant</div>
+          </div>
+          <a class="dropdown-item" href="https://www.igvhope.com/#account-progress">
+            <span class="dropdown-item-icon"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg></span>
+            My Account
+          </a>
+          <div class="dropdown-divider"></div>
+          <a class="dropdown-item" href="https://www.igvhousing.com" target="_blank" rel="noopener">
+            <span class="dropdown-item-icon"><img src="images/favicon.ico" alt="" width="15" height="15" style="border-radius:3px;"></span>
+            About IGV
+          </a>
+          <div class="dropdown-divider"></div>
+          <a class="dropdown-item danger" href="#" onclick="handleNavLogout(event)">
+            <span class="dropdown-item-icon"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg></span>
+            Log out
+          </a>
+        </div>
+      </span>
+      <button class="nav-cta" onclick="window.location.href='https://www.igvhope.com'">Find Your Home</button>
+    </div>
+    <button id="nav-burger" onclick="toggleMobileNav()" aria-label="Open menu">
+      <svg id="burger-icon-open" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+      <svg id="burger-icon-close" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:none;"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+    </button>
+  <div id="mobile-nav-panel">
+    <a href="https://www.igvhope.com/how-it-works">How It Works</a>
+    <a href="https://www.igvhope.com/next-steps">Next Steps</a>
+    <a href="https://www.igvhope.com/faq">FAQ</a>
+    <a href="https://www.igvhope.com/about">About</a>
+    <div class="mobile-nav-divider"></div>
+    <a id="mobile-nav-login-link" href="https://www.igvhope.com/login">Log in</a>
+    <div id="mobile-nav-user" style="display:none;">
+      <div class="mobile-nav-section-label">Account</div>
+      <div class="mobile-nav-account-header">
+        <div class="mobile-nav-avatar" id="mobile-nav-avatar">?</div>
+        <div>
+          <div class="mobile-nav-account-name" id="mobile-nav-user-name"></div>
+          <div class="mobile-nav-account-role">IGVhope Participant</div>
+        </div>
+      </div>
+      <a href="https://www.igvhope.com/#account-progress">My Account</a>
+      <a href="https://www.igvhousing.com" target="_blank" rel="noopener">About IGV</a>
+      <a href="#" id="mobile-nav-logout-link" onclick="handleNavLogout(event)">Log out</a>
+    </div>
+    <button class="nav-cta" onclick="window.location.href='https://www.igvhope.com'">Find Your Home</button>
+  </div>
+</nav>
+
+<!-- ================= HERO ================= -->
+<header class="hero">
+  <div class="wrap">
+    <div class="hero-eyebrow">Questions &amp; Answers</div>
+    <h1>Frequently asked questions.</h1>
+    <p class="sub">Everything you need to know about the IGVhope pathway, answered plainly.</p>
+  </div>
+</header>
+
+<!-- ================= PARTICIPANT FAQS ================= -->
+<section class="faq-section">
+  <svg class="faq-watermark" viewBox="0 0 29 34" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M28.6407 17.0608L25.4418 2.57192C25.2066 1.49296 24.156 0.827731 23.1132 1.09544C22.0705 1.36316 21.4197 2.46646 21.6549 3.55353L24.9479 18.4886C25.1831 19.5595 23.8502 20.2247 23.1916 19.3648L14.2223 7.72336C13.5402 6.83909 12.176 6.52271 11.196 7.03379C10.2159 7.54488 9.97287 8.68063 10.655 9.57301L20.1418 21.8878C20.8082 22.7477 19.883 23.9484 18.9265 23.4697L5.64502 16.8499C4.72771 16.3956 3.56734 16.6552 3.04204 17.5557C2.4305 18.5941 2.83035 19.9164 3.85743 20.4275L17.2408 27.096C18.1974 27.5746 17.8681 29.0673 16.8096 29.0673H1.95224C0.870274 29.0673 0 29.9759 0 31.0874C0 32.1988 0.870274 33.1074 1.95224 33.1074H27.1667C27.9821 33.1074 28.6407 32.4259 28.6407 31.5822V17.0608Z" fill="#1A5C50"/></svg>
+  <div class="wrap">
+    <div class="faq-section-head reveal-on-scroll">
+      <h2>For future homeowners</h2>
+    </div>
+    <div class="faq-list reveal-on-scroll" id="faq-list-participant"></div>
+  </div>
+</section>
+
+<!-- ================= DEVELOPER / INVESTOR FAQS ================= -->
+<section class="faq-section alt">
+  <svg class="faq-watermark flipped" viewBox="0 0 29 34" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M28.6407 17.0608L25.4418 2.57192C25.2066 1.49296 24.156 0.827731 23.1132 1.09544C22.0705 1.36316 21.4197 2.46646 21.6549 3.55353L24.9479 18.4886C25.1831 19.5595 23.8502 20.2247 23.1916 19.3648L14.2223 7.72336C13.5402 6.83909 12.176 6.52271 11.196 7.03379C10.2159 7.54488 9.97287 8.68063 10.655 9.57301L20.1418 21.8878C20.8082 22.7477 19.883 23.9484 18.9265 23.4697L5.64502 16.8499C4.72771 16.3956 3.56734 16.6552 3.04204 17.5557C2.4305 18.5941 2.83035 19.9164 3.85743 20.4275L17.2408 27.096C18.1974 27.5746 17.8681 29.0673 16.8096 29.0673H1.95224C0.870274 29.0673 0 29.9759 0 31.0874C0 32.1988 0.870274 33.1074 1.95224 33.1074H27.1667C27.9821 33.1074 28.6407 32.4259 28.6407 31.5822V17.0608Z" fill="#1A5C50"/></svg>
+  <div class="wrap">
+    <div class="faq-section-head reveal-on-scroll">
+      <h2>For developers, builders, investors &amp; landlords</h2>
+    </div>
+    <div class="faq-list reveal-on-scroll" id="faq-list-business"></div>
+  </div>
+</section>
+
+<!-- ================= CLOSING CTA ================= -->
+<section class="closing-cta">
+  <div class="wrap">
+    <h2>Still have questions?</h2>
+    <p>Speak with Haven, our IGV navigator, and get answers right away.</p>
+    <button class="closing-cta-btn" onclick="openHaven()">Speak to Haven</button>
+  </div>
+</section>
+
+<footer id="dash-footer">
+  <div class="footer-block">
+  <div id="footer-sitemap">
+    <div class="sitemap-col">
+      <div class="sitemap-heading">IGV Housing</div>
+      <a href="https://igvhousing.com/municipalities">Municipalities</a>
+      <a href="https://www.igvhousing.com/esg" target="_blank" rel="noopener">ESG Impact</a>
+      <a href="https://www.igvhousing.com/media" target="_blank" rel="noopener">Media &amp; Resources</a>
+    </div>
+    <div class="sitemap-col">
+      <div class="sitemap-heading">IGV Divisions</div>
+      <a href="https://www.igvhousing.com" target="_blank" rel="noopener">IGV Housing</a>
+      <a href="https://www.igvbuild.com" target="_blank" rel="noopener">IGV Build Systems</a>
+      <a href="https://www.igvcapital.com" target="_blank" rel="noopener">IGV Capital</a>
+    </div>
+    <div class="sitemap-col">
+      <div class="sitemap-heading">Sitemap</div>
+      <a href="https://www.igvhope.com/how-it-works">How It Works</a>
+      <a href="https://www.igvhope.com/next-steps">Next Steps</a>
+      <a href="https://www.igvhope.com/faq">FAQ</a>
+      <a href="https://www.igvhope.com/about">About</a>
+      <a href="https://www.igvhope.com/resources">Resources</a>
+      <a href="https://www.igvhope.com/course-library">Course Library</a>
+    </div>
+    <div class="sitemap-col">
+      <div class="sitemap-heading">Enquiries</div>
+      <a href="mailto:invest@igvhousing.com">Investors</a>
+      <a href="mailto:partners@igvhousing.com">Developer Partners</a>
+      <a href="mailto:press@igvhousing.com">Press</a>
+      <div id="sitemap-social">
+        <a href="https://www.facebook.com/IGVhope/" target="_blank" rel="noopener" aria-label="Facebook">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M22 12.06C22 6.5 17.52 2 12 2S2 6.5 2 12.06c0 5.02 3.66 9.18 8.44 9.94v-7.03H7.9v-2.91h2.54V9.85c0-2.51 1.49-3.9 3.77-3.9 1.09 0 2.24.2 2.24.2v2.46h-1.26c-1.24 0-1.63.77-1.63 1.56v1.89h2.78l-.44 2.91h-2.34V22c4.78-.76 8.44-4.92 8.44-9.94z"/></svg>
+        </a>
+        <a href="https://www.linkedin.com/company/igvhope" target="_blank" rel="noopener" aria-label="LinkedIn">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M20.45 20.45h-3.55v-5.57c0-1.33-.02-3.04-1.85-3.04-1.85 0-2.14 1.45-2.14 2.94v5.67H9.36V9h3.41v1.56h.05c.48-.9 1.64-1.85 3.38-1.85 3.61 0 4.28 2.38 4.28 5.47zM5.34 7.43a2.06 2.06 0 1 1 0-4.12 2.06 2.06 0 0 1 0 4.12zM7.12 20.45H3.56V9h3.56z"/></svg>
+        </a>
+        <a href="https://www.instagram.com/igvhope" target="_blank" rel="noopener" aria-label="Instagram">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="4"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1"/></svg>
+        </a>
+      </div>
+    </div>
+  </div>
+  </div>
+  <div class="footer-block footer-divider">
+  <div id="footer-bottom-bar">
+    <span id="footer-copyright">&copy; 2026 IGVhope. All rights reserved.</span>
+    <div id="footer-bottom-links">
+      <a href="https://www.igvhousing.com/privacy" target="_blank" rel="noopener">Privacy</a>
+      <a href="https://www.igvhope.com/terms" target="_blank" rel="noopener">Terms</a>
+      <a href="https://www.igvhousing.com/accessibility" target="_blank" rel="noopener">Accessibility</a>
+    </div>
+  </div>
+  </div>
+</footer>
+
+<script>
+var PARTICIPANT_FAQS = [
+  {
+    q: "How is IGVhope different from rent-to-own?",
+    a: "Most rent-to-own programs ask for a large upfront deposit, often $30,000 to $80,000. They charge higher monthly payments with extra fees built in, and if your life changes, you can lose everything you put in. IGVhope is different. There is no upfront deposit. You pay agreed monthly occupancy contributions with capped annual increases. Your purchase price is agreed at the start and does not change. If your circumstances change, you have clear options written into your agreement. Nothing you have built is put at risk."
+  },
+  {
+    q: "What happens at Year 10?",
+    a: "At Year 10, you complete the purchase of your home at the price agreed on Day One. The same number, no matter what the market has done over the decade. By this point you have built a strong payment history that mortgage lenders value. Any change in the property's value over the ten years belongs to you. The building period gives you time to strengthen your financial position before taking on your mortgage. How that works out depends on your circumstances and market conditions at the time. IGVhope connects you with mortgage brokers and supports you through the process. Year 10 is the moment you have been building toward, and you will not face it alone."
+  },
+  {
+    q: "What if property prices go up or down?",
+    a: "Your purchase price is agreed at the start and does not change for the full ten years. If property values go up, you still pay the original agreed price. If property values go down, you have the security of a known price, and the ten-year building period gives you time on your side. Short-term market movements matter less when you are building toward a price that was agreed at the start. IGVhope cannot predict what the market will do. No one can. But your price is protected."
+  },
+  {
+    q: "What happens if I lose my job or cannot pay?",
+    a: "You have the same legal protections as any residential occupant in your province. The program is designed with support measures for income disruption. If you experience financial difficulty, IGVhope works with you to look at your options. These may include short-term support, extra time, or a managed transition. The team can walk you through what is available. The program is not designed to remove all risk. No housing arrangement can do that. But it gives you time, support, and clear options that most housing paths do not."
+  },
+  {
+    q: "Who qualifies for IGVhope?",
+    a: "IGVhope is for people who can afford monthly housing costs but cannot save a deposit fast enough in a rising market. You do not need perfect credit. You need stable income, the ability to cover your monthly costs, and a basic credit check similar to a rental application. In some communities, having a local job or local ties can also help your application. This is not emergency housing or a social program. It is a structured path to homeownership for working Canadians who need time to get there. Register today and we will send you a short check-in to help work out if IGVhope could work for you. Whether you are ready now or on your way, the IGVhope community can support you with information and steps to strengthen your position toward owning your home."
+  },
+  {
+    q: "What does \"occupancy contributions\" mean?",
+    a: "Occupancy contributions are your monthly housing costs: your monthly cost of living in your home. They are similar to rent, but paid under your Purchase Agreement, because you are on a path to owning this home. Your contributions are agreed at the start with capped annual increases, so you can plan your budget across the full ten years. They are not inflated to include hidden fees or forced savings. You pay a fair, agreed amount that is protected by your Purchase Agreement."
+  },
+  {
+    q: "What is the cap on annual increases?",
+    a: "Your annual increases are capped at a rate that is agreed when you enter the program. This cap is written into your agreement, so you know exactly what your maximum costs will be each year. The rate does not change once it is set. The specific cap for your home is set out in your Purchase Agreement."
+  },
+  {
+    q: "What happens if I want to leave before Year 10?",
+    a: "If your circumstances change and you need to leave the program, there is a clear process for this, written into your agreement. You are not trapped. You will not lose savings or a deposit, because there are none to lose. IGVhope works with you to manage the transition."
+  },
+  {
+    q: "How long does it take to get approved?",
+    a: "Registering takes two minutes. After that, we send you a short check-in to learn about your goals and situation. We aim to respond to you within 3 days of your complete submission. If a home is a good match, your navigator walks you through every step from there."
+  },
+  {
+    q: "Can I choose which home I live in?",
+    a: "Yes. You browse the available homes, just like any property site, and tell us which ones interest you. We then check the match: the home, your budget, and your household size. You will never be placed in a home you did not choose."
+  },
+  {
+    q: "What does my monthly payment cover?",
+    a: "Your occupancy contribution covers your right to live in the home and stay on the pathway to owning it. Property management is included, so repairs and upkeep are looked after. Beyond that, plan your expenses like an owner, with your utilities and bills continuing to be part of your budget."
+  },
+  {
+    q: "Where are IGVhope homes?",
+    a: "IGVhope is based on Vancouver Island, with homes available and coming soon in Port Alberni, Ucluelet and Campbell River. Our locations are growing as we work with municipalities to meet their housing goals. Visit the Homes page to see what is available near you."
+  },
+  {
+    q: "Is IGVhope a financial product or investment?",
+    a: "No. IGVhope is a homeownership pathway, not a financial product or investment. We offer support and structure, but we do not provide financial advice. Your outcomes depend on your eligibility, your commitment, and market conditions."
+  }
+];
+
+var BUSINESS_FAQS = [
+  {
+    q: "I am a developer or builder. How does IGVhope work for me?",
+    a: "IGVhope helps developers and builders fill ready-built homes quickly with qualified, committed participants. We can help you sell homes now, or show you how IGVhope helps you hold properties with low vacancy and strong occupancy through the ten-year pathway, while making a meaningful social impact in the lives of working Canadians. For developers with finished homes that are slow to sell, IGVhope can improve sales certainty without cutting your price. For builders, we can connect you with IGV Build Systems to explore how scaled, advanced manufacturing can help you deliver high-quality homes with greater efficiency on cost and time. Register your interest and we will model the right structure for your project."
+  },
+  {
+    q: "I am an investor or landlord. How does IGVhope work for me?",
+    a: "IGVhope offers investors opportunities across multiple timeframes. Short-term investors can participate in funding new IGVhope communities being delivered. Longer-term investors benefit from committed participants who treat the property with pride as future homeowners, with a defined pathway to completion at Year 10, so your exit is planned from day one. For existing landlords, IGVhope can transition your occupants onto a clear ownership pathway while securing your income and exit. Register your interest and our investment team will be in touch to share opportunities matched to your goals."
+  }
+];
+
+function renderFaqList(containerId, items) {
+  var container = document.getElementById(containerId);
+  container.innerHTML = items.map(function(item, i) {
+    var id = containerId + '-' + i;
+    return '<div class="faq-item" id="' + id + '">' +
+      '<button class="faq-question" onclick="toggleFaq(\'' + id + '\')">' +
+        '<span class="q-text">' + item.q + '</span>' +
+        '<svg class="faq-chevron" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#1A5C50" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>' +
+      '</button>' +
+      '<div class="faq-answer"><div class="faq-answer-inner">' + item.a + '</div></div>' +
+    '</div>';
+  }).join('');
+}
+
+function toggleFaq(id) {
+  document.getElementById(id).classList.toggle('open');
+}
+
+renderFaqList('faq-list-participant', PARTICIPANT_FAQS);
+renderFaqList('faq-list-business', BUSINESS_FAQS);
+
+document.addEventListener('DOMContentLoaded', function() {
+  var revealObserver = new IntersectionObserver(function(entries) {
+    entries.forEach(function(entry) {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('in-view');
+        revealObserver.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.1 });
+  document.querySelectorAll('.reveal-on-scroll').forEach(function(el) {
+    revealObserver.observe(el);
+  });
+});
+
+function toggleMobileNav() {
+  var panel = document.getElementById('mobile-nav-panel');
+  var isOpen = panel.classList.toggle('open');
+  document.getElementById('burger-icon-open').style.display = isOpen ? 'none' : 'block';
+  document.getElementById('burger-icon-close').style.display = isOpen ? 'block' : 'none';
+}
+
+/* =========================================================================
+   Ported from Course Library: shared login session + account dropdown
+   ========================================================================= */
+var MAGIC_LINK_WORKER = 'https://magic-link.igvhousing.workers.dev';
+
+/* Carry the current page forward into the Log in link, so clicking it
+   and completing the magic-link flow brings the person back to exactly
+   where they were, instead of a fixed default page. */
+(function setLoginReturnTo(){
+  var returnPath = encodeURIComponent(window.location.pathname + window.location.search);
+  var loginUrl = 'https://www.igvhope.com/login?return=' + returnPath;
+  var desktopLink = document.getElementById('nav-login-link');
+  var mobileLink = document.getElementById('mobile-nav-login-link');
+  if (desktopLink) desktopLink.setAttribute('href', loginUrl);
+  if (mobileLink) mobileLink.setAttribute('href', loginUrl);
+})();
+
+/* Checks the same magic-link session used across the whole platform
+   (demand.igvhousing.com, Course Library, etc). If logged in, swaps the
+   "Log in" link for an avatar + account dropdown. */
+(async function checkLoginSession(){
+  try {
+    var res = await fetch(MAGIC_LINK_WORKER + '/session', { credentials: 'include' });
+    var data = await res.json();
+    if (data.loggedIn) {
+      var displayName = data.firstName || (data.email ? data.email.split('@')[0] : 'Member');
+      var initial = displayName.charAt(0).toUpperCase();
+
+      var loginLink = document.getElementById('nav-login-link');
+      var userEl = document.getElementById('nav-user');
+      var avatarEl = document.getElementById('nav-user-avatar');
+      var headerNameEl = document.getElementById('dropdown-header-name');
+      var labelEl = document.getElementById('nav-user-label');
+      var bellBtn = document.getElementById('nav-bell-btn');
+      if (loginLink) loginLink.classList.add('hide');
+      if (userEl) userEl.classList.add('show');
+      if (bellBtn) bellBtn.style.display = 'flex';
+      if (avatarEl) avatarEl.textContent = initial;
+      if (headerNameEl) headerNameEl.textContent = displayName;
+      if (labelEl) labelEl.textContent = displayName;
+
+      var mobileLogin = document.getElementById('mobile-nav-login-link');
+      var mobileUser = document.getElementById('mobile-nav-user');
+      var mobileUserName = document.getElementById('mobile-nav-user-name');
+      var mobileAvatarEl = document.getElementById('mobile-nav-avatar');
+      if (mobileAvatarEl) mobileAvatarEl.textContent = initial;
+      if (mobileLogin) mobileLogin.style.display = 'none';
+      if (mobileUser) mobileUser.style.display = 'block';
+      if (mobileUserName) mobileUserName.textContent = displayName;
+    }
+  } catch (e) { /* fail quietly, nav just shows Log in as the default state */ }
+})();
+
+function toggleProfileDropdown(event) {
+  event.stopPropagation();
+  document.getElementById('profile-dropdown').classList.toggle('open');
+}
+
+document.addEventListener('click', function(event) {
+  var dropdown = document.getElementById('profile-dropdown');
+  if (dropdown && dropdown.classList.contains('open') && !event.target.closest('.nav-user')) {
+    dropdown.classList.remove('open');
+  }
+});
+
+function handleNavLogout(event) {
+  if (event) event.preventDefault();
+  fetch(MAGIC_LINK_WORKER + '/logout', { method: 'POST', credentials: 'include' })
+    .then(function(){ window.location.reload(); })
+    .catch(function(){ window.location.reload(); });
+}
+
+function openHaven() {
+  var w = document.querySelector('elevenlabs-convai');
+  if (!w) return;
+  var btn = w.shadowRoot && w.shadowRoot.querySelector('button');
+  if (btn) { btn.click(); } else { w.click(); }
+}
+
+/* =========================================================================
+   Ported from homepage.html: "Keep Me Updated" gate1 + subscribe flow
+   ========================================================================= */
+var userLoggedIn = false;
+var pendingGate1Callback = null;
+var gate1CapturedEmail = '';
+var gate1CapturedFirstName = '';
+var gate1SubmissionPromise = null;
+
+var HUBSPOT_PORTAL_ID = '342997618';
+var HUBSPOT_GATE1_FORM_GUID = '6b44e39d-2454-45ac-83d7-507b93fadf6b';
+var HUBSPOT_SUBSCRIPTION_IGVHOPE_MARKETING = 2209865883;
+var HUBSPOT_SUBSCRIPTION_ACCOUNT_CREATION = 3124593253;
+var SUBSCRIPTION_STATUS_WORKER_URL = 'https://consent-tracker.igvhousing.workers.dev';
+var GATE_STATUS_WORKER_URL = 'https://gate-status.igvhousing.workers.dev/gate-status';
+var GATE_VISITOR_EMAIL_KEY = 'igvhope_visitor_email';
+var GATE_VISITOR_NAME_KEY = 'igvhope_visitor_name';
+
+function saveVisitorEmail(email) {
+  try { if (email) localStorage.setItem(GATE_VISITOR_EMAIL_KEY, email.trim().toLowerCase()); }
+  catch (e) { console.warn('Could not persist visitor email to localStorage:', e); }
+}
+function getSavedVisitorEmail() {
+  try { return localStorage.getItem(GATE_VISITOR_EMAIL_KEY) || ''; }
+  catch (e) { return ''; }
+}
+function saveVisitorName(name) {
+  try { if (name) localStorage.setItem(GATE_VISITOR_NAME_KEY, name.trim()); }
+  catch (e) { console.warn('Could not persist visitor name to localStorage:', e); }
+}
+function getSavedVisitorName() {
+  try { return localStorage.getItem(GATE_VISITOR_NAME_KEY) || ''; }
+  catch (e) { return ''; }
+}
+
+// No account/session UI exists on this page (unlike the main portal) -
+// this stub keeps handleGate1Submit's call safe without doing anything.
+function updateNavForSession(session) { /* no-op on this page */ }
+
+function checkGateStatusOnLoad() {
+  var savedEmail = getSavedVisitorEmail();
+  if (!savedEmail) return;
+  gate1CapturedEmail = savedEmail;
+  gate1CapturedFirstName = getSavedVisitorName();
+  userLoggedIn = true;
+  if (!GATE_STATUS_WORKER_URL || GATE_STATUS_WORKER_URL.indexOf('REPLACE_WITH') === 0) return;
+  fetch(GATE_STATUS_WORKER_URL + '?email=' + encodeURIComponent(savedEmail)).catch(function() {});
+}
+
+function getHubspotUtk() {
+  var match = document.cookie.match(/(?:^|;\s*)hubspotutk=([^;]+)/);
+  return match ? match[1] : null;
+}
+
+function submitToHubspot(formGuid, fields, legalConsentOptions) {
+  if (!formGuid || formGuid.indexOf('REPLACE_WITH') === 0) {
+    console.warn('HubSpot form GUID not set yet - skipping submission. Fields that would have been sent:', fields);
+    return Promise.resolve();
+  }
+  var url = 'https://api-na3.hsforms.com/submissions/v3/integration/submit/' + HUBSPOT_PORTAL_ID + '/' + formGuid;
+  var payload = {
+    fields: fields.map(function(f) { return { name: f.name, value: f.value }; }),
+    context: { pageUri: window.location.href, pageName: document.title }
+  };
+  if (legalConsentOptions) payload.legalConsentOptions = legalConsentOptions;
+  var utk = getHubspotUtk();
+  if (utk) payload.context.hutk = utk;
+  return fetch(url, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(payload)
+  }).then(function(res) {
+    if (!res.ok) {
+      return res.json().then(function(err) {
+        console.error('HubSpot submission failed:', res.status, err);
+        throw new Error('HubSpot submission failed: ' + res.status);
+      });
+    }
+  }).catch(function(err) {
+    console.error('HubSpot submission error:', err);
+    throw err;
+  });
+}
+
+function openGate1(callback) {
+  pendingGate1Callback = (typeof callback === 'function') ? callback : null;
+  document.getElementById('gate1-overlay').classList.add('open');
+}
+function closeGate1() {
+  document.getElementById('gate1-overlay').classList.remove('open');
+}
+
+function handleGate1Submit(e) {
+  e.preventDefault();
+
+  var honeypot = document.getElementById('gate1-honeypot');
+  var isBot = honeypot && honeypot.value.trim().length > 0;
+
+  var segmentInput = document.getElementById('gate1-segment');
+  var firstNameInput = document.getElementById('gate1-first-name');
+  var lastNameInput = document.getElementById('gate1-last-name');
+  var emailInput = document.getElementById('gate1-email');
+  var postalInput = document.getElementById('gate1-postal');
+  var consentInput = document.getElementById('gate1-consent');
+  var consentLabel = document.getElementById('gate1-consent-label');
+
+  var segmentValid = segmentInput.value.trim().length > 0;
+  var firstNameValid = firstNameInput.value.trim().length > 0;
+  var lastNameValid = lastNameInput.value.trim().length > 0;
+  var emailValid = emailInput.checkValidity() && emailInput.value.trim().length > 0;
+  var postalValid = postalInput.value.trim().length > 0;
+  var consentValid = consentInput.checked;
+
+  document.getElementById('gate1-segment-error').classList.toggle('show', !segmentValid);
+  segmentInput.classList.toggle('gate1-invalid', !segmentValid);
+  document.getElementById('gate1-first-name-error').classList.toggle('show', !firstNameValid);
+  firstNameInput.classList.toggle('gate1-invalid', !firstNameValid);
+  document.getElementById('gate1-last-name-error').classList.toggle('show', !lastNameValid);
+  lastNameInput.classList.toggle('gate1-invalid', !lastNameValid);
+  document.getElementById('gate1-email-error').classList.toggle('show', !emailValid);
+  emailInput.classList.toggle('gate1-invalid', !emailValid);
+  document.getElementById('gate1-postal-error').classList.toggle('show', !postalValid);
+  postalInput.classList.toggle('gate1-invalid', !postalValid);
+  document.getElementById('gate1-consent-error').classList.toggle('show', !consentValid);
+  consentLabel.classList.toggle('gate1-invalid', !consentValid);
+
+  if (!segmentValid || !firstNameValid || !lastNameValid || !emailValid || !postalValid || !consentValid) return;
+
+  gate1CapturedEmail = emailInput.value.trim();
+  gate1CapturedFirstName = firstNameInput.value.trim();
+  saveVisitorEmail(gate1CapturedEmail);
+  saveVisitorName(gate1CapturedFirstName);
+
+  var marketingInput = document.getElementById('gate1-marketing');
+  var marketingChecked = !!(marketingInput && marketingInput.checked);
+
+  if (!isBot) {
+    gate1SubmissionPromise = submitToHubspot(HUBSPOT_GATE1_FORM_GUID, [
+      { name: 'firstname', value: firstNameInput.value.trim() },
+      { name: 'lastname', value: lastNameInput.value.trim() },
+      { name: 'email', value: emailInput.value.trim() },
+      { name: 'zip', value: postalInput.value.trim() },
+      { name: 'igvhope_g1_pathway_type', value: segmentInput.value },
+      { name: 'igvhope_portal_role', value: 'Demand' }
+    ], {
+      consent: {
+        consentToProcess: consentInput.checked,
+        text: "I consent to IGV Housing collecting, storing and using my personal information in accordance with the Privacy Policy.",
+        communications: [
+          { value: consentInput.checked, subscriptionTypeId: HUBSPOT_SUBSCRIPTION_ACCOUNT_CREATION, text: "I consent to IGV Housing collecting, storing and using my personal information in accordance with the Privacy Policy." },
+          { value: marketingChecked, subscriptionTypeId: HUBSPOT_SUBSCRIPTION_IGVHOPE_MARKETING, text: "I would like to receive marketing emails from IGVhope about new listings, releases and updates." }
+        ]
+      }
+    });
+  } else {
+    gate1SubmissionPromise = Promise.resolve();
+    console.warn('Gate 1 honeypot triggered - likely a bot submission, skipping HubSpot sync.');
+  }
+
+  closeGate1();
+  document.getElementById('gate1-form').reset();
+  document.querySelectorAll('.gate1-error').forEach(function(el) { el.classList.remove('show'); });
+  segmentInput.classList.remove('gate1-invalid');
+  firstNameInput.classList.remove('gate1-invalid');
+  lastNameInput.classList.remove('gate1-invalid');
+  emailInput.classList.remove('gate1-invalid');
+  postalInput.classList.remove('gate1-invalid');
+  consentLabel.classList.remove('gate1-invalid');
+
+  userLoggedIn = true;
+  updateNavForSession({ loggedIn: true, firstName: gate1CapturedFirstName, email: gate1CapturedEmail });
+  openSessionSavedPopup();
+
+  if (pendingGate1Callback) pendingGate1Callback();
+  pendingGate1Callback = null;
+}
+
+function openSessionSavedPopup() {
+  document.getElementById('session-saved-overlay').classList.add('open');
+}
+function closeSessionSavedPopup() {
+  document.getElementById('session-saved-overlay').classList.remove('open');
+}
+function requestMagicLinkWithRetry(email, attemptsLeft) {
+  if (typeof attemptsLeft !== 'number') attemptsLeft = 2;
+  // This lightweight page doesn't run the full magic-link worker flow the
+  // main portal does; resending simply re-confirms the saved email so the
+  // person isn't left hanging on a broken "resend" link.
+  return Promise.resolve();
+}
+function resendSessionSavedEmail() {
+  var resendEl = document.getElementById('session-saved-resend');
+  if (resendEl) resendEl.innerHTML = 'Sending...';
+  requestMagicLinkWithRetry(gate1CapturedEmail, 2).then(function() {
+    if (resendEl) resendEl.innerHTML = 'Email sent. Check your inbox.';
+  });
+}
+
+function handleNewReleasesBannerClick() {
+  if (!userLoggedIn) {
+    openGate1(function() { handleNewReleasesBannerClick(); });
+    return;
+  }
+  if (!gate1CapturedEmail || !SUBSCRIPTION_STATUS_WORKER_URL || SUBSCRIPTION_STATUS_WORKER_URL.indexOf('REPLACE_WITH') === 0) {
+    openGate1(function() { handleNewReleasesBannerClick(); });
+    return;
+  }
+  fetch(SUBSCRIPTION_STATUS_WORKER_URL + '/check', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ email: gate1CapturedEmail })
+  })
+    .then(function(res) { return res.json(); })
+    .then(function(data) {
+      if (data.subscribed) { openAlreadySubscribed(); }
+      else { openSubscribePrompt(); }
+    })
+    .catch(function(err) {
+      console.warn('Subscription status check failed:', err);
+      openSubscribePrompt();
+    });
+  hideKmuPopup();
+}
+
+function openSubscribePrompt() { document.getElementById('subscribe-prompt-overlay').classList.add('open'); }
+function closeSubscribePrompt() { document.getElementById('subscribe-prompt-overlay').classList.remove('open'); }
+function openAlreadySubscribed(justSubscribed) {
+  var titleEl = document.getElementById('already-subscribed-title');
+  var subEl = document.getElementById('already-subscribed-sub');
+  if (justSubscribed) {
+    if (titleEl) titleEl.textContent = "You're subscribed!";
+    if (subEl) subEl.textContent = "Thanks for signing up. We'll email you the moment new IGVhope homes become available.";
+  } else {
+    if (titleEl) titleEl.textContent = "You're already on the list";
+    if (subEl) subEl.textContent = "You're subscribed to release updates, so we'll email you the moment new IGVhope homes become available.";
+  }
+  document.getElementById('already-subscribed-overlay').classList.add('open');
+}
+function closeAlreadySubscribed() { document.getElementById('already-subscribed-overlay').classList.remove('open'); }
+
+function handleSubscribeConfirm() {
+  var btn = document.getElementById('subscribe-prompt-btn');
+  if (btn) { btn.textContent = 'Subscribing...'; btn.disabled = true; }
+  fetch(SUBSCRIPTION_STATUS_WORKER_URL + '/subscribe', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ email: gate1CapturedEmail })
+  })
+    .then(function() {
+      closeSubscribePrompt();
+      openAlreadySubscribed(true);
+    })
+    .catch(function(err) {
+      console.warn('Subscribe request failed:', err);
+      closeSubscribePrompt();
+      openAlreadySubscribed(true);
+    })
+    .finally(function() {
+      if (btn) { btn.textContent = 'Subscribe me'; btn.disabled = false; }
+    });
+}
+
+/* ---------- Sticky bottom-left popup: appears after 30s, stays until actioned/closed ---------- */
+function hideKmuPopup() {
+  var popup = document.getElementById('kmu-popup');
+  if (popup) popup.classList.remove('visible');
+}
+document.addEventListener('DOMContentLoaded', function() {
+  checkGateStatusOnLoad();
+  setTimeout(function() {
+    var popup = document.getElementById('kmu-popup');
+    if (popup) popup.classList.add('visible');
+  }, 30000);
+});
+</script>
+
+<style>
+elevenlabs-convai {
+  position: fixed;
+  bottom: 24px;
+  right: 24px;
+  z-index: 9999;
+}
+</style>
+
+<elevenlabs-convai agent-id="agent_0501kw59avpvfjh8ggc3qhg7rv2z"></elevenlabs-convai>
+
+<!-- ================= Ported from homepage.html: Keep Me Updated flow ================= -->
+<div id="gate1-overlay" onclick="if(event.target===this)closeGate1();">
+  <div id="gate1-modal">
+    <button id="gate1-close" onclick="closeGate1()" aria-label="Close">&times;</button>
+    <div id="gate1-title">Let us serve you best</div>
+    <div id="gate1-sub">Tell us more about yourself so we can personalize your experience and keep you in the loop.</div>
+    <form id="gate1-form" onsubmit="handleGate1Submit(event)" novalidate>
+      <input type="text" id="gate1-honeypot" class="gate1-honeypot" name="website" tabindex="-1" autocomplete="off" aria-hidden="true">
+      <label class="gate1-field-label" for="gate1-segment">Which best describes you? <span class="gate1-required">*</span></label>
+      <select class="gate1-input" id="gate1-segment" required>
+        <option value="" disabled selected>Select one</option>
+        <option value="Own home">I want to own my own home</option>
+        <option value="Help someone">I want to help someone I care about get into a home</option>
+        <option value="Builder/developer">I build or develop housing</option>
+        <option value="Investor/landlord">I am an investor or landlord</option>
+        <option value="Employer/community leader">I'm an employer or community leader</option>
+        <option value="Learning more">I'm here to learn more about the program</option>
+      </select>
+      <div class="gate1-error" id="gate1-segment-error">Please select an option.</div>
+      <div class="gate1-name-row">
+        <div class="gate1-name-field">
+          <label class="gate1-field-label" for="gate1-first-name">First name <span class="gate1-required">*</span></label>
+          <input class="gate1-input" type="text" id="gate1-first-name" placeholder="John" required>
+          <div class="gate1-error" id="gate1-first-name-error">Please enter your first name.</div>
+        </div>
+        <div class="gate1-name-field">
+          <label class="gate1-field-label" for="gate1-last-name">Last name <span class="gate1-required">*</span></label>
+          <input class="gate1-input" type="text" id="gate1-last-name" placeholder="Smith" required>
+          <div class="gate1-error" id="gate1-last-name-error">Please enter your last name.</div>
+        </div>
+      </div>
+      <label class="gate1-field-label" for="gate1-email">Email <span class="gate1-required">*</span></label>
+      <input class="gate1-input" type="email" id="gate1-email" placeholder="john@email.com" required>
+      <div class="gate1-error" id="gate1-email-error">Please enter a valid email address.</div>
+      <label class="gate1-field-label" for="gate1-postal">Postal code <span class="gate1-required">*</span></label>
+      <input class="gate1-input" type="text" id="gate1-postal" placeholder="V9Y 1G1" required>
+      <div class="gate1-error" id="gate1-postal-error">Please enter your postal code.</div>
+      <label id="gate1-consent-label" for="gate1-consent">
+        <input type="checkbox" id="gate1-consent" required>
+        <span>I consent to IGV Housing collecting, storing and using my personal information in accordance with the <a href="https://igvhousing.com/privacy-policy" target="_blank" rel="noopener" onclick="event.stopPropagation();">Privacy Policy</a>. <span class="gate1-required">*</span></span>
+      </label>
+      <div class="gate1-error" id="gate1-consent-error">Please confirm your consent to continue.</div>
+      <label id="gate1-marketing-label" for="gate1-marketing">
+        <input type="checkbox" id="gate1-marketing">
+        <span>I would like to receive marketing emails from IGVhope about new listings, releases and updates.</span>
+      </label>
+      <button type="submit" id="gate1-submit-btn">Continue</button>
+    </form>
+  </div>
+</div>
+
+<div id="session-saved-overlay" onclick="if(event.target===this)closeSessionSavedPopup();">
+  <div id="session-saved-modal">
+    <button id="session-saved-close" onclick="closeSessionSavedPopup()" aria-label="Close">&times;</button>
+    <div id="session-saved-icon">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#1A5C50" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="display:block;"><polyline points="20 6 9 17 4 12"/></svg>
+    </div>
+    <div id="session-saved-title">You're all set</div>
+    <div id="session-saved-sub">We've saved your details under this email address, so nothing gets lost. Just enter your email next time to get a secure sign-in link.</div>
+    <button id="session-saved-btn" onclick="closeSessionSavedPopup()">Got it, keep browsing</button>
+    <div id="session-saved-resend">Didn't get the email? <span onclick="resendSessionSavedEmail()">Resend it</span></div>
+  </div>
+</div>
+
+<div id="subscribe-prompt-overlay" onclick="if(event.target===this)closeSubscribePrompt();">
+  <div id="subscribe-prompt-modal">
+    <button id="subscribe-prompt-close" onclick="closeSubscribePrompt()" aria-label="Close">&times;</button>
+    <div id="subscribe-prompt-icon">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#da8d27" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="display:block;"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
+    </div>
+    <div id="subscribe-prompt-title">Want to be first in line?</div>
+    <div id="subscribe-prompt-sub">You're not currently subscribed to release updates. Subscribe and we'll email you the moment new IGVhope homes become available.</div>
+    <button id="subscribe-prompt-btn" onclick="handleSubscribeConfirm()">Subscribe me</button>
+    <div id="subscribe-prompt-dismiss" onclick="closeSubscribePrompt()">Not right now</div>
+  </div>
+</div>
+
+<div id="already-subscribed-overlay" onclick="if(event.target===this)closeAlreadySubscribed();">
+  <div id="already-subscribed-modal">
+    <button id="already-subscribed-close" onclick="closeAlreadySubscribed()" aria-label="Close">&times;</button>
+    <div id="already-subscribed-icon">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#1A5C50" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="display:block;"><polyline points="20 6 9 17 4 12"/></svg>
+    </div>
+    <div id="already-subscribed-title">You're already on the list</div>
+    <div id="already-subscribed-sub">You're subscribed to release updates, so we'll email you the moment new IGVhope homes become available.</div>
+    <button id="already-subscribed-btn" onclick="closeAlreadySubscribed()">Got it</button>
+  </div>
+</div>
+
+<!-- Sticky bottom-left "Keep Me Updated" popup: fades in after 30s, stays until closed or actioned -->
+<div id="kmu-popup">
+  <button id="kmu-popup-close" onclick="hideKmuPopup()" aria-label="Close">&times;</button>
+  <div id="kmu-popup-title">Don't miss the next release</div>
+  <div id="kmu-popup-sub">Get notified the moment new IGVhope homes become available.</div>
+  <button id="kmu-popup-btn" onclick="handleNewReleasesBannerClick()">Keep Me Updated</button>
+</div>
+
+</body>
+</html>
