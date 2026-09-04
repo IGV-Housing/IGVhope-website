@@ -138,7 +138,15 @@
   .impact-detail-icon { width: 72px; height: 72px; border-radius: 18px; background: var(--ochre); display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
   .impact-detail-icon svg { width: 32px; height: 32px; }
   .impact-detail-eyebrow { font-size: 11px; font-weight: 800; letter-spacing: 0.12em; text-transform: uppercase; color: var(--teal-deep); }
-  .impact-detail-heading { font-family: 'Montserrat', sans-serif; font-weight: 800; font-size: clamp(22px, 2.8vw, 28px); line-height: 1.25; color: var(--teal-deep); margin-bottom: 14px; letter-spacing: -0.01em; }
+  .impact-details { border: none; }
+  .impact-details summary { list-style: none; cursor: pointer; display: flex; align-items: center; gap: 16px; }
+  .impact-details summary::-webkit-details-marker { display: none; }
+  .impact-detail-heading { font-family: 'Montserrat', sans-serif; font-weight: 800; font-size: clamp(22px, 2.8vw, 28px); line-height: 1.25; color: var(--teal-deep); margin-bottom: 14px; letter-spacing: -0.01em; flex: 1; }
+  .impact-details summary .impact-detail-heading { margin-bottom: 0; }
+  .impact-detail-chevron { flex-shrink: 0; width: 34px; height: 34px; border-radius: 50%; background: rgba(26,92,80,0.08); display: flex; align-items: center; justify-content: center; transition: transform 0.2s ease, background 0.15s ease; margin-bottom: 14px; }
+  .impact-details summary:hover .impact-detail-chevron { background: rgba(26,92,80,0.14); }
+  .impact-details[open] .impact-detail-chevron { transform: rotate(180deg); }
+  .impact-details .impact-detail-body { padding-top: 4px; }
   .impact-detail-body p { font-size: 14.5px; font-weight: 500; color: #465650; line-height: 1.75; margin-bottom: 14px; max-width: 640px; }
   .impact-detail-body p:last-child { margin-bottom: 0; }
   .impact-detail-note { display: inline-block; margin-top: 10px; font-size: 11.5px; font-weight: 500; color: #7a8783; line-height: 1.6; }
@@ -294,11 +302,16 @@
         <div class="impact-detail-eyebrow">Economic Impact</div>
       </div>
       <div>
-        <h2 class="impact-detail-heading">Roughly $561 million in direct construction investment, every year.</h2>
-        <div class="impact-detail-body">
-          <p>Every home IGVhope builds is a home under construction somewhere on Vancouver Island: materials purchased, trades hired, and local suppliers paid. At a target delivery of 2,000 homes a year, that's approximate direct construction investment flowing into the region annually.</p>
-          <p>This estimate uses Statistics Canada's 2025 average construction value per residential dwelling unit (≈$280,700, from national Building Permits data) applied to our target annual volume. It reflects direct construction value only. It does not include the additional indirect and induced spending that typically follows a housing project through a local economy, so if anything it's a conservative figure.</p>
-        </div>
+        <details class="impact-details">
+          <summary>
+            <h2 class="impact-detail-heading">Roughly $561 million in direct construction investment, every year.</h2>
+            <span class="impact-detail-chevron"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#123D36" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg></span>
+          </summary>
+          <div class="impact-detail-body">
+            <p>Every home IGVhope builds is a home under construction somewhere on Vancouver Island: materials purchased, trades hired, and local suppliers paid. At a target delivery of 2,000 homes a year, that's approximate direct construction investment flowing into the region annually.</p>
+            <p>This estimate uses Statistics Canada's 2025 average construction value per residential dwelling unit (≈$280,700, from national Building Permits data) applied to our target annual volume. It reflects direct construction value only. It does not include the additional indirect and induced spending that typically follows a housing project through a local economy, so if anything it's a conservative figure.</p>
+          </div>
+        </details>
       </div>
     </div>
   </div>
@@ -315,11 +328,16 @@
         <div class="impact-detail-eyebrow">Employment Impact</div>
       </div>
       <div>
-        <h2 class="impact-detail-heading">Approximately 4,000 jobs supported a year.</h2>
-        <div class="impact-detail-body">
-          <p>New homes don't build themselves. Framers, electricians, plumbers, project managers, and the local trades and suppliers around them all depend on a steady pipeline of construction, and a steady pipeline is exactly what a ten-year, at-scale program is designed to provide.</p>
-          <p>National data from the Canadian Home Builders' Association shows new-home construction supported roughly 515,000 jobs against 259,000 housing starts in 2025 (about two jobs per home, direct and closely-related indirect). Applied to IGVhope's target of 2,000 homes a year, that's an approximate 4,000 jobs supported annually.</p>
-        </div>
+        <details class="impact-details">
+          <summary>
+            <h2 class="impact-detail-heading">Approximately 4,000 jobs supported a year.</h2>
+            <span class="impact-detail-chevron"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#123D36" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg></span>
+          </summary>
+          <div class="impact-detail-body">
+            <p>New homes don't build themselves. Framers, electricians, plumbers, project managers, and the local trades and suppliers around them all depend on a steady pipeline of construction, and a steady pipeline is exactly what a ten-year, at-scale program is designed to provide.</p>
+            <p>National data from the Canadian Home Builders' Association shows new-home construction supported roughly 515,000 jobs against 259,000 housing starts in 2025 (about two jobs per home, direct and closely-related indirect). Applied to IGVhope's target of 2,000 homes a year, that's an approximate 4,000 jobs supported annually.</p>
+          </div>
+        </details>
       </div>
     </div>
   </div>
@@ -336,11 +354,16 @@
         <div class="impact-detail-eyebrow">Family Stability &amp; Community Focus</div>
       </div>
       <div>
-        <h2 class="impact-detail-heading">Around 2,000 families a year, putting down roots instead of chasing rent.</h2>
-        <div class="impact-detail-body">
-          <p>The biggest impact isn't a dollar figure &mdash; it's what a locked-in ten-year path to ownership does for a household's stability. Families who know their address isn't changing at the whim of a landlord or a rent increase tend to stay in their kids' school catchment, keep the same commute, and build the kind of long-term ties (neighbours, community groups, local roots) that a transient rental market makes difficult.</p>
-          <p>At a target of 2,000 keys delivered a year, that's approximately 2,000 households a year moving off that treadmill and into a home that's actually theirs to grow into.</p>
-        </div>
+        <details class="impact-details">
+          <summary>
+            <h2 class="impact-detail-heading">Around 2,000 families a year, putting down roots instead of chasing rent.</h2>
+            <span class="impact-detail-chevron"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#123D36" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg></span>
+          </summary>
+          <div class="impact-detail-body">
+            <p>The biggest impact isn't a dollar figure &mdash; it's what a locked-in ten-year path to ownership does for a household's stability. Families who know their address isn't changing at the whim of a landlord or a rent increase tend to stay in their kids' school catchment, keep the same commute, and build the kind of long-term ties (neighbours, community groups, local roots) that a transient rental market makes difficult.</p>
+            <p>At a target of 2,000 keys delivered a year, that's approximately 2,000 households a year moving off that treadmill and into a home that's actually theirs to grow into.</p>
+          </div>
+        </details>
       </div>
     </div>
   </div>
@@ -357,11 +380,16 @@
         <div class="impact-detail-eyebrow">Affordable Rentals</div>
       </div>
       <div>
-        <h2 class="impact-detail-heading">One affordable rental home in every Osprey we build.</h2>
-        <div class="impact-detail-body">
-          <p>The Osprey comes in different configurations of 4 to 6 homes, depending on the planning rules of the municipality it's built in. One home in every Osprey, a 2-bedroom, 2-bathroom unit, is set aside permanently as an affordable rental, rather than sold.</p>
-          <p>Across a target delivery of 2,000 homes a year, that works out to approximately <strong>400 new affordable rental homes</strong> entering the market annually, for people who need a rental now, not a ten-year ownership path.</p>
-        </div>
+        <details class="impact-details">
+          <summary>
+            <h2 class="impact-detail-heading">One affordable rental home in every Osprey we build.</h2>
+            <span class="impact-detail-chevron"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#123D36" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg></span>
+          </summary>
+          <div class="impact-detail-body">
+            <p>The Osprey comes in different configurations of 4 to 6 homes, depending on the planning rules of the municipality it's built in. One home in every Osprey, a 2-bedroom, 2-bathroom unit, is set aside permanently as an affordable rental, rather than sold.</p>
+            <p>Across a target delivery of 2,000 homes a year, that works out to approximately <strong>400 new affordable rental homes</strong> entering the market annually, for people who need a rental now, not a ten-year ownership path.</p>
+          </div>
+        </details>
         <div class="rental-card">
           <div class="rental-card-text">
             <div class="rental-card-title">Looking for an affordable rental?</div>
