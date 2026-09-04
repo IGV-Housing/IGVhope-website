@@ -165,6 +165,34 @@
   .impact-waitlist-sub { font-size: 14.5px; font-weight: 500; color: rgba(255,255,255,0.68); line-height: 1.7; margin-bottom: 36px; }
   .impact-waitlist-form-wrap { background: #ffffff; border-radius: 20px; padding: 32px; text-align: left; }
 
+  /* Override HubSpot's injected form styling to match the site */
+  .impact-waitlist-form-wrap .hsfc-Form,
+  .impact-waitlist-form-wrap .hsfc-Form * { font-family: 'Montserrat', sans-serif !important; }
+  .impact-waitlist-form-wrap .hsfc-FieldLabel { font-size: 13px !important; font-weight: 700 !important; color: var(--teal-deep) !important; margin-bottom: 6px !important; }
+  .impact-waitlist-form-wrap .hsfc-Form input[type="text"],
+  .impact-waitlist-form-wrap .hsfc-Form input[type="email"],
+  .impact-waitlist-form-wrap .hsfc-Form input[type="tel"],
+  .impact-waitlist-form-wrap .hsfc-Form select,
+  .impact-waitlist-form-wrap .hsfc-Form textarea {
+    width: 100% !important; padding: 11px 13px !important; border: 1.5px solid #DCE4E0 !important;
+    border-radius: 9px !important; font-size: 14px !important; color: var(--ink) !important;
+    background: #ffffff !important; box-shadow: none !important;
+  }
+  .impact-waitlist-form-wrap .hsfc-Form input:focus,
+  .impact-waitlist-form-wrap .hsfc-Form select:focus,
+  .impact-waitlist-form-wrap .hsfc-Form textarea:focus {
+    outline: none !important; border-color: var(--ochre) !important; box-shadow: 0 0 0 3px rgba(232,162,74,0.18) !important;
+  }
+  .impact-waitlist-form-wrap .hsfc-Form label:has(input[type="checkbox"]),
+  .impact-waitlist-form-wrap .hsfc-FieldLabel[for*="cc-input"] { font-size: 12.5px !important; font-weight: 500 !important; color: #5c6b67 !important; }
+  .impact-waitlist-form-wrap .hsfc-Button {
+    font-weight: 700 !important; font-size: 14px !important; color: #123D36 !important;
+    background: var(--ochre) !important; border: none !important; border-radius: 999px !important;
+    padding: 13px 28px !important; cursor: pointer !important; transition: background 0.18s !important;
+  }
+  .impact-waitlist-form-wrap .hsfc-Button:hover { background: #f0b269 !important; }
+  .impact-waitlist-form-wrap .hsfc-Row { gap: 16px !important; }
+
 </style>
 
 <script type="text/javascript" id="hs-script-loader" async defer src="//js-na3.hs-scripts.com/342997618.js"></script>
@@ -392,6 +420,28 @@
       <div class="impact-waitlist-form-wrap">
         <script src="https://js-na3.hsforms.net/forms/embed/developer/342997618.js" defer></script>
         <div class="hs-form-html" data-region="na3" data-form-id="d23cce35-fd94-4a9c-990b-e0af0c22b559" data-portal-id="342997618"></div>
+        <script>
+        (function () {
+          /* The HubSpot form renders a couple of fields under their internal
+             property names instead of a real question. Can't fix this at the
+             source without HubSpot portal access, so rewrite the label text
+             once the (asynchronously-rendered) form appears. */
+          var LABEL_FIXES = {
+            'IGVhope G2 - Bedrooms Needed': 'How many bedrooms do you need?',
+            'igvhousing_where-did-you-hear': 'How did you hear about us? (optional)'
+          };
+          var wrap = document.querySelector('.impact-waitlist-form-wrap .hs-form-html');
+          if (!wrap) return;
+          function applyLabelFixes() {
+            wrap.querySelectorAll('.hsfc-FieldLabel').forEach(function (label) {
+              var fixed = LABEL_FIXES[label.textContent.trim()];
+              if (fixed) label.textContent = fixed;
+            });
+          }
+          new MutationObserver(applyLabelFixes).observe(wrap, { childList: true, subtree: true });
+          applyLabelFixes();
+        })();
+        </script>
       </div>
     </div>
   </div>
