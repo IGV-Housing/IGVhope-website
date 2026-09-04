@@ -194,7 +194,6 @@
   }
   .impact-waitlist-form-wrap .hsfc-Button:hover { background: #f0b269 !important; }
   .impact-waitlist-form-wrap .hsfc-Row { gap: 16px !important; }
-  .impact-waitlist-form-wrap .hsfc-DropdownOptions.igv-auto-selecting { opacity: 0 !important; pointer-events: none !important; }
 
 </style>
 
@@ -443,65 +442,6 @@
           }
           new MutationObserver(applyLabelFixes).observe(wrap, { childList: true, subtree: true });
           applyLabelFixes();
-        })();
-        </script>
-        <script>
-        (function () {
-          /* Default the phone field's country to Canada. HubSpot's phone
-             widget doesn't expose a "default country" option or any DOM
-             state for the currently-selected country (+1 is shared by both
-             US and Canada, so the visible prefix alone doesn't confirm
-             which one is selected) - the only reliable way to set it is to
-             drive the same dropdown interaction a person would use. Runs
-             once, with the dropdown hidden via CSS so visitors never see it
-             flash open. Coupled to HubSpot's current class names/behaviour;
-             re-check if this stops working after a HubSpot forms update. */
-          var wrap = document.querySelector('.impact-waitlist-form-wrap .hs-form-html');
-          if (!wrap) return;
-          var done = false;
-
-          function nativeSetValue(el, value) {
-            var setter = Object.getOwnPropertyDescriptor(window.HTMLInputElement.prototype, 'value').set;
-            setter.call(el, value);
-            el.dispatchEvent(new Event('input', { bubbles: true }));
-          }
-
-          function waitFor(check, timeoutMs) {
-            return new Promise(function (resolve, reject) {
-              var start = Date.now();
-              (function poll() {
-                var found = check();
-                if (found) return resolve(found);
-                if (Date.now() - start > timeoutMs) return reject(new Error('timeout'));
-                setTimeout(poll, 100);
-              })();
-            });
-          }
-
-          async function defaultCountryToCanada() {
-            if (done) return;
-            done = true;
-            try {
-              var flagCaret = wrap.querySelector('.hsfc-PhoneInput__FlagAndCaret');
-              if (!flagCaret) return;
-              flagCaret.click();
-              var dropdown = await waitFor(function () { return wrap.querySelector('.hsfc-DropdownOptions'); }, 3000);
-              dropdown.classList.add('igv-auto-selecting');
-              var search = await waitFor(function () { return wrap.querySelector('.hsfc-DropdownOptions input'); }, 3000);
-              nativeSetValue(search, 'Canada');
-              var option = await waitFor(function () {
-                var opts = [].slice.call(wrap.querySelectorAll('[role="option"]'));
-                return opts.filter(function (o) { return o.textContent.indexOf('Canada') !== -1; })[0];
-              }, 3000);
-              option.click();
-            } catch (e) { /* fail quietly - field just keeps its own default */ }
-          }
-
-          var observer = new MutationObserver(function () {
-            if (wrap.querySelector('.hsfc-PhoneInput__FlagAndCaret')) defaultCountryToCanada();
-          });
-          observer.observe(wrap, { childList: true, subtree: true });
-          defaultCountryToCanada();
         })();
         </script>
       </div>
