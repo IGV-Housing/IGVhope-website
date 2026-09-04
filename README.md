@@ -118,5 +118,9 @@ training crawlers while keeping normal search indexing, that's a
 - No Cloudflare Worker is committed here — nothing in this site currently
   needs one (its lead-capture forms are either a client-side multi-step
   flow or HubSpot embeds, not a custom form + reCAPTCHA + API pattern
-  like `igvcapital-contact-verify`). Confirm the Cloudflare project's
-  build output directory is set to `public` after this restructure.
+  like `igvcapital-contact-verify`).
+- The `igvhope-website` Workers project is Git-connected (as of 2026-09-04)
+  for auto-deploy on push to `main`. Before that, every change needed a
+  manual `npx wrangler deploy` — if a push ever doesn't show up live,
+  check the Deployments tab to confirm the Git connection is still
+  intact rather than assuming the code is wrong.
