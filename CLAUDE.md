@@ -30,7 +30,7 @@ Both templates independently duplicate the footer (`<footer id="dash-footer">` w
 
 - **HubSpot** (portal `342997618`, na3 instance): the `hs-script-loader` tracking snippet sits in `<head>` on most pages. Lead-capture forms POST directly to `api-na3.hsforms.com` from inline JS (see `submitToHubspot()` in `next-steps/index.html` for the fullest example) — there is no server-side form handler or Cloudflare Worker in this repo.
 - **Magic-link session auth**: nav login state (avatar/dropdown vs "Log in" link) is checked client-side against `https://magic-link.igvhousing.workers.dev/session` — that Worker lives in a different repo, not this one.
-- **Google Analytics (GA4)**: `gtag.js`, measurement ID `G-QFW1PYC388`, inserted right after `<meta charset="UTF-8">` on every page.
+- **Google Analytics (GA4)**: `gtag.js`, measurement ID `G-T84CV7T1WS`, inserted right after `<meta charset="UTF-8">` on every page.
 - **Mapbox**: the `pk.eyJ1...` token embedded in a few pages is a public token (safe client-side) — GitHub push protection flags it anyway; that's expected, not a real leak.
 - **ElevenLabs**: the `<elevenlabs-convai>` voice widget appears near the end of `<body>` on most pages.
 
