@@ -16,6 +16,7 @@ igvhope/
 │   ├── robots.txt               (explicitly allows search + AI crawlers)
 │   ├── sitemap.xml
 │   ├── about/index.html
+│   ├── impact/index.html        (footer-only, not in top nav)
 │   ├── faq/index.html
 │   ├── how-it-works/index.html
 │   ├── next-steps/index.html
