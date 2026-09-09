@@ -283,15 +283,15 @@ a { color: inherit; }
 </div>
 
 <div class="lesson-list" id="lesson-list">
-  <a href="/Course%202/Lessons/?lesson=1" class="lesson-row" data-lesson="1"><div class="lesson-num">1</div><div class="lesson-row-title">What a credit score actually is</div><div class="lesson-check">&#10003;</div></a>
-  <a href="/Course%202/Lessons/?lesson=2" class="lesson-row" data-lesson="2"><div class="lesson-num">2</div><div class="lesson-row-title">The five factors and what they mean</div><div class="lesson-check">&#10003;</div></a>
-  <a href="/Course%202/Lessons/?lesson=3" class="lesson-row" data-lesson="3"><div class="lesson-num">3</div><div class="lesson-row-title">The utilisation ratio, your fastest win</div><div class="lesson-check">&#10003;</div></a>
-  <a href="/Course%202/Lessons/?lesson=4" class="lesson-row" data-lesson="4"><div class="lesson-num">4</div><div class="lesson-row-title">Your 12-month improvement plan</div><div class="lesson-check">&#10003;</div></a>
-  <a href="/Course%202/Lessons/?lesson=5" class="lesson-row" data-lesson="5"><div class="lesson-num">5</div><div class="lesson-row-title">Credit and your Year 10 mortgage application</div><div class="lesson-check">&#10003;</div></a>
+  <a href="/course-library/course-2/Lessons/?lesson=1" class="lesson-row" data-lesson="1"><div class="lesson-num">1</div><div class="lesson-row-title">What a credit score actually is</div><div class="lesson-check">&#10003;</div></a>
+  <a href="/course-library/course-2/Lessons/?lesson=2" class="lesson-row" data-lesson="2"><div class="lesson-num">2</div><div class="lesson-row-title">The five factors and what they mean</div><div class="lesson-check">&#10003;</div></a>
+  <a href="/course-library/course-2/Lessons/?lesson=3" class="lesson-row" data-lesson="3"><div class="lesson-num">3</div><div class="lesson-row-title">The utilisation ratio, your fastest win</div><div class="lesson-check">&#10003;</div></a>
+  <a href="/course-library/course-2/Lessons/?lesson=4" class="lesson-row" data-lesson="4"><div class="lesson-num">4</div><div class="lesson-row-title">Your 12-month improvement plan</div><div class="lesson-check">&#10003;</div></a>
+  <a href="/course-library/course-2/Lessons/?lesson=5" class="lesson-row" data-lesson="5"><div class="lesson-num">5</div><div class="lesson-row-title">Credit and your Year 10 mortgage application</div><div class="lesson-check">&#10003;</div></a>
 </div>
 
 <div class="course-cta-wrap">
-  <a href="/Course%202/Lessons/?lesson=1" class="course-primary-btn" id="course-primary-btn">Start Lesson 1</a>
+  <a href="/course-library/course-2/Lessons/?lesson=1" class="course-primary-btn" id="course-primary-btn">Start Lesson 1</a>
 </div>
 
   </div>
@@ -390,7 +390,7 @@ function renderProgress(completedLessons){
   const primaryBtn = document.getElementById('course-primary-btn');
   if (completed > 0 && completed < total){
     primaryBtn.textContent = 'Continue';
-    primaryBtn.setAttribute('href', `/Course%202/Lessons/?lesson=${firstIncomplete}`);
+    primaryBtn.setAttribute('href', `/course-library/course-2/Lessons/?lesson=${firstIncomplete}`);
   } else if (completed >= total){
     primaryBtn.textContent = 'Review any lesson';
   }

@@ -1089,8 +1089,9 @@ window.addEventListener('resize', () => {
 window.addEventListener('load', checkNavFit);
 checkNavFit();
 
-const COURSE0_WORKER = 'https://academy.igvhousing.workers.dev'; // placeholder, update on deploy
+const COURSE0_WORKER = 'https://academy.igvhousing.workers.dev'; // dead placeholder - never deployed, kept only for the harmless view/tool-click pings below, which fail silently
 const COURSE_ID = 3;
+const COURSE_SLUG = 'course-3';
 const TOTAL_LESSONS = 8;
 
 function getToken(){
@@ -1261,12 +1262,13 @@ async function completeLesson(n){
   updateRpDisplay();
   showRpToast(LESSON_RP[n] || 0);
   try {
-    await fetch(`${COURSE0_WORKER}/complete`, {
+    await fetch(`${MAGIC_LINK_WORKER}/course-progress/update`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ token, course: COURSE_ID, lesson: n })
+      credentials: 'include',
+      body: JSON.stringify({ lessonId: `${COURSE_SLUG}-${n}` })
     });
-  } catch (e) { /* fail quietly, the checkmark already showed */ }
+  } catch (e) { /* fail quietly, the checkmark already showed locally */ }
 }
 
 

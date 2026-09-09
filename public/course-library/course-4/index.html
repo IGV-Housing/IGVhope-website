@@ -85,12 +85,6 @@ a { color: inherit; }
 /* IDENTIFY BLOCK — cold arrivals only */
 .identify-block { max-width: 440px; margin: 28px auto; padding: 22px 24px; background: var(--cream); border: 1px solid #F0E4CE; border-radius: 14px; text-align: center; }
 .identify-block p { font-size: 13.5px; color: var(--ink-soft); margin-bottom: 14px; }
-.identify-form { display: flex; gap: 8px; }
-.identify-input { flex: 1; padding: 12px 14px; border: 1.5px solid var(--border); border-radius: 9px; font-family: 'Montserrat', sans-serif; font-size: 14px; }
-.identify-submit { font-family: 'Montserrat', sans-serif; font-size: 13px; font-weight: 700; color: #123D36; background: var(--ochre); border: none; border-radius: 9px; padding: 0 18px; cursor: pointer; white-space: nowrap; }
-.identify-error { display: none; font-size: 12px; color: #B4441E; margin-top: 8px; }
-.identify-not-found { display: none; font-size: 12.5px; color: var(--ink-soft); margin-top: 10px; line-height: 1.6; }
-.identify-not-found a { color: var(--teal); font-weight: 700; text-decoration: underline; }
 
 /* SECTIONS */
 .course-section { max-width: 640px; margin: 0 auto; padding: 28px 24px; }
@@ -172,9 +166,9 @@ a { color: inherit; }
   </a>
   <div class="nav-right">
     <div class="nav-links-group">
-      <a class="nav-link" href="https://howitworks.pages.dev/">How It Works</a>
+      <a class="nav-link" href="/how-it-works">How It Works</a>
       <a class="nav-link" href="/next-steps">Next Steps</a>
-      <a class="nav-link" href="https://igvhope-faq.pages.dev/">FAQ</a>
+      <a class="nav-link" href="/faq">FAQ</a>
       <a class="nav-link" href="/impact">Impact</a>
         <a class="nav-link" href="/about">About</a>
     </div>
@@ -191,12 +185,12 @@ a { color: inherit; }
     <svg id="nav-burger-icon-close" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:none;"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
   </button>
   <div id="mobile-nav-panel">
-    <a class="mobile-nav-link" href="https://howitworks.pages.dev/">How It Works</a>
+    <a class="mobile-nav-link" href="/how-it-works">How It Works</a>
     <a class="mobile-nav-link" href="/next-steps">Next Steps</a>
-    <a class="mobile-nav-link" href="https://igvhope-faq.pages.dev/">FAQ</a>
+    <a class="mobile-nav-link" href="/faq">FAQ</a>
     <a class="mobile-nav-link" href="/impact">Impact</a>
     <a class="mobile-nav-link" href="/about">About</a>
-    <a class="mobile-nav-link" id="mobile-nav-login-link" href="https://platform.igvhousing.com/">Log in</a>
+    <a class="mobile-nav-link" id="mobile-nav-login-link" href="/login">Log in</a>
     <div id="mobile-nav-user" style="display:none;">
       <div class="mobile-nav-link" id="mobile-nav-user-name"></div>
       <a class="mobile-nav-link" href="#" id="mobile-nav-logout-link">Log out</a>
@@ -222,14 +216,9 @@ a { color: inherit; }
   <div class="progress-label" id="progress-label">0 of 7 lessons complete</div>
 </div>
 
-<div class="identify-block" id="identify-block">
-  <p>Enter the email you used with IGVhope to pick up your progress, or start fresh below.</p>
-  <div class="identify-form">
-    <input type="email" class="identify-input" id="identify-email" placeholder="you@email.com">
-    <button class="identify-submit" id="identify-submit" onclick="identifyByEmail()">Continue</button>
-  </div>
-  <div class="identify-error" id="identify-error">That didn't work. Check the email and try again.</div>
-  <div class="identify-not-found" id="identify-not-found">We couldn't find an existing IGVhope record for that email. This course builds on your earlier answers, so start with a quick two-minute check first: <a href="https://howitworks.pages.dev/#qualify">see if HOPE fits your situation</a>.</div>
+<div class="identify-block" id="identify-block" style="display:none;">
+  <p>Log in to track your progress through this course and pick up where you left off.</p>
+  <a class="course-primary-btn" id="identify-login-link" href="/login">Log in</a>
 </div>
 
 <div class="course-section">
@@ -282,9 +271,9 @@ a { color: inherit; }
     </div>
     <div class="sitemap-col">
       <div class="sitemap-heading">Sitemap</div>
-      <a href="https://howitworks.pages.dev/">How It Works</a>
+      <a href="/how-it-works">How It Works</a>
       <a href="/next-steps">Next Steps</a>
-      <a href="https://igvhope-faq.pages.dev/">FAQ</a>
+      <a href="/faq">FAQ</a>
       <a href="/impact">Impact</a>
      <a href="/about">About</a>
       <a href="/resources">Resources</a>
@@ -327,57 +316,23 @@ function toggleMobileNav(){
   document.getElementById('nav-burger-icon-close').style.display=open?'':'none';
 }
 
-const COURSE0_WORKER = 'https://academy.igvhousing.workers.dev'; // placeholder, update on deploy
-const COURSE_ID = 4;
+const COURSE_SLUG = 'course-4';
 const TOTAL_LESSONS = 7;
 
-function getToken(){
-  const params = new URLSearchParams(window.location.search);
-  const fromUrl = params.get('p');
-  if (fromUrl) { localStorage.setItem('c0_token', fromUrl); return fromUrl; }
-  return localStorage.getItem('c0_token');
-}
+/* Course progress now rides on the same verified session the nav login
+   uses (see checkLoginSession below) - no more separate email box, no
+   more academy.igvhousing.workers.dev (that Worker was never actually
+   deployed; it was a placeholder that got left in by mistake). Lesson
+   ids follow the {course-slug}-{lesson-number} convention the
+   magic-link Worker's /course-progress endpoints use, e.g. "course-4-3". */
 
-function appendTokenToLessonLinks(token){
-  document.querySelectorAll('#lesson-list a, #course-primary-btn').forEach(a=>{
-    const url = new URL(a.getAttribute('href'), window.location.origin);
-    url.searchParams.set('p', token);
-    a.setAttribute('href', url.pathname + url.search);
-  });
-}
-
-async function identifyByEmail(){
-  const email = document.getElementById('identify-email').value.trim();
-  const errEl = document.getElementById('identify-error');
-  const notFoundEl = document.getElementById('identify-not-found');
-  errEl.style.display = 'none';
-  notFoundEl.style.display = 'none';
-  if (!email || !email.includes('@')) { errEl.style.display = 'block'; return; }
-
-  try {
-    const res = await fetch(`${COURSE0_WORKER}/identify`, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ email })
-    });
-    const data = await res.json();
-    if (!res.ok || !data.token) { notFoundEl.style.display = 'block'; return; }
-    localStorage.setItem('c0_token', data.token);
-    renderProgress(data.progress || {});
-    appendTokenToLessonLinks(data.token);
-    document.getElementById('identify-block').style.display = 'none';
-  } catch (e) {
-    errEl.style.display = 'block';
-  }
-}
-
-function renderProgress(progress){
+function renderProgress(completedLessons){
   const total = TOTAL_LESSONS;
   let completed = 0;
   let firstIncomplete = 1;
   let foundIncomplete = false;
   for (let i = 1; i <= total; i++){
-    const done = !!progress[`c${COURSE_ID}_lesson_${i}_completed`];
+    const done = completedLessons.indexOf(`${COURSE_SLUG}-${i}`) !== -1;
     if (done) completed++;
     if (!done && !foundIncomplete) { firstIncomplete = i; foundIncomplete = true; }
     const row = document.querySelector(`.lesson-row[data-lesson="${i}"]`);
@@ -396,23 +351,6 @@ function renderProgress(progress){
     primaryBtn.textContent = 'Review any lesson';
   }
 }
-
-(async function init(){
-  const token = getToken();
-  if (!token){
-    document.getElementById('identify-block').style.display = 'block';
-    return;
-  }
-  document.getElementById('identify-block').style.display = 'none';
-  appendTokenToLessonLinks(token);
-  try {
-    const res = await fetch(`${COURSE0_WORKER}/progress?p=${encodeURIComponent(token)}`);
-    if (res.ok){
-      const data = await res.json();
-      renderProgress(data.progress || {});
-    }
-  } catch (e) { /* fail quietly, page still works without progress display */ }
-})();
 
 /* ── SHARED LOGIN SESSION CHECK ─────────────────────────────
    Checks the same magic-link session used across the whole platform
@@ -438,8 +376,34 @@ const MAGIC_LINK_WORKER = 'https://magic-link.igvhousing.workers.dev'; // confir
       if (mobileLogin) mobileLogin.style.display = 'none';
       if (mobileUser) mobileUser.style.display = 'block';
       if (mobileUserName) mobileUserName.textContent = data.firstName || 'My account';
+
+      // Logged in with a verified session - pull real progress from
+      // HubSpot via the same Worker, no separate email step needed.
+      document.getElementById('identify-block').style.display = 'none';
+      try {
+        const progressRes = await fetch(`${MAGIC_LINK_WORKER}/course-progress`, { credentials: 'include' });
+        if (progressRes.ok) {
+          const progressData = await progressRes.json();
+          renderProgress(progressData.completedLessons || []);
+        }
+      } catch (e) { /* fail quietly, page still works without progress display */ }
+    } else {
+      // Not logged in (or only a "declared" session from a lead gate,
+      // which doesn't carry read access) - invite them to log in instead
+      // of asking for an email that goes nowhere. returnTo brings them
+      // straight back to this course page after they click the magic link.
+      const loginBtn = document.getElementById('identify-login-link');
+      if (loginBtn) {
+        const returnTo = encodeURIComponent(window.location.pathname);
+        loginBtn.setAttribute('href', `/login?returnTo=${returnTo}`);
+      }
+      document.getElementById('identify-block').style.display = 'block';
     }
-  } catch (e) { /* fail quietly, nav just shows Log in as the default state */ }
+  } catch (e) {
+    // Session check itself failed - fail toward showing the login
+    // prompt rather than silently hiding progress tracking forever.
+    document.getElementById('identify-block').style.display = 'block';
+  }
 })();
 
 async function handleLogoutClick(e){
