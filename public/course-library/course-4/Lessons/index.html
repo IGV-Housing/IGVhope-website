@@ -12,11 +12,12 @@
 </script>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <link rel="icon" type="image/x-icon" href="/assets/img/favicon.ico">
-<title>Course 4 - Overview | IGVhope</title>
+<title>Getting Mortgage Ready | IGVhope</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <style>
+
 :root {
   --teal: #1A5C50;
   --teal-deep: #123D36;
@@ -26,9 +27,12 @@
   --ink: #1A2422;
   --ink-soft: #5C6B67;
   --border: #E2E8E6;
+  --warm-tint: #FDF3EA;
+  --warm-border: #F0DBC0;
+  --blue-tint: #EEF3FB;
+  --blue-border: #D6E3F5;
 }
 * { box-sizing: border-box; margin: 0; padding: 0; }
-html { scroll-behavior: smooth; }
 body { font-family: 'Montserrat', sans-serif; color: var(--ink); background: #ffffff; line-height: 1.6; -webkit-font-smoothing: antialiased; }
 a { color: inherit; }
 
@@ -47,49 +51,78 @@ a { color: inherit; }
 .mobile-nav-cta { margin-top: 16px; font-family: 'Montserrat', sans-serif; font-size: 13px; font-weight: 700; letter-spacing: 0.03em; color: #123D36; background: #E8A24A; border: none; border-radius: 999px; padding: 13px 20px; cursor: pointer; width: 100%; }
 @media (max-width: 640px) { .nav-right { display: none; } #nav-burger { display: flex; } }
 
-/* HERO */
-.course-hero { max-width: 720px; margin: 0 auto; padding: 56px 24px 8px; text-align: center; }
-.course-eyebrow { display: inline-block; font-size: 11.5px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--teal); background: rgba(26,92,80,0.08); padding: 6px 14px; border-radius: 999px; margin-bottom: 18px; }
-.course-heading { font-size: clamp(28px, 4vw, 38px); font-weight: 800; color: var(--teal-deep); line-height: 1.2; letter-spacing: -0.01em; margin-bottom: 14px; }
-.course-subtitle { font-size: 16px; color: var(--ink-soft); line-height: 1.6; max-width: 540px; margin: 0 auto 10px; }
-.course-meta { font-size: 13px; font-weight: 600; color: var(--teal); margin-bottom: 32px; }
 
-/* PROGRESS */
-.progress-wrap { max-width: 640px; margin: 0 auto; padding: 0 24px 8px; }
-.progress-track { height: 8px; background: var(--border); border-radius: 999px; overflow: hidden; margin-bottom: 8px; }
-.progress-fill { height: 100%; background: linear-gradient(90deg, var(--teal) 0%, var(--ochre) 100%); border-radius: 999px; transition: width 0.4s ease; }
-.progress-label { font-size: 12.5px; color: var(--ink-soft); text-align: center; }
+/* LESSON PROGRESS STRIP */
+.lesson-progress-strip { background: var(--cream); padding: 10px 24px; display: flex; align-items: center; justify-content: center; gap: 8px; position: relative; font-size: 12px; font-weight: 700; color: var(--teal-deep); letter-spacing: 0.03em; }
+.exit-link { position: absolute; left: 24px; top: 50%; transform: translateY(-50%); display: flex; align-items: center; gap: 5px; font-size: 12px; font-weight: 700; color: var(--teal-deep); text-decoration: none; opacity: 0.75; transition: opacity 0.15s; }
+.exit-link:hover { opacity: 1; text-decoration: underline; }
+.exit-link svg { flex-shrink: 0; }
 
-/* IDENTIFY BLOCK — cold arrivals only */
-.identify-block { max-width: 440px; margin: 28px auto; padding: 22px 24px; background: var(--cream); border: 1px solid #F0E4CE; border-radius: 14px; text-align: center; }
-.identify-block p { font-size: 13.5px; color: var(--ink-soft); margin-bottom: 14px; }
-.identify-form { display: flex; gap: 8px; }
-.identify-input { flex: 1; padding: 12px 14px; border: 1.5px solid var(--border); border-radius: 9px; font-family: 'Montserrat', sans-serif; font-size: 14px; }
-.identify-submit { font-family: 'Montserrat', sans-serif; font-size: 13px; font-weight: 700; color: #123D36; background: var(--ochre); border: none; border-radius: 9px; padding: 0 18px; cursor: pointer; white-space: nowrap; }
-.identify-error { display: none; font-size: 12px; color: #B4441E; margin-top: 8px; }
-.identify-not-found { display: none; font-size: 12.5px; color: var(--ink-soft); margin-top: 10px; line-height: 1.6; }
-.identify-not-found a { color: var(--teal); font-weight: 700; text-decoration: underline; }
+/* MAIN COLUMN */
+.lesson-main { max-width: 640px; margin: 0 auto; padding: 32px 24px 60px; }
 
-/* SECTIONS */
-.course-section { max-width: 640px; margin: 0 auto; padding: 28px 24px; }
-.section-header { font-size: 19px; font-weight: 800; color: var(--teal-deep); margin-bottom: 12px; }
-.section-body { font-size: 14.5px; color: var(--ink); line-height: 1.75; }
+/* 1. LESSON HEADER */
+.lesson-eyebrow { font-size: 11.5px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--teal); margin-bottom: 8px; }
+.lesson-title { font-size: clamp(24px, 4vw, 32px); font-weight: 800; color: var(--teal-deep); line-height: 1.25; letter-spacing: -0.01em; margin-bottom: 10px; }
+.lesson-meta { font-size: 13px; color: var(--ink-soft); font-weight: 600; margin-bottom: 26px; }
 
-/* LESSON LIST */
-.lesson-list { max-width: 640px; margin: 8px auto 0; padding: 0 24px 12px; }
-.lesson-row { display: flex; align-items: center; gap: 14px; padding: 16px 18px; border: 1.5px solid var(--border); border-radius: 12px; margin-bottom: 10px; text-decoration: none; transition: border-color 0.15s, background 0.15s; }
-.lesson-row:hover { border-color: var(--teal); background: rgba(26,92,80,0.03); }
-.lesson-row.done { border-color: rgba(26,92,80,0.3); background: rgba(26,92,80,0.04); }
-.lesson-num { width: 32px; height: 32px; border-radius: 50%; background: var(--border); color: var(--ink-soft); font-size: 13px; font-weight: 800; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
-.lesson-row.done .lesson-num { background: var(--teal); color: #fff; }
-.lesson-row-title { font-size: 14.5px; font-weight: 700; color: var(--ink); }
-.lesson-check { margin-left: auto; color: var(--teal); flex-shrink: 0; display: none; }
-.lesson-row.done .lesson-check { display: block; }
+/* 2. SHORT WIN BANNER */
+.short-win { background: var(--cream); border-left: 3px solid var(--ochre); border-radius: 8px; padding: 14px 18px; font-style: italic; font-size: 14px; color: var(--teal-deep); line-height: 1.6; margin-bottom: 28px; }
 
-/* CTA */
-.course-cta-wrap { max-width: 640px; margin: 20px auto 60px; padding: 0 24px; text-align: center; }
-.course-primary-btn { display: inline-block; font-family: 'Montserrat', sans-serif; font-size: 15px; font-weight: 700; letter-spacing: 0.02em; color: #123D36; background: var(--ochre); border: none; border-radius: 999px; padding: 16px 36px; cursor: pointer; text-decoration: none; transition: background 0.18s; }
-.course-primary-btn:hover { background: #c67d21; }
+/* 3. BODY AND BULLETS */
+.lesson-body p { font-size: 15px; color: var(--ink); line-height: 1.8; margin-bottom: 18px; }
+.lesson-body ul { margin: 0 0 18px 20px; }
+.lesson-body li { font-size: 15px; color: var(--ink); line-height: 1.75; margin-bottom: 8px; }
+
+/* 5. COMPARISON BOX */
+.comparison-box { border: 1.5px solid var(--border); border-radius: 14px; overflow: hidden; margin: 24px 0; }
+.comparison-title { font-size: 12.5px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.05em; color: var(--teal-deep); background: #F7F5EF; padding: 14px 18px; border-bottom: 1.5px solid var(--border); }
+.comparison-cols { display: grid; grid-template-columns: 1fr 1fr; }
+@media (max-width: 560px) { .comparison-cols { grid-template-columns: 1fr; } }
+.comparison-col { padding: 18px; font-size: 13.5px; line-height: 1.7; }
+.comparison-col.conventional { background: var(--warm-tint); border-right: 1.5px solid var(--border); color: #6B4423; }
+@media (max-width: 560px) { .comparison-col.conventional { border-right: none; border-bottom: 1.5px solid var(--border); } }
+.comparison-col.hope { background: var(--teal); color: #ffffff; }
+.comparison-col-label { font-size: 11px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 8px; opacity: 0.75; }
+
+/* 6. WORKED EXAMPLE */
+.worked-example { background: var(--blue-tint); border: 1.5px solid var(--blue-border); border-radius: 12px; padding: 18px 20px; margin: 24px 0; }
+.worked-example-label { font-size: 11px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.06em; color: #3A5A8C; margin-bottom: 8px; }
+.worked-example p { font-size: 14px; color: #2E4258; line-height: 1.7; }
+
+/* 7. ACTION STEP */
+.action-step { border: 1.5px solid var(--teal); border-radius: 12px; padding: 18px 20px; margin: 24px 0; }
+.action-step-label { font-size: 11px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.06em; color: var(--teal); margin-bottom: 8px; }
+.action-step p { font-size: 14px; color: var(--ink); line-height: 1.7; }
+
+/* 8. SELF-CHECK BAR */
+.self-check { display: flex; align-items: center; gap: 14px; width: 100%; background: var(--cream); border: 1.5px solid #F0E4CE; border-radius: 999px; padding: 16px 22px; margin: 30px 0 8px; cursor: pointer; transition: background 0.18s, border-color 0.18s; font-family: 'Montserrat', sans-serif; text-align: left; }
+.self-check:hover { border-color: var(--ochre); }
+.self-check.checked { background: var(--teal); border-color: var(--teal); }
+.self-check-icon { width: 26px; height: 26px; border-radius: 50%; border: 2px solid var(--ochre); flex-shrink: 0; display: flex; align-items: center; justify-content: center; transition: all 0.18s; }
+.self-check.checked .self-check-icon { background: #ffffff; border-color: #ffffff; }
+.self-check-icon svg { opacity: 0; transition: opacity 0.18s; }
+.self-check.checked .self-check-icon svg { opacity: 1; }
+.self-check-text { font-size: 14px; font-weight: 700; color: var(--teal-deep); }
+.self-check.checked .self-check-text { color: #ffffff; }
+
+/* 9. TOOLS BOX */
+.tools-box { background: #F7F5EF; border-radius: 12px; padding: 18px 20px; margin: 20px 0; }
+.tools-box-label { font-size: 11px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.06em; color: var(--ink-soft); margin-bottom: 12px; }
+.tool-link { display: block; text-decoration: none; margin-bottom: 14px; }
+.tool-link:last-child { margin-bottom: 0; }
+.tool-link-name { font-size: 14px; font-weight: 700; color: var(--teal); margin-bottom: 3px; }
+.tool-link-desc { font-size: 12.5px; color: var(--ink-soft); }
+
+/* SOURCES LINE */
+.sources-line { font-size: 11px; color: #9AA8A4; line-height: 1.7; margin-top: 30px; padding-top: 18px; border-top: 1px solid var(--border); }
+
+/* NEXT LESSON CTA */
+.next-lesson-wrap { display: none; margin-top: 28px; text-align: center; }
+.next-lesson-wrap.show { display: block; animation: fadeUp 0.35s ease; }
+@keyframes fadeUp { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+.next-lesson-label { font-size: 12px; color: var(--ink-soft); margin-bottom: 10px; }
+.next-lesson-btn { display: inline-block; font-family: 'Montserrat', sans-serif; font-size: 14.5px; font-weight: 700; color: #123D36; background: var(--ochre); border: none; border-radius: 999px; padding: 15px 32px; cursor: pointer; text-decoration: none; }
 
 /* FOOTER — exact match to demand.igvhousing.com */
 #footer-disclosures { padding-top: 32px; padding-bottom: 32px; }
@@ -113,17 +146,89 @@ a { color: inherit; }
 @media (max-width: 700px) {
   #footer-sitemap { grid-template-columns: repeat(2, minmax(0, 1fr)); }
 }
-#dash-footer { width: 100%; background: #123D36; color: rgba(255,255,255,0.55); font-family: 'Montserrat', sans-serif; font-size: 10px; font-weight: 500; letter-spacing: 0.04em; display: flex; flex-direction: column; margin-top: 40px; }
+#dash-footer { width: 100%; background: #123D36; color: rgba(255,255,255,0.55); font-family: 'Montserrat', sans-serif; font-size: 10px; font-weight: 500; letter-spacing: 0.04em; display: flex; flex-direction: column; margin-top: 20px; }
 .footer-block { width: 100%; box-sizing: border-box; }
 .footer-divider { border-top: 1px solid rgba(255,255,255,0.15); }
 #footer-disclosures, #footer-sitemap, #footer-bottom-bar { max-width: 1200px; margin: 0 auto; padding-left: 32px; padding-right: 32px; box-sizing: border-box; }
 #dash-footer a { color: rgba(255,255,255,0.55); text-decoration: none; transition: color 0.15s; }
 #dash-footer a:hover { color: #fff; }
 
-.exit-bar { background: var(--cream); padding: 10px 24px; text-align: center; }
-.exit-link { display: inline-flex; align-items: center; gap: 5px; font-size: 12px; font-weight: 700; color: var(--teal-deep); text-decoration: none; opacity: 0.75; transition: opacity 0.15s; }
-.exit-link:hover { opacity: 1; text-decoration: underline; }
-.exit-link svg { flex-shrink: 0; }
+
+/* INTERACTIVE TOOL (Tool A / Tool B) */
+.tool-widget { background: #F7F5EF; border-radius: 12px; padding: 20px; margin: 24px 0; }
+.tool-widget-label { font-size: 11px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.06em; color: var(--ink-soft); margin-bottom: 6px; }
+.tool-widget-question { font-size: 14.5px; font-weight: 700; color: var(--teal-deep); margin-bottom: 4px; }
+.tool-widget-hint { font-size: 12px; color: var(--ink-soft); margin-bottom: 14px; line-height: 1.6; }
+.tool-widget-field { margin-bottom: 12px; }
+.tool-widget-field label { display: block; font-size: 12.5px; font-weight: 600; color: var(--ink-soft); margin-bottom: 5px; }
+.tool-widget-input-wrap { position: relative; }
+.tool-widget-prefix { position: absolute; left: 13px; top: 50%; transform: translateY(-50%); font-size: 15px; font-weight: 600; color: var(--ink-soft); }
+.tool-widget-field input { width: 100%; padding: 11px 13px 11px 26px; border: 1.5px solid var(--border); border-radius: 9px; font-family: 'Montserrat', sans-serif; font-size: 15px; font-weight: 600; color: var(--ink); background: #ffffff; }
+.tool-widget-field input:focus { outline: none; border-color: var(--teal); }
+.tool-widget-btn { font-family: 'Montserrat', sans-serif; font-size: 13.5px; font-weight: 700; color: #ffffff; background: var(--teal); border: none; border-radius: 9px; padding: 12px 22px; cursor: pointer; margin-top: 6px; transition: background 0.18s; }
+.tool-widget-btn:hover { background: #164e44; }
+.tool-widget-result { display: none; margin-top: 16px; background: var(--teal-deep); border-radius: 10px; padding: 16px 18px; }
+.tool-widget-result.show { display: block; }
+.tool-widget-result-line { font-size: 13.5px; color: rgba(255,255,255,0.9); line-height: 1.7; }
+.tool-widget-result-line strong { color: #ffffff; }
+.tool-widget-skip { font-size: 12px; color: var(--ink-soft); margin-top: 10px; }
+.tool-widget-2col { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+@media (max-width: 480px) { .tool-widget-2col { grid-template-columns: 1fr; } }
+
+/* SECTION HEADER (Lesson 8 only) */
+.lesson-section-header { font-size: 17px; font-weight: 800; color: var(--teal-deep); margin: 30px 0 12px; }
+
+/* END OF COURSE — two doors */
+.end-of-course { margin: 34px 0 8px; text-align: center; }
+.end-of-course-closing { font-size: 14px; color: var(--ink-soft); line-height: 1.7; max-width: 480px; margin: 0 auto 22px; }
+.end-of-course-doors { display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; }
+.door-btn { display: inline-block; font-family: 'Montserrat', sans-serif; font-size: 14.5px; font-weight: 700; border-radius: 999px; padding: 15px 30px; cursor: pointer; text-decoration: none; transition: background 0.18s, transform 0.15s; border: none; }
+.door-btn.primary { color: #123D36; background: var(--ochre); }
+.door-btn.primary:hover { background: #c67d21; }
+.door-btn.secondary { color: var(--teal-deep); background: var(--cream); border: 1.5px solid #F0E4CE; }
+.door-btn.secondary:hover { border-color: var(--teal); }
+
+/* MULTI-LESSON PANELS */
+.lesson-panel { display: none; }
+.lesson-panel.active { display: block; animation: panelFade 0.3s ease; }
+@keyframes panelFade { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
+
+/* RP CHIP */
+.rp-chip { display: inline-block; font-size: 11px; font-weight: 800; color: var(--teal); background: rgba(26,92,80,0.1); padding: 2px 9px; border-radius: 999px; letter-spacing: 0.02em; }
+#progress-rp-total { font-weight: 700; color: var(--ochre); }
+
+/* JOURNAL PANEL */
+.journal-panel { background: #FBF3F6; border: 1.5px solid #ECD9E2; border-left: 4px solid #7A3F5A; border-radius: 12px; margin-top: 26px; overflow: hidden; }
+.jp-head { display: flex; align-items: center; gap: 10px; padding: 12px 16px; background: rgba(122,63,90,0.06); flex-wrap: wrap; }
+.jp-icon { flex: 0 0 24px; height: 24px; border-radius: 6px; background: #7A3F5A; color: #fff; display: flex; align-items: center; justify-content: center; font-size: 12px; }
+.jp-title { font-size: 13.5px; font-weight: 700; color: #7A3F5A; flex: 1; }
+.jp-tag { font-size: 10.5px; color: rgba(122,63,90,0.65); background: rgba(122,63,90,0.1); padding: 3px 9px; border-radius: 999px; }
+.jp-body { padding: 14px 16px; display: flex; flex-direction: column; gap: 12px; }
+.jf label { display: block; font-size: 12px; font-weight: 700; color: #7A3F5A; margin-bottom: 5px; }
+.jf .opt { font-weight: 400; opacity: 0.7; }
+.jf textarea { width: 100%; border: 1px solid rgba(122,63,90,0.25); border-radius: 8px; padding: 9px 11px; font-size: 13px; font-family: 'Montserrat', sans-serif; color: var(--ink); background: #fff; resize: vertical; }
+.jf textarea:focus { outline: none; border-color: #7A3F5A; box-shadow: 0 0 0 2px rgba(122,63,90,0.12); }
+.radio-row { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 6px; }
+.radio-row label { display: flex; align-items: center; gap: 5px; font-size: 12.5px; font-weight: 400; cursor: pointer; background: #fff; border: 1px solid rgba(122,63,90,0.2); border-radius: 7px; padding: 5px 10px; color: var(--ink); }
+.radio-row input { accent-color: #7A3F5A; }
+.jp-save-row { display: flex; align-items: center; justify-content: flex-end; gap: 10px; }
+.jp-saved { font-size: 12px; color: #7A3F5A; font-weight: 700; opacity: 0; transition: opacity 0.3s; }
+.jp-saved.show { opacity: 1; }
+.jp-btn { font-family: 'Montserrat', sans-serif; background: #7A3F5A; color: #fff; border: none; border-radius: 8px; padding: 9px 16px; font-size: 12.5px; font-weight: 700; cursor: pointer; }
+.jp-btn:hover { filter: brightness(0.93); }
+
+/* BADGE CELEBRATION (shown when all lessons complete) */
+.badge-celebration { display: none; text-align: center; background: var(--cream); border: 1.5px solid #F0E4CE; border-radius: 16px; padding: 26px 22px; margin: 20px 0; }
+.badge-celebration.show { display: block; animation: panelFade 0.4s ease; }
+.badge-icon { width: 56px; height: 56px; border-radius: 50%; background: var(--ochre); color: #fff; font-size: 26px; display: flex; align-items: center; justify-content: center; margin: 0 auto 14px; }
+.badge-title { font-size: 18px; font-weight: 800; color: var(--teal-deep); margin-bottom: 6px; }
+.badge-desc { font-size: 13.5px; color: var(--ink-soft); }
+.badge-desc strong { color: var(--teal-deep); }
+
+/* TOAST (RP earned) */
+.rp-toast { position: fixed; bottom: 22px; left: 50%; transform: translateX(-50%) translateY(120px); background: var(--teal-deep); color: #fff; padding: 11px 20px; border-radius: 999px; font-size: 13px; font-weight: 600; box-shadow: 0 10px 28px rgba(0,0,0,0.25); transition: transform 0.35s cubic-bezier(.2,.8,.2,1); z-index: 500; }
+.rp-toast.show { transform: translateX(-50%) translateY(0); }
+.rp-toast-tag { background: var(--ochre); color: #123D36; font-weight: 800; border-radius: 999px; padding: 2px 9px; font-size: 11.5px; margin-right: 8px; }
 
 
 .nav-user { display: none; align-items: center; gap: 10px; }
@@ -149,9 +254,9 @@ a { color: inherit; }
     </svg>
   </a>
   <div class="nav-right">
-    <a class="nav-link" href="https://howitworks.pages.dev/">How It Works</a>
+    <a class="nav-link" href="/how-it-works">How It Works</a>
     <a class="nav-link" href="/next-steps">Next Steps</a>
-    <a class="nav-link" href="https://igvhope-faq.pages.dev/">FAQ</a>
+    <a class="nav-link" href="/faq">FAQ</a>
     <a class="nav-link" href="/impact">Impact</a>
         <a class="nav-link" href="/about">About</a>
     <div class="nav-right-divider"></div>
@@ -167,12 +272,11 @@ a { color: inherit; }
     <svg id="nav-burger-icon-close" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:none;"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
   </button>
   <div id="mobile-nav-panel">
-    <a class="mobile-nav-link" href="https://howitworks.pages.dev/">How It Works</a>
+    <a class="mobile-nav-link" href="/how-it-works">How It Works</a>
     <a class="mobile-nav-link" href="/next-steps">Next Steps</a>
-    <a class="mobile-nav-link" href="https://igvhope-faq.pages.dev/">FAQ</a>
-    <a class="mobile-nav-link" href="/impact">Impact</a>
+    <a class="mobile-nav-link" href="/faq">FAQ</a>
     <a class="mobile-nav-link" href="/about">About</a>
-    <a class="mobile-nav-link" id="mobile-nav-login-link" href="https://platform.igvhousing.com/">Log in</a>
+    <a class="mobile-nav-link" id="mobile-nav-login-link" href="/login">Log in</a>
     <div id="mobile-nav-user" style="display:none;">
       <div class="mobile-nav-link" id="mobile-nav-user-name"></div>
       <a class="mobile-nav-link" href="#" id="mobile-nav-logout-link">Log out</a>
@@ -181,56 +285,572 @@ a { color: inherit; }
   </div>
 </nav>
 
-<div class="exit-bar">
-  <a class="exit-link" href="../"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></svg>Exit to course library</a>
-</div>
+<div class="lesson-progress-strip" id="lesson-progress-strip"><a class="exit-link" href="../"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></svg>Exit to course overview</a><span id="lesson-progress-strip-text">Lesson 1 of 6</span> &nbsp;&middot;&nbsp; <span id="progress-rp-total">0 points earned</span></div>
 
+<main class="lesson-main">
 
-<div class="course-hero">
-  <div class="course-eyebrow">Course 4 &middot; Overview</div>
-  <h1 class="course-heading">Getting Mortgage Ready</h1>
-  <p class="course-subtitle">Preparing for the home stretch.</p>
-  <p class="course-meta">7 lessons, about 22 to 25 minutes each &nbsp;&middot;&nbsp; Up to 1000 points &nbsp;&middot;&nbsp; Mortgage Ready badge</p>
-</div>
+<section class="lesson-panel active" id="lesson-panel-1" data-lesson="1">
+  <div class="lesson-eyebrow">Lesson 1</div>
+  <h1 class="lesson-title">The 5Cs lenders actually assess</h1>
+  <div class="lesson-meta">About 25 minutes &nbsp;&middot;&nbsp; <span class="rp-chip">180 points</span></div>
 
-<div class="progress-wrap" id="progress-wrap" style="display:none;">
-  <div class="progress-track"><div class="progress-fill" id="progress-fill" style="width:0%;"></div></div>
-  <div class="progress-label" id="progress-label">0 of 7 lessons complete</div>
-</div>
+  <div class="short-win">Short win: You learn the exact framework a lender uses, and see how your building period has been building most of it already.</div>
 
-<div class="identify-block" id="identify-block">
-  <p>Enter the email you used with IGVhope to pick up your progress, or start fresh below.</p>
-  <div class="identify-form">
-    <input type="email" class="identify-input" id="identify-email" placeholder="you@email.com">
-    <button class="identify-submit" id="identify-submit" onclick="identifyByEmail()">Continue</button>
+  <div class="lesson-body">
+    <p>When a lender assesses a mortgage application, they look at five things. Understanding them now gives you time to strengthen any weak point before Year 10.</p>
+    <p>The 5Cs:</p>
+    <ul>
+      <li>Credit: your score and the history behind it. You have been building this across your whole pathway.</li>
+      <li>Collateral: the property itself and its value. In your case, the HOPE home at the agreed price, a known, stable number.</li>
+      <li>Character: your track record of reliability. Here you have something almost no conventional buyer can offer: years of on-time occupancy contributions, documented and consistent.</li>
+      <li>Capacity: your ability to service the loan, income versus debt. GDS below 39 percent, TDS below 44 percent.</li>
+      <li>Capital: the funds you bring, your savings and anything else you have built toward completion.</li>
+    </ul>
+    <p>The FCAC Mortgage Qualifier tool applies the current stress test, contract rate plus 2 percent or 5.25 percent, whichever is higher, and uses these GDS and TDS limits. Running it now shows you where you stand and gives you time to improve any gap.</p>
+    <p>Do a self-assessment. Which of the five is your strongest? Which needs the most work in the next two years?</p>
   </div>
-  <div class="identify-error" id="identify-error">That didn't work. Check the email and try again.</div>
-  <div class="identify-not-found" id="identify-not-found">We couldn't find an existing IGVhope record for that email. This course builds on your earlier answers, so start with a quick two-minute check first: <a href="https://howitworks.pages.dev/#qualify">see if HOPE fits your situation</a>.</div>
+
+  <div class="worked-example">
+    <div class="worked-example-label">Worked example</div>
+    <p>At her Year 8 review, Maya scored herself on the 5Cs. Credit: strong, after years of steady work. Character: very strong, nine years of on-time contributions. Capacity: good. Capital: needed building. Collateral: handled by her agreed price. Knowing capital was her gap told her exactly where the next two years should focus.</p>
+  </div>
+
+  <div class="action-step">
+    <div class="action-step-label">Your action step</div>
+    <p>Complete a 5Cs self-assessment: rate yourself on each of the five factors and identify your strongest and your weakest.</p>
+  </div>
+
+  <button class="self-check" id="self-check-btn-1" onclick="completeLesson(1)">
+    <div class="self-check-icon"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#1A5C50" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></div>
+    <div class="self-check-text" id="self-check-text-1">Self-check: I know where I stand on each of the 5Cs and what to focus on before Year 10.</div>
+  </button>
+
+  <div class="next-lesson-wrap" id="next-lesson-wrap-1">
+    <div class="next-lesson-label">Next lesson</div>
+    <a class="next-lesson-btn" id="next-lesson-btn-1" href="?lesson=2">LVR, why your Year 10 position is stronger than any day-one buyer</a>
+  </div>
+
+  <div class="tools-box">
+    <div class="tools-box-label">Tools</div>
+    <a class="tool-link" href="https://itools-ioutils.fcac-acfc.gc.ca/MQ-HQ/MQ-EAPH-eng.aspx" target="_blank" rel="noopener">
+      <div class="tool-link-name">FCAC Mortgage Qualifier</div>
+      <div class="tool-link-desc">Free stress test tool.</div>
+    </a>
+    <a class="tool-link" href="https://www.cmhc-schl.gc.ca/consumers/home-buying/calculators/affordability-calculator" target="_blank" rel="noopener">
+      <div class="tool-link-name">CMHC Affordability Calculator</div>
+      <div class="tool-link-desc">Free affordability calculator.</div>
+    </a>
+  </div>
+
+  <div class="sources-line">FCAC mortgages (fcac-acfc.gc.ca) | CMHC homebuying (cmhc-schl.gc.ca)</div>
+
+
+<div class="journal-panel" id="journal-panel-1">
+  <div class="jp-head">
+    <span class="jp-icon">&#9998;</span>
+    <span class="jp-title">My journal &mdash; Lesson 1</span>
+    <span class="jp-tag">Optional. Private. Stored only on this device.</span>
+  </div>
+  <div class="jp-body">
+    <div class="jf">
+      <label>My reflection <span class="opt">(optional)</span></label>
+      <textarea rows="2" data-jk="c4l1_ref" placeholder="What came up for you in this lesson?"></textarea>
+    </div>
+    <div class="jf">
+      <label>Did I do the action step? <span class="opt">(optional)</span></label>
+      <div class="radio-row">
+        <label><input type="radio" name="done4_1" value="yes" onchange="jSave('c4l1_done', this.value)"> Yes</label>
+        <label><input type="radio" name="done4_1" value="not_yet" onchange="jSave('c4l1_done', this.value)"> Not yet</label>
+        <label><input type="radio" name="done4_1" value="no" onchange="jSave('c4l1_done', this.value)"> No</label>
+      </div>
+      <textarea rows="1" data-jk="c4l1_act" placeholder="What happened, or what got in the way?"></textarea>
+    </div>
+    <div class="jf">
+      <label>My goal from this lesson <span class="opt">(optional)</span></label>
+      <textarea rows="1" data-jk="c4l1_goal" placeholder="Something I want to do, change, or remember..."></textarea>
+    </div>
+    <div class="jf feedback">
+      <label>Questions or ideas for IGVhope <span class="opt">(goes to our team)</span></label>
+      <textarea rows="1" data-jk="c4l1_fb" placeholder="Something this lesson didn't cover? An idea for a future lesson?"></textarea>
+    </div>
+    <div class="jp-save-row">
+      <span class="jp-saved" id="jp-saved-1">Saved &#10003;</span>
+      <button class="jp-btn" onclick="saveJournal(1)">Save journal entry</button>
+    </div>
+  </div>
 </div>
 
-<div class="course-section">
-  <h2 class="section-header">Why this course matters</h2>
-  <p class="section-body">You are in the home stretch. Year 10 is close enough to prepare for in detail, and your preparation now is what makes completion feel like an arrival rather than a scramble. Everything in this course points to one outcome: walking into your mortgage application at Year 10 as the strongest possible borrower.</p>
+</section>
+
+<section class="lesson-panel" id="lesson-panel-2" data-lesson="2">
+  <div class="lesson-eyebrow">Lesson 2</div>
+  <h1 class="lesson-title">LVR, why your Year 10 position is stronger than any day-one buyer</h1>
+  <div class="lesson-meta">About 22 minutes &nbsp;&middot;&nbsp; <span class="rp-chip">170 points</span></div>
+
+  <div class="short-win">Short win: You understand why entering ownership at Year 10 puts you in a fundamentally better borrowing position than conventional buyers.</div>
+
+  <div class="lesson-body">
+    <p>Loan-to-value ratio, LVR, is one of the most important numbers in any mortgage. It is the size of your loan compared to the value of the home.</p>
+    <p>What different LVR positions look like on a $700,000 home at 4 percent, 25-year amortisation:</p>
+    <ul>
+      <li>90 to 95 percent LVR, conventional first-time buyer today: mortgage of $665,000 to $691,600, monthly payment $3,500 to $3,650, plus $26,600 CMHC premium, GDS at the limit.</li>
+      <li>55 to 65 percent LVR, HOPE participant at Year 10: mortgage of $385,000 to $455,000, monthly payment roughly $2,000 to $2,400, no CMHC insurance required, meaningful financial buffer.</li>
+    </ul>
+    <p>That is approximately $1,200 to $1,600 less per month and $26,600 less in insurance, and those differences repeat every month of the mortgage.</p>
+    <p>The lower LVR is not luck. It is the output of your building period. A decade of disciplined saving and a purchase price agreed at entry means you arrive at your mortgage as a far stronger borrower than the person who stretched to buy on Day One.</p>
+  </div>
+
+  <div class="worked-example">
+    <div class="worked-example-label">Worked example</div>
+    <p>Devon's agreed purchase price was set at entry. By Year 10, through a decade of disciplined saving, he could make a meaningful down payment against that price. His LVR at completion was around 58 percent. His monthly mortgage payment was $1,400 less than a conventional buyer who had bought the same home on the same day he moved in. That difference compounded every month for 25 years.</p>
+  </div>
+
+  <div class="action-step">
+    <div class="action-step-label">Your action step</div>
+    <p>Estimate your likely LVR at Year 10: take your agreed purchase price, subtract your projected savings, and divide the remainder by the purchase price.</p>
+  </div>
+
+  <button class="self-check" id="self-check-btn-2" onclick="completeLesson(2)">
+    <div class="self-check-icon"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#1A5C50" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></div>
+    <div class="self-check-text" id="self-check-text-2">Self-check: I understand LVR and have a realistic estimate of where mine will sit at Year 10.</div>
+  </button>
+
+  <div class="next-lesson-wrap" id="next-lesson-wrap-2">
+    <div class="next-lesson-label">Next lesson</div>
+    <a class="next-lesson-btn" id="next-lesson-btn-2" href="?lesson=3">GDS and TDS in plain language</a>
+  </div>
+
+  <div class="tools-box">
+    <div class="tools-box-label">Tools</div>
+    <a class="tool-link" href="https://www.cmhc-schl.gc.ca/consumers/home-buying/calculators/affordability-calculator" target="_blank" rel="noopener">
+      <div class="tool-link-name">CMHC Affordability Calculator</div>
+      <div class="tool-link-desc">Free affordability calculator.</div>
+    </a>
+    <a class="tool-link" href="https://www.ratehub.ca" target="_blank" rel="noopener">
+      <div class="tool-link-name">Ratehub mortgage affordability calculator</div>
+      <div class="tool-link-desc">Free mortgage affordability calculator.</div>
+    </a>
+  </div>
+
+  <div class="sources-line">CMHC homebuying (cmhc-schl.gc.ca) | Ratehub mortgage guides (ratehub.ca)</div>
+
+
+<div class="journal-panel" id="journal-panel-2">
+  <div class="jp-head">
+    <span class="jp-icon">&#9998;</span>
+    <span class="jp-title">My journal &mdash; Lesson 2</span>
+    <span class="jp-tag">Optional. Private. Stored only on this device.</span>
+  </div>
+  <div class="jp-body">
+    <div class="jf">
+      <label>My reflection <span class="opt">(optional)</span></label>
+      <textarea rows="2" data-jk="c4l2_ref" placeholder="What came up for you in this lesson?"></textarea>
+    </div>
+    <div class="jf">
+      <label>Did I do the action step? <span class="opt">(optional)</span></label>
+      <div class="radio-row">
+        <label><input type="radio" name="done4_2" value="yes" onchange="jSave('c4l2_done', this.value)"> Yes</label>
+        <label><input type="radio" name="done4_2" value="not_yet" onchange="jSave('c4l2_done', this.value)"> Not yet</label>
+        <label><input type="radio" name="done4_2" value="no" onchange="jSave('c4l2_done', this.value)"> No</label>
+      </div>
+      <textarea rows="1" data-jk="c4l2_act" placeholder="What happened, or what got in the way?"></textarea>
+    </div>
+    <div class="jf">
+      <label>My goal from this lesson <span class="opt">(optional)</span></label>
+      <textarea rows="1" data-jk="c4l2_goal" placeholder="Something I want to do, change, or remember..."></textarea>
+    </div>
+    <div class="jf feedback">
+      <label>Questions or ideas for IGVhope <span class="opt">(goes to our team)</span></label>
+      <textarea rows="1" data-jk="c4l2_fb" placeholder="Something this lesson didn't cover? An idea for a future lesson?"></textarea>
+    </div>
+    <div class="jp-save-row">
+      <span class="jp-saved" id="jp-saved-2">Saved &#10003;</span>
+      <button class="jp-btn" onclick="saveJournal(2)">Save journal entry</button>
+    </div>
+  </div>
 </div>
 
-<div class="course-section" style="padding-top:0;">
-  <h2 class="section-header">What you will be able to do</h2>
-  <p class="section-body">You understand exactly how mortgage qualification works, what lenders assess, how to stack government savings programs, what strata ownership means, and how to pre-qualify ahead of Year 10 completion.</p>
+</section>
+
+<section class="lesson-panel" id="lesson-panel-3" data-lesson="3">
+  <div class="lesson-eyebrow">Lesson 3</div>
+  <h1 class="lesson-title">GDS and TDS in plain language</h1>
+  <div class="lesson-meta">About 22 minutes &nbsp;&middot;&nbsp; <span class="rp-chip">160 points</span></div>
+
+  <div class="short-win">Short win: You understand the two debt ratios lenders use, and can see exactly how your non-housing debt affects your borrowing room at Year 10.</div>
+
+  <div class="lesson-body">
+    <p>Lenders use two ratios to decide whether a mortgage is sustainable. Knowing them now lets you manage toward them across your remaining building period.</p>
+    <p>GDS, Gross Debt Service ratio:</p>
+    <ul>
+      <li>The share of your gross monthly income going to housing costs.</li>
+      <li>Housing costs include: mortgage payment, property taxes, heating, and 50 percent of strata fees.</li>
+      <li>Lenders generally want GDS below 39 percent.</li>
+    </ul>
+    <p>TDS, Total Debt Service ratio:</p>
+    <ul>
+      <li>Adds all your other monthly debt payments on top of housing: car loans, credit card minimums, lines of credit.</li>
+      <li>Lenders generally want TDS below 44 percent.</li>
+    </ul>
+    <p>The practical implication: every dollar of non-housing debt you carry into Year 10 reduces the mortgage you can qualify for. Clearing a car loan or credit card balance in Years 8 to 9 directly increases your borrowing room and your LVR position.</p>
+    <p>The FCAC Mortgage Qualifier tool calculates both ratios for your specific situation and applies the stress test. Use it now to see where you stand.</p>
+  </div>
+
+  <div class="worked-example">
+    <div class="worked-example-label">Worked example</div>
+    <p>In Year 8, Sam still had a $9,000 car loan. Once he understood that it was reducing his future mortgage qualification, he redirected budget surplus to clear it over 18 months. By Year 10, with no car loan and clean credit, his TDS was well within range. His mortgage options were wider as a result.</p>
+  </div>
+
+  <div class="action-step">
+    <div class="action-step-label">Your action step</div>
+    <p>List all your non-housing debts and their monthly payments. Run them through the FCAC Mortgage Qualifier to see how they affect your GDS and TDS. Make a plan to reduce the biggest-impact item before Year 10.</p>
+  </div>
+
+  <button class="self-check" id="self-check-btn-3" onclick="completeLesson(3)">
+    <div class="self-check-icon"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#1A5C50" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></div>
+    <div class="self-check-text" id="self-check-text-3">Self-check: I understand GDS and TDS and have a plan to reduce my non-housing debt before Year 10.</div>
+  </button>
+
+  <div class="next-lesson-wrap" id="next-lesson-wrap-3">
+    <div class="next-lesson-label">Next lesson</div>
+    <a class="next-lesson-btn" id="next-lesson-btn-3" href="?lesson=4">Government savings programs at Year 10</a>
+  </div>
+
+  <div class="tools-box">
+    <div class="tools-box-label">Tools</div>
+    <a class="tool-link" href="https://itools-ioutils.fcac-acfc.gc.ca/MQ-HQ/MQ-EAPH-eng.aspx" target="_blank" rel="noopener">
+      <div class="tool-link-name">FCAC Mortgage Qualifier</div>
+      <div class="tool-link-desc">Free stress test and GDS/TDS calculation.</div>
+    </a>
+    <a class="tool-link" href="https://www.getsmarteraboutmoney.ca/calculators" target="_blank" rel="noopener">
+      <div class="tool-link-name">GetSmarterAboutMoney Debt Repayment Calculator</div>
+      <div class="tool-link-desc">Free debt repayment calculator.</div>
+    </a>
+  </div>
+
+  <div class="sources-line">FCAC mortgages (fcac-acfc.gc.ca) | CMHC homebuying (cmhc-schl.gc.ca)</div>
+
+
+<div class="journal-panel" id="journal-panel-3">
+  <div class="jp-head">
+    <span class="jp-icon">&#9998;</span>
+    <span class="jp-title">My journal &mdash; Lesson 3</span>
+    <span class="jp-tag">Optional. Private. Stored only on this device.</span>
+  </div>
+  <div class="jp-body">
+    <div class="jf">
+      <label>My reflection <span class="opt">(optional)</span></label>
+      <textarea rows="2" data-jk="c4l3_ref" placeholder="What came up for you in this lesson?"></textarea>
+    </div>
+    <div class="jf">
+      <label>Did I do the action step? <span class="opt">(optional)</span></label>
+      <div class="radio-row">
+        <label><input type="radio" name="done4_3" value="yes" onchange="jSave('c4l3_done', this.value)"> Yes</label>
+        <label><input type="radio" name="done4_3" value="not_yet" onchange="jSave('c4l3_done', this.value)"> Not yet</label>
+        <label><input type="radio" name="done4_3" value="no" onchange="jSave('c4l3_done', this.value)"> No</label>
+      </div>
+      <textarea rows="1" data-jk="c4l3_act" placeholder="What happened, or what got in the way?"></textarea>
+    </div>
+    <div class="jf">
+      <label>My goal from this lesson <span class="opt">(optional)</span></label>
+      <textarea rows="1" data-jk="c4l3_goal" placeholder="Something I want to do, change, or remember..."></textarea>
+    </div>
+    <div class="jf feedback">
+      <label>Questions or ideas for IGVhope <span class="opt">(goes to our team)</span></label>
+      <textarea rows="1" data-jk="c4l3_fb" placeholder="Something this lesson didn't cover? An idea for a future lesson?"></textarea>
+    </div>
+    <div class="jp-save-row">
+      <span class="jp-saved" id="jp-saved-3">Saved &#10003;</span>
+      <button class="jp-btn" onclick="saveJournal(3)">Save journal entry</button>
+    </div>
+  </div>
 </div>
 
-<div class="lesson-list" id="lesson-list">
-  <a href="/course-library/course-4/Lessons/?lesson=1" class="lesson-row" data-lesson="1"><div class="lesson-num">1</div><div class="lesson-row-title">The 5Cs lenders actually assess</div><div class="lesson-check">&#10003;</div></a>
-  <a href="/course-library/course-4/Lessons/?lesson=2" class="lesson-row" data-lesson="2"><div class="lesson-num">2</div><div class="lesson-row-title">LVR, why your Year 10 position is stronger than any day-one buyer</div><div class="lesson-check">&#10003;</div></a>
-  <a href="/course-library/course-4/Lessons/?lesson=3" class="lesson-row" data-lesson="3"><div class="lesson-num">3</div><div class="lesson-row-title">GDS and TDS in plain language</div><div class="lesson-check">&#10003;</div></a>
-  <a href="/course-library/course-4/Lessons/?lesson=4" class="lesson-row" data-lesson="4"><div class="lesson-num">4</div><div class="lesson-row-title">The FHSA, your most powerful savings tool</div><div class="lesson-check">&#10003;</div></a>
-  <a href="/course-library/course-4/Lessons/?lesson=5" class="lesson-row" data-lesson="5"><div class="lesson-num">5</div><div class="lesson-row-title">Stacking government programs at Year 10</div><div class="lesson-check">&#10003;</div></a>
-  <a href="/course-library/course-4/Lessons/?lesson=6" class="lesson-row" data-lesson="6"><div class="lesson-num">6</div><div class="lesson-row-title">Pre-qualification, assembling your file</div><div class="lesson-check">&#10003;</div></a>
-  <a href="/course-library/course-4/Lessons/?lesson=7" class="lesson-row" data-lesson="7"><div class="lesson-num">7</div><div class="lesson-row-title">What strata ownership means for your life</div><div class="lesson-check">&#10003;</div></a>
+</section>
+
+<section class="lesson-panel" id="lesson-panel-4" data-lesson="4">
+  <div class="lesson-eyebrow">Lesson 4</div>
+  <h1 class="lesson-title">Government savings programs at Year 10</h1>
+  <div class="lesson-meta">About 20 minutes &nbsp;&middot;&nbsp; <span class="rp-chip">180 points</span></div>
+
+  <div class="short-win">Short win: You know that meaningful government support exists for your completion, and that your IGVhope team will guide you through it at the right time.</div>
+
+  <div class="lesson-body">
+    <p>There are several government programs that can help first-home buyers at the point of purchase. Which of them apply to you depends on rules that are set by government and confirmed at the time of your purchase. The rules, limits, and eligibility criteria for these programs are set by the federal and provincial governments and can change over time.</p>
+    <p>For that reason, your IGVhope team will walk you through the most up-to-date information in Year 9 as your transition to ownership nears, and confirm this again in Year 10. You do not need to become an expert in the details now. What matters is that you know these programs exist and that support is coming.</p>
+    <p>The programs worth knowing about:</p>
+    <ul>
+      <li>The Home Buyers' Tax Credit (HBTC) is a federal tax credit available in the year of your purchase that reduces your income tax bill. The amount is set by the government and your accountant or the CRA website will confirm the current figure.</li>
+      <li>The BC Property Transfer Tax (PTT) first-home exemption may reduce or eliminate provincial property transfer tax depending on your purchase price and eligibility. Your solicitor handles this at completion.</li>
+    </ul>
+    <p>These are policies and programs subject to change over time by government. Your IGVhope team will provide you with the most up-to-date information in Year 9 as your transition to ownership nears, and confirm this again in Year 10.</p>
+  </div>
+
+  <div class="worked-example">
+    <div class="worked-example-label">Worked example</div>
+    <p>Devon did not try to work out all the details himself. In Year 9 he came to his annual check-in with one question: which of the government programs apply to me and what do I need to do now to be ready? The team walked him through each one. He left with a clear list and the time to act on it.</p>
+  </div>
+
+  <div class="action-step">
+    <div class="action-step-label">Your action step</div>
+    <p>At your next annual check-in, raise government savings programs as a topic. Ask the team which ones apply to your situation and what to do now to be ready.</p>
+  </div>
+
+  <button class="self-check" id="self-check-btn-4" onclick="completeLesson(4)">
+    <div class="self-check-icon"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#1A5C50" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></div>
+    <div class="self-check-text" id="self-check-text-4">Self-check: I know that government programs exist at Year 10 and I have raised them with my IGVhope team.</div>
+  </button>
+
+  <div class="next-lesson-wrap" id="next-lesson-wrap-4">
+    <div class="next-lesson-label">Next lesson</div>
+    <a class="next-lesson-btn" id="next-lesson-btn-4" href="?lesson=5">Pre-qualification, assembling your file</a>
+  </div>
+
+  <div class="tools-box">
+    <div class="tools-box-label">Tools</div>
+    <a class="tool-link" href="https://www.ratehub.ca" target="_blank" rel="noopener">
+      <div class="tool-link-name">Ratehub first-time buyer program guide</div>
+      <div class="tool-link-desc">Free guide to first-time buyer programs.</div>
+    </a>
+  </div>
+
+  <div class="sources-line">Ratehub first-time buyer programs (ratehub.ca)</div>
+
+
+<div class="journal-panel" id="journal-panel-4">
+  <div class="jp-head">
+    <span class="jp-icon">&#9998;</span>
+    <span class="jp-title">My journal &mdash; Lesson 4</span>
+    <span class="jp-tag">Optional. Private. Stored only on this device.</span>
+  </div>
+  <div class="jp-body">
+    <div class="jf">
+      <label>My reflection <span class="opt">(optional)</span></label>
+      <textarea rows="2" data-jk="c4l4_ref" placeholder="What came up for you in this lesson?"></textarea>
+    </div>
+    <div class="jf">
+      <label>Did I do the action step? <span class="opt">(optional)</span></label>
+      <div class="radio-row">
+        <label><input type="radio" name="done4_4" value="yes" onchange="jSave('c4l4_done', this.value)"> Yes</label>
+        <label><input type="radio" name="done4_4" value="not_yet" onchange="jSave('c4l4_done', this.value)"> Not yet</label>
+        <label><input type="radio" name="done4_4" value="no" onchange="jSave('c4l4_done', this.value)"> No</label>
+      </div>
+      <textarea rows="1" data-jk="c4l4_act" placeholder="What happened, or what got in the way?"></textarea>
+    </div>
+    <div class="jf">
+      <label>My goal from this lesson <span class="opt">(optional)</span></label>
+      <textarea rows="1" data-jk="c4l4_goal" placeholder="Something I want to do, change, or remember..."></textarea>
+    </div>
+    <div class="jf feedback">
+      <label>Questions or ideas for IGVhope <span class="opt">(goes to our team)</span></label>
+      <textarea rows="1" data-jk="c4l4_fb" placeholder="Something this lesson didn't cover? An idea for a future lesson?"></textarea>
+    </div>
+    <div class="jp-save-row">
+      <span class="jp-saved" id="jp-saved-4">Saved &#10003;</span>
+      <button class="jp-btn" onclick="saveJournal(4)">Save journal entry</button>
+    </div>
+  </div>
 </div>
 
-<div class="course-cta-wrap">
-  <a href="/course-library/course-4/Lessons/?lesson=1" class="course-primary-btn" id="course-primary-btn">Start Lesson 1</a>
+</section>
+
+<section class="lesson-panel" id="lesson-panel-5" data-lesson="5">
+  <div class="lesson-eyebrow">Lesson 5</div>
+  <h1 class="lesson-title">Pre-qualification, assembling your file</h1>
+  <div class="lesson-meta">About 22 minutes &nbsp;&middot;&nbsp; <span class="rp-chip">160 points</span></div>
+
+  <div class="short-win">Short win: You have everything a broker needs before you sit down, and pre-qualification becomes a formality, not a scramble.</div>
+
+  <div class="lesson-body">
+    <p>Before you complete your purchase, a broker or lender will pre-qualify you, reviewing your situation and confirming what you can borrow. Walking in prepared makes this straightforward.</p>
+    <p>What to assemble in Years 8 to 9:</p>
+    <ul>
+      <li>Proof of income: recent pay stubs, T4s, and if self-employed, the last two years of tax assessments.</li>
+      <li>Savings confirmation: bank statements and savings account details.</li>
+      <li>Debt summary: a clean list of what you owe and monthly minimums.</li>
+      <li>Property details: your agreed purchase price and the HOPE home details.</li>
+      <li>Your occupancy contribution history: years of on-time payments, bring this to the broker meeting. This is your proven track record.</li>
+    </ul>
+    <p>Your years of documented on-time contributions are a distinctive strength. Most applicants arrive with two or three years of payment history. You arrive with a decade of it, in a home that sits at an agreed price.</p>
+    <p>Ask the IGVhope team for guidance on finding a solicitor familiar with the Ownership Pathway Agreement structure.</p>
+  </div>
+
+  <div class="worked-example">
+    <div class="worked-example-label">Worked example</div>
+    <p>Maya built her pre-qualification folder a full year before completion: income records, savings statements, a clean debt summary, and a printout of her nine-year contribution history. Her broker said it was one of the most organised files he had seen. Pre-qualification took a single short meeting.</p>
+  </div>
+
+  <div class="action-step">
+    <div class="action-step-label">Your action step</div>
+    <p>Start building your pre-qualification folder now. Work through the checklist and note what you still need to obtain or organise.</p>
+  </div>
+
+  <button class="self-check" id="self-check-btn-5" onclick="completeLesson(5)">
+    <div class="self-check-icon"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#1A5C50" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></div>
+    <div class="self-check-text" id="self-check-text-5">Self-check: I have started assembling my pre-qualification documents and know what is still outstanding.</div>
+  </button>
+
+  <div class="next-lesson-wrap" id="next-lesson-wrap-5">
+    <div class="next-lesson-label">Next lesson</div>
+    <a class="next-lesson-btn" id="next-lesson-btn-5" href="?lesson=6">What strata ownership means for your life</a>
+  </div>
+
+  <div class="tools-box">
+    <div class="tools-box-label">Tools</div>
+    <a class="tool-link" href="https://www.cmhc-schl.gc.ca/consumers/home-buying/buying-guides/home-buying" target="_blank" rel="noopener">
+      <div class="tool-link-name">CMHC Homebuying Step by Step Guide</div>
+      <div class="tool-link-desc">Pre-qualification section.</div>
+    </a>
+    <a class="tool-link" href="https://www.bcfsa.ca" target="_blank" rel="noopener">
+      <div class="tool-link-name">BCFSA, verify your mortgage broker</div>
+      <div class="tool-link-desc">Free broker verification tool.</div>
+    </a>
+  </div>
+
+  <div class="sources-line">CMHC homebuying step by step (cmhc-schl.gc.ca) | FCAC mortgages (fcac-acfc.gc.ca)</div>
+
+
+<div class="journal-panel" id="journal-panel-5">
+  <div class="jp-head">
+    <span class="jp-icon">&#9998;</span>
+    <span class="jp-title">My journal &mdash; Lesson 5</span>
+    <span class="jp-tag">Optional. Private. Stored only on this device.</span>
+  </div>
+  <div class="jp-body">
+    <div class="jf">
+      <label>My reflection <span class="opt">(optional)</span></label>
+      <textarea rows="2" data-jk="c4l5_ref" placeholder="What came up for you in this lesson?"></textarea>
+    </div>
+    <div class="jf">
+      <label>Did I do the action step? <span class="opt">(optional)</span></label>
+      <div class="radio-row">
+        <label><input type="radio" name="done4_5" value="yes" onchange="jSave('c4l5_done', this.value)"> Yes</label>
+        <label><input type="radio" name="done4_5" value="not_yet" onchange="jSave('c4l5_done', this.value)"> Not yet</label>
+        <label><input type="radio" name="done4_5" value="no" onchange="jSave('c4l5_done', this.value)"> No</label>
+      </div>
+      <textarea rows="1" data-jk="c4l5_act" placeholder="What happened, or what got in the way?"></textarea>
+    </div>
+    <div class="jf">
+      <label>My goal from this lesson <span class="opt">(optional)</span></label>
+      <textarea rows="1" data-jk="c4l5_goal" placeholder="Something I want to do, change, or remember..."></textarea>
+    </div>
+    <div class="jf feedback">
+      <label>Questions or ideas for IGVhope <span class="opt">(goes to our team)</span></label>
+      <textarea rows="1" data-jk="c4l5_fb" placeholder="Something this lesson didn't cover? An idea for a future lesson?"></textarea>
+    </div>
+    <div class="jp-save-row">
+      <span class="jp-saved" id="jp-saved-5">Saved &#10003;</span>
+      <button class="jp-btn" onclick="saveJournal(5)">Save journal entry</button>
+    </div>
+  </div>
 </div>
+
+</section>
+
+<section class="lesson-panel" id="lesson-panel-6" data-lesson="6">
+  <div class="lesson-eyebrow">Lesson 6</div>
+  <h1 class="lesson-title">What strata ownership means for your life</h1>
+  <div class="lesson-meta">About 22 minutes &nbsp;&middot;&nbsp; <span class="rp-chip">150 points</span></div>
+
+  <div class="short-win">Short win: You understand your rights and responsibilities as an owner in a strata, so completion is a confident transition, not a surprise.</div>
+
+  <div class="lesson-body">
+    <p>If your HOPE home is in a strata, completing your purchase means becoming a strata owner, and that comes with rights and responsibilities worth understanding before it happens.</p>
+    <p>What changes at completion:</p>
+    <ul>
+      <li>You own your individual unit and share ownership of common property with the other owners.</li>
+      <li>You pay monthly strata fees toward shared maintenance, insurance, and the reserve fund.</li>
+      <li>You may occasionally face a special levy for a major building repair. Your emergency fund is what handles this.</li>
+      <li>You get a vote in strata decisions and can stand for the strata council.</li>
+      <li>You attend and participate in strata meetings as an owner with a stake in the building.</li>
+    </ul>
+    <p>The BCFSA publishes clear, free guidance on how strata ownership works in BC: rights, responsibilities, fees, and meeting processes. Read it before completion so there are no surprises.</p>
+    <p>Read the strata's current documents: meeting minutes, financial statements, and depreciation report. Bring any questions to your solicitor at completion.</p>
+  </div>
+
+  <div class="worked-example">
+    <div class="worked-example-label">Worked example</div>
+    <p>Before completing, Sam read the BCFSA strata guidance and listed two questions about the reserve fund for his solicitor. At his first strata meeting as an owner, he understood the agenda completely and volunteered for a committee. The preparation turned nervousness into confidence.</p>
+  </div>
+
+  <div class="action-step">
+    <div class="action-step-label">Your action step</div>
+    <p>Read the BCFSA strata guidance and list two questions for your solicitor about the specific strata you are entering.</p>
+  </div>
+
+  <button class="self-check" id="self-check-btn-6" onclick="completeLesson(6)">
+    <div class="self-check-icon"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#1A5C50" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></div>
+    <div class="self-check-text" id="self-check-text-6">Self-check: I understand what strata ownership will mean for my life and have questions ready for my solicitor.</div>
+  </button>
+
+  <div class="badge-celebration" id="badge-celebration">
+    <div class="badge-icon">&#9733;</div>
+    <div class="badge-title">Mortgage Ready badge earned</div>
+    <div class="badge-desc">You've completed all 6 lessons and earned <strong id="badge-total-rp">0 points</strong>. Nice work.</div>
+  </div>
+
+  <div class="next-lesson-wrap" id="next-lesson-wrap-6">
+    <div class="end-of-course">
+      <p class="end-of-course-closing">You have completed Getting Mortgage Ready. You are prepared to walk into your Year 10 mortgage as the strongest possible borrower, with your documents assembled and your questions answered.</p>
+      <div class="end-of-course-doors">
+        <a class="door-btn primary" href="/">Back to the Course Library</a>
+      </div>
+    </div>
+  </div>
+
+  <div class="tools-box">
+    <div class="tools-box-label">Tools</div>
+    <a class="tool-link" href="https://www.bcfsa.ca" target="_blank" rel="noopener">
+      <div class="tool-link-name">BCFSA strata information</div>
+      <div class="tool-link-desc">Free strata ownership guidance.</div>
+    </a>
+    <a class="tool-link" href="https://www.cmhc-schl.gc.ca" target="_blank" rel="noopener">
+      <div class="tool-link-name">CMHC homebuying, strata section</div>
+      <div class="tool-link-desc">Strata ownership overview.</div>
+    </a>
+  </div>
+
+  <div class="sources-line">BCFSA strata (bcfsa.ca) | CMHC homebuying (cmhc-schl.gc.ca)</div>
+
+
+<div class="journal-panel" id="journal-panel-6">
+  <div class="jp-head">
+    <span class="jp-icon">&#9998;</span>
+    <span class="jp-title">My journal &mdash; Lesson 6</span>
+    <span class="jp-tag">Optional. Private. Stored only on this device.</span>
+  </div>
+  <div class="jp-body">
+    <div class="jf">
+      <label>My reflection <span class="opt">(optional)</span></label>
+      <textarea rows="2" data-jk="c4l6_ref" placeholder="What came up for you in this lesson?"></textarea>
+    </div>
+    <div class="jf">
+      <label>Did I do the action step? <span class="opt">(optional)</span></label>
+      <div class="radio-row">
+        <label><input type="radio" name="done4_6" value="yes" onchange="jSave('c4l6_done', this.value)"> Yes</label>
+        <label><input type="radio" name="done4_6" value="not_yet" onchange="jSave('c4l6_done', this.value)"> Not yet</label>
+        <label><input type="radio" name="done4_6" value="no" onchange="jSave('c4l6_done', this.value)"> No</label>
+      </div>
+      <textarea rows="1" data-jk="c4l6_act" placeholder="What happened, or what got in the way?"></textarea>
+    </div>
+    <div class="jf">
+      <label>My goal from this lesson <span class="opt">(optional)</span></label>
+      <textarea rows="1" data-jk="c4l6_goal" placeholder="Something I want to do, change, or remember..."></textarea>
+    </div>
+    <div class="jf feedback">
+      <label>Questions or ideas for IGVhope <span class="opt">(goes to our team)</span></label>
+      <textarea rows="1" data-jk="c4l6_fb" placeholder="Something this lesson didn't cover? An idea for a future lesson?"></textarea>
+    </div>
+    <div class="jp-save-row">
+      <span class="jp-saved" id="jp-saved-6">Saved &#10003;</span>
+      <button class="jp-btn" onclick="saveJournal(6)">Save journal entry</button>
+    </div>
+  </div>
+</div>
+
+</section>
+
+</main>
 
 <footer id="dash-footer">
   <div class="footer-block">
@@ -246,9 +866,9 @@ a { color: inherit; }
   <div id="footer-sitemap">
     <div class="sitemap-col">
       <div class="sitemap-heading">IGV Housing</div>
-      <a href="https://www.igvhousing.com/platform">Platform</a>
       <a href="https://igvhousing.com/municipalities" target="_blank" rel="noopener">Municipalities</a>
-      <a href="https://www.igvhousing.com/investors">Investors</a>
+      <a href="https://www.igvhousing.com/esg" target="_blank" rel="noopener">ESG Impact</a>
+      <a href="https://www.igvhousing.com/media" target="_blank" rel="noopener">Media &amp; Resources</a>
     </div>
     <div class="sitemap-col">
       <div class="sitemap-heading">IGV Divisions</div>
@@ -258,9 +878,9 @@ a { color: inherit; }
     </div>
     <div class="sitemap-col">
       <div class="sitemap-heading">Sitemap</div>
-      <a href="https://howitworks.pages.dev/">How It Works</a>
+      <a href="/how-it-works">How It Works</a>
       <a href="/next-steps">Next Steps</a>
-      <a href="https://igvhope-faq.pages.dev/">FAQ</a>
+      <a href="/faq">FAQ</a>
       <a href="/impact">Impact</a>
      <a href="/about">About</a>
       <a href="/resources">Resources</a>
@@ -287,15 +907,16 @@ a { color: inherit; }
   <div id="footer-bottom-bar">
     <span id="footer-copyright">&copy; 2026 IGVhope. All rights reserved.</span>
     <div id="footer-bottom-links">
-      <a href="https://igvhousing.com/privacy-policy" target="_blank" rel="noopener">Privacy</a>
+      <a href="https://www.igvhousing.com/privacy" target="_blank" rel="noopener">Privacy</a>
       <a href="https://igvhousing.com/terms-of-service" target="_blank" rel="noopener">Terms</a>
-      <a href="https://igvhousing.com/accessibility" target="_blank" rel="noopener">Accessibility</a>
+      <a href="https://www.igvhousing.com/accessibility" target="_blank" rel="noopener">Accessibility</a>
     </div>
   </div>
   </div>
 </footer>
 
 <script>
+
 function toggleMobileNav(){
   const panel=document.getElementById('mobile-nav-panel');
   const open=panel.classList.toggle('open');
@@ -304,8 +925,9 @@ function toggleMobileNav(){
 }
 
 const COURSE0_WORKER = 'https://academy.igvhousing.workers.dev'; // placeholder, update on deploy
+const COURSE_SLUG = 'course-4';
 const COURSE_ID = 4;
-const TOTAL_LESSONS = 7;
+const TOTAL_LESSONS = 6;
 
 function getToken(){
   const params = new URLSearchParams(window.location.search);
@@ -314,81 +936,203 @@ function getToken(){
   return localStorage.getItem('c0_token');
 }
 
-function appendTokenToLessonLinks(token){
-  document.querySelectorAll('#lesson-list a, #course-primary-btn').forEach(a=>{
-    const url = new URL(a.getAttribute('href'), window.location.origin);
+function appendTokenTo(url, token){
+  const u = new URL(url, window.location.href);
+  u.searchParams.set('p', token);
+  return u.pathname + u.search;
+}
+
+function getLessonFromUrl(){
+  const params = new URLSearchParams(window.location.search);
+  let n = parseInt(params.get('lesson'), 10);
+  if (!n || n < 1 || n > TOTAL_LESSONS) n = 1;
+  return n;
+}
+
+function showLesson(n){
+  document.querySelectorAll('.lesson-panel').forEach(p => {
+    p.classList.toggle('active', parseInt(p.dataset.lesson, 10) === n);
+  });
+  document.getElementById('lesson-progress-strip-text').textContent = `Lesson ${n} of 6`;
+  window.scrollTo(0, 0);
+}
+
+function appendTokenToInternalLinks(token){
+  if (!token) return;
+  document.querySelectorAll('a[href^="?lesson="]').forEach(a => {
+    const url = new URL(a.getAttribute('href'), window.location.href);
     url.searchParams.set('p', token);
     a.setAttribute('href', url.pathname + url.search);
   });
 }
 
-async function identifyByEmail(){
-  const email = document.getElementById('identify-email').value.trim();
-  const errEl = document.getElementById('identify-error');
-  const notFoundEl = document.getElementById('identify-not-found');
-  errEl.style.display = 'none';
-  notFoundEl.style.display = 'none';
-  if (!email || !email.includes('@')) { errEl.style.display = 'block'; return; }
+document.addEventListener('click', function(e){
+  const a = e.target.closest('a[href^="?lesson="]');
+  if (!a) return;
+  e.preventDefault();
+  const url = new URL(a.getAttribute('href'), window.location.href);
+  const n = parseInt(url.searchParams.get('lesson'), 10);
+  history.pushState({}, '', url.pathname + url.search);
+  showLesson(n);
+  const token = getToken();
+  if (token) recordView(token, n);
+});
 
+window.addEventListener('popstate', function(){
+  showLesson(getLessonFromUrl());
+});
+
+async function recordView(token, lessonNum){
   try {
-    const res = await fetch(`${COURSE0_WORKER}/identify`, {
+    await fetch(`${COURSE0_WORKER}/view`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ email })
+      body: JSON.stringify({ token, course: COURSE_ID, lesson: lessonNum })
     });
-    const data = await res.json();
-    if (!res.ok || !data.token) { notFoundEl.style.display = 'block'; return; }
-    localStorage.setItem('c0_token', data.token);
-    renderProgress(data.progress || {});
-    appendTokenToLessonLinks(data.token);
-    document.getElementById('identify-block').style.display = 'none';
-  } catch (e) {
-    errEl.style.display = 'block';
-  }
+  } catch (e) { /* fail quietly, page still works */ }
 }
 
-function renderProgress(progress){
-  const total = TOTAL_LESSONS;
-  let completed = 0;
-  let firstIncomplete = 1;
-  let foundIncomplete = false;
-  for (let i = 1; i <= total; i++){
-    const done = !!progress[`c${COURSE_ID}_lesson_${i}_completed`];
-    if (done) completed++;
-    if (!done && !foundIncomplete) { firstIncomplete = i; foundIncomplete = true; }
-    const row = document.querySelector(`.lesson-row[data-lesson="${i}"]`);
-    if (row) row.classList.toggle('done', done);
-  }
-  if (completed > 0){
-    document.getElementById('progress-wrap').style.display = 'block';
-    document.getElementById('progress-fill').style.width = (completed/total*100) + '%';
-    document.getElementById('progress-label').textContent = `${completed} of ${total} lessons complete`;
-  }
-  const primaryBtn = document.getElementById('course-primary-btn');
-  if (completed > 0 && completed < total){
-    primaryBtn.textContent = 'Continue';
-    primaryBtn.setAttribute('href', `/course-library/course-4/Lessons/?lesson=${firstIncomplete}`);
-  } else if (completed >= total){
-    primaryBtn.textContent = 'Review any lesson';
+const LESSON_RP = {1:180, 2:170, 3:160, 4:180, 5:160, 6:150};
+
+function getCompletedLessons(){
+  try { return JSON.parse(localStorage.getItem(`c${COURSE_ID}_completed_lessons`)) || []; }
+  catch(e) { return []; }
+}
+function markLessonCompletedLocally(n){
+  const done = getCompletedLessons();
+  if (!done.includes(n)) done.push(n);
+  localStorage.setItem(`c${COURSE_ID}_completed_lessons`, JSON.stringify(done));
+  return done;
+}
+function computeRpTotal(doneList){
+  return doneList.reduce((sum, n) => sum + (LESSON_RP[n] || 0), 0);
+}
+function updateRpDisplay(){
+  const done = getCompletedLessons();
+  const total = computeRpTotal(done);
+  const el = document.getElementById('progress-rp-total');
+  if (el) el.textContent = `${total} points earned`;
+  if (done.length >= TOTAL_LESSONS){
+    const badge = document.getElementById('badge-celebration');
+    const badgeRp = document.getElementById('badge-total-rp');
+    if (badgeRp) badgeRp.textContent = `${total} points`;
+    if (badge) badge.classList.add('show');
   }
 }
+function showRpToast(rp){
+  let toast = document.getElementById('rp-toast');
+  if (!toast){
+    toast = document.createElement('div');
+    toast.id = 'rp-toast';
+    toast.className = 'rp-toast';
+    document.body.appendChild(toast);
+  }
+  toast.innerHTML = `<span class="rp-toast-tag">+${rp} points</span>Lesson complete`;
+  toast.classList.add('show');
+  clearTimeout(window._rpToastTimer);
+  window._rpToastTimer = setTimeout(() => toast.classList.remove('show'), 2600);
+}
 
-(async function init(){
+const JOURNAL_KEY = `c${COURSE_ID}_journal`;
+function loadJournalStore(){
+  try { return JSON.parse(localStorage.getItem(JOURNAL_KEY)) || {}; }
+  catch(e) { return {}; }
+}
+function jSave(key, value){
+  const store = loadJournalStore();
+  store[key] = value;
+  localStorage.setItem(JOURNAL_KEY, JSON.stringify(store));
+}
+function saveJournal(n){
+  const panel = document.getElementById(`journal-panel-${n}`);
+  panel.querySelectorAll('[data-jk]').forEach(el => jSave(el.getAttribute('data-jk'), el.value));
+  const saved = document.getElementById(`jp-saved-${n}`);
+  if (saved){
+    saved.classList.add('show');
+    setTimeout(() => saved.classList.remove('show'), 1800);
+  }
+}
+function restoreJournal(){
+  const store = loadJournalStore();
+  document.querySelectorAll('[data-jk]').forEach(el => {
+    const k = el.getAttribute('data-jk');
+    if (store[k] !== undefined) el.value = store[k];
+  });
+  document.querySelectorAll('.radio-row input[type="radio"]').forEach(r => {
+    const key = `c${COURSE_ID}l${r.name.split('_')[1]}_done`;
+    if (store[key] === r.value) r.checked = true;
+  });
+}
+document.addEventListener('input', e => {
+  const jk = e.target.getAttribute && e.target.getAttribute('data-jk');
+  if (jk) jSave(jk, e.target.value);
+});
+
+async function recordToolClick(){
   const token = getToken();
-  if (!token){
-    document.getElementById('identify-block').style.display = 'block';
-    return;
-  }
-  document.getElementById('identify-block').style.display = 'none';
-  appendTokenToLessonLinks(token);
+  if (!token) return;
   try {
-    const res = await fetch(`${COURSE0_WORKER}/progress?p=${encodeURIComponent(token)}`);
-    if (res.ok){
-      const data = await res.json();
-      renderProgress(data.progress || {});
+    await fetch(`${COURSE0_WORKER}/tool-click`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ token, course: COURSE_ID })
+    });
+  } catch (e) { /* fail quietly */ }
+}
+document.querySelectorAll('.tool-link').forEach(a => a.addEventListener('click', recordToolClick));
+
+async function completeLesson(n){
+  const btn = document.getElementById(`self-check-btn-${n}`);
+  if (btn.classList.contains('checked')) return;
+  btn.classList.add('checked');
+  const token = getToken();
+  const nextWrap = document.getElementById(`next-lesson-wrap-${n}`);
+  if (token) {
+    nextWrap.querySelectorAll('a').forEach(a => {
+      a.setAttribute('href', appendTokenTo(a.getAttribute('href'), token));
+    });
+  }
+  nextWrap.classList.add('show');
+  markLessonCompletedLocally(n);
+  updateRpDisplay();
+  showRpToast(LESSON_RP[n] || 0);
+  try {
+    await fetch(`${MAGIC_LINK_WORKER}/course-progress/update`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      credentials: 'include',
+      body: JSON.stringify({ lessonId: `${COURSE_SLUG}-${n}` })
+    });
+  } catch (e) { /* fail quietly, the checkmark already showed */ }
+}
+
+
+
+(function init(){
+  const token = getToken();
+  const startLesson = getLessonFromUrl();
+  showLesson(startLesson);
+  appendTokenToInternalLinks(token);
+  if (token) recordView(token, startLesson);
+
+  restoreJournal();
+  updateRpDisplay();
+
+  getCompletedLessons().forEach(n => {
+    const btn = document.getElementById(`self-check-btn-${n}`);
+    const nextWrap = document.getElementById(`next-lesson-wrap-${n}`);
+    if (btn) btn.classList.add('checked');
+    if (nextWrap) {
+      if (token) {
+        nextWrap.querySelectorAll('a').forEach(a => {
+          a.setAttribute('href', appendTokenTo(a.getAttribute('href'), token));
+        });
+      }
+      nextWrap.classList.add('show');
     }
-  } catch (e) { /* fail quietly, page still works without progress display */ }
+  });
 })();
+
 
 /* ── SHARED LOGIN SESSION CHECK ─────────────────────────────
    Checks the same magic-link session used across the whole platform
