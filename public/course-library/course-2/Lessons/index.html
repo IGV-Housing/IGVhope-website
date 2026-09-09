@@ -631,7 +631,7 @@ input[type="range"]::-moz-range-thumb{width:22px;height:22px;border-radius:50%;b
     </div>
     <label for="score-inp">Your current credit score</label>
     <div class="input-wrap">
-      <input type="number" id="score-inp" placeholder="e.g. 672" min="300" max="900" oninput="showBand()">
+      <input type="number" id="score-inp" placeholder="e.g. 672" min="300" max="900" oninput="showBand()" onblur="syncCreditScoreNow()">
     </div>
     <div id="band-box" class="score-band-box hidden">
       <div class="score-big" id="band-num">0</div>
@@ -1422,6 +1422,36 @@ function showBand(){
   document.getElementById('band-num').textContent=s;document.getElementById('band-num').style.color=b.c;
   document.getElementById('band-name').textContent=b.name;document.getElementById('band-name').style.color=b.c;
   document.getElementById('band-desc').textContent=b.desc;
+  scheduleCreditScoreSync(s);
+}
+
+/* Sends the self-reported score to HubSpot (via the magic-link Worker's
+   /credit-check/update) so the team can review it alongside applications.
+   Only fires for a logged-in session - a logged-out visitor has no
+   contact record to attach the score to. Debounced so it doesn't fire on
+   every keystroke while typing; onblur below covers the case where
+   someone clicks away before the debounce timer fires. */
+let creditScoreSyncTimer = null;
+function scheduleCreditScoreSync(score){
+  if (!isLoggedInSession) return;
+  clearTimeout(creditScoreSyncTimer);
+  creditScoreSyncTimer = setTimeout(() => syncCreditScoreToHubspot(score), 1200);
+}
+function syncCreditScoreNow(){
+  const s = parseInt(document.getElementById('score-inp').value);
+  if (!s || s < 300 || s > 900) return;
+  clearTimeout(creditScoreSyncTimer);
+  syncCreditScoreToHubspot(s);
+}
+async function syncCreditScoreToHubspot(score){
+  try {
+    await fetch(`${MAGIC_LINK_WORKER}/credit-check/update`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      credentials: 'include',
+      body: JSON.stringify({ score })
+    });
+  } catch (e) { /* fail quietly, the tool still works without the sync */ }
 }
 function calcTool3(){
   const ratings=FACTORS.map((_,i)=>parseInt(document.getElementById(`fs${i}`).value));
