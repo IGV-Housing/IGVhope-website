@@ -254,9 +254,9 @@ a { color: inherit; }
     </svg>
   </a>
   <div class="nav-right">
-    <a class="nav-link" href="https://howitworks.pages.dev/">How It Works</a>
+    <a class="nav-link" href="/how-it-works">How It Works</a>
     <a class="nav-link" href="/next-steps">Next Steps</a>
-    <a class="nav-link" href="https://igvhope-faq.pages.dev/">FAQ</a>
+    <a class="nav-link" href="/faq">FAQ</a>
     <a class="nav-link" href="/impact">Impact</a>
         <a class="nav-link" href="/about">About</a>
     <div class="nav-right-divider"></div>
@@ -272,12 +272,12 @@ a { color: inherit; }
     <svg id="nav-burger-icon-close" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:none;"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
   </button>
   <div id="mobile-nav-panel">
-    <a class="mobile-nav-link" href="https://howitworks.pages.dev/">How It Works</a>
+    <a class="mobile-nav-link" href="/how-it-works">How It Works</a>
     <a class="mobile-nav-link" href="/next-steps">Next Steps</a>
-    <a class="mobile-nav-link" href="https://igvhope-faq.pages.dev/">FAQ</a>
+    <a class="mobile-nav-link" href="/faq">FAQ</a>
     <a class="mobile-nav-link" href="/impact">Impact</a>
     <a class="mobile-nav-link" href="/about">About</a>
-    <a class="mobile-nav-link" id="mobile-nav-login-link" href="https://platform.igvhousing.com/">Log in</a>
+    <a class="mobile-nav-link" id="mobile-nav-login-link" href="/login">Log in</a>
     <div id="mobile-nav-user" style="display:none;">
       <div class="mobile-nav-link" id="mobile-nav-user-name"></div>
       <a class="mobile-nav-link" href="#" id="mobile-nav-logout-link">Log out</a>
@@ -762,9 +762,9 @@ a { color: inherit; }
   <div id="footer-sitemap">
     <div class="sitemap-col">
       <div class="sitemap-heading">IGV Housing</div>
-      <a href="https://www.igvhousing.com/platform">Platform</a>
       <a href="https://igvhousing.com/municipalities" target="_blank" rel="noopener">Municipalities</a>
-      <a href="https://www.igvhousing.com/investors">Investors</a>
+      <a href="https://www.igvhousing.com/esg" target="_blank" rel="noopener">ESG Impact</a>
+      <a href="https://www.igvhousing.com/media" target="_blank" rel="noopener">Media &amp; Resources</a>
     </div>
     <div class="sitemap-col">
       <div class="sitemap-heading">IGV Divisions</div>
@@ -774,9 +774,9 @@ a { color: inherit; }
     </div>
     <div class="sitemap-col">
       <div class="sitemap-heading">Sitemap</div>
-      <a href="https://howitworks.pages.dev/">How It Works</a>
+      <a href="/how-it-works">How It Works</a>
       <a href="/next-steps">Next Steps</a>
-      <a href="https://igvhope-faq.pages.dev/">FAQ</a>
+      <a href="/faq">FAQ</a>
       <a href="/impact">Impact</a>
      <a href="/about">About</a>
       <a href="/resources">Resources</a>
@@ -803,9 +803,9 @@ a { color: inherit; }
   <div id="footer-bottom-bar">
     <span id="footer-copyright">&copy; 2026 IGVhope. All rights reserved.</span>
     <div id="footer-bottom-links">
-      <a href="https://igvhousing.com/privacy-policy" target="_blank" rel="noopener">Privacy</a>
+      <a href="https://www.igvhousing.com/privacy" target="_blank" rel="noopener">Privacy</a>
       <a href="https://igvhousing.com/terms-of-service" target="_blank" rel="noopener">Terms</a>
-      <a href="https://igvhousing.com/accessibility" target="_blank" rel="noopener">Accessibility</a>
+      <a href="https://www.igvhousing.com/accessibility" target="_blank" rel="noopener">Accessibility</a>
     </div>
   </div>
   </div>
@@ -821,6 +821,7 @@ function toggleMobileNav(){
 }
 
 const COURSE0_WORKER = 'https://academy.igvhousing.workers.dev'; // placeholder, update on deploy
+const COURSE_SLUG = 'course-5';
 const COURSE_ID = 5;
 const TOTAL_LESSONS = 5;
 
@@ -992,10 +993,11 @@ async function completeLesson(n){
   updateRpDisplay();
   showRpToast(LESSON_RP[n] || 0);
   try {
-    await fetch(`${COURSE0_WORKER}/complete`, {
+    await fetch(`${MAGIC_LINK_WORKER}/course-progress/update`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ token, course: COURSE_ID, lesson: n })
+      credentials: 'include',
+      body: JSON.stringify({ lessonId: `${COURSE_SLUG}-${n}` })
     });
   } catch (e) { /* fail quietly, the checkmark already showed */ }
 }

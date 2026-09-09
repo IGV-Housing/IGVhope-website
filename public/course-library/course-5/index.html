@@ -12,7 +12,7 @@
 </script>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <link rel="icon" type="image/x-icon" href="/assets/img/favicon.ico">
-<title>Course 4 - Overview | IGVhope</title>
+<title>Course 5 - Overview | IGVhope</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&display=swap" rel="stylesheet">
@@ -34,11 +34,33 @@ a { color: inherit; }
 
 /* NAV — exact match to demand.igvhousing.com top nav (#dash-nav) */
 #dash-nav { flex-shrink: 0; height: 60px; background: #1a4848; display: flex; align-items: center; justify-content: space-between; padding: 0 32px; z-index: 100; position: sticky; top: 0; box-shadow: 0 2px 8px rgba(0,0,0,0.2); }
-.nav-link { font-size: 12px; font-weight: 500; color: rgba(255,255,255,0.75); cursor: pointer; letter-spacing: 0.02em; transition: color 0.18s; text-decoration: none; }
-.nav-link:hover { color: #ffffff; }
-.nav-right { display: flex; align-items: center; gap: 22px; }
-.nav-right-divider { width: 1px; height: 20px; background: #ce7841; }
-.nav-signup-btn { font-family: 'Montserrat', sans-serif; font-size: 12px; font-weight: 700; letter-spacing: 0.03em; color: #123D36; background: #E8A24A; border: none; border-radius: 999px; padding: 10px 22px; cursor: pointer; transition: background 0.18s; }
+/* Nav subpage links — matched to IGV Capital's .navlink: 0.9rem / 600 weight,
+   0.5rem 0.85rem padding, with the sliding underline hover (scaleX from left,
+   0.25s ease). Accent recoloured for the evergreen nav bar. */
+.nav-link {
+  display: inline-flex; align-items: center; position: relative;
+  padding: 0.5rem 0.85rem;
+  font-size: 0.9rem; font-weight: 600;
+  color: rgba(255,255,255,0.85); cursor: pointer; letter-spacing: 0.02em;
+  transition: color 0.18s; text-decoration: none; white-space: nowrap; flex-shrink: 0;
+}
+.nav-link:hover, .nav-link.current { color: #ffffff; }
+.nav-link::after {
+  content: "";
+  position: absolute;
+  left: 0.85rem; right: 0.85rem; bottom: 0.3rem;
+  height: 1.5px;
+  background-color: #E8A24A;
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.25s ease;
+}
+.nav-link:hover::after, .nav-link.is-active::after { transform: scaleX(1); }
+.nav-right { display: flex; align-items: center; gap: 8px; flex: 1; }
+/* Centred subpage group — mirrors IGV Capital's .nav-links-group */
+.nav-links-group { display: flex; align-items: center; justify-content: center; gap: 8px; flex: 1; flex-wrap: nowrap; }
+.nav-right-divider { width: 1px; height: 20px; background: #ce7841; margin: 0 8px; }
+.nav-signup-btn { margin-left: 10px; font-family: 'Montserrat', sans-serif; font-size: 12px; font-weight: 700; letter-spacing: 0.03em; color: #123D36; background: #E8A24A; border: none; border-radius: 999px; padding: 10px 22px; cursor: pointer; transition: background 0.18s; }
 .nav-signup-btn:hover { background: #f0b269; }
 #nav-burger { display: none; background: none; border: none; cursor: pointer; padding: 6px; align-items: center; justify-content: center; }
 #mobile-nav-panel { display: none; flex-direction: column; position: absolute; top: 100%; left: 0; right: 0; background: #1a4848; padding: 8px 24px 20px; box-shadow: 0 12px 24px rgba(0,0,0,0.18); z-index: 200; }
@@ -60,15 +82,9 @@ a { color: inherit; }
 .progress-fill { height: 100%; background: linear-gradient(90deg, var(--teal) 0%, var(--ochre) 100%); border-radius: 999px; transition: width 0.4s ease; }
 .progress-label { font-size: 12.5px; color: var(--ink-soft); text-align: center; }
 
-/* IDENTIFY BLOCK — cold arrivals only */
+/* IDENTIFY BLOCK — logged-out visitors, prompts login */
 .identify-block { max-width: 440px; margin: 28px auto; padding: 22px 24px; background: var(--cream); border: 1px solid #F0E4CE; border-radius: 14px; text-align: center; }
 .identify-block p { font-size: 13.5px; color: var(--ink-soft); margin-bottom: 14px; }
-.identify-form { display: flex; gap: 8px; }
-.identify-input { flex: 1; padding: 12px 14px; border: 1.5px solid var(--border); border-radius: 9px; font-family: 'Montserrat', sans-serif; font-size: 14px; }
-.identify-submit { font-family: 'Montserrat', sans-serif; font-size: 13px; font-weight: 700; color: #123D36; background: var(--ochre); border: none; border-radius: 9px; padding: 0 18px; cursor: pointer; white-space: nowrap; }
-.identify-error { display: none; font-size: 12px; color: #B4441E; margin-top: 8px; }
-.identify-not-found { display: none; font-size: 12.5px; color: var(--ink-soft); margin-top: 10px; line-height: 1.6; }
-.identify-not-found a { color: var(--teal); font-weight: 700; text-decoration: underline; }
 
 /* SECTIONS */
 .course-section { max-width: 640px; margin: 0 auto; padding: 28px 24px; }
@@ -149,11 +165,13 @@ a { color: inherit; }
     </svg>
   </a>
   <div class="nav-right">
-    <a class="nav-link" href="https://howitworks.pages.dev/">How It Works</a>
-    <a class="nav-link" href="/next-steps">Next Steps</a>
-    <a class="nav-link" href="https://igvhope-faq.pages.dev/">FAQ</a>
-    <a class="nav-link" href="/impact">Impact</a>
+    <div class="nav-links-group">
+      <a class="nav-link" href="/how-it-works">How It Works</a>
+      <a class="nav-link" href="/next-steps">Next Steps</a>
+      <a class="nav-link" href="/faq">FAQ</a>
+      <a class="nav-link" href="/impact">Impact</a>
         <a class="nav-link" href="/about">About</a>
+    </div>
     <div class="nav-right-divider"></div>
     <a class="nav-link" id="nav-login-link" href="/login">Log in</a>
     <span class="nav-user" id="nav-user">
@@ -167,12 +185,12 @@ a { color: inherit; }
     <svg id="nav-burger-icon-close" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:none;"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
   </button>
   <div id="mobile-nav-panel">
-    <a class="mobile-nav-link" href="https://howitworks.pages.dev/">How It Works</a>
+    <a class="mobile-nav-link" href="/how-it-works">How It Works</a>
     <a class="mobile-nav-link" href="/next-steps">Next Steps</a>
-    <a class="mobile-nav-link" href="https://igvhope-faq.pages.dev/">FAQ</a>
+    <a class="mobile-nav-link" href="/faq">FAQ</a>
     <a class="mobile-nav-link" href="/impact">Impact</a>
     <a class="mobile-nav-link" href="/about">About</a>
-    <a class="mobile-nav-link" id="mobile-nav-login-link" href="https://platform.igvhousing.com/">Log in</a>
+    <a class="mobile-nav-link" id="mobile-nav-login-link" href="/login">Log in</a>
     <div id="mobile-nav-user" style="display:none;">
       <div class="mobile-nav-link" id="mobile-nav-user-name"></div>
       <a class="mobile-nav-link" href="#" id="mobile-nav-logout-link">Log out</a>
@@ -187,49 +205,42 @@ a { color: inherit; }
 
 
 <div class="course-hero">
-  <div class="course-eyebrow">Course 4 &middot; Overview</div>
-  <h1 class="course-heading">Getting Mortgage Ready</h1>
-  <p class="course-subtitle">Preparing for the home stretch.</p>
-  <p class="course-meta">7 lessons, about 22 to 25 minutes each &nbsp;&middot;&nbsp; Up to 1000 points &nbsp;&middot;&nbsp; Mortgage Ready badge</p>
+  <div class="course-eyebrow">Course 5 &middot; Overview</div>
+  <h1 class="course-heading">Completing Your Purchase at Year 10</h1>
+  <p class="course-subtitle">From agreed price to your own front door.</p>
+  <p class="course-meta">5 lessons &nbsp;&middot;&nbsp; Year 10</p>
 </div>
 
 <div class="progress-wrap" id="progress-wrap" style="display:none;">
   <div class="progress-track"><div class="progress-fill" id="progress-fill" style="width:0%;"></div></div>
-  <div class="progress-label" id="progress-label">0 of 7 lessons complete</div>
+  <div class="progress-label" id="progress-label">0 of 5 lessons complete</div>
 </div>
 
-<div class="identify-block" id="identify-block">
-  <p>Enter the email you used with IGVhope to pick up your progress, or start fresh below.</p>
-  <div class="identify-form">
-    <input type="email" class="identify-input" id="identify-email" placeholder="you@email.com">
-    <button class="identify-submit" id="identify-submit" onclick="identifyByEmail()">Continue</button>
-  </div>
-  <div class="identify-error" id="identify-error">That didn't work. Check the email and try again.</div>
-  <div class="identify-not-found" id="identify-not-found">We couldn't find an existing IGVhope record for that email. This course builds on your earlier answers, so start with a quick two-minute check first: <a href="https://howitworks.pages.dev/#qualify">see if HOPE fits your situation</a>.</div>
+<div class="identify-block" id="identify-block" style="display:none;">
+  <p>Log in to track your progress through this course and pick up where you left off.</p>
+  <a class="course-primary-btn" id="identify-login-link" href="/login">Log in</a>
 </div>
 
 <div class="course-section">
   <h2 class="section-header">Why this course matters</h2>
-  <p class="section-body">You are in the home stretch. Year 10 is close enough to prepare for in detail, and your preparation now is what makes completion feel like an arrival rather than a scramble. Everything in this course points to one outcome: walking into your mortgage application at Year 10 as the strongest possible borrower.</p>
+  <p class="section-body">Year 10 is not a single moment, it is a short sequence of real steps: confirming your price, arranging your mortgage, working through a completion checklist, and closing with a solicitor. Knowing that sequence in advance is what turns it from a stressful scramble into a straightforward process.</p>
 </div>
 
 <div class="course-section" style="padding-top:0;">
   <h2 class="section-header">What you will be able to do</h2>
-  <p class="section-body">You understand exactly how mortgage qualification works, what lenders assess, how to stack government savings programs, what strata ownership means, and how to pre-qualify ahead of Year 10 completion.</p>
+  <p class="section-body">You understand how your price and mortgage come together at completion, what documents you need, how a solicitor fits into the process, what actually happens on settlement day, and what to expect in your first 90 days as an owner.</p>
 </div>
 
 <div class="lesson-list" id="lesson-list">
-  <a href="/course-library/course-4/Lessons/?lesson=1" class="lesson-row" data-lesson="1"><div class="lesson-num">1</div><div class="lesson-row-title">The 5Cs lenders actually assess</div><div class="lesson-check">&#10003;</div></a>
-  <a href="/course-library/course-4/Lessons/?lesson=2" class="lesson-row" data-lesson="2"><div class="lesson-num">2</div><div class="lesson-row-title">LVR, why your Year 10 position is stronger than any day-one buyer</div><div class="lesson-check">&#10003;</div></a>
-  <a href="/course-library/course-4/Lessons/?lesson=3" class="lesson-row" data-lesson="3"><div class="lesson-num">3</div><div class="lesson-row-title">GDS and TDS in plain language</div><div class="lesson-check">&#10003;</div></a>
-  <a href="/course-library/course-4/Lessons/?lesson=4" class="lesson-row" data-lesson="4"><div class="lesson-num">4</div><div class="lesson-row-title">The FHSA, your most powerful savings tool</div><div class="lesson-check">&#10003;</div></a>
-  <a href="/course-library/course-4/Lessons/?lesson=5" class="lesson-row" data-lesson="5"><div class="lesson-num">5</div><div class="lesson-row-title">Stacking government programs at Year 10</div><div class="lesson-check">&#10003;</div></a>
-  <a href="/course-library/course-4/Lessons/?lesson=6" class="lesson-row" data-lesson="6"><div class="lesson-num">6</div><div class="lesson-row-title">Pre-qualification, assembling your file</div><div class="lesson-check">&#10003;</div></a>
-  <a href="/course-library/course-4/Lessons/?lesson=7" class="lesson-row" data-lesson="7"><div class="lesson-num">7</div><div class="lesson-row-title">What strata ownership means for your life</div><div class="lesson-check">&#10003;</div></a>
+  <a href="/course-library/course-5/Lessons/?lesson=1" class="lesson-row" data-lesson="1"><div class="lesson-num">1</div><div class="lesson-row-title">Confirming your price and arranging your mortgage</div><div class="lesson-check">&#10003;</div></a>
+  <a href="/course-library/course-5/Lessons/?lesson=2" class="lesson-row" data-lesson="2"><div class="lesson-num">2</div><div class="lesson-row-title">Your completion document checklist</div><div class="lesson-check">&#10003;</div></a>
+  <a href="/course-library/course-5/Lessons/?lesson=3" class="lesson-row" data-lesson="3"><div class="lesson-num">3</div><div class="lesson-row-title">Working with your solicitor</div><div class="lesson-check">&#10003;</div></a>
+  <a href="/course-library/course-5/Lessons/?lesson=4" class="lesson-row" data-lesson="4"><div class="lesson-num">4</div><div class="lesson-row-title">What actually happens at settlement</div><div class="lesson-check">&#10003;</div></a>
+  <a href="/course-library/course-5/Lessons/?lesson=5" class="lesson-row" data-lesson="5"><div class="lesson-num">5</div><div class="lesson-row-title">Your first 90 days as an owner</div><div class="lesson-check">&#10003;</div></a>
 </div>
 
 <div class="course-cta-wrap">
-  <a href="/course-library/course-4/Lessons/?lesson=1" class="course-primary-btn" id="course-primary-btn">Start Lesson 1</a>
+  <a href="/course-library/course-5/Lessons/?lesson=1" class="course-primary-btn" id="course-primary-btn">Start Lesson 1</a>
 </div>
 
 <footer id="dash-footer">
@@ -246,9 +257,9 @@ a { color: inherit; }
   <div id="footer-sitemap">
     <div class="sitemap-col">
       <div class="sitemap-heading">IGV Housing</div>
-      <a href="https://www.igvhousing.com/platform">Platform</a>
       <a href="https://igvhousing.com/municipalities" target="_blank" rel="noopener">Municipalities</a>
-      <a href="https://www.igvhousing.com/investors">Investors</a>
+      <a href="https://www.igvhousing.com/esg" target="_blank" rel="noopener">ESG Impact</a>
+      <a href="https://www.igvhousing.com/media" target="_blank" rel="noopener">Media &amp; Resources</a>
     </div>
     <div class="sitemap-col">
       <div class="sitemap-heading">IGV Divisions</div>
@@ -258,9 +269,9 @@ a { color: inherit; }
     </div>
     <div class="sitemap-col">
       <div class="sitemap-heading">Sitemap</div>
-      <a href="https://howitworks.pages.dev/">How It Works</a>
+      <a href="/how-it-works">How It Works</a>
       <a href="/next-steps">Next Steps</a>
-      <a href="https://igvhope-faq.pages.dev/">FAQ</a>
+      <a href="/faq">FAQ</a>
       <a href="/impact">Impact</a>
      <a href="/about">About</a>
       <a href="/resources">Resources</a>
@@ -287,9 +298,9 @@ a { color: inherit; }
   <div id="footer-bottom-bar">
     <span id="footer-copyright">&copy; 2026 IGVhope. All rights reserved.</span>
     <div id="footer-bottom-links">
-      <a href="https://igvhousing.com/privacy-policy" target="_blank" rel="noopener">Privacy</a>
+      <a href="https://www.igvhousing.com/privacy" target="_blank" rel="noopener">Privacy</a>
       <a href="https://igvhousing.com/terms-of-service" target="_blank" rel="noopener">Terms</a>
-      <a href="https://igvhousing.com/accessibility" target="_blank" rel="noopener">Accessibility</a>
+      <a href="https://www.igvhousing.com/accessibility" target="_blank" rel="noopener">Accessibility</a>
     </div>
   </div>
   </div>
@@ -303,57 +314,23 @@ function toggleMobileNav(){
   document.getElementById('nav-burger-icon-close').style.display=open?'':'none';
 }
 
-const COURSE0_WORKER = 'https://academy.igvhousing.workers.dev'; // placeholder, update on deploy
-const COURSE_ID = 4;
-const TOTAL_LESSONS = 7;
+const COURSE_SLUG = 'course-5';
+const TOTAL_LESSONS = 5;
 
-function getToken(){
-  const params = new URLSearchParams(window.location.search);
-  const fromUrl = params.get('p');
-  if (fromUrl) { localStorage.setItem('c0_token', fromUrl); return fromUrl; }
-  return localStorage.getItem('c0_token');
-}
+/* Course progress rides on the same verified session the nav login
+   uses (see checkLoginSession below) - no separate email box, no
+   academy.igvhousing.workers.dev (that Worker was never actually
+   deployed; see the note in course-2/index.html). Lesson ids follow
+   the {course-slug}-{lesson-number} convention the magic-link
+   Worker's /course-progress endpoints use, e.g. "course-5-3". */
 
-function appendTokenToLessonLinks(token){
-  document.querySelectorAll('#lesson-list a, #course-primary-btn').forEach(a=>{
-    const url = new URL(a.getAttribute('href'), window.location.origin);
-    url.searchParams.set('p', token);
-    a.setAttribute('href', url.pathname + url.search);
-  });
-}
-
-async function identifyByEmail(){
-  const email = document.getElementById('identify-email').value.trim();
-  const errEl = document.getElementById('identify-error');
-  const notFoundEl = document.getElementById('identify-not-found');
-  errEl.style.display = 'none';
-  notFoundEl.style.display = 'none';
-  if (!email || !email.includes('@')) { errEl.style.display = 'block'; return; }
-
-  try {
-    const res = await fetch(`${COURSE0_WORKER}/identify`, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ email })
-    });
-    const data = await res.json();
-    if (!res.ok || !data.token) { notFoundEl.style.display = 'block'; return; }
-    localStorage.setItem('c0_token', data.token);
-    renderProgress(data.progress || {});
-    appendTokenToLessonLinks(data.token);
-    document.getElementById('identify-block').style.display = 'none';
-  } catch (e) {
-    errEl.style.display = 'block';
-  }
-}
-
-function renderProgress(progress){
+function renderProgress(completedLessons){
   const total = TOTAL_LESSONS;
   let completed = 0;
   let firstIncomplete = 1;
   let foundIncomplete = false;
   for (let i = 1; i <= total; i++){
-    const done = !!progress[`c${COURSE_ID}_lesson_${i}_completed`];
+    const done = completedLessons.indexOf(`${COURSE_SLUG}-${i}`) !== -1;
     if (done) completed++;
     if (!done && !foundIncomplete) { firstIncomplete = i; foundIncomplete = true; }
     const row = document.querySelector(`.lesson-row[data-lesson="${i}"]`);
@@ -367,28 +344,11 @@ function renderProgress(progress){
   const primaryBtn = document.getElementById('course-primary-btn');
   if (completed > 0 && completed < total){
     primaryBtn.textContent = 'Continue';
-    primaryBtn.setAttribute('href', `/course-library/course-4/Lessons/?lesson=${firstIncomplete}`);
+    primaryBtn.setAttribute('href', `/course-library/course-5/Lessons/?lesson=${firstIncomplete}`);
   } else if (completed >= total){
     primaryBtn.textContent = 'Review any lesson';
   }
 }
-
-(async function init(){
-  const token = getToken();
-  if (!token){
-    document.getElementById('identify-block').style.display = 'block';
-    return;
-  }
-  document.getElementById('identify-block').style.display = 'none';
-  appendTokenToLessonLinks(token);
-  try {
-    const res = await fetch(`${COURSE0_WORKER}/progress?p=${encodeURIComponent(token)}`);
-    if (res.ok){
-      const data = await res.json();
-      renderProgress(data.progress || {});
-    }
-  } catch (e) { /* fail quietly, page still works without progress display */ }
-})();
 
 /* ── SHARED LOGIN SESSION CHECK ─────────────────────────────
    Checks the same magic-link session used across the whole platform
@@ -414,8 +374,34 @@ const MAGIC_LINK_WORKER = 'https://magic-link.igvhousing.workers.dev'; // confir
       if (mobileLogin) mobileLogin.style.display = 'none';
       if (mobileUser) mobileUser.style.display = 'block';
       if (mobileUserName) mobileUserName.textContent = data.firstName || 'My account';
+
+      // Logged in with a verified session - pull real progress from
+      // HubSpot via the same Worker, no separate email step needed.
+      document.getElementById('identify-block').style.display = 'none';
+      try {
+        const progressRes = await fetch(`${MAGIC_LINK_WORKER}/course-progress`, { credentials: 'include' });
+        if (progressRes.ok) {
+          const progressData = await progressRes.json();
+          renderProgress(progressData.completedLessons || []);
+        }
+      } catch (e) { /* fail quietly, page still works without progress display */ }
+    } else {
+      // Not logged in (or only a "declared" session from a lead gate,
+      // which doesn't carry read access) - invite them to log in instead
+      // of asking for an email that goes nowhere. returnTo brings them
+      // straight back to this course page after they click the magic link.
+      const loginBtn = document.getElementById('identify-login-link');
+      if (loginBtn) {
+        const returnTo = encodeURIComponent(window.location.pathname);
+        loginBtn.setAttribute('href', `/login?returnTo=${returnTo}`);
+      }
+      document.getElementById('identify-block').style.display = 'block';
     }
-  } catch (e) { /* fail quietly, nav just shows Log in as the default state */ }
+  } catch (e) {
+    // Session check itself failed - fail toward showing the login
+    // prompt rather than silently hiding progress tracking forever.
+    document.getElementById('identify-block').style.display = 'block';
+  }
 })();
 
 async function handleLogoutClick(e){
