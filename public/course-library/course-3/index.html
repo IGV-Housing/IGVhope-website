@@ -172,6 +172,24 @@ a { color: inherit; }
 </head>
 <body>
 
+<!-- TEMP-LOCK:2027-01-01 - Full-page hold-back so this course can't be reached
+     by a direct link before launch, independent of the course-library listing
+     page's own lock. Remove this whole block (through the closing </script>)
+     once ready to launch. -->
+<div id="temp-lock-overlay" style="position:fixed;inset:0;z-index:9999;background:#FBF7EF;display:flex;align-items:center;justify-content:center;text-align:center;padding:24px;">
+  <div style="max-width:420px;">
+    <div style="font-family:'Montserrat',sans-serif;font-size:11.5px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:#1A5C50;background:rgba(26,92,80,0.08);display:inline-block;padding:6px 14px;border-radius:999px;margin-bottom:18px;">Coming soon</div>
+    <h1 style="font-family:'Montserrat',sans-serif;font-size:26px;font-weight:800;color:#123D36;margin:0 0 14px;">This course opens in January 2027</h1>
+    <p style="font-family:'Montserrat',sans-serif;font-size:15px;color:#5C6B67;line-height:1.6;margin:0 0 24px;">We're not quite ready to share this one yet. Check back after January 1, 2027, or head back to the course library in the meantime.</p>
+    <a href="/course-library" style="display:inline-block;font-family:'Montserrat',sans-serif;font-size:15px;font-weight:700;color:#123D36;background:#da8d27;border-radius:999px;padding:14px 32px;text-decoration:none;">Back to the Course Library</a>
+  </div>
+</div>
+<script>
+  if (new Date() >= new Date('2027-01-01T00:00:00-08:00')) {
+    document.getElementById('temp-lock-overlay').remove();
+  }
+</script>
+
 <nav id="dash-nav">
   <a id="nav-logo" href="/" style="cursor:pointer;display:flex;align-items:center;" title="Back to IGVhope">
     <svg width="130" height="30" viewBox="0 0 163 38" fill="none" xmlns="http://www.w3.org/2000/svg">

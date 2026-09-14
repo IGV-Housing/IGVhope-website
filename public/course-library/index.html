@@ -473,6 +473,10 @@ a { color: inherit; }
     </button>
     <div class="cl-more-panel">
 
+      <!-- TEMP-LOCK:2027-01-01 - Courses 3-5 held back until launch, regardless
+           of progress. Remove this comment and the two below, and restore the
+           original "Unlocks after Course N" CTA text, once removing the
+           matching JS block in unlockCoursesFromProgress() further down. -->
       <div class="cl-more-card locked" id="course-card-3">
         <div class="course-status soon">Locked</div>
         <div class="cl-more-card-title">Steady Through the Middle Years</div>
@@ -481,9 +485,10 @@ a { color: inherit; }
           <span><strong>8</strong> lessons</span>
           <span>Years 3 to 7</span>
         </div>
-        <a class="course-cta-line" href="/course-library/course-3/">Unlocks after Course 2</a>
+        <a class="course-cta-line" href="/course-library/course-3/">Available January 2027</a>
       </div>
 
+      <!-- TEMP-LOCK:2027-01-01 -->
       <div class="cl-more-card locked" id="course-card-4">
         <div class="course-status soon">Locked</div>
         <div class="cl-more-card-title">Getting Mortgage Ready</div>
@@ -492,9 +497,10 @@ a { color: inherit; }
           <span><strong>6</strong> lessons</span>
           <span>Years 8 to 9</span>
         </div>
-        <a class="course-cta-line" href="/course-library/course-4/">Unlocks after Course 3</a>
+        <a class="course-cta-line" href="/course-library/course-4/">Available January 2027</a>
       </div>
 
+      <!-- TEMP-LOCK:2027-01-01 -->
       <div class="cl-more-card locked" id="course-card-5">
         <div class="course-status soon">Locked</div>
         <div class="cl-more-card-title">Completing Your Purchase at Year 10</div>
@@ -503,7 +509,7 @@ a { color: inherit; }
           <span><strong>5</strong> lessons</span>
           <span>Year 10</span>
         </div>
-        <a class="course-cta-line" href="/course-library/course-5/">Unlocks after Course 4</a>
+        <a class="course-cta-line" href="/course-library/course-5/">Available January 2027</a>
       </div>
 
     </div>
@@ -741,8 +747,18 @@ function toggleMore(btn){
    is now fully complete - not just the very next one, so someone who
    already finished several courses on another device sees everything
    they've earned unlocked in one pass. */
+// TEMP-LOCK:2027-01-01 - Courses 3, 4 and 5 (index 3+) stay locked no matter
+// how much progress someone has, until this date. Delete this constant and
+// the "if (isTempLocked(i)) break;" line below to restore normal sequential
+// unlocking once ready to launch them.
+const TEMP_LOCK_UNTIL = new Date('2027-01-01T00:00:00-08:00');
+function isTempLocked(courseIndex){
+  return courseIndex >= 3 && new Date() < TEMP_LOCK_UNTIL;
+}
+
 function unlockCoursesFromProgress(completedLessons){
   for (let i = 1; i < COURSES.length; i++){
+    if (isTempLocked(i)) break; // TEMP-LOCK:2027-01-01
     if (isCourseComplete(i - 1, completedLessons)) {
       unlockCourseCard(i);
     } else {
