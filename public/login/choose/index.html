@@ -50,14 +50,15 @@ a { color: inherit; }
 .destination-grid { display: flex; flex-direction: column; gap: 14px; }
 .destination-card { display: flex; align-items: center; gap: 16px; text-align: left; background: #ffffff; border: 1.5px solid var(--border); border-radius: 14px; padding: 18px 20px; text-decoration: none; transition: border-color 0.15s, box-shadow 0.15s, transform 0.15s; }
 .destination-card:hover { border-color: var(--teal); box-shadow: 0 8px 24px rgba(18,61,54,0.1); transform: translateY(-1px); }
-.destination-icon { width: 46px; height: 46px; border-radius: 12px; background: var(--cream); color: var(--teal); display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+.destination-icon { width: 46px; height: 46px; border-radius: 12px; background: var(--teal); color: var(--cream); display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
 .destination-title { font-size: 15.5px; font-weight: 700; color: var(--teal-deep); margin-bottom: 3px; }
 .destination-desc { font-size: 13px; color: var(--ink-soft); }
 .destination-arrow { margin-left: auto; color: var(--teal); flex-shrink: 0; }
 
 .destination-card.locked { cursor: default; background: #FAFBFB; }
 .destination-card.locked:hover { border-color: var(--border); box-shadow: none; transform: none; }
-.destination-card.locked .destination-icon, .destination-card.locked .destination-arrow { color: var(--ink-soft); }
+.destination-card.locked .destination-icon { background: var(--ink-soft); }
+.destination-card.locked .destination-arrow { color: var(--ink-soft); }
 .destination-card.locked .destination-title { color: var(--ink-soft); }
 .locked-badge { display: inline-flex; align-items: center; gap: 5px; margin-top: 8px; font-size: 11px; font-weight: 700; letter-spacing: 0.02em; color: #8a5414; background: rgba(218,141,39,0.14); border-radius: 999px; padding: 4px 10px; }
 .not-logged-in { display: none; max-width: 440px; margin: 0 auto; text-align: center; }
