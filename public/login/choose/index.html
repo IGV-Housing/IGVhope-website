@@ -11,7 +11,7 @@
   gtag("config", "G-V63WBYFEY8");
 </script>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Where would you like to go? | IGVhope</title>
+<title>Choose your journey | IGVhope</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&display=swap" rel="stylesheet">
@@ -76,7 +76,7 @@ a { color: inherit; }
   <div class="chooser-card">
     <div id="logged-in-state">
       <div class="chooser-eyebrow">You're logged in</div>
-      <h1 class="chooser-heading" id="greeting">Where would you like to go?</h1>
+      <h1 class="chooser-heading" id="greeting">Choose your journey</h1>
       <p class="chooser-subtitle">Pick up where you left off, whichever path you're on today.</p>
 
       <div class="destination-grid">
@@ -152,7 +152,7 @@ function unlockLive() {
       document.getElementById('logged-in-state').style.display = 'block';
       document.getElementById('not-logged-in-state').classList.remove('show');
       if (data.firstName) {
-        document.getElementById('greeting').textContent = `Hi ${data.firstName}, where would you like to go?`;
+        document.getElementById('greeting').textContent = `Hi ${data.firstName}, choose your journey`;
       }
       if (data.isResident === true) unlockLive();
     } else {
