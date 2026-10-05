@@ -15,6 +15,8 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link href="https://api.mapbox.com/mapbox-gl-js/v3.3.0/mapbox-gl.css" rel="stylesheet">
+<script src="https://api.mapbox.com/mapbox-gl-js/v3.3.0/mapbox-gl.js"></script>
 <style>
 :root {
   --teal: #1A5C50;
@@ -27,13 +29,19 @@
   --border: #E2E8E6;
 }
 * { box-sizing: border-box; margin: 0; padding: 0; }
-body { font-family: 'Montserrat', sans-serif; color: var(--ink); background: #ffffff; min-height: 100vh; display: flex; flex-direction: column; -webkit-font-smoothing: antialiased; }
+body { font-family: 'Montserrat', sans-serif; color: var(--ink); background: var(--teal-deep); min-height: 100vh; display: flex; flex-direction: column; -webkit-font-smoothing: antialiased; }
 a { color: inherit; }
+
+/* The same map background as the login page; the deep teal shows if the map can't load */
+#map { position: fixed; inset: 0; z-index: 0; }
+#map-tint { position: fixed; inset: 0; z-index: 1; pointer-events: none; background: linear-gradient(135deg, rgba(18,61,54,0.55) 0%, rgba(26,92,80,0.35) 50%, rgba(44,95,122,0.45) 100%); }
+#dash-nav, .chooser-wrap { position: relative; z-index: 2; }
 
 #dash-nav { flex-shrink: 0; height: 60px; background: #1a4848; display: flex; align-items: center; justify-content: center; padding: 0 32px; }
 
 .chooser-wrap { flex: 1; display: flex; align-items: center; justify-content: center; padding: 40px 24px; }
-.chooser-card { max-width: 560px; width: 100%; text-align: center; }
+.chooser-card { max-width: 560px; width: 100%; text-align: center; background: #ffffff; border-radius: 20px; padding: 40px 36px; box-shadow: 0 24px 60px rgba(0,0,0,0.35); }
+@media (max-width: 480px) { .chooser-card { padding: 32px 20px; } }
 .chooser-eyebrow { display: inline-block; font-size: 11.5px; font-weight: 700; letter-spacing: 0.05em; color: var(--teal); background: rgba(26,92,80,0.08); padding: 6px 14px; border-radius: 999px; margin-bottom: 18px; }
 .chooser-heading { font-size: clamp(26px, 4vw, 34px); font-weight: 800; color: var(--teal-deep); line-height: 1.25; margin-bottom: 12px; }
 .chooser-subtitle { font-size: 15px; color: var(--ink-soft); line-height: 1.6; margin-bottom: 36px; }
@@ -58,6 +66,9 @@ a { color: inherit; }
 </style>
 </head>
 <body>
+
+<div id="map"></div>
+<div id="map-tint"></div>
 
 <nav id="dash-nav">
   <svg width="130" height="30" viewBox="0 0 163 38" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -126,6 +137,13 @@ a { color: inherit; }
 </div>
 
 <script>
+// Map background, as on the login page (public Mapbox token)
+if (window.mapboxgl) {
+  mapboxgl.accessToken = 'pk.eyJ1IjoiaWd2aG9wZSIsImEiOiJjbXF2YTIybncwaGthMnNvZWY1djg5YnhyIn0.uzXWiXtI8gMp-iZH2z9arg';
+  const map = new mapboxgl.Map({ container: 'map', style: 'mapbox://styles/mapbox/dark-v11', center: [-110.0, 55.5], zoom: 4.4, interactive: false, attributionControl: false });
+  map.addControl(new mapboxgl.AttributionControl({ compact: true }), 'bottom-right');
+}
+
 const MAGIC_LINK_WORKER = 'https://magic-link.igvhousing.workers.dev'; // confirm this matches your actual deployed Worker URL
 const RESIDENT_PORTAL_URL = 'https://igvhope-property-management.igvhousing.workers.dev'; // the platform's Resident Portal; change when it moves to its own domain
 
