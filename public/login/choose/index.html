@@ -97,7 +97,7 @@ a { color: inherit; }
           </div>
           <div>
             <div class="destination-title">Search</div>
-            <div class="destination-desc">Browse listings, manage your expressions of interest, and your saved homes.</div>
+            <div class="destination-desc">Homes, your EOIs and saved homes.</div>
           </div>
           <svg class="destination-arrow" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
         </a>
@@ -109,7 +109,7 @@ a { color: inherit; }
           </div>
           <div>
             <div class="destination-title">Live</div>
-            <div class="destination-desc" id="live-desc">Your Resident Portal opens when you move in: pay your monthly contribution, report maintenance, community news and member benefits.</div>
+            <div class="destination-desc" id="live-desc">Opens when you move in.</div>
           </div>
           <svg class="destination-arrow" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></svg>
         </div>
@@ -120,7 +120,7 @@ a { color: inherit; }
           </div>
           <div>
             <div class="destination-title">Learn</div>
-            <div class="destination-desc">The Course Library, plus guides, articles and answers about the HOPE program.</div>
+            <div class="destination-desc">Courses, guides and answers.</div>
           </div>
           <svg class="destination-arrow" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
         </a>
@@ -157,7 +157,7 @@ function unlockLive() {
   card.href = RESIDENT_PORTAL_URL;
   card.innerHTML = locked.innerHTML;
   card.querySelector('.destination-icon').innerHTML = '<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="7.5" cy="15.5" r="5.5"/><path d="m21 2-9.6 9.6"/><path d="m15.5 7.5 3 3L22 7l-3-3"/></svg>';
-  card.querySelector('#live-desc').textContent = 'Your Resident Portal: pay your monthly contribution, report maintenance, community news and member benefits.';
+  card.querySelector('#live-desc').textContent = 'Payments, maintenance, community and benefits.';
   card.querySelector('.destination-arrow').outerHTML = '<svg class="destination-arrow" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>';
   locked.replaceWith(card);
 }
