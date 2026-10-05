@@ -40,7 +40,7 @@ a { color: inherit; }
 #dash-nav { flex-shrink: 0; height: 60px; background: #1a4848; display: flex; align-items: center; justify-content: center; padding: 0 32px; }
 
 .chooser-wrap { flex: 1; display: flex; align-items: center; justify-content: center; padding: 40px 24px; }
-.chooser-card { max-width: 560px; width: 100%; text-align: center; background: #ffffff; border-radius: 20px; padding: 40px 36px; box-shadow: 0 24px 60px rgba(0,0,0,0.35); }
+.chooser-card { max-width: 560px; width: 100%; text-align: center; background: var(--cream); border-radius: 20px; padding: 40px 36px; box-shadow: 0 24px 60px rgba(0,0,0,0.35); }
 @media (max-width: 480px) { .chooser-card { padding: 32px 20px; } }
 .chooser-eyebrow { display: inline-block; font-size: 11.5px; font-weight: 700; letter-spacing: 0.05em; color: var(--teal); background: rgba(26,92,80,0.08); padding: 6px 14px; border-radius: 999px; margin-bottom: 18px; }
 .chooser-heading { font-size: clamp(26px, 4vw, 34px); font-weight: 800; color: var(--teal-deep); line-height: 1.25; margin-bottom: 12px; }
@@ -48,7 +48,7 @@ a { color: inherit; }
 .chooser-subtitle.hidden-until-loaded { visibility: hidden; }
 
 .destination-grid { display: flex; flex-direction: column; gap: 14px; }
-.destination-card { display: flex; align-items: center; gap: 16px; text-align: left; border: 1.5px solid var(--border); border-radius: 14px; padding: 18px 20px; text-decoration: none; transition: border-color 0.15s, box-shadow 0.15s, transform 0.15s; }
+.destination-card { display: flex; align-items: center; gap: 16px; text-align: left; background: #ffffff; border: 1.5px solid var(--border); border-radius: 14px; padding: 18px 20px; text-decoration: none; transition: border-color 0.15s, box-shadow 0.15s, transform 0.15s; }
 .destination-card:hover { border-color: var(--teal); box-shadow: 0 8px 24px rgba(18,61,54,0.1); transform: translateY(-1px); }
 .destination-icon { width: 46px; height: 46px; border-radius: 12px; background: var(--cream); color: var(--teal); display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
 .destination-title { font-size: 15.5px; font-weight: 700; color: var(--teal-deep); margin-bottom: 3px; }
