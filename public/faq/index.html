@@ -95,6 +95,7 @@
   .dropdown-header-name { font-family: 'Montserrat', sans-serif; font-size: 13px; font-weight: 700; color: #123D36; }
   .dropdown-header-role { font-family: 'Montserrat', sans-serif; font-size: 10px; font-weight: 500; color: #888; margin-top: 2px; }
   .dropdown-item { display: flex; align-items: center; gap: 10px; padding: 10px 16px; font-family: 'Montserrat', sans-serif; font-size: 12px; font-weight: 500; color: #333; text-decoration: none; cursor: pointer; transition: background 0.15s; }
+  a.dropdown-item.dropdown-item-locked, a.dropdown-item.dropdown-item-locked:hover { opacity: 0.5; cursor: not-allowed; background: transparent; }
   .dropdown-item:hover { background: #F5F1E8; }
   .dropdown-item-icon { display: flex; align-items: center; justify-content: center; color: #1A5C50; flex-shrink: 0; }
   .dropdown-item.danger { color: #C0392B; }
@@ -268,6 +269,11 @@
           <a class="dropdown-item" href="/#account-progress">
             <span class="dropdown-item-icon"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg></span>
             My Account
+          </a>
+          <a class="dropdown-item dropdown-item-locked" id="nav-resident-portal" aria-disabled="true" title="Available only to IGVhope Residents">
+            <span class="dropdown-item-icon"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg></span>
+            Resident Portal
+            <span class="resident-lock" style="margin-left:auto;display:inline-flex;" aria-hidden="true"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></svg></span>
           </a>
           <div class="dropdown-divider"></div>
           <a class="dropdown-item" href="https://www.igvhousing.com" target="_blank" rel="noopener">
@@ -554,6 +560,15 @@ var MAGIC_LINK_WORKER = 'https://magic-link.igvhousing.workers.dev';
       if (bellBtn) bellBtn.style.display = 'flex';
       if (avatarEl) avatarEl.textContent = initial;
       if (headerNameEl) headerNameEl.textContent = displayName;
+
+      // Resident Portal: unlocked only when the session says this person is a resident AND says where the
+      // portal lives. The magic-link Worker owns both facts; until it sends them this stays locked and unclickable.
+      if (data.isResident === true && /^(https:\/\/|\/)/.test(data.residentPortalUrl || '')) {
+        ['nav-resident-portal', 'mobile-resident-portal'].forEach(function(id) {
+          var el = document.getElementById(id);
+          if (el) { el.href = data.residentPortalUrl; el.classList.remove('dropdown-item-locked'); el.removeAttribute('aria-disabled'); el.removeAttribute('title'); el.style.opacity = ''; el.style.cursor = ''; var lk = el.querySelector('.resident-lock'); if (lk) lk.remove(); }
+        });
+      }
       if (labelEl) labelEl.textContent = displayName;
 
       var mobileLogin = document.getElementById('mobile-nav-login-link');
