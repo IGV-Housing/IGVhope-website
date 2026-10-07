@@ -3,5 +3,19 @@
   "compatibility_date": "2025-01-01",
   "assets": {
     "directory": "./public"
+  },
+
+  // Staging review environment. Deploys to its own Worker, so it has a stable
+  // URL of its own and cannot affect igvhope.com. Pushing to the `staging`
+  // branch deploys here automatically (.github/workflows/deploy-staging.yml);
+  // that workflow also blocks crawlers, which production must never do.
+  //   npx wrangler deploy --env staging
+  "env": {
+    "staging": {
+      "name": "igvhope-website-staging",
+      "assets": {
+        "directory": "./public"
+      }
+    }
   }
 }

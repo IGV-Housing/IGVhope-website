@@ -12,7 +12,8 @@ There is no build, lint, or test tooling — this is raw HTML/CSS/JS served as-i
 
 - **Deploy**: `npx wrangler deploy` (from repo root). Wrangler reads `wrangler.jsonc`, which points `assets.directory` at `./public`.
 - **Normal path**: the `igvhope-website` Cloudflare Workers project is Git-connected for auto-deploy on push to `main` — a plain `git push` is usually enough. Only fall back to a manual `wrangler deploy` if a push doesn't show up live (check the Cloudflare dashboard's Deployments tab first to confirm the Git connection is still intact before assuming the code is wrong).
-- **Local preview**: no dev server is configured in this repo; there's no `wrangler dev` setup beyond what the default `wrangler.jsonc` provides.
+- **Staging / team review**: push to the `staging` branch. `.github/workflows/deploy-staging.yml` deploys to a separate Worker (`igvhope-website-staging`), which has its own URL and cannot affect igvhope.com. Manual equivalent: `npx wrangler deploy --env staging`. The workflow rewrites `public/robots.txt` and `public/_headers` **on the runner only** to add a `Disallow: /` and `X-Robots-Tag: noindex` — staging carries unreleased copy and must never be indexed against the live site. Don't make that noindex permanent in the committed files; production depends on them staying crawlable. Requires repo secrets `CLOUDFLARE_API_TOKEN` and `CLOUDFLARE_ACCOUNT_ID`.
+- **Local preview**: no dev server is configured in this repo; there's no `wrangler dev` setup beyond what the default `wrangler.jsonc` provides. To preview locally, serve `./public` with any static server that resolves `/about` to `/about/index.html` (matching how Cloudflare serves it). Note the nav's logged-in state can't be exercised locally: the magic-link Worker's CORS allows only `https://www.igvhope.com`, so `/session` fails and the nav always renders logged-out.
 
 ## Architecture
 
