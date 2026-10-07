@@ -125,6 +125,11 @@
   .faq-section-head { max-width: 720px; margin: 0 auto 44px; text-align: center; }
   .faq-section-head h2 { font-size: clamp(24px, 3.6vw, 32px); font-weight: 800; color: var(--teal-deep); margin-bottom: 10px; }
   .faq-section-head p { font-size: 14.5px; font-weight: 500; color: #6b6b6b; }
+  /* IGV Capital logo acts as the link out. Source image is 700x128, so height
+     is left to scale with the width rather than being set. */
+  .faq-capital-link { display: inline-block; margin-top: 16px; transition: opacity 0.2s; }
+  .faq-capital-link:hover { opacity: 0.72; }
+  .faq-capital-link img { display: block; width: 190px; max-width: 70vw; height: auto; }
   .faq-list { max-width: 800px; margin: 0 auto; }
   .faq-item { border-bottom: 1px solid rgba(0,0,0,0.1); }
   .faq-item:first-child { border-top: 1px solid rgba(0,0,0,0.1); }
@@ -338,7 +343,10 @@
   <div class="wrap">
     <div class="faq-section-head reveal-on-scroll">
       <h2>For developers, builders, investors &amp; landlords</h2>
-      <p>For investment information, please visit <a href="https://igvcapital.com" target="_blank" rel="noopener noreferrer">igvcapital.com</a>.</p>
+      <p>For investment information, please visit</p>
+      <a class="faq-capital-link" href="https://www.igvcapital.com" target="_blank" rel="noopener noreferrer" aria-label="IGV Capital - investment information">
+        <img src="/assets/img/igv-capital-logo.png" alt="IGV Capital">
+      </a>
     </div>
   </div>
 </section>
@@ -347,7 +355,7 @@
 <section class="closing-cta">
   <div class="wrap">
     <h2>Still have questions?</h2>
-    <p>Speak with Haven, our IGV navigator, and get answers right away.</p>
+    <p>Speak with Haven, our online assistant, and get answers right away.</p>
     <button class="closing-cta-btn" onclick="openHaven()">Speak to Haven</button>
   </div>
 </section>
