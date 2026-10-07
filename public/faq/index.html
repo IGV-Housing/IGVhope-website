@@ -338,8 +338,8 @@
   <div class="wrap">
     <div class="faq-section-head reveal-on-scroll">
       <h2>For developers, builders, investors &amp; landlords</h2>
+      <p>For investment information, please visit <a href="https://igvcapital.com" target="_blank" rel="noopener noreferrer">igvcapital.com</a>.</p>
     </div>
-    <div class="faq-list reveal-on-scroll" id="faq-list-business"></div>
   </div>
 </section>
 
@@ -474,16 +474,6 @@ var PARTICIPANT_FAQS = [
   }
 ];
 
-var BUSINESS_FAQS = [
-  {
-    q: "I am a developer or builder. How does IGVhope work for me?",
-    a: "IGVhope helps developers and builders fill ready-built homes quickly with qualified, committed participants. We can help you sell homes now, or show you how IGVhope helps you hold properties with low vacancy and strong occupancy through the ten-year pathway, while making a meaningful social impact in the lives of working Canadians. For developers with finished homes that are slow to sell, IGVhope can improve sales certainty without cutting your price. For builders, we can connect you with IGV Build Systems to explore how scaled, advanced manufacturing can help you deliver high-quality homes with greater efficiency on cost and time. Register your interest and we will model the right structure for your project."
-  },
-  {
-    q: "I am an investor or landlord. How does IGVhope work for me?",
-    a: "For investment information, please visit <a href=\"https://igvcapital.com\" target=\"_blank\" rel=\"noopener noreferrer\">igvcapital.com</a>."
-  }
-];
 
 function renderFaqList(containerId, items) {
   var container = document.getElementById(containerId);
@@ -504,7 +494,6 @@ function toggleFaq(id) {
 }
 
 renderFaqList('faq-list-participant', PARTICIPANT_FAQS);
-renderFaqList('faq-list-business', BUSINESS_FAQS);
 
 document.addEventListener('DOMContentLoaded', function() {
   var revealObserver = new IntersectionObserver(function(entries) {
