@@ -121,8 +121,32 @@ function updateApproxLocationMap(lat, lng) {
   }
 }
 
+/* ---------- Address disclosure ----------
+   Only developments whose municipal approvals allow it may show their street name.
+   Everything else shows a holding notice instead. Saved homes and HubSpot deals are
+   stored against the real name, so anything rendering one of those stored strings
+   has to pass it through publicListingName() first.
+   When a development's approvals come through, add it to the list below AND update
+   its cards' visible text in the listings grid. */
+var ADDRESS_APPROVED_DEVELOPMENTS = ['River Road'];
+var ADDRESS_PENDING_NOTICE = 'Addresses will be released when formal approvals allow';
+
+function publicListingName(listingKey) {
+  var key = (listingKey || '').trim();
+  if (!key) return '';
+  if (ADDRESS_APPROVED_DEVELOPMENTS.indexOf(key.split(' - ')[0].trim()) !== -1) return key;
+  var unit = (key.match(/-\s*(Unit\s*[A-C])\s*$/i) || [])[1];
+  return ADDRESS_PENDING_NOTICE + (unit ? ' - ' + unit.replace(/\s+/g, ' ') : '');
+}
+
 function getListingData(cardEl) {
-  var title = (cardEl.querySelector('.card-title') || {}).textContent || 'Home Listing';
+  /* A card's identity is data-listing-key, not its visible text. Developments still
+     awaiting municipal approval show a holding notice in place of their street name,
+     while listingTemplates, move-in dates, the location map and saved homes all key
+     off the real name - so read the key for logic and the text only for display. */
+  var titleEl = cardEl.querySelector('.card-title');
+  var displayTitle = (titleEl ? titleEl.textContent || '' : '').trim() || 'Home Listing';
+  var title = (titleEl && titleEl.getAttribute('data-listing-key')) || displayTitle;
   var locationEl = cardEl.querySelector('.card-location');
   var location = locationEl ? (locationEl.textContent || '').trim() : '';
   location = location.replace(/^[\s\S]*?(Port Alberni|Ucluelet|Nanaimo|Campbell River|Victoria|Courtenay)/i, '$1');
@@ -137,7 +161,6 @@ function getListingData(cardEl) {
   var badgeEl = cardEl.querySelector('.card-badge');
   var badge = badgeEl ? badgeEl.textContent.trim() : '';
   var region = cardEl.getAttribute('data-region') || '';
-  var titleEl = cardEl.querySelector('.card-title');
   var imgUrl = titleEl ? titleEl.getAttribute('data-img') : null;
   var imgUrl2 = titleEl ? titleEl.getAttribute('data-img2') : null;
   var imgUrl3 = titleEl ? titleEl.getAttribute('data-img3') : null;
@@ -156,6 +179,7 @@ function getListingData(cardEl) {
 
   return {
     title: title,
+    displayTitle: displayTitle,
     location: location.replace(/^\s*[\u{1F4CD}📍]*\s*/u, '').trim(),
     price: price,
     rent: rent,
@@ -195,7 +219,13 @@ function openListingDetail(cardEl) {
   var d = getListingData(cardEl);
 
   // Nav
-  if (document.getElementById('detail-nav-title')) document.getElementById('detail-nav-title').textContent = d.title;
+  /* Show the public-facing wording, but keep the real name on the element so the
+     floorplan picker and Express Interest still know which home this is. */
+  var detailNavTitle = document.getElementById('detail-nav-title');
+  if (detailNavTitle) {
+    detailNavTitle.textContent = d.displayTitle;
+    detailNavTitle.setAttribute('data-listing-key', d.title);
+  }
   if (document.getElementById('detail-nav-badge')) document.getElementById('detail-nav-badge').textContent = d.badge || d.type;
 
   // Hero gallery
@@ -262,7 +292,7 @@ function openListingDetail(cardEl) {
     thumbsWrap.style.display = secondary.length ? 'flex' : 'none';
   }
   if (document.getElementById('detail-hero-type')) document.getElementById('detail-hero-type').textContent = d.type + ' \u2022 ' + d.region;
-  if (document.getElementById('detail-hero-title')) document.getElementById('detail-hero-title').textContent = d.title;
+  if (document.getElementById('detail-hero-title')) document.getElementById('detail-hero-title').textContent = d.displayTitle;
   if (document.getElementById('detail-hero-loc-text')) document.getElementById('detail-hero-loc-text').textContent = d.location;
 
   // Stats
@@ -975,7 +1005,8 @@ function startApplication() {
 
 function getCurrentListingName() {
   var navTitle = document.getElementById('detail-nav-title');
-  return navTitle ? navTitle.textContent.trim() : '';
+  if (!navTitle) return '';
+  return (navTitle.getAttribute('data-listing-key') || navTitle.textContent || '').trim();
 }
 
 var EXPRESS_BTN_DEFAULT_HTML = '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg> Express Interest <span style="font-size:0.75em;">(No Obligation)</span>';
@@ -1147,8 +1178,8 @@ function trackDocumentDownload(docType, unit) {
 function downloadFloorplan() {
   if (!gate1Unlocked) { openGate1(function() { downloadFloorplan(); }); return; }
   if (!gate2Unlocked) { openGate2(function() { downloadFloorplan(); }); return; }
-  var titleEl = document.getElementById('detail-hero-title') || document.getElementById('detail-nav-title');
-  var title = titleEl ? titleEl.textContent : '';
+  /* Match against the real listing name - the visible title may be the holding notice. */
+  var title = getCurrentListingName();
   var unitMatch = title.match(/-\s*Unit\s*([A-C])/i);
   var unitLetter = unitMatch ? unitMatch[1].toUpperCase() : null;
   var pdfUrl = unitLetter ? FLOORPLAN_PDFS[unitLetter] : null;
@@ -1822,10 +1853,12 @@ function getListingIdFromSaveButton(btn) {
   var card = btn.closest('.listing-card');
   if (card) {
     var titleEl = card.querySelector('.card-title');
-    return titleEl ? titleEl.textContent.trim() : null;
+    if (!titleEl) return null;
+    /* Saved homes are stored against the real listing name, so the id stays stable
+       whatever the card is currently displaying. */
+    return (titleEl.getAttribute('data-listing-key') || titleEl.textContent || '').trim() || null;
   }
-  var navTitle = document.getElementById('detail-nav-title');
-  return navTitle ? navTitle.textContent.trim() : null;
+  return getCurrentListingName() || null;
 }
 
 function handleSaveClick(btn) {
@@ -2042,7 +2075,7 @@ function markSavedListingCards(savedListings) {
   document.querySelectorAll('.listing-card').forEach(function(card) {
     var titleEl = card.querySelector('.card-title');
     if (!titleEl) return;
-    var title = titleEl.textContent.trim();
+    var title = (titleEl.getAttribute('data-listing-key') || titleEl.textContent || '').trim();
     if (savedListings.indexOf(title) !== -1) {
       var saveBtn = card.querySelector('.card-save-btn');
       if (saveBtn) saveBtn.classList.add('saved');
@@ -2439,7 +2472,7 @@ function renderApplications(applications) {
       imgHtml +
       '<div class="app-card-body">' +
         '<div class="app-card-top-row">' +
-          '<div class="app-card-title">' + escapeHtml(listingName) + '</div>' +
+          '<div class="app-card-title">' + escapeHtml(publicListingName(listingName)) + '</div>' +
           '<div class="stage-pill ' + pillClass + '">' + escapeHtml(label) + '</div>' +
         '</div>' +
         (location ? '<div class="app-card-meta">' + escapeHtml(location) + '</div>' : '') +
@@ -2516,7 +2549,7 @@ function findListingCardByTitle(title) {
   var match = null;
   document.querySelectorAll('.listing-card').forEach(function(card) {
     var t = card.querySelector('.card-title');
-    if (t && t.textContent.trim() === title) match = card;
+    if (t && (t.getAttribute('data-listing-key') || t.textContent || '').trim() === title) match = card;
   });
   return match;
 }
@@ -2532,7 +2565,7 @@ function renderSavedListingsPanel(savedListings) {
     if (!card) {
       return '<div class="saved-account-card saved-account-card-missing">' +
         '<div class="saved-account-body">' +
-          '<div class="saved-account-title">' + escapeHtml(title) + '</div>' +
+          '<div class="saved-account-title">' + escapeHtml(publicListingName(title)) + '</div>' +
           '<div class="saved-account-missing-note">This listing is no longer available.</div>' +
           '<div class="saved-account-actions"><button class="saved-account-remove" onclick="handleUnsaveFromAccount(\'' + escapeJs(title) + '\')">Remove</button></div>' +
         '</div>' +
@@ -2543,7 +2576,7 @@ function renderSavedListingsPanel(savedListings) {
     return '<div class="saved-account-card">' +
       '<div class="saved-account-img" style="' + imgStyle + '"></div>' +
       '<div class="saved-account-body">' +
-        '<div class="saved-account-title">' + escapeHtml(d.title) + '</div>' +
+        '<div class="saved-account-title">' + escapeHtml(d.displayTitle) + '</div>' +
         '<div class="saved-account-meta">' + escapeHtml(d.location) + '</div>' +
         '<div class="saved-account-price">' + escapeHtml(d.rent) + '</div>' +
         '<div class="saved-account-actions">' +
@@ -4251,7 +4284,7 @@ select.gate1-input:invalid { color: #999; }
           <div class="dash-hero-play-pill" style="border-color: rgba(18,61,54,0.5);">
             <svg width="16" height="16" viewBox="0 0 24 24" fill="#123D36"><polygon points="6,4 20,12 6,20"/></svg>
           </div>
-          <div class="dash-hero-video-pill-text">See how IGVhope is changing the path to homeownership</div>
+          <div class="dash-hero-video-pill-text">See how IGVhope is changing the process to homeownership</div>
         </div>
       </div>
 
@@ -4321,7 +4354,7 @@ select.gate1-input:invalid { color: #999; }
   </div>
   <div class="card-disclaimer">Subject to municipal approval</div>
   <div class="card-body">
-    <div class="card-title" data-video="https://www.youtube.com/embed/SKgFdyuzTrk?si=JF2eGde3J2UhgGhH" data-img="/assets/img/img_012.jpg" data-img2="/assets/img/img_010.jpg" data-img3="/assets/img/img_004.jpg">River Road - Unit B</div>
+    <div class="card-title" data-listing-key="River Road - Unit B" data-video="https://www.youtube.com/embed/SKgFdyuzTrk?si=JF2eGde3J2UhgGhH" data-img="/assets/img/img_012.jpg" data-img2="/assets/img/img_010.jpg" data-img3="/assets/img/img_004.jpg">River Road - Unit B</div>
     <div class="card-location"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg> Port Alberni, BC</div>
     <div class="card-meta">
       <span class="card-meta-item">2 bed</span>
@@ -4346,7 +4379,7 @@ select.gate1-input:invalid { color: #999; }
   </div>
   <div class="card-disclaimer">Subject to municipal approval</div>
   <div class="card-body">
-    <div class="card-title" data-video="https://www.youtube.com/embed/SKgFdyuzTrk?si=JF2eGde3J2UhgGhH" data-img="/assets/img/img_006.jpg" data-img2="/assets/img/img_013.jpg" data-img3="/assets/img/img_010.jpg" data-img4="/assets/img/img_004.jpg">Compton Road - Unit B</div>
+    <div class="card-title" data-listing-key="Compton Road - Unit B" data-video="https://www.youtube.com/embed/SKgFdyuzTrk?si=JF2eGde3J2UhgGhH" data-img="/assets/img/img_006.jpg" data-img2="/assets/img/img_013.jpg" data-img3="/assets/img/img_010.jpg" data-img4="/assets/img/img_004.jpg">Addresses will be released when formal approvals allow - Unit B</div>
     <div class="card-location"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg> Port Alberni, BC</div>
     <div class="card-meta">
       <span class="card-meta-item">2 bed</span>
@@ -4371,7 +4404,7 @@ select.gate1-input:invalid { color: #999; }
   </div>
   <div class="card-disclaimer">Subject to municipal approval</div>
   <div class="card-body">
-    <div class="card-title" data-video="https://www.youtube.com/embed/SKgFdyuzTrk?si=JF2eGde3J2UhgGhH" data-img="/assets/img/img_004.jpg" data-img2="/assets/img/img_012.jpg" data-img3="/assets/img/img_010.jpg">River Road - Unit C</div>
+    <div class="card-title" data-listing-key="River Road - Unit C" data-video="https://www.youtube.com/embed/SKgFdyuzTrk?si=JF2eGde3J2UhgGhH" data-img="/assets/img/img_004.jpg" data-img2="/assets/img/img_012.jpg" data-img3="/assets/img/img_010.jpg">River Road - Unit C</div>
     <div class="card-location"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg> Port Alberni, BC</div>
     <div class="card-meta">
       <span class="card-meta-item">2 bed</span>
@@ -4396,7 +4429,7 @@ select.gate1-input:invalid { color: #999; }
   </div>
   <div class="card-disclaimer">Subject to municipal approval</div>
   <div class="card-body">
-    <div class="card-title" data-video="https://www.youtube.com/embed/SKgFdyuzTrk?si=JF2eGde3J2UhgGhH" data-img="/assets/img/img_007.jpg" data-img2="/assets/img/img_013.jpg" data-img3="/assets/img/img_010.jpg" data-img4="/assets/img/img_004.jpg">Compton Road - Unit C</div>
+    <div class="card-title" data-listing-key="Compton Road - Unit C" data-video="https://www.youtube.com/embed/SKgFdyuzTrk?si=JF2eGde3J2UhgGhH" data-img="/assets/img/img_007.jpg" data-img2="/assets/img/img_013.jpg" data-img3="/assets/img/img_010.jpg" data-img4="/assets/img/img_004.jpg">Addresses will be released when formal approvals allow - Unit C</div>
     <div class="card-location"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg> Port Alberni, BC</div>
     <div class="card-meta">
       <span class="card-meta-item">2 bed</span>
@@ -4421,7 +4454,7 @@ select.gate1-input:invalid { color: #999; }
   </div>
   <div class="card-disclaimer">Subject to municipal approval</div>
   <div class="card-body">
-    <div class="card-title" data-video="https://www.youtube.com/embed/XK9raw1l1fI" data-img="/assets/img/rainforest-drive-aerial-3.jpg" data-img2="/assets/img/rainforest-drive-aerial-1.jpg" data-img3="/assets/img/rainforest-drive-aerial-2.jpg" data-img4="/assets/img/rainforest-drive-aerial-4.jpg" data-img5="/assets/img/img_003.jpg" data-img6="/assets/img/img_004.jpg" data-img7="/assets/img/img_001.jpg">Rainforest Drive - Unit B</div>
+    <div class="card-title" data-listing-key="Rainforest Drive - Unit B" data-video="https://www.youtube.com/embed/XK9raw1l1fI" data-img="/assets/img/rainforest-drive-aerial-3.jpg" data-img2="/assets/img/rainforest-drive-aerial-1.jpg" data-img3="/assets/img/rainforest-drive-aerial-2.jpg" data-img4="/assets/img/rainforest-drive-aerial-4.jpg" data-img5="/assets/img/img_003.jpg" data-img6="/assets/img/img_004.jpg" data-img7="/assets/img/img_001.jpg">Addresses will be released when formal approvals allow - Unit B</div>
     <div class="card-location"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg> Ucluelet, BC</div>
     <div class="card-meta">
       <span class="card-meta-item">2 bed</span>
@@ -4446,7 +4479,7 @@ select.gate1-input:invalid { color: #999; }
   </div>
   <div class="card-disclaimer">Subject to municipal approval</div>
   <div class="card-body">
-    <div class="card-title" data-video="https://www.youtube.com/embed/XK9raw1l1fI" data-img="/assets/img/img_001.jpg" data-img2="/assets/img/rainforest-drive-aerial-1.jpg" data-img3="/assets/img/rainforest-drive-aerial-2.jpg" data-img4="/assets/img/rainforest-drive-aerial-3.jpg" data-img5="/assets/img/img_003.jpg" data-img6="/assets/img/img_004.jpg">Rainforest Drive - Unit C</div>
+    <div class="card-title" data-listing-key="Rainforest Drive - Unit C" data-video="https://www.youtube.com/embed/XK9raw1l1fI" data-img="/assets/img/img_001.jpg" data-img2="/assets/img/rainforest-drive-aerial-1.jpg" data-img3="/assets/img/rainforest-drive-aerial-2.jpg" data-img4="/assets/img/rainforest-drive-aerial-3.jpg" data-img5="/assets/img/img_003.jpg" data-img6="/assets/img/img_004.jpg">Addresses will be released when formal approvals allow - Unit C</div>
     <div class="card-location"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg> Ucluelet, BC</div>
     <div class="card-meta">
       <span class="card-meta-item">2 bed</span>
@@ -4471,7 +4504,7 @@ select.gate1-input:invalid { color: #999; }
   </div>
   <div class="card-disclaimer">Subject to municipal approval</div>
   <div class="card-body">
-    <div class="card-title" data-video="https://www.youtube.com/embed/XK9raw1l1fI" data-img="/assets/img/rainforest-drive-aerial-4.jpg" data-img2="/assets/img/rainforest-drive-aerial-1.jpg" data-img3="/assets/img/rainforest-drive-aerial-2.jpg" data-img4="/assets/img/rainforest-drive-aerial-3.jpg" data-img5="/assets/img/img_003.jpg" data-img6="/assets/img/img_004.jpg" data-img7="/assets/img/img_001.jpg">Norah Street - Unit B</div>
+    <div class="card-title" data-listing-key="Norah Street - Unit B" data-video="https://www.youtube.com/embed/XK9raw1l1fI" data-img="/assets/img/rainforest-drive-aerial-4.jpg" data-img2="/assets/img/rainforest-drive-aerial-1.jpg" data-img3="/assets/img/rainforest-drive-aerial-2.jpg" data-img4="/assets/img/rainforest-drive-aerial-3.jpg" data-img5="/assets/img/img_003.jpg" data-img6="/assets/img/img_004.jpg" data-img7="/assets/img/img_001.jpg">Addresses will be released when formal approvals allow - Unit B</div>
     <div class="card-location"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg> Ucluelet, BC</div>
     <div class="card-meta">
       <span class="card-meta-item">2 bed</span>
@@ -4496,7 +4529,7 @@ select.gate1-input:invalid { color: #999; }
   </div>
   <div class="card-disclaimer">Subject to municipal approval</div>
   <div class="card-body">
-    <div class="card-title" data-video="https://www.youtube.com/embed/XK9raw1l1fI" data-img="/assets/img/img_009.jpg" data-img2="/assets/img/rainforest-drive-aerial-3.jpg" data-img3="/assets/img/rainforest-drive-aerial-1.jpg" data-img4="/assets/img/rainforest-drive-aerial-2.jpg" data-img5="/assets/img/rainforest-drive-aerial-4.jpg" data-img6="/assets/img/img_003.jpg" data-img7="/assets/img/img_004.jpg" data-img8="/assets/img/img_001.jpg">Norah Street - Unit C</div>
+    <div class="card-title" data-listing-key="Norah Street - Unit C" data-video="https://www.youtube.com/embed/XK9raw1l1fI" data-img="/assets/img/img_009.jpg" data-img2="/assets/img/rainforest-drive-aerial-3.jpg" data-img3="/assets/img/rainforest-drive-aerial-1.jpg" data-img4="/assets/img/rainforest-drive-aerial-2.jpg" data-img5="/assets/img/rainforest-drive-aerial-4.jpg" data-img6="/assets/img/img_003.jpg" data-img7="/assets/img/img_004.jpg" data-img8="/assets/img/img_001.jpg">Addresses will be released when formal approvals allow - Unit C</div>
     <div class="card-location"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg> Ucluelet, BC</div>
     <div class="card-meta">
       <span class="card-meta-item">2 bed</span>
@@ -4521,7 +4554,7 @@ select.gate1-input:invalid { color: #999; }
   </div>
   <div class="card-disclaimer">Subject to municipal approval</div>
   <div class="card-body">
-    <div class="card-title" data-video="https://video.gumlet.io/66041d40603db7e8cad20c31/672e4fa71f39ce9ec65b6a9b/672e4fa71f39ce9ec65b6a9b_0_540p.m3u8" data-img="/assets/img/weyerhaeuser-aerial.jpg" data-img2="/assets/img/img_011.jpg" data-img3="/assets/img/img_010.jpg" data-img4="/assets/img/img_004.jpg" data-img5="/assets/img/weyerhaeuser-site-overview.jpg" data-img6="/assets/img/weyerhaeuser-lot-marker.jpg" data-img7="/assets/img/weyerhaeuser-town-aerial.jpg">Ocean West - Unit B</div>
+    <div class="card-title" data-listing-key="Ocean West - Unit B" data-video="https://video.gumlet.io/66041d40603db7e8cad20c31/672e4fa71f39ce9ec65b6a9b/672e4fa71f39ce9ec65b6a9b_0_540p.m3u8" data-img="/assets/img/weyerhaeuser-aerial.jpg" data-img2="/assets/img/img_011.jpg" data-img3="/assets/img/img_010.jpg" data-img4="/assets/img/img_004.jpg" data-img5="/assets/img/weyerhaeuser-site-overview.jpg" data-img6="/assets/img/weyerhaeuser-lot-marker.jpg" data-img7="/assets/img/weyerhaeuser-town-aerial.jpg">Addresses will be released when formal approvals allow - Unit B</div>
     <div class="card-location"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg> Ucluelet, BC</div>
     <div class="card-meta">
       <span class="card-meta-item">2 bed</span>
@@ -4546,7 +4579,7 @@ select.gate1-input:invalid { color: #999; }
   </div>
   <div class="card-disclaimer">Subject to municipal approval</div>
   <div class="card-body">
-    <div class="card-title" data-video="https://video.gumlet.io/66041d40603db7e8cad20c31/672e4fa71f39ce9ec65b6a9b/672e4fa71f39ce9ec65b6a9b_0_540p.m3u8" data-img="/assets/img/weyerhaeuser-community-garden.jpg" data-img2="/assets/img/img_011.jpg" data-img3="/assets/img/img_010.jpg" data-img4="/assets/img/img_004.jpg" data-img5="/assets/img/weyerhaeuser-aerial.jpg" data-img6="/assets/img/weyerhaeuser-site-overview.jpg" data-img7="/assets/img/weyerhaeuser-lot-marker.jpg" data-img8="/assets/img/weyerhaeuser-town-aerial.jpg">Ocean West - Unit C</div>
+    <div class="card-title" data-listing-key="Ocean West - Unit C" data-video="https://video.gumlet.io/66041d40603db7e8cad20c31/672e4fa71f39ce9ec65b6a9b/672e4fa71f39ce9ec65b6a9b_0_540p.m3u8" data-img="/assets/img/weyerhaeuser-community-garden.jpg" data-img2="/assets/img/img_011.jpg" data-img3="/assets/img/img_010.jpg" data-img4="/assets/img/img_004.jpg" data-img5="/assets/img/weyerhaeuser-aerial.jpg" data-img6="/assets/img/weyerhaeuser-site-overview.jpg" data-img7="/assets/img/weyerhaeuser-lot-marker.jpg" data-img8="/assets/img/weyerhaeuser-town-aerial.jpg">Addresses will be released when formal approvals allow - Unit C</div>
     <div class="card-location"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg> Ucluelet, BC</div>
     <div class="card-meta">
       <span class="card-meta-item">2 bed</span>
@@ -4571,7 +4604,7 @@ select.gate1-input:invalid { color: #999; }
   </div>
   <div class="card-disclaimer">Subject to municipal approval</div>
   <div class="card-body">
-    <div class="card-title" data-video="https://www.youtube.com/embed/SKgFdyuzTrk?si=JF2eGde3J2UhgGhH" data-img="/assets/img/img_008.jpg" data-img2="/assets/img/img_003.jpg" data-img3="/assets/img/img_004.jpg">Compton Road - Unit A</div>
+    <div class="card-title" data-listing-key="Compton Road - Unit A" data-video="https://www.youtube.com/embed/SKgFdyuzTrk?si=JF2eGde3J2UhgGhH" data-img="/assets/img/img_008.jpg" data-img2="/assets/img/img_003.jpg" data-img3="/assets/img/img_004.jpg">Addresses will be released when formal approvals allow - Unit A</div>
     <div class="card-location"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg> Port Alberni, BC</div>
     <div class="card-meta">
       <span class="card-meta-item">3 bed</span>
@@ -4596,7 +4629,7 @@ select.gate1-input:invalid { color: #999; }
   </div>
   <div class="card-disclaimer">Subject to municipal approval</div>
   <div class="card-body">
-    <div class="card-title" data-video="https://www.youtube.com/embed/SKgFdyuzTrk?si=JF2eGde3J2UhgGhH" data-img="/assets/img/img_002.jpg" data-img2="/assets/img/img_010.jpg" data-img3="/assets/img/img_004.jpg">River Road - Unit A</div>
+    <div class="card-title" data-listing-key="River Road - Unit A" data-video="https://www.youtube.com/embed/SKgFdyuzTrk?si=JF2eGde3J2UhgGhH" data-img="/assets/img/img_002.jpg" data-img2="/assets/img/img_010.jpg" data-img3="/assets/img/img_004.jpg">River Road - Unit A</div>
     <div class="card-location"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg> Port Alberni, BC</div>
     <div class="card-meta">
       <span class="card-meta-item">3 bed</span>
@@ -4621,7 +4654,7 @@ select.gate1-input:invalid { color: #999; }
   </div>
   <div class="card-disclaimer">Subject to municipal approval</div>
   <div class="card-body">
-    <div class="card-title" data-video="https://www.youtube.com/embed/XK9raw1l1fI" data-img="/assets/img/img_006.jpg" data-img2="/assets/img/rainforest-drive-aerial-1.jpg" data-img3="/assets/img/rainforest-drive-aerial-2.jpg" data-img4="/assets/img/rainforest-drive-aerial-3.jpg" data-img5="/assets/img/rainforest-drive-aerial-4.jpg" data-img6="/assets/img/img_003.jpg" data-img7="/assets/img/img_004.jpg" data-img8="/assets/img/img_001.jpg">Rainforest Drive - Unit A</div>
+    <div class="card-title" data-listing-key="Rainforest Drive - Unit A" data-video="https://www.youtube.com/embed/XK9raw1l1fI" data-img="/assets/img/img_006.jpg" data-img2="/assets/img/rainforest-drive-aerial-1.jpg" data-img3="/assets/img/rainforest-drive-aerial-2.jpg" data-img4="/assets/img/rainforest-drive-aerial-3.jpg" data-img5="/assets/img/rainforest-drive-aerial-4.jpg" data-img6="/assets/img/img_003.jpg" data-img7="/assets/img/img_004.jpg" data-img8="/assets/img/img_001.jpg">Addresses will be released when formal approvals allow - Unit A</div>
     <div class="card-location"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg> Ucluelet, BC</div>
     <div class="card-meta">
       <span class="card-meta-item">3 bed</span>
@@ -4646,7 +4679,7 @@ select.gate1-input:invalid { color: #999; }
   </div>
   <div class="card-disclaimer">Subject to municipal approval</div>
   <div class="card-body">
-    <div class="card-title" data-video="https://www.youtube.com/embed/XK9raw1l1fI" data-img="/assets/img/rainforest-drive-aerial-1.jpg" data-img2="/assets/img/rainforest-drive-aerial-2.jpg" data-img3="/assets/img/rainforest-drive-aerial-3.jpg" data-img4="/assets/img/rainforest-drive-aerial-4.jpg" data-img5="/assets/img/img_003.jpg" data-img6="/assets/img/img_004.jpg" data-img7="/assets/img/img_001.jpg">Norah Street - Unit A</div>
+    <div class="card-title" data-listing-key="Norah Street - Unit A" data-video="https://www.youtube.com/embed/XK9raw1l1fI" data-img="/assets/img/rainforest-drive-aerial-1.jpg" data-img2="/assets/img/rainforest-drive-aerial-2.jpg" data-img3="/assets/img/rainforest-drive-aerial-3.jpg" data-img4="/assets/img/rainforest-drive-aerial-4.jpg" data-img5="/assets/img/img_003.jpg" data-img6="/assets/img/img_004.jpg" data-img7="/assets/img/img_001.jpg">Addresses will be released when formal approvals allow - Unit A</div>
     <div class="card-location"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg> Ucluelet, BC</div>
     <div class="card-meta">
       <span class="card-meta-item">3 bed</span>
@@ -4671,7 +4704,7 @@ select.gate1-input:invalid { color: #999; }
   </div>
   <div class="card-disclaimer">Subject to municipal approval</div>
   <div class="card-body">
-    <div class="card-title" data-video="https://video.gumlet.io/66041d40603db7e8cad20c31/672e4fa71f39ce9ec65b6a9b/672e4fa71f39ce9ec65b6a9b_0_540p.m3u8" data-img="/assets/img/img_011.jpg" data-img2="/assets/img/img_010.jpg" data-img3="/assets/img/img_004.jpg" data-img4="/assets/img/weyerhaeuser-aerial.jpg" data-img5="/assets/img/weyerhaeuser-site-overview.jpg" data-img6="/assets/img/weyerhaeuser-lot-marker.jpg" data-img7="/assets/img/weyerhaeuser-town-aerial.jpg">Ocean West - Unit A</div>
+    <div class="card-title" data-listing-key="Ocean West - Unit A" data-video="https://video.gumlet.io/66041d40603db7e8cad20c31/672e4fa71f39ce9ec65b6a9b/672e4fa71f39ce9ec65b6a9b_0_540p.m3u8" data-img="/assets/img/img_011.jpg" data-img2="/assets/img/img_010.jpg" data-img3="/assets/img/img_004.jpg" data-img4="/assets/img/weyerhaeuser-aerial.jpg" data-img5="/assets/img/weyerhaeuser-site-overview.jpg" data-img6="/assets/img/weyerhaeuser-lot-marker.jpg" data-img7="/assets/img/weyerhaeuser-town-aerial.jpg">Addresses will be released when formal approvals allow - Unit A</div>
     <div class="card-location"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg> Ucluelet, BC</div>
     <div class="card-meta">
       <span class="card-meta-item">3 bed</span>
@@ -4730,7 +4763,7 @@ select.gate1-input:invalid { color: #999; }
           </div>
           <div class="testimonial-card">
             <div class="testimonial-mark">&ldquo;</div>
-            <p class="testimonial-quote">Three decades in real estate teaches you one thing above all: homeownership changes lives, not just today, but for the generation that follows. The housing shortage on Vancouver Island is real, and the families who need a path forward deserve more than a waiting game while the market keeps moving out of reach. This is the kind of solution communities like ours have been asking for.</p>
+            <p class="testimonial-quote">Three decades in real estate teaches you one thing above all: homeownership changes lives, not just today, but for the generation that follows. The housing shortage on Vancouver Island is real, and the families who need a process forward deserve more than a waiting game while the market keeps moving out of reach. This is the kind of solution communities like ours have been asking for.</p>
             <div class="testimonial-footer">
               <a href="https://www.judygray.ca/" class="testimonial-avatar"><img src="/assets/img/judy-gray.jpg" alt="Judy Gray"></a>
               <div>
@@ -7403,7 +7436,7 @@ elevenlabs-convai {
         <span class="progress-notif-count" id="progress-notif-count"></span>
       </div>
       <div class="progress-header">
-        <div class="progress-title">Your path to homeownership</div>
+        <div class="progress-title">Your process to homeownership</div>
         <div class="progress-sub">Here's where things stand. Tap any step for more detail.</div>
       </div>
       <div class="progress-timeline" id="progress-timeline"></div>

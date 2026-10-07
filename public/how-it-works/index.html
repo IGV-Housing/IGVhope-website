@@ -610,16 +610,16 @@
   <div class="intro-hero-inner">
     <div class="intro-hero-text">
       <div class="intro-hero-eyebrow">How It Works</div>
-      <h1 class="intro-hero-heading">The path to homeownership has changed.</h1>
+      <h1 class="intro-hero-heading">The process to homeownership has changed.</h1>
       <p class="intro-hero-sub">IGVhope re-engineers the process, so more people can move into a brand-new home now and own it later.</p>
       <div class="intro-hero-points">
         <div class="intro-hero-point">
           <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#123D36" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="M9 12l2 2 4-4"/></svg>
-          <span>Purchase price locked from Day One</span>
+          <span>Purchase price set by independent valuation at move-in</span>
         </div>
         <div class="intro-hero-point">
           <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#123D36" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11l9-7 9 7"/><path d="M5 10v9a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-9"/><path d="M9.5 14.5l1.8 1.8 3.2-3.6"/></svg>
-          <span>Move into your home now</span>
+          <span>Move into your new home</span>
         </div>
         <div class="intro-hero-point">
           <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#123D36" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11l9-7 9 7"/><path d="M5 10v9a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-9"/><g transform="translate(0, -1)"><circle cx="9.3" cy="13.8" r="1.3" fill="#123D36" stroke="none"/><circle cx="14.7" cy="17.2" r="1.3" fill="#123D36" stroke="none"/><line x1="8.6" y1="17.6" x2="15.4" y2="13.4" stroke-width="1.6"/></g></svg>
@@ -643,7 +643,7 @@
       </div>
       <div class="traditional-content">
         <h2 class="traditional-heading">Why traditional buying no longer works</h2>
-        <p class="traditional-sub">For decades, the traditional path to homeownership has been the same: save more, wait longer, hope prices don't rise.</p>
+        <p class="traditional-sub">For decades, the traditional process to homeownership has been the same: save more, wait longer, hope prices don't rise.</p>
         <div class="traditional-stats">
           <div class="traditional-stat">
             <div class="traditional-stat-icon">
@@ -689,7 +689,7 @@
   <div class="wrap">
     <div class="section-head reveal-on-scroll">
       <h2>The IGVhope Process</h2>
-      <p>Three simple steps. One clear path to ownership.</p>
+      <p>Three simple steps. One clear process to ownership.</p>
     </div>
 
     <div class="pathway-track">
@@ -960,7 +960,7 @@
         </div>
         <h3>Clear legal documents, nothing hidden</h3>
         <ul class="protection-list">
-          <li><span class="protection-check"><svg width="10" height="8" viewBox="0 0 11 9" fill="none"><path d="M1 4.5L4 7.5L10 1" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Your rights, your agreed purchase price and the path ahead</li>
+          <li><span class="protection-check"><svg width="10" height="8" viewBox="0 0 11 9" fill="none"><path d="M1 4.5L4 7.5L10 1" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Your rights, your agreed purchase price and the process ahead</li>
           <li><span class="protection-check"><svg width="10" height="8" viewBox="0 0 11 9" fill="none"><path d="M1 4.5L4 7.5L10 1" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Reviewed with you before you sign</li>
         </ul>
       </div>
@@ -1374,6 +1374,9 @@ function handleNewReleasesBannerClick() {
 function openSubscribePrompt() { document.getElementById('subscribe-prompt-overlay').classList.add('open'); }
 function closeSubscribePrompt() { document.getElementById('subscribe-prompt-overlay').classList.remove('open'); }
 function openAlreadySubscribed(justSubscribed) {
+  /* Reached both when the check says they're on the list and right after they join,
+     so this is the one place that needs to stop the release popup coming back. */
+  rememberReleaseSubscribed();
   var titleEl = document.getElementById('already-subscribed-title');
   var subEl = document.getElementById('already-subscribed-sub');
   if (justSubscribed) {
@@ -1414,11 +1417,50 @@ function hideKmuPopup() {
   var popup = document.getElementById('kmu-popup');
   if (popup) popup.classList.remove('visible');
 }
+
+/* The popup exists only to get people onto the release list, so it has nothing to
+   say to someone who is signed in and already subscribed. The answer is cached per
+   email for the tab so every page doesn't re-ask the worker, and is recorded the
+   moment someone subscribes too (see openAlreadySubscribed). sessionStorage rather
+   than localStorage, so unsubscribing is picked up on their next visit. */
+var KMU_SUBSCRIBED_KEY = 'igvhope_release_subscribed_email';
+
+function rememberReleaseSubscribed() {
+  if (!gate1CapturedEmail) return;
+  try { sessionStorage.setItem(KMU_SUBSCRIBED_KEY, gate1CapturedEmail); } catch (e) {}
+}
+
+function shouldShowKmuPopup() {
+  if (!userLoggedIn || !gate1CapturedEmail) return Promise.resolve(true);
+  try {
+    if (sessionStorage.getItem(KMU_SUBSCRIBED_KEY) === gate1CapturedEmail) return Promise.resolve(false);
+  } catch (e) {}
+  if (!SUBSCRIPTION_STATUS_WORKER_URL || SUBSCRIPTION_STATUS_WORKER_URL.indexOf('REPLACE_WITH') === 0) {
+    return Promise.resolve(true);
+  }
+  return fetch(SUBSCRIPTION_STATUS_WORKER_URL + '/check', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ email: gate1CapturedEmail })
+  })
+    .then(function(res) { return res.json(); })
+    .then(function(data) {
+      if (data && data.subscribed) { rememberReleaseSubscribed(); return false; }
+      return true;
+    })
+    /* If the check can't be reached, still show it: a repeated prompt is a smaller
+       problem than hiding the only subscribe entry point on the page. */
+    .catch(function() { return true; });
+}
+
 document.addEventListener('DOMContentLoaded', function() {
   checkGateStatusOnLoad();
   setTimeout(function() {
-    var popup = document.getElementById('kmu-popup');
-    if (popup) popup.classList.add('visible');
+    shouldShowKmuPopup().then(function(show) {
+      if (!show) return;
+      var popup = document.getElementById('kmu-popup');
+      if (popup) popup.classList.add('visible');
+    });
   }, 30000);
 });
 </script>

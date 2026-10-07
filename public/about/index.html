@@ -724,7 +724,7 @@
   <div class="wrap">
     <div class="welcome-grid reveal-on-scroll">
       <div>
-        <div class="welcome-heading">We're not just building homes.<br><span class="welcome-heading-accent">We're changing the path to ownership.</span></div>
+        <div class="welcome-heading">We're not just building homes.<br><span class="welcome-heading-accent">We're changing the process to ownership.</span></div>
         <div class="welcome-subtitle">For too many people, the dream of owning a home hasn't disappeared, the process has simply stopped working. IGVhope exists to change that.</div>
       </div>
       <div class="welcome-stack">
@@ -1082,7 +1082,7 @@
       </div>
       <div class="testimonial-card">
         <div class="testimonial-mark">&ldquo;</div>
-        <p class="testimonial-quote">Three decades in real estate teaches you one thing above all: homeownership changes lives, not just today, but for the generation that follows. The housing shortage on Vancouver Island is real, and the families who need a path forward deserve more than a waiting game while the market keeps moving out of reach. This is the kind of solution communities like ours have been asking for.</p>
+        <p class="testimonial-quote">Three decades in real estate teaches you one thing above all: homeownership changes lives, not just today, but for the generation that follows. The housing shortage on Vancouver Island is real, and the families who need a process forward deserve more than a waiting game while the market keeps moving out of reach. This is the kind of solution communities like ours have been asking for.</p>
         <div class="testimonial-footer">
           <div class="testimonial-avatar"><img src="/assets/img/judy-gray.jpg" alt="Judy Gray"></div>
           <div>
@@ -1549,6 +1549,9 @@ function handleNewReleasesBannerClick() {
 function openSubscribePrompt() { document.getElementById('subscribe-prompt-overlay').classList.add('open'); }
 function closeSubscribePrompt() { document.getElementById('subscribe-prompt-overlay').classList.remove('open'); }
 function openAlreadySubscribed(justSubscribed) {
+  /* Reached both when the check says they're on the list and right after they join,
+     so this is the one place that needs to stop the release popup coming back. */
+  rememberReleaseSubscribed();
   var titleEl = document.getElementById('already-subscribed-title');
   var subEl = document.getElementById('already-subscribed-sub');
   if (justSubscribed) {
@@ -1589,11 +1592,50 @@ function hideKmuPopup() {
   var popup = document.getElementById('kmu-popup');
   if (popup) popup.classList.remove('visible');
 }
+
+/* The popup exists only to get people onto the release list, so it has nothing to
+   say to someone who is signed in and already subscribed. The answer is cached per
+   email for the tab so every page doesn't re-ask the worker, and is recorded the
+   moment someone subscribes too (see openAlreadySubscribed). sessionStorage rather
+   than localStorage, so unsubscribing is picked up on their next visit. */
+var KMU_SUBSCRIBED_KEY = 'igvhope_release_subscribed_email';
+
+function rememberReleaseSubscribed() {
+  if (!gate1CapturedEmail) return;
+  try { sessionStorage.setItem(KMU_SUBSCRIBED_KEY, gate1CapturedEmail); } catch (e) {}
+}
+
+function shouldShowKmuPopup() {
+  if (!userLoggedIn || !gate1CapturedEmail) return Promise.resolve(true);
+  try {
+    if (sessionStorage.getItem(KMU_SUBSCRIBED_KEY) === gate1CapturedEmail) return Promise.resolve(false);
+  } catch (e) {}
+  if (!SUBSCRIPTION_STATUS_WORKER_URL || SUBSCRIPTION_STATUS_WORKER_URL.indexOf('REPLACE_WITH') === 0) {
+    return Promise.resolve(true);
+  }
+  return fetch(SUBSCRIPTION_STATUS_WORKER_URL + '/check', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ email: gate1CapturedEmail })
+  })
+    .then(function(res) { return res.json(); })
+    .then(function(data) {
+      if (data && data.subscribed) { rememberReleaseSubscribed(); return false; }
+      return true;
+    })
+    /* If the check can't be reached, still show it: a repeated prompt is a smaller
+       problem than hiding the only subscribe entry point on the page. */
+    .catch(function() { return true; });
+}
+
 document.addEventListener('DOMContentLoaded', function() {
   checkGateStatusOnLoad();
   setTimeout(function() {
-    var popup = document.getElementById('kmu-popup');
-    if (popup) popup.classList.add('visible');
+    shouldShowKmuPopup().then(function(show) {
+      if (!show) return;
+      var popup = document.getElementById('kmu-popup');
+      if (popup) popup.classList.add('visible');
+    });
   }, 30000);
 });
 </script>
