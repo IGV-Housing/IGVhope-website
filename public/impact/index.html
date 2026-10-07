@@ -163,6 +163,19 @@
   .impact-waitlist-inner { max-width: 640px; margin: 0 auto; text-align: center; position: relative; z-index: 1; }
   .impact-waitlist-heading { font-family: 'Montserrat', sans-serif; font-weight: 800; font-size: clamp(24px, 3.2vw, 32px); color: #ffffff; margin-bottom: 14px; letter-spacing: -0.01em; }
   .impact-waitlist-sub { font-size: 14.5px; font-weight: 500; color: rgba(255,255,255,0.68); line-height: 1.7; margin-bottom: 36px; }
+  /* Sub sits on one line on desktop. Its container is capped at 640px to keep the
+     form narrow, so the paragraph is allowed to size to its own content and
+     overflow that cap symmetrically - it still lands well inside .wrap (1100px).
+     The line needs 699px, and .wrap leaves viewport-64px, so anything under about
+     763px would run past the edges - and this section is overflow:hidden, so that
+     shows up as clipped text rather than a scrollbar. Hence 820 rather than the
+     721 burger breakpoint - 768 fits by only 4px, too tight to survive a reworded
+     sentence or rendering variance. Below 820 the sub wraps as it does on mobile.
+     If this copy gets longer, re-measure: the breakpoint has to stay above the
+     sentence width + 64px of .wrap padding. */
+  @media (min-width: 820px) {
+    .impact-waitlist-sub { white-space: nowrap; width: max-content; max-width: none; margin-left: auto; margin-right: auto; }
+  }
   .impact-waitlist-form-wrap { background: #ffffff; border-radius: 20px; padding: 32px; text-align: left; }
 
   /* Override HubSpot's injected form styling to match the site */
