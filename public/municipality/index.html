@@ -611,7 +611,7 @@
 <!-- TRUST BAR -->
 <div class="trust-bar">
   <div class="trust-item"><span class="trust-dot"></span>You don't need to be a part of the program to send this</div>
-  <div class="trust-item"><span class="trust-dot"></span>Goes directly to your local council</div>
+  <div class="trust-item"><span class="trust-dot"></span>Opens in your email, ready to send to your council</div>
   <div class="trust-item"><span class="trust-dot"></span>No sign-up, no commitment</div>
 </div>
 
@@ -622,7 +622,7 @@
   <div class="form-col">
 
     <div class="context-card">
-      <p>Nurses, teachers, tradesman, and other working people can afford a mortgage, they just can't save a down payment fast enough while rent keeps rising. HOPE (Home Ownership Process Engine) is a practical model that gets more homes built and fills them with people already in the community. Your message shows council that the housing crisis is real.</p>
+      <p>Nurses, teachers, tradespeople, and other working people can afford a mortgage, they just can't save a down payment fast enough while rent keeps rising. HOPE (Home Ownership Process Engine) is a practical model that gets more homes built and fills them with people already in the community. Your message shows council that the housing crisis is real.</p>
     </div>
 
     <div class="form-card">
@@ -736,7 +736,7 @@
         <div class="cb-group">
           <span class="cb-cat-label">People Who Serve Our Community and Have Earned This Stability</span>
           <div class="cb-stack">
-            <label class="cb-opt"><input type="checkbox" name="chk" value="Working people, like nurses, teachers, and tradesmen, who can afford a mortgage but can&#39;t save a deposit fast enough"><span class="cb-text">Working people, like nurses, teachers, and tradesmen, who can afford a mortgage but can't save a deposit fast enough</span></label>
+            <label class="cb-opt"><input type="checkbox" name="chk" value="Working people, like nurses, teachers, and tradesmen, who can afford a mortgage but can&#39;t save a down payment fast enough"><span class="cb-text">Working people, like nurses, teachers, and tradesmen, who can afford a mortgage but can't save a down payment fast enough</span></label>
             <label class="cb-opt"><input type="checkbox" name="chk" value="Families who want to put down roots here, not keep moving every time a lease ends"><span class="cb-text">Families who want to put down roots here, not keep moving every time a lease ends</span></label>
             <label class="cb-opt"><input type="checkbox" name="chk" value="A real pathway to ownership, not just indefinite renting with no end point"><span class="cb-text">A real pathway to ownership, not just indefinite renting with no end point</span></label>
           </div>
@@ -838,7 +838,7 @@
       </div>
 
       <!-- Letter body -->
-      <div class="letter-body empty" id="prev-body">Fill in your name and choose your municipality, and your personalised letter will appear here, ready to send.</div>
+      <div class="letter-body empty" id="prev-body">Fill in your name and choose your municipality, and your personalized letter will appear here, ready to send.</div>
 
       <div class="preview-footer">
         <svg viewBox="0 0 16 16"><path d="M8 1a7 7 0 100 14A7 7 0 008 1zm0 3v5m0 2v1"/></svg>
@@ -1308,11 +1308,11 @@ function buildLetter(name, email, city, muni) {
 
 ${loc} and I am writing to ask your council to explore the HOPE (Home Ownership Process Engine) program as part of your community's housing strategy.
 
-Rental prices in our area are high because housing stock is short. Too many working people, including nurses, teachers, trades workers, and public servants, can afford a mortgage but cannot save a deposit fast enough while paying rent. The result is families who cannot put down roots, young people who leave, and communities that stagnate.
+Rental prices in our area are high because housing stock is short. Too many working people, including nurses, teachers, trades workers, and public servants, can afford a mortgage but cannot save a down payment fast enough while paying rent. The result is families who cannot put down roots, young people who leave, and communities that stagnate.
 
 More housing changes that. Families who own their homes stay. They invest in schools, support local businesses, and build futures here. HOPE is a practical, commercially viable model that gets more homes built and places real community members into them: people who are already here and want to stay.
 
-HOPE enables middle-income renters to lock in today's purchase price and build toward ownership over a defined pathway, without requiring a large upfront deposit and without placing undue risk on participants or developers. It works with the private market, not against it, to deliver homes faster against real, pre-committed local demand.
+HOPE enables middle-income renters to lock in today's purchase price and build toward ownership over a defined pathway, without requiring a large upfront down payment and without placing undue risk on participants or developers. It works with the private market, not against it, to deliver homes faster against real, pre-committed local demand.
 
 This matters to me because:${chkBlock}
 ${note ? '\n' + note + '\n' : ''}
@@ -1345,7 +1345,7 @@ function updatePreview() {
     $('prev-body').textContent = buildLetter(name, email || '[your email]', city, muni);
   } else {
     $('prev-body').classList.add('empty');
-    $('prev-body').textContent = 'Fill in your name and choose your municipality, and your personalised letter will appear here, ready to send.';
+    $('prev-body').textContent = 'Fill in your name and choose your municipality, and your personalized letter will appear here, ready to send.';
   }
 }
 
