@@ -509,7 +509,7 @@
   #session-saved-resend span:hover { color: #123D36; }
 
   /* ---------- Sticky bottom-left "Keep Me Updated" popup ---------- */
-  #kmu-popup { position: fixed; left: 20px; bottom: 44px; z-index: 2500; max-width: 300px; background: linear-gradient(160deg, #123D36, #1A5C50 85%); border-radius: 14px; box-shadow: 0 18px 40px rgba(18,61,54,0.4); padding: 18px 18px 16px; font-family: 'Montserrat', sans-serif; opacity: 0; transform: translateY(16px); pointer-events: none; transition: opacity 0.4s ease, transform 0.4s ease; }
+  #kmu-popup { position: fixed; left: 20px; bottom: 39px; z-index: 2500; max-width: 300px; background: linear-gradient(160deg, #123D36, #1A5C50 85%); border-radius: 14px; box-shadow: 0 18px 40px rgba(18,61,54,0.4); padding: 18px 18px 16px; font-family: 'Montserrat', sans-serif; opacity: 0; transform: translateY(16px); pointer-events: none; transition: opacity 0.4s ease, transform 0.4s ease; }
   #kmu-popup.visible { opacity: 1; transform: translateY(0); pointer-events: auto; }
   #kmu-popup-close { position: absolute; top: 8px; right: 10px; background: none; border: none; font-size: 16px; line-height: 1; color: rgba(255,255,255,0.6); cursor: pointer; padding: 4px; }
   #kmu-popup-close:hover { color: #ffffff; }
@@ -670,7 +670,7 @@
             </div>
             <div class="traditional-stat-num">20%+</div>
             <div class="traditional-stat-desc">The down payment that avoids mortgage insurance.</div>
-            <div class="traditional-stat-line">The downpayment hurdle keeps rising</div>
+            <div class="traditional-stat-line">The down payment hurdle keeps rising</div>
           </div>
           <div class="traditional-stat">
             <div class="traditional-stat-icon">
@@ -720,7 +720,7 @@
         <div class="pathway-headline">IGVhope is designed to hold your price steady, even if the market moves.</div>
         <button class="pathway-toggle" onclick="togglePathway(this, 'secure-detail')"><span class="toggle-label">See more</span><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg></button>
         <div class="pathway-detail" id="secure-detail">
-          <p>Move into a brand-new home with no down payment required. When your home is ready to move in, an independent valuation holds the purchase price. The program is built so that when your home becomes available to purchase, the price is held at that valuation, not the market price years later. We can't control the market, but IGVhope is designed to give you certainty.</p>
+          <p>Move into a brand-new home with no down payment required. When your home is ready to move in, an independent valuation holds the purchase price. The IGVhope program is built so that when your home becomes available to purchase, the price is held at that valuation, not the market price years later. Your Occupancy Agreement legally protects your purchase price from future market changes.</p>
         </div>
       </div>
 
@@ -754,7 +754,8 @@
         <div class="pathway-headline">Work toward your own mortgage, completing your purchase at year ten at your agreed price.</div>
         <button class="pathway-toggle" onclick="togglePathway(this, 'own-detail')"><span class="toggle-label">See more</span><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg></button>
         <div class="pathway-detail" id="own-detail">
-          <p>The market may change, but your purchase price won't. When you're ready, you secure a mortgage at the price agreed when you moved in, and any change in your home's value becomes yours at year ten. Along the way, you'll build a strong repayment history, supported by your IGVhope Navigator and mortgage broker. Once your mortgage is in place, title transfers to you. You own your home.</p>
+          <p>The market may change, but your agreed purchase price is held for the ten-year term. Along the way, IGVhope helps you build a strong payment history and prepare for your transition to your mortgage.</p>
+          <p>When your mortgage is in place at Year 10, title transfers to you, and you then own your home.</p>
         </div>
       </div>
 
@@ -934,10 +935,10 @@
         <div class="protection-icon">
           <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="M9 12l2 2 4-4"/></svg>
         </div>
-        <h3>Your agreed price, in writing</h3>
+        <h3>Your price held, clear and simple</h3>
         <ul class="protection-list">
-          <li><span class="protection-check"><svg width="10" height="8" viewBox="0 0 11 9" fill="none"><path d="M1 4.5L4 7.5L10 1" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Set by independent valuation</li>
-          <li><span class="protection-check"><svg width="10" height="8" viewBox="0 0 11 9" fill="none"><path d="M1 4.5L4 7.5L10 1" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Clear and transparent from the day you move in</li>
+          <li><span class="protection-check"><svg width="10" height="8" viewBox="0 0 11 9" fill="none"><path d="M1 4.5L4 7.5L10 1" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span>IGVhope holds the price at independent valuation from move in</li>
+          <li><span class="protection-check"><svg width="10" height="8" viewBox="0 0 11 9" fill="none"><path d="M1 4.5L4 7.5L10 1" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Clear legal documents for each step in the process</li>
         </ul>
       </div>
       <div class="protection-card reveal-on-scroll">
@@ -962,16 +963,6 @@
       </div>
       <div class="protection-card reveal-on-scroll">
         <div class="protection-icon">
-          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
-        </div>
-        <h3>Clear legal documents, nothing hidden</h3>
-        <ul class="protection-list">
-          <li><span class="protection-check"><svg width="10" height="8" viewBox="0 0 11 9" fill="none"><path d="M1 4.5L4 7.5L10 1" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Your rights, your agreed purchase price and the process ahead</li>
-          <li><span class="protection-check"><svg width="10" height="8" viewBox="0 0 11 9" fill="none"><path d="M1 4.5L4 7.5L10 1" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Reviewed with you before you sign</li>
-        </ul>
-      </div>
-      <div class="protection-card reveal-on-scroll">
-        <div class="protection-icon">
           <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 21h18"/><path d="M5 21V9.5L12 4l7 5.5V21"/><path d="M12 21v-5a2 2 0 0 0-4 0v5"/><circle cx="15.5" cy="13" r="1.3"/></svg>
         </div>
         <h3>Not-for-profit ownership</h3>
@@ -982,7 +973,7 @@
     </div>
     <div class="protections-cta-wrap reveal-on-scroll">
       <a class="eligibility-btn protections-cta-btn" href="/next-steps">Check my eligibility</a>
-      <p class="protections-cta-subtitle">Our journey starts here. It takes about three minutes to complete your eligibility check, and every eligibility check is personally reviewed. We'll be in touch within 72 hours.</p>
+      <p class="protections-cta-subtitle">Our journey starts here. It takes about three minutes to complete your eligibility check, and our team reviews every eligibility check. We'll be in touch within 72 hours.</p>
     </div>
   </div>
 </section>
@@ -1593,7 +1584,7 @@ elevenlabs-convai {
 <div id="kmu-popup">
   <button id="kmu-popup-close" onclick="hideKmuPopup()" aria-label="Close">&times;</button>
   <div id="kmu-popup-title">Don't miss the next release</div>
-  <div id="kmu-popup-sub">Get notified the moment new IGVhope homes become available.</div>
+  <div id="kmu-popup-sub">Get an email when new IGVhope homes are announced.</div>
   <button id="kmu-popup-btn" onclick="handleNewReleasesBannerClick()">Keep Me Updated</button>
 </div>
 

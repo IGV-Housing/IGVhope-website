@@ -616,7 +616,7 @@
   #session-saved-resend span:hover { color: #123D36; }
 
   /* ---------- Sticky bottom-left "Keep Me Updated" popup (dark green) ---------- */
-  #kmu-popup { position: fixed; left: 20px; bottom: 44px; z-index: 2500; max-width: 300px; background: linear-gradient(160deg, #123D36, #1A5C50 85%); border-radius: 14px; box-shadow: 0 18px 40px rgba(18,61,54,0.4); padding: 18px 18px 16px; font-family: 'Montserrat', sans-serif; opacity: 0; transform: translateY(16px); pointer-events: none; transition: opacity 0.4s ease, transform 0.4s ease; }
+  #kmu-popup { position: fixed; left: 20px; bottom: 39px; z-index: 2500; max-width: 300px; background: linear-gradient(160deg, #123D36, #1A5C50 85%); border-radius: 14px; box-shadow: 0 18px 40px rgba(18,61,54,0.4); padding: 18px 18px 16px; font-family: 'Montserrat', sans-serif; opacity: 0; transform: translateY(16px); pointer-events: none; transition: opacity 0.4s ease, transform 0.4s ease; }
   #kmu-popup.visible { opacity: 1; transform: translateY(0); pointer-events: auto; }
   #kmu-popup-close { position: absolute; top: 8px; right: 10px; background: none; border: none; font-size: 16px; line-height: 1; color: rgba(255,255,255,0.6); cursor: pointer; padding: 4px; }
   #kmu-popup-close:hover { color: #ffffff; }
@@ -823,9 +823,9 @@
             <path d="M19.5 24V22C19.5 20.6193 20.6193 19.5 22 19.5C23.3807 19.5 24.5 20.6193 24.5 22V24" stroke="#E8A24A" stroke-width="1.8" stroke-linecap="round"/>
           </svg>
         </div>
-        <h3>Purchase Price Locked</h3>
+        <h3>Purchase Price Held</h3>
         <div class="difference-rule"></div>
-        <p>Your purchase price is agreed on Day One and stays the same.</p>
+        <p>IGVhope holds the purchase price from when you move in, for the ten-year term.</p>
       </div>
       <div class="difference-card reveal-on-scroll">
         <div class="difference-icon">
@@ -837,9 +837,9 @@
             <path d="M22 7.33v16.5" stroke="#123D36" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
           </svg>
         </div>
-        <h3>Move In Now</h3>
+        <h3>Move In</h3>
         <div class="difference-rule"></div>
-        <p>Move into your new home and start your journey today.</p>
+        <p>Move into your new home and start your journey.</p>
       </div>
       <div class="difference-card reveal-on-scroll">
         <div class="difference-icon">
@@ -875,9 +875,9 @@
             <path d="M16 21L20.5 25.5L29 16" stroke="#8a3b2a" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
           </svg>
         </div>
-        <h3>Built Around Certainty</h3>
+        <h3>Not-for-Profit Ownership</h3>
         <div class="difference-rule"></div>
-        <p>Every part of the process is designed to give you clarity and confidence.</p>
+        <p>During the ten years, homes are held by a not-for-profit housing association.</p>
       </div>
     </div>
   </div>
@@ -1759,7 +1759,7 @@ elevenlabs-convai {
 <div id="kmu-popup">
   <button id="kmu-popup-close" onclick="hideKmuPopup()" aria-label="Close">&times;</button>
   <div id="kmu-popup-title">Don't miss the next release</div>
-  <div id="kmu-popup-sub">Get notified the moment new IGVhope homes become available.</div>
+  <div id="kmu-popup-sub">Get an email when new IGVhope homes are announced.</div>
   <button id="kmu-popup-btn" onclick="handleNewReleasesBannerClick()">Keep Me Updated</button>
 </div>
 
