@@ -505,7 +505,7 @@ var listingTemplates = {
       {icon:'<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#1A5C50" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2c0 6-6 8-6 14a6 6 0 0 0 12 0c0-6-6-8-6-14z"/><path d="M12 12c0 3-2 4-2 6a2 2 0 0 0 4 0c0-2-2-3-2-6z"/></svg>', label:'Forced-air heating', detail:'Ducted forced-air heating system provides fast, even warmth throughout.'},
       {icon:'<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#1A5C50" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/><polyline points="3.27 6.96 12 12.01 20.73 6.96"/><line x1="12" y1="22.08" x2="12" y2="12"/></svg>', label:'Storage locker', detail:'Assigned storage locker in the building , secure, dry, and easily accessible.'},
     ],
-    partners: ['District of Ucluelet', 'Vancouver Island Health'],
+    partners: [],
     neighbourhood: {
       schools:   [['Elementary School', '400m'], ['Middle School', '1.2km'], ['High School', '2.1km']],
       shops:     [['Grocery Store', '600m'], ['Pharmacy', '800m'], ['Shopping Centre', '3km']],
@@ -558,7 +558,7 @@ var listingTemplates = {
   'The Osprey': {
     sqft: '1,380', landSize: '1,380 sqft', builtIn: '2026', parking: '2',
     propertyType: 'Multiplex', tenure: 'Freehold Strata', annualTax: '$3,920', moveInDate: 'Spring 2027',
-    description: 'The Osprey is a 4–6 unit multiplex developed with the District of Ucluelet as the anchor municipal partner. Units are designed for young families and essential workers priced out of the conventional market. Natural light, quality finishes, and a quiet street in a community that knows its neighbours by name.',
+    description: 'The Osprey is a 4–6 unit multiplex. Units are designed for young families and essential workers priced out of the conventional market. Natural light, quality finishes, and a quiet street in a community that knows its neighbours by name.',
     amenities: [
       {icon:'<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#1A5C50" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 12c1.5-2 3-2 4.5 0s3 2 4.5 0 3-2 4.5 0 3 2 4.5 0"/><path d="M2 17c1.5-2 3-2 4.5 0s3 2 4.5 0 3-2 4.5 0 3 2 4.5 0"/><path d="M2 7c1.5-2 3-2 4.5 0s3 2 4.5 0 3-2 4.5 0 3 2 4.5 0"/></svg>', label:'Near waterfront', detail:'A short walk to the waterfront, parks, and coastal pathways.'},
       {icon:'<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#1A5C50" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4v3"/><path d="M20 4v3"/><path d="M4 7q2 3 4 0t4 0t4 0t4 0"/><path d="M4 7L6 20H18L20 7"/></svg>', label:'In-suite laundry', detail:'Full-size washer and dryer included within the unit , no shared laundry required.'},
@@ -569,7 +569,7 @@ var listingTemplates = {
       {icon:'<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#1A5C50" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/><polyline points="3.27 6.96 12 12.01 20.73 6.96"/><line x1="12" y1="22.08" x2="12" y2="12"/></svg>', label:'Outdoor storage', detail:'Lockable outdoor storage shed included on the property.'},
       {icon:'<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#1A5C50" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>', label:'Energy-efficient build', detail:'Built to BC Step Code energy efficiency requirements for reduced running costs.'},
     ],
-    partners: ['District of Ucluelet', 'Mark Jewells Mortgage'],
+    partners: [],
   }
 };
 
@@ -6711,8 +6711,8 @@ select.pref-input {
           </div>
           <a href="/how-it-works" target="_blank" rel="noopener" class="pathway-learn-more">Learn more about IGVhope</a>
           <!-- TEMP-HIDDEN:partners-section - hidden for now, not deleted.
-               Remove this style="display:none" to bring the partners badges
-               (District of Ucluelet, Island Health, etc.) back. -->
+               The `partners` lists in listingTemplates are empty (the field is kept). To bring this
+               section back, fill those lists in and remove the display:none below. -->
           <div style="display:none">
             <div class="detail-section-title">Municipal &amp; employer partners</div>
             <div id="detail-partners"></div>
