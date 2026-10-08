@@ -153,7 +153,9 @@ function getListingData(cardEl) {
   var priceEl = cardEl.querySelector('.card-price-tag');
   var price = priceEl ? priceEl.textContent.trim() : '-';
   var rentEl = cardEl.querySelector('.card-price-sentence strong');
-  var rent = rentEl ? 'From ' + rentEl.textContent.trim() : '-';
+  /* TEMP-COMING-SOON:ucluelet-monthly-cost - Ucluelet cards show "Coming soon" in place of a monthly cost; only a real figure gets the "From" prefix. */
+  var rentText = rentEl ? rentEl.textContent.trim() : '';
+  var rent = rentEl ? (/\d/.test(rentText) ? 'From ' + rentText : rentText) : '-';
   var metas = Array.from(cardEl.querySelectorAll('.card-meta-item')).map(function(m){ return m.textContent.trim(); });
   var beds = metas[0] || '-';
   var baths = metas[1] || '-';
@@ -296,7 +298,7 @@ function openListingDetail(cardEl) {
   if (document.getElementById('detail-hero-loc-text')) document.getElementById('detail-hero-loc-text').textContent = d.location;
 
   // Stats
-  if (document.getElementById('ds-price')) document.getElementById('ds-price').textContent = 'From ' + d.price;
+  if (document.getElementById('ds-price')) document.getElementById('ds-price').textContent = /\d/.test(d.price) ? 'From ' + d.price : d.price;
   if (document.getElementById('ds-rent')) document.getElementById('ds-rent').textContent = d.rent.replace('/mo','');
   if (document.getElementById('ds-beds')) document.getElementById('ds-beds').textContent = d.beds.replace(' bed','');
   if (document.getElementById('ds-baths')) document.getElementById('ds-baths').textContent = d.baths.replace(' bath','');
@@ -313,12 +315,13 @@ function openListingDetail(cardEl) {
 
   // Partners
   var parEl = document.getElementById('detail-partners');
-  parEl.innerHTML = d.partners.map(function(p) {
+  if (parEl) parEl.innerHTML = d.partners.map(function(p) {
     return '<span class="partner-badge"><span class="partner-badge-icon"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span>' + p + '</span>';
   }).join('');
 
   // Sidebar
-  if (document.getElementById('sb-price')) document.getElementById('sb-price').textContent = 'Year 10 Purchase Price: From ' + d.price;
+  // Purchase prices aren't published yet, so each card's price tag reads "Coming soon". A real price keeps the "From $X" form.
+  if (document.getElementById('sb-price')) document.getElementById('sb-price').textContent = 'Year 10 Purchase Price: ' + (/\d/.test(d.price) ? 'From ' + d.price : d.price);
   if (document.getElementById('sb-rent')) document.getElementById('sb-rent').textContent = d.rent;
   var mhBlock = document.getElementById('sb-mortgage-helper');
   if (mhBlock) {
@@ -719,7 +722,7 @@ listingTemplates['Compton Road - Unit A'] = Object.assign({}, listingTemplates['
 listingTemplates['Compton Road - Unit B'] = Object.assign({}, listingTemplates['Compton Road - Unit B'], { neighbourhood: comptonRoadNeighbourhood });
 listingTemplates['Compton Road - Unit C'] = Object.assign({}, listingTemplates['Compton Road - Unit C'], { neighbourhood: comptonRoadNeighbourhood });
 
-/* Estimated Annualised Costs, derived from The Osprey's total yearly
+/* Estimated Annualized Costs, derived from The Osprey's total yearly
    operating costs ($3,943.20/mo across 4 keys: 2x 3-bed + 2x 2-bed),
    split by bedroom-count weighting: each 3-bed Unit A carries 30% of
    total costs ($1,182.96), each 2-bed Unit B/C carries 20% ($788.64).
@@ -914,7 +917,7 @@ function y10Calc() {
   if (saving <= 0) {
     verdict = '';
   } else if (gainCoversDP) {
-    verdict = 'Your home\u2019s market gain of ' + y10Fmt(saving) + ' fully covers the ' + y10Fmt(dpAmt) + ' down payment, with ' + y10Fmt(surplus) + ' to spare. You enter your mortgage without needing to save a separate deposit.';
+    verdict = 'Your home\u2019s market gain of ' + y10Fmt(saving) + ' fully covers the ' + y10Fmt(dpAmt) + ' down payment, with ' + y10Fmt(surplus) + ' to spare. You enter your mortgage without needing to save a separate down payment.';
   } else {
     verdict = 'The market gain of ' + y10Fmt(saving) + ' covers ' + Math.round(saving / dpAmt * 100) + '% of your ' + y10Fmt(dpAmt) + ' down payment. The remaining ' + y10Fmt(dpAmt - saving) + ' would need to be saved separately.';
   }
@@ -1254,9 +1257,9 @@ function lightboxGo(i) {
 }
 
 document.addEventListener('DOMContentLoaded', function() {
-  // Initialise appreciation slider fill at default value (98%)
+  // Initialize appreciation slider fill at default value (98%)
   y10SliderInput(98);
-  // Initialise mortgage rate slider fill at default value (5.5%)
+  // Initialize mortgage rate slider fill at default value (5.5%)
   var mrSlider = document.getElementById('y10-mrate');
   if (mrSlider) { var p=((5.5-2)/6*100).toFixed(1); mrSlider.style.background='linear-gradient(to right,#1A5C50 0%,#1A5C50 '+p+'%,rgba(26,92,80,0.2) '+p+'%,rgba(26,92,80,0.2) 100%)'; }
 
@@ -1507,7 +1510,9 @@ function submitToHubspot(formGuid, fields, legalConsentOptions) {
   });
 }
 /* ------------------------------------------ */
-var GATED_VALUE_IDS = ['ds-rent', 'ds-beds', 'ds-baths', 'ds-sqft', 'sb-rent', 'sb-price', 'sb-beds', 'sb-baths', 'sb-region', 'sb-mh-income'];
+// TEMP-COMING-SOON:purchase-price - 'sb-price' (the Year 10 Purchase Price line) is out of this list while prices read
+// "Coming soon", since there is nothing to gate. Put it back, and its onclick in the markup, when prices return.
+var GATED_VALUE_IDS = ['ds-rent', 'ds-beds', 'ds-baths', 'ds-sqft', 'sb-rent', 'sb-beds', 'sb-baths', 'sb-region', 'sb-mh-income'];
 
 function applyListingGateState() {
   var locked = !gate1Unlocked;
@@ -3600,8 +3605,10 @@ function sortListings(val) {
       function gC(c) { var l = c.querySelector('.card-location'); return l ? l.textContent.trim() : ''; }
       if (val === 'price-asc')  return gP(a) - gP(b);
       if (val === 'price-desc') return gP(b) - gP(a);
-      if (val === 'rent-asc')   return gR(a) - gR(b);
-      if (val === 'rent-desc')  return gR(b) - gR(a);
+      /* Homes with no monthly cost yet ("Coming soon") always sort after priced ones. */
+      function byRent(x, y, dir) { var xn = isNaN(x), yn = isNaN(y); return (xn || yn) ? (xn && yn ? 0 : (xn ? 1 : -1)) : dir * (x - y); }
+      if (val === 'rent-asc')   return byRent(gR(a), gR(b), 1);
+      if (val === 'rent-desc')  return byRent(gR(a), gR(b), -1);
       if (val === 'region')     return gC(a).localeCompare(gC(b));
       return 0;
     });
@@ -4327,7 +4334,8 @@ select.gate1-input:invalid { color: #999; }
             <option value="Vancouver Island" selected>Vancouver Island</option>
             <option value="Northern BC" disabled>Northern BC</option>
           </select>
-          <select class="filter-select" id="price-select" onchange="filterByPrice(this.value)">
+          <!-- TEMP-COMING-SOON:purchase-price - the price filter is hidden while purchase prices read "Coming soon". Remove the display:none to restore it. -->
+<select class="filter-select" id="price-select" style="display:none;" onchange="filterByPrice(this.value)">
             <option value="Any">Any price</option>
             <option value="350-500">$350,000 &ndash; $500,000</option>
             <option value="500-650">$500,000 &ndash; $650,000</option>
@@ -4347,8 +4355,10 @@ select.gate1-input:invalid { color: #999; }
           <select class="filter-select" onchange="sortListings(this.value)">
             <option value="rent-asc" selected>Monthly Cost: Low to High</option>
             <option value="rent-desc">Monthly Cost: High to Low</option>
+            <!-- TEMP-COMING-SOON:purchase-price - the two Purchase Price sort options are parked here while prices read "Coming soon". Move them back into the list to restore them.
             <option value="price-asc">Purchase Price: Low to High</option>
             <option value="price-desc">Purchase Price: High to Low</option>
+            -->
           </select>
           </div>
         </div>
@@ -4364,7 +4374,7 @@ select.gate1-input:invalid { color: #999; }
 <div class="listing-card" data-region="Vancouver Island" onclick="if(!event.target.closest('.card-save-btn'))openListingDetail(this)">
   <div class="card-img" style="background-image: url('/assets/img/img_012.jpg'); background-size: cover; background-position: center;">
     <div class="card-img-overlay"></div>
-    <div class="card-price-tag">$460,000</div>
+    <div class="card-price-tag">Coming soon</div>
     <button class="card-save-btn" onclick="handleSaveClick(this)" title="Save listing"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></button>
     <span class="card-badge">Ground Floor</span>
   </div>
@@ -4389,7 +4399,7 @@ select.gate1-input:invalid { color: #999; }
 <div class="listing-card" data-region="Vancouver Island" onclick="if(!event.target.closest('.card-save-btn'))openListingDetail(this)">
   <div class="card-img" style="background-image: url('/assets/img/img_006.jpg'); background-size: cover; background-position: center;">
     <div class="card-img-overlay"></div>
-    <div class="card-price-tag">$460,000</div>
+    <div class="card-price-tag">Coming soon</div>
     <button class="card-save-btn" onclick="handleSaveClick(this)" title="Save listing"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></button>
     <span class="card-badge">Ground Floor</span>
   </div>
@@ -4414,7 +4424,7 @@ select.gate1-input:invalid { color: #999; }
 <div class="listing-card" data-region="Vancouver Island" onclick="if(!event.target.closest('.card-save-btn'))openListingDetail(this)">
   <div class="card-img" style="background-image: url('/assets/img/img_004.jpg'); background-size: cover; background-position: center;">
     <div class="card-img-overlay"></div>
-    <div class="card-price-tag">$450,000</div>
+    <div class="card-price-tag">Coming soon</div>
     <button class="card-save-btn" onclick="handleSaveClick(this)" title="Save listing"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></button>
     <span class="card-badge">1st Floor</span>
   </div>
@@ -4439,7 +4449,7 @@ select.gate1-input:invalid { color: #999; }
 <div class="listing-card" data-region="Vancouver Island" onclick="if(!event.target.closest('.card-save-btn'))openListingDetail(this)">
   <div class="card-img" style="background-image: url('/assets/img/img_007.jpg'); background-size: cover; background-position: center;">
     <div class="card-img-overlay"></div>
-    <div class="card-price-tag">$450,000</div>
+    <div class="card-price-tag">Coming soon</div>
     <button class="card-save-btn" onclick="handleSaveClick(this)" title="Save listing"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></button>
     <span class="card-badge">1st Floor</span>
   </div>
@@ -4464,7 +4474,7 @@ select.gate1-input:invalid { color: #999; }
 <div class="listing-card listing-temp-hidden" style="display:none;" data-region="Vancouver Island" onclick="if(!event.target.closest('.card-save-btn'))openListingDetail(this)">
   <div class="card-img" style="background-image: url('/assets/img/rainforest-drive-aerial-3.jpg'); background-size: cover; background-position: center;">
     <div class="card-img-overlay"></div>
-    <div class="card-price-tag">$541,000</div>
+    <div class="card-price-tag">Coming soon</div>
     <button class="card-save-btn" onclick="handleSaveClick(this)" title="Save listing"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></button>
     <span class="card-badge">Ground Floor</span>
   </div>
@@ -4482,14 +4492,14 @@ select.gate1-input:invalid { color: #999; }
     <div class="card-avail-track"><div class="card-avail-fill" style="width:100%"></div></div>
   </div>
     <div class="card-footer" style="margin-top:10px">
-      <div class="card-price-sentence">Ucluelet homes of this configuration start at <strong>$3,000/mo</strong></div>
+      <div class="card-price-sentence">Ucluelet monthly cost: <strong>Coming soon</strong></div>
     </div>
   </div>
 </div>
 <div class="listing-card listing-temp-hidden" style="display:none;" data-region="Vancouver Island" onclick="if(!event.target.closest('.card-save-btn'))openListingDetail(this)">
   <div class="card-img" style="background-image: url('/assets/img/img_001.jpg'); background-size: cover; background-position: center;">
     <div class="card-img-overlay"></div>
-    <div class="card-price-tag">$541,000</div>
+    <div class="card-price-tag">Coming soon</div>
     <button class="card-save-btn" onclick="handleSaveClick(this)" title="Save listing"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></button>
     <span class="card-badge">1st Floor</span>
   </div>
@@ -4507,14 +4517,14 @@ select.gate1-input:invalid { color: #999; }
     <div class="card-avail-track"><div class="card-avail-fill" style="width:100%"></div></div>
   </div>
     <div class="card-footer" style="margin-top:10px">
-      <div class="card-price-sentence">Ucluelet homes of this configuration start at <strong>$3,000/mo</strong></div>
+      <div class="card-price-sentence">Ucluelet monthly cost: <strong>Coming soon</strong></div>
     </div>
   </div>
 </div>
 <div class="listing-card listing-temp-hidden" style="display:none;" data-region="Vancouver Island" onclick="if(!event.target.closest('.card-save-btn'))openListingDetail(this)">
   <div class="card-img" style="background-image: url('/assets/img/rainforest-drive-aerial-4.jpg'); background-size: cover; background-position: center;">
     <div class="card-img-overlay"></div>
-    <div class="card-price-tag">$541,000</div>
+    <div class="card-price-tag">Coming soon</div>
     <button class="card-save-btn" onclick="handleSaveClick(this)" title="Save listing"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></button>
     <span class="card-badge">Ground Floor</span>
   </div>
@@ -4532,14 +4542,14 @@ select.gate1-input:invalid { color: #999; }
     <div class="card-avail-track"><div class="card-avail-fill" style="width:100%"></div></div>
   </div>
     <div class="card-footer" style="margin-top:10px">
-      <div class="card-price-sentence">Ucluelet homes of this configuration start at <strong>$3,000/mo</strong></div>
+      <div class="card-price-sentence">Ucluelet monthly cost: <strong>Coming soon</strong></div>
     </div>
   </div>
 </div>
 <div class="listing-card listing-temp-hidden" style="display:none;" data-region="Vancouver Island" onclick="if(!event.target.closest('.card-save-btn'))openListingDetail(this)">
   <div class="card-img" style="background-image: url('/assets/img/img_009.jpg'); background-size: cover; background-position: center;">
     <div class="card-img-overlay"></div>
-    <div class="card-price-tag">$541,000</div>
+    <div class="card-price-tag">Coming soon</div>
     <button class="card-save-btn" onclick="handleSaveClick(this)" title="Save listing"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></button>
     <span class="card-badge">1st Floor</span>
   </div>
@@ -4557,14 +4567,14 @@ select.gate1-input:invalid { color: #999; }
     <div class="card-avail-track"><div class="card-avail-fill" style="width:100%"></div></div>
   </div>
     <div class="card-footer" style="margin-top:10px">
-      <div class="card-price-sentence">Ucluelet homes of this configuration start at <strong>$3,000/mo</strong></div>
+      <div class="card-price-sentence">Ucluelet monthly cost: <strong>Coming soon</strong></div>
     </div>
   </div>
 </div>
 <div class="listing-card listing-temp-hidden" style="display:none;" data-region="Vancouver Island" onclick="if(!event.target.closest('.card-save-btn'))openListingDetail(this)">
   <div class="card-img" style="background-image: url('/assets/img/weyerhaeuser-aerial.jpg'); background-size: cover; background-position: center;">
     <div class="card-img-overlay"></div>
-    <div class="card-price-tag">$541,000</div>
+    <div class="card-price-tag">Coming soon</div>
     <button class="card-save-btn" onclick="handleSaveClick(this)" title="Save listing"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></button>
     <span class="card-badge">Ground Floor</span>
   </div>
@@ -4582,14 +4592,14 @@ select.gate1-input:invalid { color: #999; }
     <div class="card-avail-track"><div class="card-avail-fill" style="width:100%"></div></div>
   </div>
     <div class="card-footer" style="margin-top:10px">
-      <div class="card-price-sentence">Ucluelet homes of this configuration start at <strong>$3,000/mo</strong></div>
+      <div class="card-price-sentence">Ucluelet monthly cost: <strong>Coming soon</strong></div>
     </div>
   </div>
 </div>
 <div class="listing-card listing-temp-hidden" style="display:none;" data-region="Vancouver Island" onclick="if(!event.target.closest('.card-save-btn'))openListingDetail(this)">
   <div class="card-img" style="background-image: url('/assets/img/weyerhaeuser-community-garden.jpg'); background-size: cover; background-position: center;">
     <div class="card-img-overlay"></div>
-    <div class="card-price-tag">$541,000</div>
+    <div class="card-price-tag">Coming soon</div>
     <button class="card-save-btn" onclick="handleSaveClick(this)" title="Save listing"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></button>
     <span class="card-badge">1st Floor</span>
   </div>
@@ -4607,14 +4617,14 @@ select.gate1-input:invalid { color: #999; }
     <div class="card-avail-track"><div class="card-avail-fill" style="width:100%"></div></div>
   </div>
     <div class="card-footer" style="margin-top:10px">
-      <div class="card-price-sentence">Ucluelet homes of this configuration start at <strong>$3,000/mo</strong></div>
+      <div class="card-price-sentence">Ucluelet monthly cost: <strong>Coming soon</strong></div>
     </div>
   </div>
 </div>
 <div class="listing-card" data-region="Vancouver Island" onclick="if(!event.target.closest('.card-save-btn'))openListingDetail(this)">
   <div class="card-img" style="background-image: url('/assets/img/img_008.jpg'); background-size: cover; background-position: center;">
     <div class="card-img-overlay"></div>
-    <div class="card-price-tag">$450,000</div>
+    <div class="card-price-tag">Coming soon</div>
     <button class="card-save-btn" onclick="handleSaveClick(this)" title="Save listing"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></button>
     <span class="card-badge">GROUND FLOOR</span>
   </div>
@@ -4639,7 +4649,7 @@ select.gate1-input:invalid { color: #999; }
 <div class="listing-card" data-region="Vancouver Island" onclick="if(!event.target.closest('.card-save-btn'))openListingDetail(this)">
   <div class="card-img" style="background-image: url('/assets/img/img_002.jpg'); background-size: cover; background-position: center;">
     <div class="card-img-overlay"></div>
-    <div class="card-price-tag">$450,000</div>
+    <div class="card-price-tag">Coming soon</div>
     <button class="card-save-btn" onclick="handleSaveClick(this)" title="Save listing"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></button>
     <span class="card-badge">GROUND FLOOR</span>
   </div>
@@ -4664,7 +4674,7 @@ select.gate1-input:invalid { color: #999; }
 <div class="listing-card listing-temp-hidden" style="display:none;" data-region="Vancouver Island" onclick="if(!event.target.closest('.card-save-btn'))openListingDetail(this)">
   <div class="card-img" style="background-image: url('/assets/img/img_006.jpg'); background-size: cover; background-position: center;">
     <div class="card-img-overlay"></div>
-    <div class="card-price-tag">$781,000</div>
+    <div class="card-price-tag">Coming soon</div>
     <button class="card-save-btn" onclick="handleSaveClick(this)" title="Save listing"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></button>
     <span class="card-badge recommended-badge">Mortgage Helper</span>
   </div>
@@ -4682,14 +4692,14 @@ select.gate1-input:invalid { color: #999; }
     <div class="card-avail-track"><div class="card-avail-fill" style="width:100%"></div></div>
   </div>
     <div class="card-footer" style="margin-top:10px">
-      <div class="card-price-sentence">Ucluelet homes of this configuration start at <strong>$5,000/mo</strong></div>
+      <div class="card-price-sentence">Ucluelet monthly cost: <strong>Coming soon</strong></div>
     </div>
   </div>
 </div>
 <div class="listing-card listing-temp-hidden" style="display:none;" data-region="Vancouver Island" onclick="if(!event.target.closest('.card-save-btn'))openListingDetail(this)">
   <div class="card-img" style="background-image: url('/assets/img/rainforest-drive-aerial-1.jpg'); background-size: cover; background-position: center;">
     <div class="card-img-overlay"></div>
-    <div class="card-price-tag">$781,000</div>
+    <div class="card-price-tag">Coming soon</div>
     <button class="card-save-btn" onclick="handleSaveClick(this)" title="Save listing"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></button>
     <span class="card-badge recommended-badge">Mortgage Helper</span>
   </div>
@@ -4707,14 +4717,14 @@ select.gate1-input:invalid { color: #999; }
     <div class="card-avail-track"><div class="card-avail-fill" style="width:100%"></div></div>
   </div>
     <div class="card-footer" style="margin-top:10px">
-      <div class="card-price-sentence">Ucluelet homes of this configuration start at <strong>$5,000/mo</strong></div>
+      <div class="card-price-sentence">Ucluelet monthly cost: <strong>Coming soon</strong></div>
     </div>
   </div>
 </div>
 <div class="listing-card listing-temp-hidden" style="display:none;" data-region="Vancouver Island" onclick="if(!event.target.closest('.card-save-btn'))openListingDetail(this)">
   <div class="card-img" style="background-image: url('/assets/img/img_011.jpg'); background-size: cover; background-position: center;">
     <div class="card-img-overlay"></div>
-    <div class="card-price-tag">$781,000</div>
+    <div class="card-price-tag">Coming soon</div>
     <button class="card-save-btn" onclick="handleSaveClick(this)" title="Save listing"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></button>
     <span class="card-badge recommended-badge">Mortgage Helper</span>
   </div>
@@ -4732,7 +4742,7 @@ select.gate1-input:invalid { color: #999; }
     <div class="card-avail-track"><div class="card-avail-fill" style="width:100%"></div></div>
   </div>
     <div class="card-footer" style="margin-top:10px">
-      <div class="card-price-sentence">Ucluelet homes of this configuration start at <strong>$5,000/mo</strong></div>
+      <div class="card-price-sentence">Ucluelet monthly cost: <strong>Coming soon</strong></div>
     </div>
   </div>
 </div>
@@ -6646,7 +6656,6 @@ select.pref-input {
         <div id="detail-tabs-wrap">
           <div id="detail-tabs" onscroll="updateTabsFade()">
             <button class="detail-tab active" onclick="switchTab('highlights', this)">Highlights</button>
-            <button class="detail-tab" onclick="switchTab('pathway', this)"><span class="tab-label-full">IGVhope Pathway</span><span class="tab-label-short">Pathway</span><svg class="tab-lock-icon" width="10" height="10" viewBox="0 0 24 24" fill="currentColor"><path d="M12 1a5 5 0 0 0-5 5v3H6a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-9a2 2 0 0 0-2-2h-1V6a5 5 0 0 0-5-5zm0 2a3 3 0 0 1 3 3v3H9V6a3 3 0 0 1 3-3z"/></svg></button>
             <button class="detail-tab" onclick="switchTab('neighbourhood', this)">Neighbourhood<svg class="tab-lock-icon" width="10" height="10" viewBox="0 0 24 24" fill="currentColor"><path d="M12 1a5 5 0 0 0-5 5v3H6a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-9a2 2 0 0 0-2-2h-1V6a5 5 0 0 0-5-5zm0 2a3 3 0 0 1 3 3v3H9V6a3 3 0 0 1 3-3z"/></svg></button>
             <button class="detail-tab" onclick="switchTab('statistics', this)">Statistics<svg class="tab-lock-icon" width="10" height="10" viewBox="0 0 24 24" fill="currentColor"><path d="M12 1a5 5 0 0 0-5 5v3H6a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-9a2 2 0 0 0-2-2h-1V6a5 5 0 0 0-5-5zm0 2a3 3 0 0 1 3 3v3H9V6a3 3 0 0 1 3-3z"/></svg></button>
             <button class="detail-tab" onclick="switchTab('mortgage', this)"><span class="tab-label-full">Affordability Calculator</span><span class="tab-label-short">Calculator</span><svg class="tab-lock-icon" width="10" height="10" viewBox="0 0 24 24" fill="currentColor"><path d="M12 1a5 5 0 0 0-5 5v3H6a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-9a2 2 0 0 0-2-2h-1V6a5 5 0 0 0-5-5zm0 2a3 3 0 0 1 3 3v3H9V6a3 3 0 0 1 3-3z"/></svg></button>
@@ -6661,7 +6670,7 @@ select.pref-input {
             <div style="border-radius:12px; overflow:hidden; height:260px;">
               <div id="detail-map-frame" style="width:100%; height:100%;"></div>
             </div>
-            <div style="font-size:11px; color:#888; margin-top:8px; font-style:italic;">Shaded area shows the approximate location within 500m. The exact address is shared after you submit an expression of interest.</div>
+            <div style="font-size:11px; color:#888; margin-top:8px; font-style:italic;">Shaded area shows the approximate location. Addresses will be released when formal approvals allow.</div>
           </div>
           <div class="detail-section-title">Property summary</div>
           <div class="property-summary-grid">
@@ -6679,44 +6688,6 @@ select.pref-input {
           <div class="detail-description" id="detail-desc"></div>
           <div class="detail-section-title">Amenities</div>
           <div class="detail-amenities" id="detail-amenities"></div>
-        </div>
-
-        <div class="tab-panel" id="tab-pathway" style="display:none">
-          <div class="detail-section-title">Your ownership pathway</div>
-          <div class="pathway-timeline">
-            <div class="pathway-step">
-              <div class="pathway-dot active"></div>
-              <div class="pathway-step-label">Now - Year 1</div>
-              <div class="pathway-step-title">Move in</div>
-              <div class="pathway-step-desc">You pay capped monthly occupancy rates. A portion goes toward building your future equity stake. No mortgage qualification required at entry.</div>
-            </div>
-            <div class="pathway-step">
-              <div class="pathway-dot"></div>
-              <div class="pathway-step-label">Year 1 - 5</div>
-              <div class="pathway-step-title">Credit building &amp; pre-approval</div>
-              <div class="pathway-step-desc">Work with our lending partners to strengthen your credit profile and build savings. IGVhope navigators check in quarterly.</div>
-            </div>
-            <div class="pathway-step">
-              <div class="pathway-dot"></div>
-              <div class="pathway-step-label">Year 5 - 10</div>
-              <div class="pathway-step-title">Transition window opens</div>
-              <div class="pathway-step-desc">You become eligible to purchase your home at the originally agreed price - protected from market appreciation during your tenancy.</div>
-            </div>
-            <div class="pathway-step">
-              <div class="pathway-dot milestone"></div>
-              <div class="pathway-step-label">Year 10</div>
-              <div class="pathway-step-title">Ownership transfer</div>
-              <div class="pathway-step-desc">Transition to your mortgage. The equity from the market change during the 10 years becomes yours. You are a homeowner.</div>
-            </div>
-          </div>
-          <a href="/how-it-works" target="_blank" rel="noopener" class="pathway-learn-more">Learn more about IGVhope</a>
-          <!-- TEMP-HIDDEN:partners-section - hidden for now, not deleted.
-               The `partners` lists in listingTemplates are empty (the field is kept). To bring this
-               section back, fill those lists in and remove the display:none below. -->
-          <div style="display:none">
-            <div class="detail-section-title">Municipal &amp; employer partners</div>
-            <div id="detail-partners"></div>
-          </div>
         </div>
 
         <div class="tab-panel" id="tab-neighbourhood" style="display:none">
@@ -7016,7 +6987,7 @@ select.pref-input {
         <div class="sidebar-price-block">
           <div class="sidebar-price-lbl">Monthly occupancy payment</div>
           <div class="sidebar-price-val" id="sb-rent" onclick="handleGatedValueClick()"></div>
-          <div class="sidebar-price-sub" id="sb-price" onclick="handleGatedValueClick()"></div>
+          <div class="sidebar-price-sub" id="sb-price"></div>
         </div>
         <div class="sidebar-divider"></div>
         <div id="sb-mortgage-helper" style="display:none; padding:12px 14px; border:0.5px solid rgba(26,92,80,0.2); border-radius:8px; margin-bottom:4px;">
@@ -7037,7 +7008,7 @@ select.pref-input {
         <div class="sidebar-meta-row"><span>Bedrooms</span><strong id="sb-beds" onclick="handleGatedValueClick()"></strong></div>
         <div class="sidebar-meta-row"><span>Bathrooms</span><strong id="sb-baths" onclick="handleGatedValueClick()"></strong></div>
         <div class="sidebar-meta-row"><span>Region</span><strong id="sb-region" onclick="handleGatedValueClick()"></strong></div>
-        <div class="sidebar-meta-row"><span>Pathway</span><strong>Year 10 transition</strong></div>
+        <div class="sidebar-meta-row"><span>Mortgage Transition Period</span><strong>Year 10 transition</strong></div>
         <div class="sidebar-divider"></div>
         <button class="sidebar-cta primary" id="sidebar-express-btn" onclick="startApplication()">
           <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
