@@ -3,5 +3,8 @@
   "compatibility_date": "2025-01-01",
   "assets": {
     "directory": "./public"
-  }
+  },
+  // Required by `npx wrangler preview`, the build command for non-production branches such as staging.
+  // The block can stay empty; assets and compatibility settings above are shared with production.
+  "previews": {}
 }
