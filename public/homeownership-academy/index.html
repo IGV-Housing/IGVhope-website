@@ -113,7 +113,9 @@ a { color: inherit; }
 .cl-stat-bubble { background: rgba(255,255,255,.08); border: 1px solid rgba(255,255,255,.16); border-radius: 12px; padding: 14px 20px; text-align: right; min-width: 160px; }
 .cl-stat-num { font-size: 26px; font-weight: 800; color: #fff; line-height: 1.1; margin-bottom: 2px; }
 .cl-stat-label { font-size: 11px; color: rgba(255,255,255,.6); line-height: 1.4; }
-@media (max-width: 700px) { .cl-hero-stats { flex-direction: row; width: 100%; justify-content: center; } .cl-stat-bubble { text-align: left; } }
+.cl-stat-ast { font-size: 0.7em; vertical-align: super; margin-left: 1px; }
+.cl-stat-note { font-size: 10.5px; color: rgba(255,255,255,.8); line-height: 1.45; text-align: right; max-width: 230px; margin-left: auto; }
+@media (max-width: 700px) { .cl-hero-stats { flex-direction: row; flex-wrap: wrap; width: 100%; justify-content: center; } .cl-stat-bubble { text-align: left; } .cl-stat-note { flex-basis: 100%; max-width: none; text-align: left; margin-left: 0; } }
 .cl-hero-top { display: flex; align-items: flex-start; justify-content: space-between; gap: 24px; flex-wrap: wrap; margin-bottom: 6px; }
 .cl-hero .course-status.recommended { background: rgba(233,188,113,.22); border: 1px solid rgba(233,188,113,.45); color: var(--ochre); }
 .cl-hero-title { font-size: clamp(22px, 3vw, 30px); font-weight: 800; color: #fff; line-height: 1.28; margin: 14px 0 8px; max-width: 520px; }
@@ -379,13 +381,14 @@ a { color: inherit; }
           </div>
           <div class="cl-hero-stats">
             <div class="cl-stat-bubble">
-              <div class="cl-stat-num">98%</div>
+              <div class="cl-stat-num">98%<span class="cl-stat-ast">*</span></div>
               <div class="cl-stat-label">BC price growth per decade over 80 years</div>
             </div>
             <div class="cl-stat-bubble">
               <div class="cl-stat-num">10&times;</div>
               <div class="cl-stat-label">net worth gap: owners vs renters under 35</div>
             </div>
+            <div class="cl-stat-note">* Historical figures aren't predictions of the future. Values can always go up and down.</div>
           </div>
         </div>
       </div>
