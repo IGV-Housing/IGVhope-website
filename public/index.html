@@ -2174,11 +2174,11 @@ function handleNavLogout(event) {
 /* ---------- Account View ---------- */
 var ACCOUNT_TABS = ['progress', 'preferences', 'applications', 'saved', 'library'];
 
-// Where "View full Course Library" / "View all resources" link out to.
+// Where "View the full Homeownership Academy" / "View all resources" link out to.
 // Assumption: paths follow the same www.igvhope.com pattern as the rest of
 // the nav (/resources, /how-it-works, etc). Update COURSE_LIBRARY_URL if the
 // live course library path differs.
-var COURSE_LIBRARY_URL = '/course-library';
+var COURSE_LIBRARY_URL = '/homeownership-academy';
 var RESOURCES_HUB_URL = '/resources';
 
 // Static catalog of courses shown in the My Account > Course Library tab.
@@ -2789,8 +2789,8 @@ function renderCourseLibrary(progressData, resourcesData) {
 
   var html = '';
   html += '<div class="lib-banner">' +
-    '<div class="lib-banner-text">Everything from the full Course Library, in one place.</div>' +
-    '<a class="lib-banner-btn" href="' + COURSE_LIBRARY_URL + '" target="_blank" rel="noopener">Go to Course Library</a>' +
+    '<div class="lib-banner-text">Everything from the full Homeownership Academy, in one place.</div>' +
+    '<a class="lib-banner-btn" href="' + COURSE_LIBRARY_URL + '" target="_blank" rel="noopener">Go to the Homeownership Academy</a>' +
   '</div>';
 
   html += renderPointsCard(progressData);
@@ -4825,7 +4825,7 @@ select.gate1-input:invalid { color: #999; }
           <a href="/impact">Impact</a>
          <a href="/about">About</a>
           <a href="/resources">Resources</a>
-          <a href="/course-library">Course Library</a>
+          <a href="/homeownership-academy">The Homeownership Academy</a>
         </div>
         <div class="sitemap-col">
           <div class="sitemap-heading">Enquiries</div>

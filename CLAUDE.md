@@ -21,7 +21,7 @@ There is no build, lint, or test tooling — this is raw HTML/CSS/JS served as-i
 
 Pages use one of two independently-maintained header/nav implementations — check which one a page uses before copying nav markup from another page:
 
-- **`<nav id="dash-nav">`**: homepage (`public/index.html`), `terms`, `municipality`, `try-again`, `login/choose`, and everything under `course-library/`. Uses `.nav-right`, `.nav-signup-btn`, `.mobile-nav-link` classes.
+- **`<nav id="dash-nav">`**: homepage (`public/index.html`), `terms`, `municipality`, `try-again`, `login/choose`, and everything under `homeownership-academy/`. Uses `.nav-right`, `.nav-signup-btn`, `.mobile-nav-link` classes.
 - **`<nav class="site-nav">`**: `about`, `faq`, `how-it-works`, `next-steps`, `impact`, and everything under `resources/`. Uses `.nav-links`, `.nav-cta`, and (mostly) bare `<a href="...">` mobile links with no class.
 - `login/index.html` has neither — it's a standalone client-side "unlock" gate with its own minimal nav, not a real login system.
 
@@ -45,6 +45,6 @@ Both templates independently duplicate the footer (`<footer id="dash-footer">` w
 
 ### Course library structure
 
-`course-library/` has a `starting-course` plus `course-1` through `course-5`, each with its own `index.html` (overview) and `Lessons/index.html` (a single page that renders different lesson content client-side based on a `?lesson=N` query string — there's no per-lesson route).
+`homeownership-academy/` has a `starting-course` plus `course-1` through `course-5`, each with its own `index.html` (overview) and `Lessons/index.html` (a single page that renders different lesson content client-side based on a `?lesson=N` query string — there's no per-lesson route).
 
 **Known content bug, not yet fixed**: `course-4/Lessons/index.html` and `course-5/index.html` are byte-identical duplicates of the "Course 4 - Overview" content — this is a pre-existing authoring mistake (confirmed by diffing against the original pre-Git export, not something introduced during the migration into this repo) and predates this repo. Only `course-5/Lessons/index.html` has real, distinct content. Don't treat either file's current content as correct if asked to work on it.

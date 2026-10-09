@@ -29,7 +29,7 @@ igvhope/
 │   ├── resources/
 │   │   ├── index.html
 │   │   └── <article-slug>/index.html   (8 articles)
-│   ├── course-library/
+│   ├── homeownership-academy/
 │   │   ├── index.html
 │   │   ├── starting-course/(index.html, Lessons/index.html)
 │   │   └── course-1 … course-5/(index.html, Lessons/index.html)
@@ -60,14 +60,14 @@ of things that didn't belong in a public marketing-site repo. This pass:
   losing one was renamed with its source page as a prefix.
 - Fixed a live bug in `course-4`'s lesson links, which pointed at
   `/Course 4/Lessons/` (wrong, absolute, capitalized, space in the path)
-  instead of `/course-library/course-4/Lessons/`.
+  instead of `/homeownership-academy/course-4/Lessons/`.
 - Fixed a pre-existing bug in `about/index.html`'s favicon `<link>`,
   which was `/about/images/favicon.ico` (a page-relative path written as
   if it were root-absolute — a common artifact of per-page Webflow
   exports where each page believed it was the site root).
 - Updated `login/choose/index.html`'s two destination cards, which
   pointed at raw `*.workers.dev` / `*.pages.dev` deployment URLs for
-  course-library and resources, to `/course-library` and `/resources`
+  homeownership-academy and resources, to `/homeownership-academy` and `/resources`
   now that both live in this repo.
 - **Excluded** `igv platform - management` and `igv platform - supply`
   from this repo entirely. Both were full internal dashboards (Airtable-
@@ -90,7 +90,7 @@ known AI crawlers (GPTBot, ChatGPT-User, OAI-SearchBot, ClaudeBot,
 Claude-Web, anthropic-ai, Google-Extended, PerplexityBot, CCBot, Bingbot)
 so the site can be crawled and cited by AI search/assistants as well as
 traditional search engines. `public/sitemap.xml` lists the site's
-indexable pages (marketing pages, resources articles, course-library).
+indexable pages (marketing pages, resources articles, homeownership-academy).
 `login`, `login/choose` and `try-again` are deliberately left out of the
 sitemap — they're not content pages, and the sitemap should only include
 pages worth being discovered. If the goal ever flips to blocking AI

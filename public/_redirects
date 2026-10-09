@@ -1,0 +1,4 @@
+# Old Course Library address -> The Homeownership Academy
+/course-library /homeownership-academy 301
+/course-library/ /homeownership-academy 301
+/course-library/* /homeownership-academy/:splat 301
