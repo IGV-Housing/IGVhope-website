@@ -392,6 +392,40 @@
   .success-circle.forward { background: var(--ochre); }
   .success-circle.forward svg { stroke: var(--deep-forest); }
   .success-badge-sent    { background: rgba(185,200,181,0.2); color: var(--soft-sage); }
+
+  /* Copy-out fallback for when the mailto draft never arrives */
+  #success-fallback { margin-top: 26px; text-align: left; }
+  #fallback-toggle {
+    width: 100%; background: none; border: none; cursor: pointer;
+    font-family: inherit; font-size: 0.82rem; font-weight: 600;
+    color: var(--soft-sage); text-decoration: underline; text-underline-offset: 3px;
+    padding: 8px 0; text-align: center;
+  }
+  #fallback-toggle:hover { color: var(--white); }
+  #fallback-panel { margin-top: 14px; background: rgba(0,0,0,0.18); border-radius: 12px; padding: 16px; }
+  .fallback-row { display: flex; align-items: baseline; gap: 10px; margin-bottom: 10px; flex-wrap: wrap; }
+  .fallback-label {
+    font-size: 0.64rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase;
+    color: var(--soft-sage); flex: 0 0 56px;
+  }
+  .fallback-label-block { display: block; flex: none; margin: 14px 0 6px; }
+  .fallback-row code {
+    flex: 1 1 140px; min-width: 0; font-size: 0.76rem; color: var(--white);
+    word-break: break-all; font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+  }
+  #fb-body {
+    width: 100%; background: rgba(0,0,0,0.25); color: var(--white);
+    border: 1px solid rgba(255,255,255,0.14); border-radius: 8px; padding: 10px 12px;
+    font-family: inherit; font-size: 0.78rem; line-height: 1.55; resize: vertical;
+  }
+  .fallback-copy {
+    flex: 0 0 auto; cursor: pointer; font-family: inherit;
+    font-size: 0.7rem; font-weight: 700; letter-spacing: 0.04em;
+    color: var(--primary); background: var(--ochre); border: none;
+    border-radius: 100px; padding: 5px 14px;
+  }
+  .fallback-copy:hover { background: var(--white); }
+  .fallback-copy-wide { display: block; width: 100%; margin-top: 10px; padding: 10px; font-size: 0.78rem; }
   .success-badge-forward { background: rgba(233,188,113,0.2); color: var(--ochre); }
   .success-wrap h2 { font-family: 'Montserrat', sans-serif; font-size: 1.75rem; color: var(--white); margin-bottom: 10px; }
   .success-wrap p { font-size: 0.93rem; color: rgba(245,242,234,0.7); max-width: 380px; margin: 0 auto; line-height: 1.7; font-weight: 300; }
@@ -803,6 +837,38 @@
         <div id="success-badge" style="display:none;margin:0 auto 18px;padding:7px 16px;border-radius:100px;font-size:0.75rem;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;width:fit-content"></div>
         <h2 id="success-heading">Your message is ready</h2>
         <p id="success-body">Your email app should have opened with the letter pre-filled. Review it and send. Your council will hear from you directly.<br><br>Thank you for standing up for your community.</p>
+
+        <!-- Copy-out fallback. A mailto: link is the only way a static page can
+             hand a draft to an email app, and it is unreliable: this letter makes
+             a URL of about 2,600 characters, and iOS Mail and Outlook both start
+             dropping the body somewhere above 2,000. When that happens the app
+             opens blank and the letter is simply lost, so it has to be
+             recoverable from the page itself. -->
+        <div id="success-fallback">
+          <button type="button" id="fallback-toggle" aria-expanded="false" aria-controls="fallback-panel">
+            Email app didn't open, or opened empty? Copy your letter here
+          </button>
+          <div id="fallback-panel" hidden>
+            <div class="fallback-row">
+              <span class="fallback-label">To</span>
+              <code id="fb-to"></code>
+              <button type="button" class="fallback-copy" data-copy="fb-to">Copy</button>
+            </div>
+            <div class="fallback-row" id="fb-cc-row">
+              <span class="fallback-label">CC</span>
+              <code id="fb-cc"></code>
+              <button type="button" class="fallback-copy" data-copy="fb-cc">Copy</button>
+            </div>
+            <div class="fallback-row">
+              <span class="fallback-label">Subject</span>
+              <code id="fb-subject"></code>
+              <button type="button" class="fallback-copy" data-copy="fb-subject">Copy</button>
+            </div>
+            <label class="fallback-label fallback-label-block" for="fb-body">Letter</label>
+            <textarea id="fb-body" rows="10" readonly></textarea>
+            <button type="button" class="fallback-copy fallback-copy-wide" data-copy="fb-body">Copy the letter</button>
+          </div>
+        </div>
       </div>
 
     </div><!-- /form-card -->
@@ -1415,6 +1481,62 @@ function validate() {
 }
 
 // ── SUBMIT ────────────────────────────────────────────────────────────────────
+/* ---------- Copy-out fallback for the letter ----------
+   Top level on purpose: the click listener must be bound once, not re-bound on
+   every submit, or a second submission would copy twice. */
+function fillFallback(toAddr, ccAddr, subjectText, bodyText) {
+  $('fb-to').textContent = toAddr || '';
+  $('fb-cc').textContent = ccAddr || '';
+  $('fb-cc-row').style.display = ccAddr ? 'flex' : 'none';
+  $('fb-subject').textContent = subjectText || '';
+  $('fb-body').value = bodyText || '';
+}
+
+function legacyCopy(text, done) {
+  const ta = document.createElement('textarea');
+  ta.value = text;
+  ta.setAttribute('readonly', '');
+  ta.style.cssText = 'position:fixed;top:0;left:0;opacity:0';
+  document.body.appendChild(ta);
+  ta.select();
+  ta.setSelectionRange(0, text.length);   // iOS needs the explicit range
+  try { document.execCommand('copy'); done(); } catch (e) { /* leave it selected */ }
+  ta.remove();
+}
+
+function copyText(text, btn) {
+  const done = () => {
+    const was = btn.dataset.label || btn.textContent;
+    btn.dataset.label = was;
+    btn.textContent = 'Copied';
+    setTimeout(() => { btn.textContent = was; }, 1600);
+  };
+  // navigator.clipboard needs a secure context and can still be refused;
+  // the textarea route is the fallback that works everywhere else.
+  if (navigator.clipboard && window.isSecureContext) {
+    navigator.clipboard.writeText(text).then(done).catch(() => legacyCopy(text, done));
+  } else {
+    legacyCopy(text, done);
+  }
+}
+
+document.addEventListener('click', function (e) {
+  if (!e.target.closest) return;
+  const toggle = e.target.closest('#fallback-toggle');
+  if (toggle) {
+    const panel = $('fallback-panel');
+    const opening = panel.hidden;
+    panel.hidden = !opening;
+    toggle.setAttribute('aria-expanded', String(opening));
+    return;
+  }
+  const copyBtn = e.target.closest('.fallback-copy');
+  if (copyBtn) {
+    const src = $(copyBtn.dataset.copy);
+    copyText(src.value !== undefined ? src.value : src.textContent, copyBtn);
+  }
+});
+
 function handleSubmit() {
   if (!validate()) {
     const first = document.querySelector('.invalid, .err[style*="block"]');
@@ -1455,7 +1577,11 @@ function handleSubmit() {
     if (mode === 'sent') {
       badge.style.display = 'block';
       badge.className = 'success-badge-sent';
-      badge.textContent = '✓ Sent directly to your council';
+      // Nothing has been sent at this point - all that has happened is the
+      // user's email app was handed a pre-filled draft. Claiming "sent" made
+      // people think we had emailed council on their behalf, and led others to
+      // stop before actually pressing send.
+      badge.textContent = '→ One step left: press send in your email app';
     } else {
       badge.style.display = 'block';
       badge.className = 'success-badge-forward';
@@ -1464,7 +1590,7 @@ function handleSubmit() {
 
     // Heading
     $('success-heading').textContent = mode === 'sent'
-      ? 'Your letter is on its way to council'
+      ? 'Your letter is ready to send'
       : 'One step left: check your inbox';
 
     // Body
@@ -1489,6 +1615,8 @@ function handleSubmit() {
     const fbBcc      = encodeURIComponent(BCC);
 
     // Open mailto addressed to the user's own inbox - pre-filled, send-ready
+    fillFallback(email, '', 'ACTION NEEDED: Your HOPE community letter for ' + muni,
+                 forwardNote + letterText);
     window.location.href = 'mailto:' + encodeURIComponent(email) + '?subject=' + fbSubject + '&bcc=' + fbBcc + '&body=' + fbBody;
 
     const formLink = formUrl
@@ -1506,9 +1634,11 @@ function handleSubmit() {
     // ── DIRECT SEND: verified council email ──────────────────────────────────
     const to = encodeURIComponent(data.c);
     const cc = encodeURIComponent([data.mla, data.min].filter(Boolean).join(','));
+    fillFallback(data.c, [data.mla, data.min].filter(Boolean).join(', '),
+                 decodeURIComponent(subject), buildLetter(name, email, city, muni));
     window.location.href = 'mailto:' + to + '?subject=' + subject + '&cc=' + cc + '&bcc=' + bcc + '&body=' + body;
     setTimeout(() => showSuccess(
-      'Your email app has opened with the letter addressed to <strong>' + muni + '</strong> council. Review it and hit send. Your voice matters and your council will hear from you directly.<br><br><strong>Thank you for taking the time to care for your community.</strong> What you\'ve just done is how real change happens.',
+      'We have not sent anything on your behalf. Your email app should now be open with a draft addressed to <strong>' + muni + '</strong> council, for you to read, change if you want to, and send yourself.<br><br>It only reaches your council once you press send.<br><br><strong>Thank you for taking the time to care for your community.</strong> What you are about to do is how real change happens.',
       'sent'
     ), 500);
   }
