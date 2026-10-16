@@ -1484,6 +1484,21 @@ elevenlabs-convai {
   right: 24px;
   z-index: 9999;
 }
+
+  /* iOS Safari zooms the viewport in when a focused control has a font-size
+     under 16px, and it does not zoom back out on blur - the page is left
+     enlarged and panned sideways. Each page styles its own controls by class or
+     id (.filter-select, .gate1-input, .qualify-input, #magic-email-input), so
+     this needs !important to win regardless of which. Touch widths only, so
+     desktop keeps its designed sizes. Checkboxes and radios are excluded: no
+     text entry, no zoom. */
+  @media (max-width: 1024px) {
+    input:not([type="checkbox"]):not([type="radio"]):not([type="hidden"]),
+    select,
+    textarea {
+      font-size: 16px !important;
+    }
+  }
 </style>
 
 <elevenlabs-convai agent-id="agent_0501kw59avpvfjh8ggc3qhg7rv2z"></elevenlabs-convai>
