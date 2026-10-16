@@ -272,6 +272,20 @@
     transition: border-color 0.2s, box-shadow 0.2s;
     -webkit-appearance: none; appearance: none;
   }
+  /* iOS Safari zooms the whole page in when a focused control has a font-size
+     below 16px, and it does not zoom back out on blur. Filling in this form then
+     left the page zoomed and panned sideways, which read as the cards being
+     off-centre to the right. 0.94rem is 15.04px, just under the threshold, so
+     touch-sized screens get a flat 16px. Desktop keeps the smaller size. */
+  @media (max-width: 1024px) {
+    input[type="text"],
+    input[type="email"],
+    select,
+    textarea,
+    #fb-body {
+      font-size: 16px;
+    }
+  }
   input:focus, select:focus, textarea:focus {
     outline: none;
     border-color: var(--clay);
@@ -416,7 +430,9 @@
   #fb-body {
     width: 100%; background: rgba(0,0,0,0.25); color: var(--white);
     border: 1px solid rgba(255,255,255,0.14); border-radius: 8px; padding: 10px 12px;
-    font-family: inherit; font-size: 0.78rem; line-height: 1.55; resize: vertical;
+    /* 16px, not smaller: this is a focusable textarea, and anything under 16px
+       makes iOS Safari zoom the page in on focus without zooming back out. */
+    font-family: inherit; font-size: 16px; line-height: 1.55; resize: vertical;
   }
   .fallback-copy {
     flex: 0 0 auto; cursor: pointer; font-family: inherit;
