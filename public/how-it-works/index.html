@@ -339,30 +339,38 @@
   .section-watermark.light { opacity: 0.08; }
   .compare-section .wrap { position: relative; z-index: 1; }
 
-  .compare-grid { display: grid; grid-template-columns: 0.75fr 1fr 1fr 1fr; gap: 14px; align-items: start; }
-  .compare-labels { display: flex; flex-direction: column; gap: 0; padding-top: 68px; }
-  .compare-label-row { flex: 1; display: flex; align-items: center; min-height: 150px; }
-  .compare-label { color: #8a6a3f; font-weight: 700; font-size: 13px; text-align: center; width: 100%; }
-  .compare-col { border-radius: 14px; overflow: hidden; }
-  .compare-col-header { padding: 16px 12px; text-align: center; font-weight: 800; font-size: 15px; color: #ffffff; background: var(--ochre); }
-  .compare-col.igv .compare-col-header { background: var(--teal-deep); display: flex; align-items: center; justify-content: center; }
-  .compare-col-body { background: #F3E9D6; padding: 4px 18px; }
+  .compare-grid { display: grid; grid-template-columns: 0.55fr 1fr 1fr 1fr; grid-template-rows: auto repeat(3, auto); column-gap: 14px; align-items: stretch; }
+  .compare-labels, .compare-col { grid-row: 1 / span 4; display: grid; grid-template-rows: subgrid; }
+  .compare-labels::before { content: ""; }
+  .compare-label-row { padding: 18px 8px 18px 0; border-bottom: 1px solid rgba(0,0,0,0.1); }
+  .compare-label-row:last-child { border-bottom: none; }
+  .compare-label { color: #8a6a3f; font-weight: 800; font-size: 13px; line-height: 1.3; text-align: left; }
+  .compare-label span { display: block; margin-top: 5px; font-weight: 500; font-size: 11px; line-height: 1.4; color: #6b6b6b; }
+  .compare-section .section-head p { white-space: nowrap; font-size: clamp(11px, calc((100vw - 64px) / 61), 15.5px); }
+  @media (max-width: 720px) { .compare-section .section-head p { white-space: normal; font-size: 15.5px; } }
+  .compare-note { margin: 28px auto 0; max-width: 860px; text-align: center; font-size: 12.5px; line-height: 1.55; color: #6b6b6b; }
+  .compare-col { border-radius: 16px; overflow: hidden; }
+  .compare-col-header { padding: 20px 12px; text-align: center; font-weight: 800; font-size: 19px; color: #ffffff; background: var(--ochre); display: flex; align-items: center; justify-content: center; }
+  .compare-col.igv .compare-col-header { background: var(--teal-deep); }
+  .compare-col-body { grid-row: 2 / span 3; display: grid; grid-template-rows: subgrid; background: #F6EBD9; padding: 0 14px; }
   .compare-col.igv .compare-col-body { background: #E9F2E1; }
-  .compare-row { display: flex; align-items: center; gap: 12px; min-height: 150px; padding: 16px 0; border-bottom: 1px solid rgba(0,0,0,0.08); }
+  .compare-row { display: flex; align-items: flex-start; gap: 12px; padding: 18px 0; border-bottom: 1px solid rgba(0,0,0,0.1); }
   .compare-row:last-child { border-bottom: none; }
-  .compare-row-label-mobile { display: none; }
-  .compare-icon { width: 26px; height: 26px; border-radius: 50%; border: 2px solid; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
-  .compare-icon.x { border-color: #8a3b2a; color: #8a3b2a; }
-  .compare-icon.check { border-color: var(--teal); color: var(--teal); }
-  .compare-text strong { display: block; font-size: 13.5px; font-weight: 800; color: var(--ink); line-height: 1.35; margin-bottom: 3px; }
-  .compare-text span { display: block; font-size: 12px; color: #6b6b6b; line-height: 1.4; }
-  .compare-col.igv .compare-text span { color: #4a5a52; }
+  .compare-icon { width: 40px; height: 40px; border-radius: 50%; background: #EBD5AE; color: var(--ochre); display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+  .compare-icon svg { width: 20px; height: 20px; }
+  .compare-col.igv .compare-icon { background: #D3E5C8; color: var(--teal); }
+  .compare-text { min-width: 0; }
+  .compare-cat { display: block; font-size: 12px; font-weight: 500; color: #6b6b6b; line-height: 1.3; margin-bottom: 3px; }
+  .compare-text strong { display: block; font-size: 14px; font-weight: 800; color: var(--ink); line-height: 1.3; margin-bottom: 5px; }
+  .compare-text .compare-desc { display: block; font-size: 10.5px; color: #6b6b6b; line-height: 1.45; }
+  .compare-col.igv .compare-text .compare-desc, .compare-col.igv .compare-cat { color: #4a5a52; }
 
-  @media (max-width: 720px) {
-    .compare-grid { grid-template-columns: 1fr; gap: 24px; }
+  @media (max-width: 900px) {
+    .compare-grid { grid-template-columns: 1fr; grid-template-rows: none; row-gap: 24px; }
     .compare-labels { display: none; }
-    .compare-row { min-height: 0; align-items: flex-start; }
-    .compare-row-label-mobile { display: block; font-size: 10.5px; font-weight: 800; letter-spacing: 0.08em; text-transform: uppercase; color: #8a6a3f; margin-bottom: 4px; }
+    .compare-col { grid-row: auto; display: block; }
+    .compare-col-body { grid-row: auto; display: block; }
+    .compare-row { align-items: flex-start; }
   }
 
   /* ---------- Protections list ---------- */
@@ -775,29 +783,30 @@
   <svg class="section-watermark" viewBox="0 0 29 34" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M28.6407 17.0608L25.4418 2.57192C25.2066 1.49296 24.156 0.827731 23.1132 1.09544C22.0705 1.36316 21.4197 2.46646 21.6549 3.55353L24.9479 18.4886C25.1831 19.5595 23.8502 20.2247 23.1916 19.3648L14.2223 7.72336C13.5402 6.83909 12.176 6.52271 11.196 7.03379C10.2159 7.54488 9.97287 8.68063 10.655 9.57301L20.1418 21.8878C20.8082 22.7477 19.883 23.9484 18.9265 23.4697L5.64502 16.8499C4.72771 16.3956 3.56734 16.6552 3.04204 17.5557C2.4305 18.5941 2.83035 19.9164 3.85743 20.4275L17.2408 27.096C18.1974 27.5746 17.8681 29.0673 16.8096 29.0673H1.95224C0.870274 29.0673 0 29.9759 0 31.0874C0 32.1988 0.870274 33.1074 1.95224 33.1074H27.1667C27.9821 33.1074 28.6407 32.4259 28.6407 31.5822V17.0608Z" fill="#FBB040"/></svg>
   <div class="wrap">
     <div class="section-head reveal-on-scroll">
-      <h2>The same $600,000 home three ways.</h2>
+      <h2>One $600,000 home. Three ways to get there.</h2>
+      <p>See how the upfront costs, monthly payments and purchase price arrangements compare for the same $600,000 home.</p>
     </div>
     <div class="compare-grid reveal-on-scroll">
       <div class="compare-labels">
-        <div class="compare-label-row"><div class="compare-label">Cash to start</div></div>
-        <div class="compare-label-row"><div class="compare-label">Monthly cost</div></div>
-        <div class="compare-label-row"><div class="compare-label">Purchase price</div></div>
+        <div class="compare-label-row"><div class="compare-label">Upfront costs<span>What you need upfront to get into a home.</span></div></div>
+        <div class="compare-label-row"><div class="compare-label">Monthly cost<span>What you pay each month.</span></div></div>
+        <div class="compare-label-row"><div class="compare-label">Purchase price<span>How the purchase price is set.</span></div></div>
       </div>
 
       <div class="compare-col">
         <div class="compare-col-header">Buying upfront</div>
         <div class="compare-col-body">
           <div class="compare-row">
-            <div class="compare-icon x">&#10005;</div>
-            <div class="compare-text"><span class="compare-row-label-mobile">Cash to start</span><strong>$85,000 Upfront Cost</strong><span>down payment, insurance, taxes</span></div>
+            <div class="compare-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 11.5 12 4l9 7.5"/><path d="M5.5 10v10h13V10"/><path d="M10 20v-5.5h4V20"/></svg></div>
+            <div class="compare-text"><span class="compare-cat">Upfront costs</span><strong>*$80,000 (on 10% down payment)</strong><span class="compare-desc">Plus estimated taxes, legal fees, closing costs and Canada Mortgage and Housing Corporation (CMHC) insurance. Any down payment less than 20% requires CMHC insurance.</span></div>
           </div>
           <div class="compare-row">
-            <div class="compare-icon x">&#10005;</div>
-            <div class="compare-text"><span class="compare-row-label-mobile">Monthly cost</span><strong>Stretch to full mortgage</strong><span>at today's rate from Day One</span></div>
+            <div class="compare-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><ellipse cx="12" cy="6" rx="7" ry="3"/><path d="M5 6v4c0 1.66 3.13 3 7 3s7-1.34 7-3V6"/><path d="M5 10v4c0 1.66 3.13 3 7 3s7-1.34 7-3v-4"/><path d="M5 14v4c0 1.66 3.13 3 7 3s7-1.34 7-3v-4"/></svg></div>
+            <div class="compare-text"><span class="compare-cat">Monthly cost</span><strong>*$3,100</strong><span class="compare-desc">Mortgage payments at today's rates based on a fixed-interest 25-year term. If a 5% down payment is applied, interest, rates, insurance and monthly costs all increase.</span></div>
           </div>
           <div class="compare-row">
-            <div class="compare-icon x">&#10005;</div>
-            <div class="compare-text"><span class="compare-row-label-mobile">Purchase price</span><strong>Full price today,</strong><span>often loaded with mortgage insurance</span></div>
+            <div class="compare-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 3h8l4 4v14H6z"/><path d="M14 3v4h4"/><path d="M9.5 12h5"/><path d="M9.5 15.5h5"/></svg></div>
+            <div class="compare-text"><span class="compare-cat">Purchase price</span><strong>$600,000</strong><span class="compare-desc">Purchased on market today with ownership transferring on completion.</span></div>
           </div>
         </div>
       </div>
@@ -806,23 +815,23 @@
         <div class="compare-col-header">Traditional rent-to-own</div>
         <div class="compare-col-body">
           <div class="compare-row">
-            <div class="compare-icon x">&#10005;</div>
-            <div class="compare-text"><span class="compare-row-label-mobile">Cash to start</span><strong>$10,000 to $30,000 at risk</strong><span>Upfront payments at risk if non-refundable</span></div>
+            <div class="compare-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 11.5 12 4l9 7.5"/><path d="M5.5 10v10h13V10"/><path d="M10 20v-5.5h4V20"/></svg></div>
+            <div class="compare-text"><span class="compare-cat">Upfront costs</span><strong>$10,000 – $30,000</strong><span class="compare-desc">Initial option payment, often non-refundable if the purchase does not proceed.</span></div>
           </div>
           <div class="compare-row">
-            <div class="compare-icon x">&#10005;</div>
-            <div class="compare-text"><span class="compare-row-label-mobile">Monthly cost</span><strong>Over market rent</strong><span>prepayments at risk</span></div>
+            <div class="compare-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><ellipse cx="12" cy="6" rx="7" ry="3"/><path d="M5 6v4c0 1.66 3.13 3 7 3s7-1.34 7-3V6"/><path d="M5 10v4c0 1.66 3.13 3 7 3s7-1.34 7-3v-4"/><path d="M5 14v4c0 1.66 3.13 3 7 3s7-1.34 7-3v-4"/></svg></div>
+            <div class="compare-text"><span class="compare-cat">Monthly cost</span><strong>*$3,800 – $4,000</strong><span class="compare-desc">Rent plus potential purchase credits. Amounts vary by agreement, typically 25–30% above standard mortgage repayments.</span></div>
           </div>
           <div class="compare-row">
-            <div class="compare-icon x">&#10005;</div>
-            <div class="compare-text"><span class="compare-row-label-mobile">Purchase price</span><strong>Above market buy price</strong><span>or bumped up to market price when option is exercised</span></div>
+            <div class="compare-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 3h8l4 4v14H6z"/><path d="M14 3v4h4"/><path d="M9.5 12h5"/><path d="M9.5 15.5h5"/></svg></div>
+            <div class="compare-text"><span class="compare-cat">Purchase price</span><strong>$600,000+</strong><span class="compare-desc">Price may be fixed upfront or could increase to market value when the option is exercised.</span></div>
           </div>
         </div>
       </div>
 
       <div class="compare-col igv">
         <div class="compare-col-header">
-          <svg width="90" height="21" viewBox="0 0 163 38" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <svg width="118" height="28" viewBox="0 0 163 38" fill="none" xmlns="http://www.w3.org/2000/svg">
             <path d="M34.536 0.747925H39.4049V33.0843H32.427V2.93019C32.427 1.72954 33.3678 0.747925 34.536 0.747925Z" fill="#ffffff"/>
             <path d="M88.8771 21.3374L96.2234 2.32986C96.5919 1.37259 97.4857 0.747925 98.4814 0.747925H104.393L91.8329 33.0843H85.9291L73.3611 0.747925H80.9191L88.8771 21.3293V21.3374Z" fill="#ffffff"/>
             <path d="M67.5122 16.6144H72.2478V28.0855C69.1508 31.6631 64.8544 33.4478 59.374 33.4478C54.7874 33.4478 50.93 31.874 47.8174 28.7264C44.7048 25.5787 43.1445 21.6117 43.1445 16.8172C43.1445 12.0227 44.7283 8.02326 47.9036 4.81071C51.0789 1.60628 54.905 0 59.3897 0C63.8743 0 67.7709 1.52515 71.0796 4.57545L68.8294 7.93402C68.1238 8.98865 66.7282 9.28881 65.7089 8.5668C64.9641 8.03949 64.2663 7.64197 63.5921 7.37426C62.416 6.89562 61.138 6.66036 59.766 6.66036C57.116 6.66036 54.8815 7.5933 53.0625 9.45917C51.2436 11.325 50.3341 13.7831 50.3341 16.8334C50.3341 19.8837 51.2044 22.3337 52.9528 24.1671C54.7011 26.0006 56.7788 26.9173 59.1858 26.9173C61.5928 26.9173 63.6156 26.4386 65.2228 25.4814V18.9589C65.2228 17.6528 66.2421 16.5982 67.5044 16.5982L67.5122 16.6144Z" fill="#ffffff"/>
@@ -835,20 +844,21 @@
         </div>
         <div class="compare-col-body">
           <div class="compare-row">
-            <div class="compare-icon check">&#10003;</div>
-            <div class="compare-text"><span class="compare-row-label-mobile">Cash to start</span><strong>No upfront down payment</strong><span>just typical lease cost</span></div>
+            <div class="compare-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 11.5 12 4l9 7.5"/><path d="M5.5 10v10h13V10"/><path d="M10 20v-5.5h4V20"/></svg></div>
+            <div class="compare-text"><span class="compare-cat">Upfront costs</span><strong>$0</strong><span class="compare-desc">No upfront down payment. Standard move-in costs may apply.</span></div>
           </div>
           <div class="compare-row">
-            <div class="compare-icon check">&#10003;</div>
-            <div class="compare-text"><span class="compare-row-label-mobile">Monthly cost</span><strong>Keep Certainty of monthly costs</strong><span>annual increases capped as per BC guidelines for the ten-year term</span></div>
+            <div class="compare-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><ellipse cx="12" cy="6" rx="7" ry="3"/><path d="M5 6v4c0 1.66 3.13 3 7 3s7-1.34 7-3V6"/><path d="M5 10v4c0 1.66 3.13 3 7 3s7-1.34 7-3v-4"/><path d="M5 14v4c0 1.66 3.13 3 7 3s7-1.34 7-3v-4"/></svg></div>
+            <div class="compare-text"><span class="compare-cat">Monthly cost</span><strong>*$2,300</strong><span class="compare-desc">Predictable monthly occupancy contributions, with annual increases capped under your agreement.</span></div>
           </div>
           <div class="compare-row">
-            <div class="compare-icon check">&#10003;</div>
-            <div class="compare-text"><span class="compare-row-label-mobile">Purchase price</span><strong>Agreed purchase price set at move-in,</strong><span>held for the ten-year term.</span></div>
+            <div class="compare-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 3h8l4 4v14H6z"/><path d="M14 3v4h4"/><path d="M9.5 12h5"/><path d="M9.5 15.5h5"/></svg></div>
+            <div class="compare-text"><span class="compare-cat">Purchase price</span><strong>$600,000 held 10 years</strong><span class="compare-desc">Agreed purchase price set at day one, based on an independent valuation and held for the ten-year term.</span></div>
           </div>
         </div>
       </div>
     </div>
+    <p class="compare-note">Illustrative example only. *Figures are estimates based on a $600,000 home and typical market conditions. Actual costs will vary by location, buyer, lender and agreement. IGVhope participation and future mortgage approval are subject to eligibility and applicable terms.</p>
   </div>
 </section>
 
