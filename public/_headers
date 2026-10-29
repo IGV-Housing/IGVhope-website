@@ -3,3 +3,7 @@
 
 /*
   X-Frame-Options: SAMEORIGIN
+
+/faq/faq.json
+  Access-Control-Allow-Origin: *
+  Cache-Control: no-cache, must-revalidate
