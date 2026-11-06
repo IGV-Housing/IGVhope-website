@@ -872,6 +872,11 @@ document.getElementById('qualify-overlay').addEventListener('click', function(e)
   if (e.target === this) closeQualifyModal();
 });
 
+/* Arriving from a listing's "Check your program eligibility" button (?form=open) opens the form straight away. */
+document.addEventListener('DOMContentLoaded', function() {
+  if (new URLSearchParams(window.location.search).get('form') === 'open') openQualifyModal();
+});
+
 function qualifySetProgress(stepNum) {
   document.querySelectorAll('.qualify-progress-seg').forEach(function(seg) {
     var segNum = parseInt(seg.getAttribute('data-seg'), 10);
