@@ -296,7 +296,6 @@ function openListingDetail(cardEl) {
   }
   if (document.getElementById('detail-hero-type')) document.getElementById('detail-hero-type').textContent = d.type + ' \u2022 ' + d.region;
   if (document.getElementById('detail-hero-title')) document.getElementById('detail-hero-title').textContent = d.displayTitle;
-  if (document.getElementById('detail-hero-loc-text')) document.getElementById('detail-hero-loc-text').textContent = d.location;
 
   // Stats
   if (document.getElementById('ds-price')) document.getElementById('ds-price').textContent = /\d/.test(d.price) ? 'From ' + d.price : d.price;
@@ -5807,14 +5806,6 @@ select.pref-input {
  line-height: 1.15;
  margin-bottom: 8px;
 }
-#detail-hero-location {
- font-size: 12px;
- font-weight: 500;
- color: #666;
- display: flex;
- align-items: center;
- gap: 5px;
-}
 .detail-hero-save {
  position: absolute;
  top: 14px;
@@ -6308,10 +6299,6 @@ select.pref-input {
     <div id="detail-hero-info">
       <div id="detail-hero-type"></div>
       <div id="detail-hero-title"></div>
-      <div id="detail-hero-location">
-        <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
-        <span id="detail-hero-loc-text"></span>
-      </div>
     </div>
 
     <div id="detail-stats">
