@@ -390,7 +390,8 @@
   @media (max-width: 480px) { .protections-cta-btn { width: 100%; box-sizing: border-box; text-align: center; } }
 
   /* ---------- Launch Course promo (pre-footer) ---------- */
-  .launch-course-section { background: #E3EDE6; padding: 90px 0; text-align: center; }
+  .launch-course-section { background: #E3EDE6; padding: 90px 0; text-align: center; position: relative; overflow: hidden; }
+  .launch-course-section .wrap { position: relative; z-index: 1; }
   .launch-course-eyebrow { font-size: 11px; font-weight: 800; letter-spacing: 0.18em; text-transform: uppercase; color: var(--teal); margin-bottom: 18px; }
   .launch-course-heading { font-size: clamp(28px, 4.5vw, 42px); font-weight: 800; color: var(--teal-deep); letter-spacing: -0.01em; line-height: 1.2; max-width: 720px; margin: 0 auto 20px; }
   .launch-course-sub { font-size: 16px; font-weight: 500; color: #6b6b6b; line-height: 1.7; max-width: 620px; margin: 0 auto 32px; }
@@ -856,7 +857,6 @@
 
 <!-- ================= PROTECTIONS ================= -->
 <section class="protections-section">
-  <svg class="section-watermark flipped" viewBox="0 0 29 34" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M28.6407 17.0608L25.4418 2.57192C25.2066 1.49296 24.156 0.827731 23.1132 1.09544C22.0705 1.36316 21.4197 2.46646 21.6549 3.55353L24.9479 18.4886C25.1831 19.5595 23.8502 20.2247 23.1916 19.3648L14.2223 7.72336C13.5402 6.83909 12.176 6.52271 11.196 7.03379C10.2159 7.54488 9.97287 8.68063 10.655 9.57301L20.1418 21.8878C20.8082 22.7477 19.883 23.9484 18.9265 23.4697L5.64502 16.8499C4.72771 16.3956 3.56734 16.6552 3.04204 17.5557C2.4305 18.5941 2.83035 19.9164 3.85743 20.4275L17.2408 27.096C18.1974 27.5746 17.8681 29.0673 16.8096 29.0673H1.95224C0.870274 29.0673 0 29.9759 0 31.0874C0 32.1988 0.870274 33.1074 1.95224 33.1074H27.1667C27.9821 33.1074 28.6407 32.4259 28.6407 31.5822V17.0608Z" fill="#1A5C50"/></svg>
   <div class="wrap">
     <div class="section-head reveal-on-scroll">
       <h2>Your protections throughout the pathway.</h2>
@@ -913,6 +913,7 @@
 
 <!-- ================= LAUNCH COURSE PROMO ================= -->
 <section class="launch-course-section">
+  <svg class="section-watermark flipped" viewBox="0 0 29 34" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M28.6407 17.0608L25.4418 2.57192C25.2066 1.49296 24.156 0.827731 23.1132 1.09544C22.0705 1.36316 21.4197 2.46646 21.6549 3.55353L24.9479 18.4886C25.1831 19.5595 23.8502 20.2247 23.1916 19.3648L14.2223 7.72336C13.5402 6.83909 12.176 6.52271 11.196 7.03379C10.2159 7.54488 9.97287 8.68063 10.655 9.57301L20.1418 21.8878C20.8082 22.7477 19.883 23.9484 18.9265 23.4697L5.64502 16.8499C4.72771 16.3956 3.56734 16.6552 3.04204 17.5557C2.4305 18.5941 2.83035 19.9164 3.85743 20.4275L17.2408 27.096C18.1974 27.5746 17.8681 29.0673 16.8096 29.0673H1.95224C0.870274 29.0673 0 29.9759 0 31.0874C0 32.1988 0.870274 33.1074 1.95224 33.1074H27.1667C27.9821 33.1074 28.6407 32.4259 28.6407 31.5822V17.0608Z" fill="#1A5C50"/></svg>
   <div class="wrap">
     <div class="launch-course-eyebrow">Free Course</div>
     <h2 class="launch-course-heading">Build your confidence.<br>Build your future.</h2>
