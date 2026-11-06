@@ -4,11 +4,13 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## What this is
 
-Static site for igvhope.com (self-contained HTML, no build step, no bundler, no package.json). Every page is a single `.html` file with inline `<style>` and `<script>` — CSS/JS are not extracted into shared files, so a change to nav, footer, or design tokens has to be applied to every page individually (there is no single source of truth to edit once).
+Static site for igvhope.com (self-contained HTML, no bundler, no package.json; the only build step is the FAQ one below). Every page is a single `.html` file with inline `<style>` and `<script>` — CSS/JS are not extracted into shared files, so a change to nav, footer, or design tokens has to be applied to every page individually (there is no single source of truth to edit once).
 
 ## Commands
 
-There is no build, lint, or test tooling — this is raw HTML/CSS/JS served as-is.
+There is no lint or test tooling — this is raw HTML/CSS/JS served as-is, with one build step:
+
+- **FAQ build**: `node scripts/build-faq.mjs` copies the questions in `public/faq/faq.json` into `public/faq/index.html` (the visible list, between the `FAQ-LIST` markers, and the FAQPage JSON-LD in `<head>`, between the `FAQ-SCHEMA` markers), so search engines and AI crawlers that don't run JavaScript can read them. `faq.json` stays the one copy to edit (the platform's Call Desk reads it too); never edit between the markers by hand. `wrangler.jsonc`'s `build.command` runs it on every `wrangler deploy`, so production always matches `faq.json`; run it yourself after editing `faq.json` and commit the result so the repo and local previews match. The page also re-reads `faq.json` in the browser as a fallback.
 
 - **Deploy**: `npx wrangler deploy` (from repo root). Wrangler reads `wrangler.jsonc`, which points `assets.directory` at `./public`.
 - **Normal path**: the `igvhope-website` Cloudflare Workers project is Git-connected for auto-deploy on push to `main` — a plain `git push` is usually enough. Only fall back to a manual `wrangler deploy` if a push doesn't show up live (check the Cloudflare dashboard's Deployments tab first to confirm the Git connection is still intact before assuming the code is wrong).
