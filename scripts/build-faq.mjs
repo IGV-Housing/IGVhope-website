@@ -56,10 +56,12 @@ const schemaHtml = '<script type="application/ld+json">\n'
   + JSON.stringify(schema, null, 2).replace(/<\//g, '<\\/') + '\n</script>';
 
 let page = readFileSync(pagePath, 'utf8');
+const eol = page.includes('\r\n') ? '\r\n' : '\n';   // keep the file's own line endings (Windows checkouts use CRLF)
 function fill(name, content) {
+  content = content.replace(/\r?\n/g, eol);
   const re = new RegExp('(<!-- ' + name + ':START[^>]*-->)[\\s\\S]*?(<!-- ' + name + ':END -->)');
   if (!re.test(page)) throw new Error('public/faq/index.html is missing the <!-- ' + name + ':START --> / <!-- ' + name + ':END --> markers');
-  page = page.replace(re, (m, start, end) => start + '\n' + content + '\n' + end);
+  page = page.replace(re, (m, start, end) => start + eol + content + eol + end);
 }
 fill('FAQ-SCHEMA', schemaHtml);
 fill('FAQ-LIST', listHtml);
