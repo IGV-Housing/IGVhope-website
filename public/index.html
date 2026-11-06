@@ -1112,9 +1112,10 @@ function downloadFloorplan() {
   var unitMatch = title.match(/-\s*Unit\s*([A-C])/i);
   var unitLetter = unitMatch ? unitMatch[1].toUpperCase() : null;
   var pdfUrl = unitLetter ? FLOORPLAN_PDFS[unitLetter] : null;
-  /* No floorplan for this home yet: say so straight away instead of asking for details first. */
-  if (!pdfUrl) { alert('A new floorplan for this home is on its way. Please check back soon.'); return; }
+  /* Gate 1 (the lead form) always opens first, whether or not this home has a floorplan to give yet. */
   if (!gate1Unlocked) { openGate1(function() { downloadFloorplan(); }); return; }
+  /* No floorplan for this home yet: once Gate 1 is done, say so rather than asking for a second form. */
+  if (!pdfUrl) { alert('Thank you. The new floorplan for this home is on its way. Please check back soon.'); return; }
   if (!gate2Unlocked) { openGate2(function() { downloadFloorplan(); }); return; }
   window.open(pdfUrl, '_blank');
   trackDocumentDownload('floorplan', unitLetter);
