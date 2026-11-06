@@ -1,6 +1,11 @@
 {
   "name": "igvhope-website",
   "compatibility_date": "2025-01-01",
+  // Runs before every deploy: copies the questions in public/faq/faq.json into the FAQ page, so the live page
+  // always matches faq.json and search engines and AI assistants can read it. See scripts/build-faq.mjs.
+  "build": {
+    "command": "node scripts/build-faq.mjs"
+  },
   "assets": {
     "directory": "./public"
   },
