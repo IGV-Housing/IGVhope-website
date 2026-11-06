@@ -229,7 +229,6 @@ function openListingDetail(cardEl) {
     detailNavTitle.textContent = d.displayTitle;
     detailNavTitle.setAttribute('data-listing-key', d.title);
   }
-  if (document.getElementById('detail-nav-badge')) document.getElementById('detail-nav-badge').textContent = d.badge || d.type;
 
   // Hero gallery
   var heroBg = document.getElementById('detail-hero-bg');
@@ -4359,7 +4358,6 @@ select.gate1-input:invalid { color: #999; }
     <div class="card-img-overlay"></div>
     <div class="card-price-tag">$670,000</div>
     <button class="card-save-btn" onclick="handleSaveClick(this)" title="Save listing"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></button>
-    <span class="card-badge" style="display:none;">Ground Floor</span>
     <div class="card-helper"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>Includes a mortgage helper</div>
   </div>
   <div class="card-body">
@@ -4387,7 +4385,6 @@ select.gate1-input:invalid { color: #999; }
     <div class="card-img-overlay"></div>
     <div class="card-price-tag">$440,000</div>
     <button class="card-save-btn" onclick="handleSaveClick(this)" title="Save listing"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></button>
-    <span class="card-badge" style="display:none;">Ground Floor</span>
   </div>
   <div class="card-body">
     <div class="card-title" data-listing-key="Compton Road - Unit B" data-sqft="778" data-video="https://www.youtube.com/embed/SKgFdyuzTrk?si=JF2eGde3J2UhgGhH" data-img="/assets/img/img_006.jpg" data-img2="/assets/img/img_013.jpg" data-img3="/assets/img/img_010.jpg" data-img4="/assets/img/img_004.jpg">2 Bedroom Home</div>
@@ -4414,7 +4411,6 @@ select.gate1-input:invalid { color: #999; }
     <div class="card-img-overlay"></div>
     <div class="card-price-tag">$280,000</div>
     <button class="card-save-btn" onclick="handleSaveClick(this)" title="Save listing"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></button>
-    <span class="card-badge" style="display:none;">1st Floor</span>
   </div>
   <div class="card-body">
     <div class="card-title" data-listing-key="River Road - Unit C" data-sqft="382" data-video="https://www.youtube.com/embed/SKgFdyuzTrk?si=JF2eGde3J2UhgGhH" data-img="/assets/img/img_003.jpg" data-img2="/assets/img/img_004.jpg" data-img3="/assets/img/img_012.jpg">1 Bedroom Home</div>
@@ -5714,19 +5710,6 @@ select.pref-input {
  overflow: hidden;
  text-overflow: ellipsis;
 }
-#detail-nav-badge {
- font-size: 9px;
- font-weight: 700;
- letter-spacing: 0.12em;
- text-transform: uppercase;
- color: #da8d27;
- background: rgba(218,141,39,0.15);
- border: 1px solid rgba(218,141,39,0.3);
- border-radius: 4px;
- padding: 3px 8px;
- white-space: nowrap;
- flex-shrink: 0;
-}
 #detail-body {
  flex: 1;
  overflow-y: auto;
@@ -6278,8 +6261,8 @@ select.pref-input {
       <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
       Back to Home Configurations
     </button>
-    <div id="detail-nav-title"></div>
-    <div id="detail-nav-badge"></div>
+    <!-- Hidden on purpose: this element stores the home's internal name in data-listing-key, which the floorplan button and other features read. -->
+    <div id="detail-nav-title" style="display:none;"></div>
   </nav>
 
   <div id="detail-body">
