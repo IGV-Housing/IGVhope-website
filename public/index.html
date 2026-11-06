@@ -311,7 +311,7 @@ function openListingDetail(cardEl) {
   // Amenities
   var amenEl = document.getElementById('detail-amenities');
   if (amenEl) amenEl.innerHTML = d.amenities.map(function(a) {
-    return '<div class="amenity-pill"><span class="amenity-icon">' + a.icon + '</span><span class="amenity-text" onclick="handleGatedValueClick()"><span class="amenity-label">' + a.label + '</span><span class="amenity-detail">' + (a.detail || '') + '</span></span></div>';
+    return '<div class="amenity-pill"><span class="amenity-icon">' + a.icon + '</span><span class="amenity-text"><span class="amenity-label">' + a.label + '</span><span class="amenity-detail">' + (a.detail || '') + '</span></span></div>';
   }).join('');
 
   // Partners
@@ -379,11 +379,8 @@ function openListingDetail(cardEl) {
     }
   }
 
-  // Apply lead-gate blur/lock state, and prompt Gate 1 if not yet unlocked
+  // Listing values are shown to everyone; Gate 1 opens from the Download the floorplan button instead.
   applyListingGateState();
-  if (!gate1Unlocked) {
-    openGate1(function() { unlockListingDetail(); });
-  }
 
   // Set video for neighbourhood tab (facade pattern: poster + play button, real video loads on click)
   var videoFrame = document.getElementById('nb-video-frame');
@@ -1439,25 +1436,9 @@ function submitToHubspot(formGuid, fields, legalConsentOptions) {
   });
 }
 /* ------------------------------------------ */
-var GATED_VALUE_IDS = ['ds-rent', 'ds-beds', 'ds-baths', 'ds-sqft', 'sb-rent', 'sb-price', 'sb-beds', 'sb-baths', 'sb-region', 'sb-mh-income'];
-
+/* Listing values are no longer blurred. Gate 1 (the lead form) now opens when someone clicks Download the floorplan. */
 function applyListingGateState() {
-  var locked = !gate1Unlocked;
-  GATED_VALUE_IDS.forEach(function(id) {
-    var el = document.getElementById(id);
-    if (el) el.classList.toggle('gated-blur', locked);
-  });
-  document.querySelectorAll('.ps-val').forEach(function(el) {
-    el.classList.toggle('gated-blur', locked);
-    el.onclick = locked ? handleGatedValueClick : null;
-  });
-  document.querySelectorAll('.amenity-text').forEach(function(el) {
-    el.classList.toggle('gated-blur', locked);
-  });
-  document.querySelectorAll('.detail-tab').forEach(function(tab, i) {
-    if (i === 0) return; // Highlights always stays open
-    tab.classList.toggle('locked', locked);
-  });
+  document.querySelectorAll('.gated-blur').forEach(function(el) { el.classList.remove('gated-blur'); });
 }
 
 function handleGatedValueClick() {
@@ -6172,19 +6153,19 @@ select.pref-input {
 
     <div id="detail-stats">
       <div class="detail-stat">
-        <div class="detail-stat-val" id="ds-rent" onclick="handleGatedValueClick()"></div>
+        <div class="detail-stat-val" id="ds-rent"></div>
         <div class="detail-stat-lbl">Monthly Occupancy Payment</div>
       </div>
       <div class="detail-stat">
-        <div class="detail-stat-val" id="ds-beds" onclick="handleGatedValueClick()"></div>
+        <div class="detail-stat-val" id="ds-beds"></div>
         <div class="detail-stat-lbl">Bedrooms</div>
       </div>
       <div class="detail-stat">
-        <div class="detail-stat-val" id="ds-baths" onclick="handleGatedValueClick()"></div>
+        <div class="detail-stat-val" id="ds-baths"></div>
         <div class="detail-stat-lbl">Bathrooms</div>
       </div>
       <div class="detail-stat">
-        <div class="detail-stat-val" id="ds-sqft" onclick="handleGatedValueClick()"></div>
+        <div class="detail-stat-val" id="ds-sqft"></div>
         <div class="detail-stat-lbl">Sq Footage</div>
       </div>
     </div>
@@ -6394,8 +6375,8 @@ select.pref-input {
       <div id="detail-sidebar">
         <div class="sidebar-price-block">
           <div class="sidebar-price-lbl">Monthly occupancy payment</div>
-          <div class="sidebar-price-val" id="sb-rent" onclick="handleGatedValueClick()"></div>
-          <div class="sidebar-price-sub" id="sb-price" onclick="handleGatedValueClick()"></div>
+          <div class="sidebar-price-val" id="sb-rent"></div>
+          <div class="sidebar-price-sub" id="sb-price"></div>
         </div>
         <div class="sidebar-divider"></div>
         <div id="sb-mortgage-helper" style="display:none; padding:12px 14px; border:0.5px solid rgba(26,92,80,0.2); border-radius:8px; margin-bottom:4px;">
@@ -6403,7 +6384,7 @@ select.pref-input {
           <div style="display:grid; grid-template-columns:1fr 1fr; gap:10px; border-top:0.5px solid rgba(26,92,80,0.15); padding-top:10px;">
             <div>
               <div style="font-size:9px; color:#888; text-transform:uppercase; letter-spacing:0.06em; margin-bottom:3px;">Suite income</div>
-              <div id="sb-mh-income" onclick="handleGatedValueClick()" style="font-size:18px; font-weight:700; color:#123D36;">$1,800<span style="font-size:10px; font-weight:400; color:#aaa; margin-left:1px;">/mo</span></div>
+              <div id="sb-mh-income" style="font-size:18px; font-weight:700; color:#123D36;">$1,800<span style="font-size:10px; font-weight:400; color:#aaa; margin-left:1px;">/mo</span></div>
             </div>
             <div>
               <div style="font-size:9px; color:#888; text-transform:uppercase; letter-spacing:0.06em; margin-bottom:3px;">Suite type</div>
@@ -6413,9 +6394,9 @@ select.pref-input {
           </div>
           <div style="font-size:10px; color:#1A5C50; font-style:italic; border-top:0.5px solid rgba(26,92,80,0.15); margin-top:10px; padding-top:8px;" id="sb-mh-location"></div>
         </div>
-        <div class="sidebar-meta-row"><span>Bedrooms</span><strong id="sb-beds" onclick="handleGatedValueClick()"></strong></div>
-        <div class="sidebar-meta-row"><span>Bathrooms</span><strong id="sb-baths" onclick="handleGatedValueClick()"></strong></div>
-        <div class="sidebar-meta-row"><span>Region</span><strong id="sb-region" onclick="handleGatedValueClick()"></strong></div>
+        <div class="sidebar-meta-row"><span>Bedrooms</span><strong id="sb-beds"></strong></div>
+        <div class="sidebar-meta-row"><span>Bathrooms</span><strong id="sb-baths"></strong></div>
+        <div class="sidebar-meta-row"><span>Region</span><strong id="sb-region"></strong></div>
         <div class="sidebar-meta-row"><span>Mortgage Transition Period</span><strong>Year 10 transition</strong></div>
         <div class="sidebar-divider"></div>
         <button class="sidebar-cta secondary" onclick="downloadFloorplan()">
