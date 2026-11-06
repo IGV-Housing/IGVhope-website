@@ -3472,6 +3472,23 @@ function toggleFilter(el) {
   el.classList.add('active');
 }
 
+function toggleProc(btn, detailId, openLabel, closedLabel) {
+  var detail = document.getElementById(detailId);
+  var isOpen = detail.classList.contains('open');
+  detail.classList.toggle('open', !isOpen);
+  btn.classList.toggle('open', !isOpen);
+  if (openLabel || closedLabel) {
+    var label = btn.querySelector('.toggle-label');
+    var textOpen = closedLabel || 'See less';
+    var textClosed = openLabel || 'See more';
+    if (label) {
+      label.textContent = isOpen ? textClosed : textOpen;
+    } else {
+      btn.textContent = isOpen ? textClosed : textOpen;
+    }
+  }
+}
+
 function sortListings(val) {
   document.querySelectorAll('.listings-grid').forEach(function(grid) {
     var cards = Array.from(grid.querySelectorAll('.listing-card'));
@@ -3924,6 +3941,38 @@ select.gate1-input:invalid { color: #999; }
 .listings-grid .card-footer { flex-direction: column; align-items: flex-start; gap: 4px; }
 .card-purchase-line { font-size: 11px; color: #555; font-weight: 500; }
 .card-purchase-line strong { color: #1A5C50; font-weight: 700; }
+/* ---- The IGVhope Process (moved here from How It Works) ---- */
+.proc-section { background: #F5F1E8; position: relative; overflow: hidden; padding: 72px 0 56px; }
+.proc-wrap { position: relative; z-index: 1; max-width: 1100px; margin: 0 auto; padding: 0 32px; }
+.proc-head { text-align: left; margin: 0 0 56px; max-width: 100%; padding-left: 48px; }
+@media (max-width: 860px) { .proc-head { padding-left: 0; } }
+.proc-head h2 { font-size: clamp(26px, 4vw, 36px); font-weight: 800; color: #123D36; letter-spacing: -0.01em; margin-bottom: 14px; line-height: 1.2; }
+.proc-head p { font-size: 15.5px; font-weight: 500; color: #6b6b6b; }
+.proc-track { position: relative; max-width: calc(100% - 96px); margin: 0 auto; }
+@media (max-width: 860px) { .proc-track { max-width: 100%; } }
+.proc-arrow { position: absolute; top: 24px; z-index: 2; display: flex; align-items: center; transform: translateY(-50%); }
+.proc-arrow.proc-arrow-1 { left: 58px; width: calc((100% - 48px) / 3 - 48px); }
+.proc-arrow.proc-arrow-2 { left: calc((100% - 48px) / 3 + 82px); width: calc((100% - 48px) / 3 - 48px); }
+.proc-arrow-line { flex: 1 1 auto; height: 3px; border-radius: 3px; background: linear-gradient(90deg, #123D36 0%, #da8d27 100%); min-width: 0; }
+.proc-arrow-head { flex: 0 0 auto; display: block; margin-left: -2px; filter: drop-shadow(0 3px 6px rgba(218,141,39,0.4)); }
+@media (max-width: 860px) { .proc-arrow { display: none; } }
+.proc-num { width: 48px; height: 48px; border-radius: 50%; background: linear-gradient(145deg, #1A5C50 0%, #123D36 100%); color: #fff; font-size: 17px; font-weight: 800; display: flex; align-items: center; justify-content: center; margin: 0 0 24px 0; box-shadow: 0 0 0 4px #F5F1E8, 0 0 0 5.5px rgba(218,141,39,0.6), 0 8px 18px rgba(18,61,54,0.28); }
+.proc-cards { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; align-items: start; position: relative; z-index: 1; }
+@media (max-width: 860px) { .proc-cards { grid-template-columns: 1fr; } }
+.proc-card { background: transparent; border: none; padding: 0; text-align: left; display: flex; flex-direction: column; align-items: flex-start; }
+.proc-title-row { display: flex; align-items: center; justify-content: space-between; gap: 16px; margin-bottom: 8px; }
+.proc-icon { width: 44px; height: 44px; border-radius: 50%; background: #E3EDE6; display: flex; align-items: center; justify-content: center; flex-shrink: 0; transition: transform 0.25s ease; }
+.proc-card:hover .proc-icon { transform: scale(1.08); }
+.proc-label { font-size: 20px; font-weight: 700; color: #1c2b28; }
+.proc-headline { font-size: 14.5px; font-weight: 500; color: #1c2b28; margin-bottom: 8px; line-height: 1.45; min-height: 70px; display: flex; align-items: center; }
+.proc-body { font-size: 13.5px; font-weight: 500; color: #8a8a8a; line-height: 1.6; }
+.proc-toggle { display: inline-flex; align-items: center; gap: 6px; background: none; border: none; padding: 10px 0 0; font-family: 'Montserrat', sans-serif; font-size: 12.5px; font-weight: 700; color: #123D36; letter-spacing: 0.02em; cursor: pointer; }
+.proc-toggle:hover { color: #da8d27; }
+.proc-toggle svg { transition: transform 0.25s ease; flex-shrink: 0; }
+.proc-toggle.open svg { transform: rotate(180deg); }
+.proc-detail { max-height: 0; overflow: hidden; transition: max-height 0.35s ease; }
+.proc-detail.open { max-height: 400px; }
+.proc-detail p { font-size: 13.5px; font-weight: 500; color: #8a8a8a; line-height: 1.6; padding-top: 10px; }
 .card-helper { position: relative; z-index: 1; display: inline-flex; align-items: center; gap: 6px; font-size: 11px; font-weight: 700; color: #fff; text-shadow: 0 1px 3px rgba(0,0,0,0.45); background: rgba(255,255,255,0.16); border: 1px solid rgba(255,255,255,0.38); -webkit-backdrop-filter: blur(6px); backdrop-filter: blur(6px); padding: 5px 11px; border-radius: 999px; }
 .card-footer { display: flex; align-items: center; justify-content: space-between; border-top: 1px solid #F0EDE6; padding-top: 10px; }
 .card-price-block { display: flex; flex-direction: column; gap: 1px; }
@@ -4188,6 +4237,85 @@ select.gate1-input:invalid { color: #999; }
       </div>
 
     </div>
+
+    <section class="proc-section" id="home-process">
+  <svg class="section-watermark" viewBox="0 0 29 34" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M28.6407 17.0608L25.4418 2.57192C25.2066 1.49296 24.156 0.827731 23.1132 1.09544C22.0705 1.36316 21.4197 2.46646 21.6549 3.55353L24.9479 18.4886C25.1831 19.5595 23.8502 20.2247 23.1916 19.3648L14.2223 7.72336C13.5402 6.83909 12.176 6.52271 11.196 7.03379C10.2159 7.54488 9.97287 8.68063 10.655 9.57301L20.1418 21.8878C20.8082 22.7477 19.883 23.9484 18.9265 23.4697L5.64502 16.8499C4.72771 16.3956 3.56734 16.6552 3.04204 17.5557C2.4305 18.5941 2.83035 19.9164 3.85743 20.4275L17.2408 27.096C18.1974 27.5746 17.8681 29.0673 16.8096 29.0673H1.95224C0.870274 29.0673 0 29.9759 0 31.0874C0 32.1988 0.870274 33.1074 1.95224 33.1074H27.1667C27.9821 33.1074 28.6407 32.4259 28.6407 31.5822V17.0608Z" fill="#1A5C50"/></svg>
+  <div class="proc-wrap">
+    <div class="proc-head">
+      <h2>The IGVhope Process</h2>
+      <p>Three simple steps. One clear process to ownership.</p>
+    </div>
+
+    <div class="proc-track">
+      <div class="proc-arrow proc-arrow-1">
+        <div class="proc-arrow-line"></div>
+        <svg class="proc-arrow-head" width="26" height="26" viewBox="0 0 26 26" aria-hidden="true"><circle cx="13" cy="13" r="13" fill="#da8d27"/><polyline points="11,8 16,13 11,18" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </div>
+      <div class="proc-arrow proc-arrow-2">
+        <div class="proc-arrow-line"></div>
+        <svg class="proc-arrow-head" width="26" height="26" viewBox="0 0 26 26" aria-hidden="true"><circle cx="13" cy="13" r="13" fill="#da8d27"/><polyline points="11,8 16,13 11,18" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </div>
+      <div class="proc-cards">
+
+      <div class="proc-card">
+        <div class="proc-num">1</div>
+        <div class="proc-title-row">
+          <div class="proc-label">Secure</div>
+          <div class="proc-icon">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#123D36" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="11" width="16" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg>
+          </div>
+        </div>
+        <div class="proc-headline">IGVhope holds the purchase price even if the market changes over the 10-year term.</div>
+        <button class="proc-toggle" onclick="toggleProc(this, 'secure-detail')"><span class="toggle-label">See more</span><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg></button>
+        <div class="proc-detail" id="secure-detail">
+          <p>Move into a brand-new home with no down payment required.</p>
+          <p>When your home is ready to move into, an independent valuation establishes your agreed purchase price.</p>
+          <p>IGVhope is designed to protect that price for the ten-year term, giving you certainty even if the market moves.</p>
+        </div>
+      </div>
+
+      <div class="proc-card">
+        <div class="proc-num">2</div>
+        <div class="proc-title-row">
+          <div class="proc-label">Live</div>
+          <div class="proc-icon">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#123D36" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+          </div>
+        </div>
+        <div class="proc-headline">Move into your brand-new home now while you prepare for ownership.</div>
+        <button class="proc-toggle" onclick="toggleProc(this, 'live-detail')"><span class="toggle-label">See more</span><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg></button>
+        <div class="proc-detail" id="live-detail">
+          <p>Pay a monthly occupancy contribution, with annual increases capped under your agreement.</p>
+          <p>During the ten-year term, your home is held by a not-for-profit housing association.</p>
+          <p>IGVhope supports your preparation for homeownership through annual check-ins, lending partner support and the Homeownership Academy.</p>
+        </div>
+      </div>
+
+      <div class="proc-card">
+        <div class="proc-num">3</div>
+        <div class="proc-title-row">
+          <div class="proc-label">Own</div>
+          <div class="proc-icon">
+            <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#123D36" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M3 11l9-7 9 7"/>
+              <path d="M5 10v9a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-9"/>
+              <g transform="translate(0, -1.6)"><path d="M12 17.3s-3.6-2.1-3.6-4.5a1.8 1.8 0 0 1 3.6-0.8 1.8 1.8 0 0 1 3.6 0.8c0 2.4-3.6 4.5-3.6 4.5z" fill="#123D36" stroke="none"/></g>
+            </svg>
+          </div>
+        </div>
+        <div class="proc-headline">Build toward your own mortgage and complete your purchase at the held price in year 10.</div>
+        <button class="proc-toggle" onclick="toggleProc(this, 'own-detail')"><span class="toggle-label">See more</span><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg></button>
+        <div class="proc-detail" id="own-detail">
+          <p>Your agreed purchase price is protected throughout the ten-year term, regardless of changes in market value.</p>
+          <p>IGVhope helps you build a strong payment history and prepare for your mortgage.</p>
+          <p>When your mortgage is in place at Year 10, title transfers to you and you own your home.</p>
+        </div>
+      </div>
+
+      </div>
+    </div>
+  </div>
+</section>
 
     <div id="dash-scroll-inner">
 
