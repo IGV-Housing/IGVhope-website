@@ -5775,7 +5775,11 @@ select.pref-input {
  inset: 0;
  background: rgba(0,0,0,0.12);
 }
-#detail-hero-info { padding: 27.5px 32px 24.5px; }
+#detail-hero-info { padding: 27.5px 32px 24.5px; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 16px; }
+.detail-hero-text { min-width: 0; }
+.detail-keep-updated { flex-shrink: 0; font-family: 'Montserrat', sans-serif; font-size: 12px; font-weight: 700; letter-spacing: 0.04em; text-transform: uppercase; color: #123D36; background: transparent; border: 1.5px solid #123D36; border-radius: 999px; padding: 12px 24px; cursor: pointer; transition: background 0.2s, color 0.2s; }
+.detail-keep-updated:hover { background: #123D36; color: #fff; }
+.detail-keep-updated:focus-visible { outline: 3px solid #da8d27; outline-offset: 3px; }
 #detail-hero-type {
  font-size: 9px;
  font-weight: 700;
@@ -6282,8 +6286,11 @@ select.pref-input {
     </div>
 
     <div id="detail-hero-info">
-      <div id="detail-hero-type"></div>
-      <div id="detail-hero-title"></div>
+      <div class="detail-hero-text">
+        <div id="detail-hero-type"></div>
+        <div id="detail-hero-title"></div>
+      </div>
+      <button type="button" class="detail-keep-updated" onclick="handleNewReleasesBannerClick()">Keep Me Updated</button>
     </div>
 
     <div id="detail-stats">
