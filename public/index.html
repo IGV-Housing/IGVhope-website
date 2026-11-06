@@ -1091,10 +1091,12 @@ function handleSubmitApplicationClick() {
     });
   });
 }
+/* The old Osprey floorplans were removed: every home configuration is getting a new one. Add each new PDF here once it is
+   uploaded to /assets/files/. Keys are the unit letter in a home's internal name: A = 3 bed 2 bath, B = 2 bed 1 bath, C = 1 bed 1 bath. */
 var FLOORPLAN_PDFS = {
-  'A': '/assets/files/osprey-unit-a-floorplan.pdf',
-  'B': '/assets/files/osprey-unit-b-floorplan.pdf',
-  'C': '/assets/files/osprey-unit-c-floorplan.pdf'
+  // 'A': '/assets/files/<3-bed-floorplan>.pdf',
+  // 'B': '/assets/files/<2-bed-floorplan>.pdf',
+  // 'C': '/assets/files/<1-bed-floorplan>.pdf'
 };
 var DOCUMENT_EVENT_WORKER_URL = 'https://floorplan-salesbrochure-event.igvhousing.workers.dev';
 function trackDocumentDownload(docType, unit) {
@@ -1107,19 +1109,17 @@ function trackDocumentDownload(docType, unit) {
   }).catch(function(err) { console.warn('Document download tracking failed:', err); });
 }
 function downloadFloorplan() {
-  if (!gate1Unlocked) { openGate1(function() { downloadFloorplan(); }); return; }
-  if (!gate2Unlocked) { openGate2(function() { downloadFloorplan(); }); return; }
   /* Match against the real listing name - the visible title may be the holding notice. */
   var title = getCurrentListingName();
   var unitMatch = title.match(/-\s*Unit\s*([A-C])/i);
   var unitLetter = unitMatch ? unitMatch[1].toUpperCase() : null;
   var pdfUrl = unitLetter ? FLOORPLAN_PDFS[unitLetter] : null;
-  if (pdfUrl) {
-    window.open(pdfUrl, '_blank');
-    trackDocumentDownload('floorplan', unitLetter);
-  } else {
-    alert('Floorplan not available for this listing yet.');
-  }
+  /* No floorplan for this home yet: say so straight away instead of asking for details first. */
+  if (!pdfUrl) { alert('A new floorplan for this home is on its way. Please check back soon.'); return; }
+  if (!gate1Unlocked) { openGate1(function() { downloadFloorplan(); }); return; }
+  if (!gate2Unlocked) { openGate2(function() { downloadFloorplan(); }); return; }
+  window.open(pdfUrl, '_blank');
+  trackDocumentDownload('floorplan', unitLetter);
 }
 var BROCHURE_PDF_URL = '/assets/files/osprey-sales-brochure.pdf';
 function downloadBrochure() {
