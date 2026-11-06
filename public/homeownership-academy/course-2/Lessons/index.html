@@ -72,7 +72,7 @@ a { color: inherit; }
 #mobile-nav-panel.open { display: flex; }
 .mobile-nav-link { color: rgba(255,255,255,0.85); font-size: 14px; font-weight: 500; padding: 14px 0; border-bottom: 1px solid rgba(255,255,255,0.1); text-decoration: none; display: block; }
 .mobile-nav-cta { margin-top: 16px; font-family: 'Montserrat', sans-serif; font-size: 13px; font-weight: 700; letter-spacing: 0.03em; color: #123D36; background: #E8A24A; border: none; border-radius: 999px; padding: 13px 20px; cursor: pointer; width: 100%; }
-@media (max-width: 640px) { .nav-right { display: none; } #nav-burger { display: flex; } }
+@media (max-width: 1024px) { .nav-right { display: none; } #nav-burger { display: flex; } }
 
 
 /* LESSON PROGRESS STRIP */
@@ -1211,22 +1211,10 @@ function toggleMobileNav(){
    at once, since the logged-in state (avatar + name) is meaningfully
    wider than the logged-out "Log in" link. Runs on load, on resize,
    and again once login state swaps in the wider markup. */
-function checkNavFit(){
-  const nav = document.getElementById('dash-nav');
-  const navRight = document.querySelector('.nav-right');
-  const burger = document.getElementById('nav-burger');
-  const logo = document.getElementById('nav-logo');
-  if (!nav || !navRight || !burger || !logo) return;
-
-  navRight.style.display = 'flex';
-  const navPaddingH = 64; // #dash-nav has 32px padding on each side
-  const gapBuffer = 24;   // breathing room between logo and nav-right
-  const available = nav.clientWidth - logo.getBoundingClientRect().width - navPaddingH - gapBuffer;
-  const fits = navRight.scrollWidth <= available;
-
-  navRight.style.display = fits ? 'flex' : 'none';
-  burger.style.display = fits ? 'none' : 'flex';
-}
+/* Burger mode follows the homepage's fixed 1024px CSS breakpoint (see the @media rule above), so there is nothing to measure.
+   This used to measure whether the desktop menu fitted and set inline styles that overrode the CSS; it is kept as a no-op
+   because other code still calls checkNavFit(). */
+function checkNavFit(){}
 let navFitTimer;
 window.addEventListener('resize', () => {
   clearTimeout(navFitTimer);
