@@ -5775,11 +5775,7 @@ select.pref-input {
  inset: 0;
  background: rgba(0,0,0,0.12);
 }
-#detail-hero-info { padding: 27.5px 32px 24.5px; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 16px; }
-.detail-hero-text { min-width: 0; }
-.detail-keep-updated { flex-shrink: 0; font-family: 'Montserrat', sans-serif; font-size: 12px; font-weight: 700; letter-spacing: 0.04em; text-transform: uppercase; color: #123D36; background: transparent; border: 1.5px solid #123D36; border-radius: 999px; padding: 12px 24px; cursor: pointer; transition: background 0.2s, color 0.2s; }
-.detail-keep-updated:hover { background: #123D36; color: #fff; }
-.detail-keep-updated:focus-visible { outline: 3px solid #da8d27; outline-offset: 3px; }
+#detail-hero-info { padding: 27.5px 32px 24.5px; }
 #detail-hero-type {
  font-size: 9px;
  font-weight: 700;
@@ -6286,11 +6282,8 @@ select.pref-input {
     </div>
 
     <div id="detail-hero-info">
-      <div class="detail-hero-text">
-        <div id="detail-hero-type"></div>
-        <div id="detail-hero-title"></div>
-      </div>
-      <button type="button" class="detail-keep-updated" onclick="handleNewReleasesBannerClick()">Keep Me Updated</button>
+      <div id="detail-hero-type"></div>
+      <div id="detail-hero-title"></div>
     </div>
 
     <div id="detail-stats">
@@ -6541,6 +6534,10 @@ select.pref-input {
         <button class="sidebar-cta secondary" onclick="window.location.href='/next-steps?form=open'">
           <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
           Check your program eligibility
+        </button>
+        <button class="sidebar-cta secondary" onclick="handleNewReleasesBannerClick()">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9"/><path d="M10.3 21a1.94 1.94 0 0 0 3.4 0"/></svg>
+          Keep Me Updated
         </button>
 
       </div>
