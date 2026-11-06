@@ -1351,6 +1351,10 @@ function checkGateStatusOnLoad(attemptsLeft) {
 
   gate1CapturedEmail = savedEmail;
   gate1CapturedFirstName = getSavedVisitorName();
+  /* A saved visitor email only exists because this browser completed Gate 1, so treat Gate 1 as done right away.
+     Waiting for the status check below would show the form again if it is slow or fails. */
+  gate1Unlocked = true;
+  applyListingGateState();
 
   // Optimistically reflect the saved account in the nav right away - the
   // account/session already exists locally, no need to wait on a network
@@ -1905,7 +1909,8 @@ function resendSessionSavedEmail() {
 var SUBSCRIPTION_STATUS_WORKER_URL = 'https://consent-tracker.igvhousing.workers.dev';
 
 function handleNewReleasesBannerClick() {
-  if (!userLoggedIn) {
+  /* Gate 1 only for people who have not done it yet; everyone else gets their marketing subscription checked. */
+  if (!userLoggedIn && !gate1Unlocked) {
     openGate1();
     return;
   }
