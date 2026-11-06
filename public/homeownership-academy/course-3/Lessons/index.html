@@ -278,6 +278,29 @@ a { color: inherit; }
 </head>
 <body>
 
+<!-- MEMBERS-LOCK: Courses 3 to 5 are for logged-in members. Fails closed: the lock stays up unless the login session says loggedIn. -->
+<div id="members-lock-overlay" style="position:fixed;inset:0;z-index:9999;background:#E3EDE6;display:flex;align-items:center;justify-content:center;text-align:center;padding:24px;">
+  <div style="max-width:440px;">
+    <div style="font-family:'Montserrat',sans-serif;font-size:11.5px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:#123D36;background:#fff;display:inline-block;padding:6px 14px;border-radius:999px;margin-bottom:18px;">Community members only</div>
+    <h1 style="font-family:'Montserrat',sans-serif;font-size:26px;font-weight:800;color:#123D36;margin:0 0 14px;">Log in to open this course</h1>
+    <p style="font-family:'Montserrat',sans-serif;font-size:15px;color:#5C6B67;line-height:1.6;margin:0 0 24px;">Courses 3 to 5 of the Homeownership Academy are for logged-in members of the IGVhope Community.</p>
+    <a id="members-lock-login" href="/login" style="display:inline-block;font-family:'Montserrat',sans-serif;font-size:15px;font-weight:700;color:#123D36;background:#da8d27;border-radius:999px;padding:14px 32px;text-decoration:none;margin:4px;">Log in</a>
+    <a href="/homeownership-academy/" style="display:inline-block;font-family:'Montserrat',sans-serif;font-size:15px;font-weight:700;color:#123D36;background:#fff;border-radius:999px;padding:14px 32px;text-decoration:none;margin:4px;">Back to the Homeownership Academy</a>
+  </div>
+</div>
+<script>
+  (function () {
+    var overlay = document.getElementById('members-lock-overlay');
+    var login = document.getElementById('members-lock-login');
+    if (login) login.href = '/login?return=' + encodeURIComponent(location.pathname + location.search);
+    fetch('https://magic-link.igvhousing.workers.dev/session', { credentials: 'include' })
+      .then(function (r) { return r.json(); })
+      .then(function (d) { if (d && d.loggedIn && overlay) overlay.remove(); })
+      .catch(function () { /* stay locked if the session cannot be checked */ });
+  })();
+</script>
+
+
 <nav id="dash-nav">
   <a id="nav-logo" href="/" style="cursor:pointer;display:flex;align-items:center;" title="Back to IGVhope">
     <svg width="130" height="30" viewBox="0 0 163 38" fill="none" xmlns="http://www.w3.org/2000/svg">

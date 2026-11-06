@@ -187,6 +187,8 @@ a { color: inherit; }
 .cl-more-card-meta { font-size: 11px; color: #9AA39D; display: flex; gap: 10px; margin-bottom: 14px; }
 .cl-more-card .course-cta-line { margin-top: auto; text-align: center; padding: 9px 0; background: #EFEFEA; color: #9AA39D; border-radius: 7px; font-size: 12px; font-weight: 700; text-decoration: none; pointer-events: none; }
 .cl-more-card:not(.locked) .course-cta-line { pointer-events: auto; background: rgba(26,92,80,.08); color: var(--teal); cursor: pointer; }
+.cl-more-card.locked .course-cta-line { pointer-events: auto; background: rgba(218,141,39,.16); color: #8A4A22; cursor: pointer; }
+.cl-more-card.locked .course-cta-line:hover { background: rgba(218,141,39,.28); }
 
 /* FOOTER — exact match to demand.igvhousing.com */
 #footer-sitemap { padding-top: 24px; padding-bottom: 24px; display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 24px; }
@@ -483,37 +485,37 @@ a { color: inherit; }
     </button>
     <div class="cl-more-panel">
 
-      <div class="cl-more-card" id="course-card-3">
-        <div class="course-status live">Available now</div>
+      <div class="cl-more-card locked" id="course-card-3">
+        <div class="course-status soon"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="margin-right:5px;vertical-align:-1px"><rect x="4" y="11" width="16" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg>Community members only</div>
         <div class="cl-more-card-title">Steady Through the Middle Years</div>
         <div class="cl-more-card-desc">Keeping momentum when Year 10 still feels far away.</div>
         <div class="cl-more-card-meta">
           <span><strong>8</strong> lessons</span>
           <span>Years 3 to 7</span>
         </div>
-        <a class="course-cta-line" href="/homeownership-academy/course-3/">Start Course 3</a>
+        <a class="course-cta-line" href="/login?return=%2Fhomeownership-academy%2F">Log in to unlock</a>
       </div>
 
-      <div class="cl-more-card" id="course-card-4">
-        <div class="course-status live">Available now</div>
+      <div class="cl-more-card locked" id="course-card-4">
+        <div class="course-status soon"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="margin-right:5px;vertical-align:-1px"><rect x="4" y="11" width="16" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg>Community members only</div>
         <div class="cl-more-card-title">Getting Mortgage Ready</div>
         <div class="cl-more-card-desc">Preparing for the home stretch.</div>
         <div class="cl-more-card-meta">
           <span><strong>6</strong> lessons</span>
           <span>Years 8 to 9</span>
         </div>
-        <a class="course-cta-line" href="/homeownership-academy/course-4/">Start Course 4</a>
+        <a class="course-cta-line" href="/login?return=%2Fhomeownership-academy%2F">Log in to unlock</a>
       </div>
 
-      <div class="cl-more-card" id="course-card-5">
-        <div class="course-status live">Available now</div>
+      <div class="cl-more-card locked" id="course-card-5">
+        <div class="course-status soon"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="margin-right:5px;vertical-align:-1px"><rect x="4" y="11" width="16" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg>Community members only</div>
         <div class="cl-more-card-title">Completing Your Purchase at Year 10</div>
         <div class="cl-more-card-desc">From agreed price to your own front door.</div>
         <div class="cl-more-card-meta">
           <span><strong>5</strong> lessons</span>
           <span>Year 10</span>
         </div>
-        <a class="course-cta-line" href="/homeownership-academy/course-5/">Start Course 5</a>
+        <a class="course-cta-line" href="/login?return=%2Fhomeownership-academy%2F">Log in to unlock</a>
       </div>
 
     </div>
@@ -688,7 +690,10 @@ function unlockCourseCard(courseIndex){
     statusEl.textContent = 'Available now';
   }
   const ctaEl = card.querySelector('.course-cta-line');
-  if (ctaEl) ctaEl.innerHTML = `Start Course ${courseIndex}`;
+  if (ctaEl){
+    ctaEl.innerHTML = `Start Course ${courseIndex}`;
+    ctaEl.href = `/homeownership-academy/${COURSES[courseIndex].slug}/`;
+  }
 }
 
 /* Once a course's own lessons are all done, swap its status pill to
@@ -823,6 +828,8 @@ async function loadProgressAndUnlock(){
       if (mobileUser) mobileUser.style.display = 'block';
       if (mobileUserName) mobileUserName.textContent = displayName;
 
+      // Courses 3 to 5 are for logged-in members: any logged-in person gets them.
+      [3, 4, 5].forEach(unlockCourseCard);
       await loadProgressAndUnlock();
       checkNavFit();
     }
