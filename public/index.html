@@ -364,9 +364,6 @@ function openListingDetail(cardEl) {
   var mapFrame = document.getElementById('detail-map-frame');
   if (mapBlock && mapFrame) {
     var PROJECT_COORDS = [
-      { match: 'Rainforest Drive', coords: '48.94206948412843,-125.55545551137537' },
-      { match: 'Norah Street',     coords: '48.94206948412843,-125.55545551137537' },
-      { match: 'Ocean West',       coords: '48.94144414478106,-125.56628321526729' },
       { match: 'River Road',  coords: '49.266995936872085,-124.8432751576526' },
       { match: 'Compton Road',coords: '49.27007607198955,-124.83719012185979' },
     ];
@@ -453,10 +450,7 @@ function openListingDetail(cardEl) {
    To move one unit off its development date, add it to the overrides below. */
 var MOVE_IN_DATES = {
   'River Road':        '2027-04-01',
-  'Compton Road':      '2027-04-01',
-  'Rainforest Drive':  '2027-04-01',
-  'Norah Street':      '2027-04-01',
-  'Ocean West':        '2027-04-01'
+  'Compton Road':      '2027-04-01'
 };
 var MOVE_IN_DATE_OVERRIDES = {
   // 'River Road - Unit C': '2027-06-15'
@@ -577,70 +571,6 @@ var listingTemplates = {
   }
 };
 
-/* Real neighbourhood data for 844 Rainforest Drive, Ucluelet, BC
-   (48.94206948412843, -125.55545551137537). Distances calculated
-   as straight-line ("as the crow flies") from that exact coordinate
-   to each real, verified place - actual walking/driving distance
-   along roads will run somewhat longer than these numbers. */
-var rainforestDriveNeighbourhood = {
-  schools:   [['Ucluelet Secondary School', '850m'], ['Ucluelet Elementary School', '1km']],
-  shops:     [['Harbourview Drugstore', '300m'], ['Blackberry Cove Marketplace', '650m'], ['Ucluelet Co-op General Store', '650m']],
-  transit:   [['Cedar Road Bus Stop', '650m']],
-  parks:     [['Wild Pacific Trail', '550m'], ['Big Beach Picnic Park', '650m'], ['Alder Park', '1.3km'], ['He-Tin-Kis Park', '2.1km'], ['Amphitrite Point Lighthouse', '2.5km']],
-  health:    [['Ucluelet Co-op Pharmacy', '650m'], ['Ucluelet Medical Centre', '850m']],
-  community: [['Ucluelet Community Centre', '600m'], ['Vancouver Island Regional Library - Ucluelet', '600m']],
-};
-
-listingTemplates['Rainforest Drive - Unit A'] = Object.assign({}, listingTemplates.default, { neighbourhood: rainforestDriveNeighbourhood });
-listingTemplates['Rainforest Drive - Unit B'] = Object.assign({}, listingTemplates.default, { neighbourhood: rainforestDriveNeighbourhood });
-listingTemplates['Rainforest Drive - Unit C'] = Object.assign({}, listingTemplates.default, { neighbourhood: rainforestDriveNeighbourhood });
-listingTemplates['Norah Street - Unit A'] = Object.assign({}, listingTemplates.default, { neighbourhood: rainforestDriveNeighbourhood });
-listingTemplates['Norah Street - Unit B'] = Object.assign({}, listingTemplates.default, { neighbourhood: rainforestDriveNeighbourhood });
-listingTemplates['Norah Street - Unit C'] = Object.assign({}, listingTemplates.default, { neighbourhood: rainforestDriveNeighbourhood });
-
-/* Real demographic data for the District of Ucluelet, sourced from
-   ucluelet.ca (Statistics Canada 2016 Census). Only demographics and
-   languages are sourced/confirmed - income, housing, education, and
-   commute stats are NOT available from this source, so those keep the
-   generic placeholder figures from the default template. Worth flagging
-   to Sarah: these are 2016 Census figures (the most recent cited on the
-   official page), not current-year numbers. */
-var uclueletStatistics = Object.assign({}, listingTemplates.default.statistics, {
-  demographics: [
-    ['Total population (2016 Census)', '1,717', undefined],
-    ['Median age', '39.2 years', undefined],
-  ],
-  languages: [
-    ['English (mother tongue)', '91%', 91],
-    ['Non-official language (mother tongue)', '6%', 6],
-    ['French (mother tongue)', '3%', 3],
-  ],
-});
-
-['Rainforest Drive - Unit A', 'Rainforest Drive - Unit B', 'Rainforest Drive - Unit C',
- 'Norah Street - Unit A', 'Norah Street - Unit B', 'Norah Street - Unit C',
- 'Ocean West - Unit A', 'Ocean West - Unit B', 'Ocean West - Unit C'].forEach(function(key) {
-  listingTemplates[key] = Object.assign({}, listingTemplates.default, listingTemplates[key] || {}, { statistics: uclueletStatistics });
-});
-
-/* Real neighbourhood data for Ocean West, calculated from its exact
-   GPS coordinate (48.94144414478106, -125.56628321526729). Straight-line
-   distances to the same set of verified real Ucluelet places used for
-   Rainforest Drive / Norah Street, re-ranked by actual closeness from
-   this specific coordinate. */
-var oceanWestNeighbourhood = {
-  schools:   [['Ucluelet Secondary School', '1.6km'], ['Ucluelet Elementary School', '1.7km']],
-  shops:     [['Harbourview Drugstore', '1km'], ['Blackberry Cove Marketplace', '1.4km'], ['Ucluelet Co-op General Store', '1.4km']],
-  transit:   [['Cedar Road Bus Stop', '1.4km']],
-  parks:     [['Wild Pacific Trail', '511m'], ['Big Beach Picnic Park', '1.2km'], ['Alder Park', '2km'], ['He-Tin-Kis Park', '2.6km'], ['Amphitrite Point Lighthouse', '2.9km']],
-  health:    [['Ucluelet Medical Centre', '560m'], ['Ucluelet Co-op Pharmacy', '1.5km']],
-  community: [['Ucluelet Community Centre', '1.2km'], ['Vancouver Island Regional Library - Ucluelet', '1.2km']],
-};
-
-listingTemplates['Ocean West - Unit A'] = Object.assign({}, listingTemplates['Ocean West - Unit A'], { neighbourhood: oceanWestNeighbourhood });
-listingTemplates['Ocean West - Unit B'] = Object.assign({}, listingTemplates['Ocean West - Unit B'], { neighbourhood: oceanWestNeighbourhood });
-listingTemplates['Ocean West - Unit C'] = Object.assign({}, listingTemplates['Ocean West - Unit C'], { neighbourhood: oceanWestNeighbourhood });
-
 /* Real demographic/economic data for the City of Port Alberni, sourced
    from Sarah's Statistics Canada 2021 Census Profile CSV. Every category
    the site tracks (demographics, income, housing, education, commute,
@@ -728,7 +658,7 @@ listingTemplates['Compton Road - Unit C'] = Object.assign({}, listingTemplates['
    split by bedroom-count weighting: each 3-bed Unit A carries 30% of
    total costs ($1,182.96), each 2-bed Unit B/C carries 20% ($788.64).
    Applied across every development's Unit A/B/C listings. */
-['Rainforest Drive', 'Norah Street', 'Ocean West', 'River Road', 'Compton Road'].forEach(function(project) {
+['River Road', 'Compton Road'].forEach(function(project) {
   listingTemplates[project + ' - Unit A'] = Object.assign({}, listingTemplates[project + ' - Unit A'], { annualTax: '$1,182.96' });
   listingTemplates[project + ' - Unit B'] = Object.assign({}, listingTemplates[project + ' - Unit B'], { annualTax: '$788.64' });
   listingTemplates[project + ' - Unit C'] = Object.assign({}, listingTemplates[project + ' - Unit C'], { annualTax: '$788.64' });
@@ -1326,7 +1256,6 @@ function bedroomsMatch(beds) {
 
 function applyListingFilters() {
   document.querySelectorAll('.listing-card').forEach(function(card) {
-    if (card.classList.contains('listing-temp-hidden')) { card.style.display = 'none'; return; }
     var r = card.getAttribute('data-region') || '';
     var regionMatch = (currentRegion === 'Any region' || r === currentRegion);
     var metaItems = card.querySelectorAll('.card-meta-item');
@@ -1366,7 +1295,6 @@ function filterByBedrooms(bedrooms) {
   applyListingFilters();
 }
 
-var loadMorePage = 1;
 var userLoggedIn = false;
 var pendingGate1Callback = null;
 var gate1Unlocked = false;
@@ -3564,34 +3492,6 @@ function scrollToListings() {
   container.scrollTo({ top: Math.max(0, targetTop - bannerOffset), behavior: 'smooth' });
 }
 
-function handleViewAllHomesClick() {
-  if (userLoggedIn) {
-    window.location.reload();
-    return;
-  }
-  openGate1(function() { loadMoreListings(document.getElementById('dash-load-more-btn')); });
-}
-
-function loadMoreListings(btn) {
-  var totalPages = 3;
-  var originalText = 'View All Homes';
-  btn.disabled = true;
-  btn.textContent = 'Loading...';
-  setTimeout(function() {
-    loadMorePage++;
-    document.querySelectorAll('.dash-page-dot').forEach(function(d, i) {
-      d.classList.toggle('active', i === loadMorePage - 1);
-    });
-    if (loadMorePage >= totalPages) {
-      btn.textContent = "You've seen all current listings";
-      btn.disabled = true;
-    } else {
-      btn.textContent = originalText;
-      btn.disabled = false;
-    }
-  }, 600);
-}
-
 function toggleFilter(el) {
   document.querySelectorAll('.filter-chip').forEach(function(c) { c.classList.remove('active'); });
   el.classList.add('active');
@@ -3886,13 +3786,6 @@ document.addEventListener('click', function() {
 @media (max-width: 640px) {
   .listings-grid { grid-template-columns: 1fr; }
 }
-#dash-load-more { display: flex; flex-direction: column; align-items: center; gap: 14px; padding: 28px 0 8px; }
-#dash-load-more-btn { font-family: 'Montserrat', sans-serif; font-size: 12px; font-weight: 700; letter-spacing: 0.03em; color: #1A5C50; background: white; border: 1.5px solid rgba(26,92,80,0.3); border-radius: 999px; padding: 12px 28px; cursor: pointer; transition: all 0.18s; }
-#dash-load-more-btn:hover:not(:disabled) { background: #1A5C50; color: white; border-color: #1A5C50; }
-#dash-load-more-btn:disabled { cursor: default; opacity: 0.6; }
-#dash-page-dots { display: flex; align-items: center; gap: 6px; }
-.dash-page-dot { width: 6px; height: 6px; border-radius: 50%; background: rgba(26,92,80,0.2); transition: background 0.18s; }
-.dash-page-dot.active { background: #1A5C50; }
 #gate1-overlay, #gate2-overlay, #gate3-overlay, #app-confirm-overlay, #save-login-overlay, #session-saved-overlay, #subscribe-prompt-overlay, #already-subscribed-overlay, #withdraw-confirm-overlay { display: none; position: fixed; inset: 0; background: rgba(18,61,54,0.55); z-index: 1000; align-items: center; justify-content: center; padding: 20px; }
 #gate1-overlay.open, #gate2-overlay.open, #gate3-overlay.open, #app-confirm-overlay.open, #save-login-overlay.open, #session-saved-overlay.open, #subscribe-prompt-overlay.open, #already-subscribed-overlay.open, #withdraw-confirm-overlay.open { display: flex; }
 #gate1-modal, #gate2-modal, #gate3-modal, #app-confirm-modal, #save-login-modal, #session-saved-modal, #subscribe-prompt-modal, #already-subscribed-modal, #withdraw-confirm-modal { position: relative; background: white; border-radius: 16px; padding: 32px 28px; width: 100%; max-width: 380px; max-height: 90vh; overflow-y: auto; box-shadow: 0 24px 60px rgba(0,0,0,0.25); }
@@ -4316,61 +4209,6 @@ select.gate1-input:invalid { color: #999; }
 
     <div id="dash-scroll-inner">
 
-      <div id="dash-filters">
-        <div class="dash-filters-row">
-          <span class="filter-label">Filter:</span>
-          <div class="filter-select-group">
-          <select class="filter-select" id="type-select" onchange="filterByType(this.value)">
-            <option value="All">All</option>
-            <option value="Multiplex">Multiplex</option>
-            <option value="Apartment">Apartment</option>
-            <option value="Townhouse">Townhouse</option>
-            <option value="House">House</option>
-          </select>
-          <select class="filter-select" id="region-select" onchange="filterByRegion(this.value)">
-            <option value="Any region" disabled>Any region</option>
-            <option value="Vancouver Metro" disabled>Vancouver Metro</option>
-            <option value="Fraser Valley" disabled>Fraser Valley</option>
-            <option value="Okanagan" disabled>Okanagan</option>
-            <option value="Vancouver Island" selected>Vancouver Island</option>
-            <option value="Northern BC" disabled>Northern BC</option>
-          </select>
-          <!-- TEMP-COMING-SOON:purchase-price - the price filter is hidden while purchase prices read "Coming soon". Remove the display:none to restore it. -->
-<select class="filter-select" id="price-select" style="display:none;" onchange="filterByPrice(this.value)">
-            <option value="Any">Any price</option>
-            <option value="350-500">$350,000 &ndash; $500,000</option>
-            <option value="500-650">$500,000 &ndash; $650,000</option>
-            <option value="650-800">$650,000 &ndash; $800,000</option>
-          </select>
-          <select class="filter-select" id="bedrooms-select" onchange="filterByBedrooms(this.value)">
-            <option value="Any">Any bedrooms</option>
-            <option value="1">1 bed</option>
-            <option value="2">2 beds</option>
-            <option value="3plus">3+ beds</option>
-          </select>
-          </div>
-        </div>
-        <div class="dash-filters-row">
-          <span class="filter-label">Sort:</span>
-          <div class="filter-select-group">
-          <select class="filter-select" onchange="sortListings(this.value)">
-            <option value="rent-asc" selected>Monthly Cost: Low to High</option>
-            <option value="rent-desc">Monthly Cost: High to Low</option>
-            <!-- TEMP-COMING-SOON:purchase-price - the two Purchase Price sort options are parked here while prices read "Coming soon". Move them back into the list to restore them.
-            <option value="price-asc">Purchase Price: Low to High</option>
-            <option value="price-desc">Purchase Price: High to Low</option>
-            -->
-          </select>
-          </div>
-        </div>
-      </div>
-
-
-      <div class="dash-section-header">
-        <div>
-          <div class="dash-section-title dash-live-title"><span class="dash-live-dot"></span>Live Homes</div>
-        </div>
-      </div>
       <div class="listings-grid">
 <div class="listing-card" data-region="Vancouver Island" onclick="if(!event.target.closest('.card-save-btn'))openListingDetail(this)">
   <div class="card-img" style="background-image: url('/assets/img/img_012.jpg'); background-size: cover; background-position: center;">
@@ -4447,316 +4285,8 @@ select.gate1-input:invalid { color: #999; }
     </div>
   </div>
 </div>
-<div class="listing-card" data-region="Vancouver Island" onclick="if(!event.target.closest('.card-save-btn'))openListingDetail(this)">
-  <div class="card-img" style="background-image: url('/assets/img/img_007.jpg'); background-size: cover; background-position: center;">
-    <div class="card-img-overlay"></div>
-    <div class="card-price-tag">Coming soon</div>
-    <button class="card-save-btn" onclick="handleSaveClick(this)" title="Save listing"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></button>
-    <span class="card-badge">1st Floor</span>
-  </div>
-  <div class="card-disclaimer">Subject to municipal approval</div>
-  <div class="card-body">
-    <div class="card-title" data-listing-key="Compton Road - Unit C" data-video="https://www.youtube.com/embed/SKgFdyuzTrk?si=JF2eGde3J2UhgGhH" data-img="/assets/img/img_007.jpg" data-img2="/assets/img/img_013.jpg" data-img3="/assets/img/img_010.jpg" data-img4="/assets/img/img_004.jpg">Address details coming soon</div>
-    <div class="card-location"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg> Port Alberni, BC</div>
-    <div class="card-meta">
-      <span class="card-meta-item">2 bed</span>
-      <span class="card-meta-item">1 bath</span>
-      <span class="card-meta-item">Multiplex</span>
-    </div>
-  <div class="card-avail">
-    <div class="card-avail-label">Availability <span>1 of 1 available</span></div>
-    <div class="card-avail-track"><div class="card-avail-fill" style="width:100%"></div></div>
-  </div>
-    <div class="card-footer" style="margin-top:10px">
-      <div class="card-price-sentence">Homes of this configuration start at <strong>$2,300/mo</strong></div>
-    </div>
-  </div>
-</div>
-<div class="listing-card listing-temp-hidden" style="display:none;" data-region="Vancouver Island" onclick="if(!event.target.closest('.card-save-btn'))openListingDetail(this)">
-  <div class="card-img" style="background-image: url('/assets/img/rainforest-drive-aerial-3.jpg'); background-size: cover; background-position: center;">
-    <div class="card-img-overlay"></div>
-    <div class="card-price-tag">Coming soon</div>
-    <button class="card-save-btn" onclick="handleSaveClick(this)" title="Save listing"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></button>
-    <span class="card-badge">Ground Floor</span>
-  </div>
-  <div class="card-disclaimer">Subject to municipal approval</div>
-  <div class="card-body">
-    <div class="card-title" data-listing-key="Rainforest Drive - Unit B" data-video="https://www.youtube.com/embed/XK9raw1l1fI" data-img="/assets/img/rainforest-drive-aerial-3.jpg" data-img2="/assets/img/rainforest-drive-aerial-1.jpg" data-img3="/assets/img/rainforest-drive-aerial-2.jpg" data-img4="/assets/img/rainforest-drive-aerial-4.jpg" data-img5="/assets/img/img_003.jpg" data-img6="/assets/img/img_004.jpg" data-img7="/assets/img/img_001.jpg">Address details coming soon</div>
-    <div class="card-location"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg> Ucluelet, BC</div>
-    <div class="card-meta">
-      <span class="card-meta-item">2 bed</span>
-      <span class="card-meta-item">1 bath</span>
-      <span class="card-meta-item">Multiplex</span>
-    </div>
-  <div class="card-avail">
-    <div class="card-avail-label">Availability <span>2 of 2 available</span></div>
-    <div class="card-avail-track"><div class="card-avail-fill" style="width:100%"></div></div>
-  </div>
-    <div class="card-footer" style="margin-top:10px">
-      <div class="card-price-sentence">Ucluelet monthly cost: <strong>Coming soon</strong></div>
-    </div>
-  </div>
-</div>
-<div class="listing-card listing-temp-hidden" style="display:none;" data-region="Vancouver Island" onclick="if(!event.target.closest('.card-save-btn'))openListingDetail(this)">
-  <div class="card-img" style="background-image: url('/assets/img/img_001.jpg'); background-size: cover; background-position: center;">
-    <div class="card-img-overlay"></div>
-    <div class="card-price-tag">Coming soon</div>
-    <button class="card-save-btn" onclick="handleSaveClick(this)" title="Save listing"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></button>
-    <span class="card-badge">1st Floor</span>
-  </div>
-  <div class="card-disclaimer">Subject to municipal approval</div>
-  <div class="card-body">
-    <div class="card-title" data-listing-key="Rainforest Drive - Unit C" data-video="https://www.youtube.com/embed/XK9raw1l1fI" data-img="/assets/img/img_001.jpg" data-img2="/assets/img/rainforest-drive-aerial-1.jpg" data-img3="/assets/img/rainforest-drive-aerial-2.jpg" data-img4="/assets/img/rainforest-drive-aerial-3.jpg" data-img5="/assets/img/img_003.jpg" data-img6="/assets/img/img_004.jpg">Address details coming soon</div>
-    <div class="card-location"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg> Ucluelet, BC</div>
-    <div class="card-meta">
-      <span class="card-meta-item">2 bed</span>
-      <span class="card-meta-item">1 bath</span>
-      <span class="card-meta-item">Multiplex</span>
-    </div>
-  <div class="card-avail">
-    <div class="card-avail-label">Availability <span>2 of 2 available</span></div>
-    <div class="card-avail-track"><div class="card-avail-fill" style="width:100%"></div></div>
-  </div>
-    <div class="card-footer" style="margin-top:10px">
-      <div class="card-price-sentence">Ucluelet monthly cost: <strong>Coming soon</strong></div>
-    </div>
-  </div>
-</div>
-<div class="listing-card listing-temp-hidden" style="display:none;" data-region="Vancouver Island" onclick="if(!event.target.closest('.card-save-btn'))openListingDetail(this)">
-  <div class="card-img" style="background-image: url('/assets/img/rainforest-drive-aerial-4.jpg'); background-size: cover; background-position: center;">
-    <div class="card-img-overlay"></div>
-    <div class="card-price-tag">Coming soon</div>
-    <button class="card-save-btn" onclick="handleSaveClick(this)" title="Save listing"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></button>
-    <span class="card-badge">Ground Floor</span>
-  </div>
-  <div class="card-disclaimer">Subject to municipal approval</div>
-  <div class="card-body">
-    <div class="card-title" data-listing-key="Norah Street - Unit B" data-video="https://www.youtube.com/embed/XK9raw1l1fI" data-img="/assets/img/rainforest-drive-aerial-4.jpg" data-img2="/assets/img/rainforest-drive-aerial-1.jpg" data-img3="/assets/img/rainforest-drive-aerial-2.jpg" data-img4="/assets/img/rainforest-drive-aerial-3.jpg" data-img5="/assets/img/img_003.jpg" data-img6="/assets/img/img_004.jpg" data-img7="/assets/img/img_001.jpg">Address details coming soon</div>
-    <div class="card-location"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg> Ucluelet, BC</div>
-    <div class="card-meta">
-      <span class="card-meta-item">2 bed</span>
-      <span class="card-meta-item">1 bath</span>
-      <span class="card-meta-item">Multiplex</span>
-    </div>
-  <div class="card-avail">
-    <div class="card-avail-label">Availability <span>1 of 1 available</span></div>
-    <div class="card-avail-track"><div class="card-avail-fill" style="width:100%"></div></div>
-  </div>
-    <div class="card-footer" style="margin-top:10px">
-      <div class="card-price-sentence">Ucluelet monthly cost: <strong>Coming soon</strong></div>
-    </div>
-  </div>
-</div>
-<div class="listing-card listing-temp-hidden" style="display:none;" data-region="Vancouver Island" onclick="if(!event.target.closest('.card-save-btn'))openListingDetail(this)">
-  <div class="card-img" style="background-image: url('/assets/img/img_009.jpg'); background-size: cover; background-position: center;">
-    <div class="card-img-overlay"></div>
-    <div class="card-price-tag">Coming soon</div>
-    <button class="card-save-btn" onclick="handleSaveClick(this)" title="Save listing"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></button>
-    <span class="card-badge">1st Floor</span>
-  </div>
-  <div class="card-disclaimer">Subject to municipal approval</div>
-  <div class="card-body">
-    <div class="card-title" data-listing-key="Norah Street - Unit C" data-video="https://www.youtube.com/embed/XK9raw1l1fI" data-img="/assets/img/img_009.jpg" data-img2="/assets/img/rainforest-drive-aerial-3.jpg" data-img3="/assets/img/rainforest-drive-aerial-1.jpg" data-img4="/assets/img/rainforest-drive-aerial-2.jpg" data-img5="/assets/img/rainforest-drive-aerial-4.jpg" data-img6="/assets/img/img_003.jpg" data-img7="/assets/img/img_004.jpg" data-img8="/assets/img/img_001.jpg">Address details coming soon</div>
-    <div class="card-location"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg> Ucluelet, BC</div>
-    <div class="card-meta">
-      <span class="card-meta-item">2 bed</span>
-      <span class="card-meta-item">1 bath</span>
-      <span class="card-meta-item">Multiplex</span>
-    </div>
-  <div class="card-avail">
-    <div class="card-avail-label">Availability <span>1 of 1 available</span></div>
-    <div class="card-avail-track"><div class="card-avail-fill" style="width:100%"></div></div>
-  </div>
-    <div class="card-footer" style="margin-top:10px">
-      <div class="card-price-sentence">Ucluelet monthly cost: <strong>Coming soon</strong></div>
-    </div>
-  </div>
-</div>
-<div class="listing-card listing-temp-hidden" style="display:none;" data-region="Vancouver Island" onclick="if(!event.target.closest('.card-save-btn'))openListingDetail(this)">
-  <div class="card-img" style="background-image: url('/assets/img/weyerhaeuser-aerial.jpg'); background-size: cover; background-position: center;">
-    <div class="card-img-overlay"></div>
-    <div class="card-price-tag">Coming soon</div>
-    <button class="card-save-btn" onclick="handleSaveClick(this)" title="Save listing"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></button>
-    <span class="card-badge">Ground Floor</span>
-  </div>
-  <div class="card-disclaimer">Subject to municipal approval</div>
-  <div class="card-body">
-    <div class="card-title" data-listing-key="Ocean West - Unit B" data-video="https://video.gumlet.io/66041d40603db7e8cad20c31/672e4fa71f39ce9ec65b6a9b/672e4fa71f39ce9ec65b6a9b_0_540p.m3u8" data-img="/assets/img/weyerhaeuser-aerial.jpg" data-img2="/assets/img/img_011.jpg" data-img3="/assets/img/img_010.jpg" data-img4="/assets/img/img_004.jpg" data-img5="/assets/img/weyerhaeuser-site-overview.jpg" data-img6="/assets/img/weyerhaeuser-lot-marker.jpg" data-img7="/assets/img/weyerhaeuser-town-aerial.jpg">Address details coming soon</div>
-    <div class="card-location"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg> Ucluelet, BC</div>
-    <div class="card-meta">
-      <span class="card-meta-item">2 bed</span>
-      <span class="card-meta-item">1 bath</span>
-      <span class="card-meta-item">Multiplex</span>
-    </div>
-  <div class="card-avail">
-    <div class="card-avail-label">Availability <span>2 of 2 available</span></div>
-    <div class="card-avail-track"><div class="card-avail-fill" style="width:100%"></div></div>
-  </div>
-    <div class="card-footer" style="margin-top:10px">
-      <div class="card-price-sentence">Ucluelet monthly cost: <strong>Coming soon</strong></div>
-    </div>
-  </div>
-</div>
-<div class="listing-card listing-temp-hidden" style="display:none;" data-region="Vancouver Island" onclick="if(!event.target.closest('.card-save-btn'))openListingDetail(this)">
-  <div class="card-img" style="background-image: url('/assets/img/weyerhaeuser-community-garden.jpg'); background-size: cover; background-position: center;">
-    <div class="card-img-overlay"></div>
-    <div class="card-price-tag">Coming soon</div>
-    <button class="card-save-btn" onclick="handleSaveClick(this)" title="Save listing"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></button>
-    <span class="card-badge">1st Floor</span>
-  </div>
-  <div class="card-disclaimer">Subject to municipal approval</div>
-  <div class="card-body">
-    <div class="card-title" data-listing-key="Ocean West - Unit C" data-video="https://video.gumlet.io/66041d40603db7e8cad20c31/672e4fa71f39ce9ec65b6a9b/672e4fa71f39ce9ec65b6a9b_0_540p.m3u8" data-img="/assets/img/weyerhaeuser-community-garden.jpg" data-img2="/assets/img/img_011.jpg" data-img3="/assets/img/img_010.jpg" data-img4="/assets/img/img_004.jpg" data-img5="/assets/img/weyerhaeuser-aerial.jpg" data-img6="/assets/img/weyerhaeuser-site-overview.jpg" data-img7="/assets/img/weyerhaeuser-lot-marker.jpg" data-img8="/assets/img/weyerhaeuser-town-aerial.jpg">Address details coming soon</div>
-    <div class="card-location"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg> Ucluelet, BC</div>
-    <div class="card-meta">
-      <span class="card-meta-item">2 bed</span>
-      <span class="card-meta-item">1 bath</span>
-      <span class="card-meta-item">Multiplex</span>
-    </div>
-  <div class="card-avail">
-    <div class="card-avail-label">Availability <span>2 of 2 available</span></div>
-    <div class="card-avail-track"><div class="card-avail-fill" style="width:100%"></div></div>
-  </div>
-    <div class="card-footer" style="margin-top:10px">
-      <div class="card-price-sentence">Ucluelet monthly cost: <strong>Coming soon</strong></div>
-    </div>
-  </div>
-</div>
-<div class="listing-card" data-region="Vancouver Island" onclick="if(!event.target.closest('.card-save-btn'))openListingDetail(this)">
-  <div class="card-img" style="background-image: url('/assets/img/img_008.jpg'); background-size: cover; background-position: center;">
-    <div class="card-img-overlay"></div>
-    <div class="card-price-tag">Coming soon</div>
-    <button class="card-save-btn" onclick="handleSaveClick(this)" title="Save listing"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></button>
-    <span class="card-badge">GROUND FLOOR</span>
-  </div>
-  <div class="card-disclaimer">Subject to municipal approval</div>
-  <div class="card-body">
-    <div class="card-title" data-listing-key="Compton Road - Unit A" data-video="https://www.youtube.com/embed/SKgFdyuzTrk?si=JF2eGde3J2UhgGhH" data-img="/assets/img/img_008.jpg" data-img2="/assets/img/img_003.jpg" data-img3="/assets/img/img_004.jpg">Address details coming soon</div>
-    <div class="card-location"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg> Port Alberni, BC</div>
-    <div class="card-meta">
-      <span class="card-meta-item">3 bed</span>
-      <span class="card-meta-item">2 bath</span>
-      <span class="card-meta-item">Multiplex</span>
-    </div>
-  <div class="card-avail">
-    <div class="card-avail-label">Availability <span>1 of 1 available</span></div>
-    <div class="card-avail-track"><div class="card-avail-fill" style="width:100%"></div></div>
-  </div>
-    <div class="card-footer" style="margin-top:10px">
-      <div class="card-price-sentence">Homes of this configuration start at <strong>$3,950/mo</strong></div>
-    </div>
-  </div>
-</div>
-<div class="listing-card" data-region="Vancouver Island" onclick="if(!event.target.closest('.card-save-btn'))openListingDetail(this)">
-  <div class="card-img" style="background-image: url('/assets/img/img_002.jpg'); background-size: cover; background-position: center;">
-    <div class="card-img-overlay"></div>
-    <div class="card-price-tag">Coming soon</div>
-    <button class="card-save-btn" onclick="handleSaveClick(this)" title="Save listing"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></button>
-    <span class="card-badge">GROUND FLOOR</span>
-  </div>
-  <div class="card-disclaimer">Subject to municipal approval</div>
-  <div class="card-body">
-    <div class="card-title" data-listing-key="River Road - Unit A" data-video="https://www.youtube.com/embed/SKgFdyuzTrk?si=JF2eGde3J2UhgGhH" data-img="/assets/img/img_002.jpg" data-img2="/assets/img/img_010.jpg" data-img3="/assets/img/img_004.jpg">Address details coming soon</div>
-    <div class="card-location"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg> Port Alberni, BC</div>
-    <div class="card-meta">
-      <span class="card-meta-item">3 bed</span>
-      <span class="card-meta-item">2 bath</span>
-      <span class="card-meta-item">Multiplex</span>
-    </div>
-  <div class="card-avail">
-    <div class="card-avail-label">Availability <span>1 of 1 available</span></div>
-    <div class="card-avail-track"><div class="card-avail-fill" style="width:100%"></div></div>
-  </div>
-    <div class="card-footer" style="margin-top:10px">
-      <div class="card-price-sentence">Homes of this configuration start at <strong>$3,950/mo</strong></div>
-    </div>
-  </div>
-</div>
-<div class="listing-card listing-temp-hidden" style="display:none;" data-region="Vancouver Island" onclick="if(!event.target.closest('.card-save-btn'))openListingDetail(this)">
-  <div class="card-img" style="background-image: url('/assets/img/img_006.jpg'); background-size: cover; background-position: center;">
-    <div class="card-img-overlay"></div>
-    <div class="card-price-tag">Coming soon</div>
-    <button class="card-save-btn" onclick="handleSaveClick(this)" title="Save listing"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></button>
-    <span class="card-badge recommended-badge">Mortgage Helper</span>
-  </div>
-  <div class="card-disclaimer">Subject to municipal approval</div>
-  <div class="card-body">
-    <div class="card-title" data-listing-key="Rainforest Drive - Unit A" data-video="https://www.youtube.com/embed/XK9raw1l1fI" data-img="/assets/img/img_006.jpg" data-img2="/assets/img/rainforest-drive-aerial-1.jpg" data-img3="/assets/img/rainforest-drive-aerial-2.jpg" data-img4="/assets/img/rainforest-drive-aerial-3.jpg" data-img5="/assets/img/rainforest-drive-aerial-4.jpg" data-img6="/assets/img/img_003.jpg" data-img7="/assets/img/img_004.jpg" data-img8="/assets/img/img_001.jpg">Address details coming soon</div>
-    <div class="card-location"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg> Ucluelet, BC</div>
-    <div class="card-meta">
-      <span class="card-meta-item">3 bed</span>
-      <span class="card-meta-item">2 bath</span>
-      <span class="card-meta-item">Multiplex</span>
-    </div>
-  <div class="card-avail">
-    <div class="card-avail-label">Availability <span>2 of 2 available</span></div>
-    <div class="card-avail-track"><div class="card-avail-fill" style="width:100%"></div></div>
-  </div>
-    <div class="card-footer" style="margin-top:10px">
-      <div class="card-price-sentence">Ucluelet monthly cost: <strong>Coming soon</strong></div>
-    </div>
-  </div>
-</div>
-<div class="listing-card listing-temp-hidden" style="display:none;" data-region="Vancouver Island" onclick="if(!event.target.closest('.card-save-btn'))openListingDetail(this)">
-  <div class="card-img" style="background-image: url('/assets/img/rainforest-drive-aerial-1.jpg'); background-size: cover; background-position: center;">
-    <div class="card-img-overlay"></div>
-    <div class="card-price-tag">Coming soon</div>
-    <button class="card-save-btn" onclick="handleSaveClick(this)" title="Save listing"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></button>
-    <span class="card-badge recommended-badge">Mortgage Helper</span>
-  </div>
-  <div class="card-disclaimer">Subject to municipal approval</div>
-  <div class="card-body">
-    <div class="card-title" data-listing-key="Norah Street - Unit A" data-video="https://www.youtube.com/embed/XK9raw1l1fI" data-img="/assets/img/rainforest-drive-aerial-1.jpg" data-img2="/assets/img/rainforest-drive-aerial-2.jpg" data-img3="/assets/img/rainforest-drive-aerial-3.jpg" data-img4="/assets/img/rainforest-drive-aerial-4.jpg" data-img5="/assets/img/img_003.jpg" data-img6="/assets/img/img_004.jpg" data-img7="/assets/img/img_001.jpg">Address details coming soon</div>
-    <div class="card-location"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg> Ucluelet, BC</div>
-    <div class="card-meta">
-      <span class="card-meta-item">3 bed</span>
-      <span class="card-meta-item">2 bath</span>
-      <span class="card-meta-item">Multiplex</span>
-    </div>
-  <div class="card-avail">
-    <div class="card-avail-label">Availability <span>1 of 1 available</span></div>
-    <div class="card-avail-track"><div class="card-avail-fill" style="width:100%"></div></div>
-  </div>
-    <div class="card-footer" style="margin-top:10px">
-      <div class="card-price-sentence">Ucluelet monthly cost: <strong>Coming soon</strong></div>
-    </div>
-  </div>
-</div>
-<div class="listing-card listing-temp-hidden" style="display:none;" data-region="Vancouver Island" onclick="if(!event.target.closest('.card-save-btn'))openListingDetail(this)">
-  <div class="card-img" style="background-image: url('/assets/img/img_011.jpg'); background-size: cover; background-position: center;">
-    <div class="card-img-overlay"></div>
-    <div class="card-price-tag">Coming soon</div>
-    <button class="card-save-btn" onclick="handleSaveClick(this)" title="Save listing"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></button>
-    <span class="card-badge recommended-badge">Mortgage Helper</span>
-  </div>
-  <div class="card-disclaimer">Subject to municipal approval</div>
-  <div class="card-body">
-    <div class="card-title" data-listing-key="Ocean West - Unit A" data-video="https://video.gumlet.io/66041d40603db7e8cad20c31/672e4fa71f39ce9ec65b6a9b/672e4fa71f39ce9ec65b6a9b_0_540p.m3u8" data-img="/assets/img/img_011.jpg" data-img2="/assets/img/img_010.jpg" data-img3="/assets/img/img_004.jpg" data-img4="/assets/img/weyerhaeuser-aerial.jpg" data-img5="/assets/img/weyerhaeuser-site-overview.jpg" data-img6="/assets/img/weyerhaeuser-lot-marker.jpg" data-img7="/assets/img/weyerhaeuser-town-aerial.jpg">Address details coming soon</div>
-    <div class="card-location"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg> Ucluelet, BC</div>
-    <div class="card-meta">
-      <span class="card-meta-item">3 bed</span>
-      <span class="card-meta-item">2 bath</span>
-      <span class="card-meta-item">Multiplex</span>
-    </div>
-  <div class="card-avail">
-    <div class="card-avail-label">Availability <span>2 of 2 available</span></div>
-    <div class="card-avail-track"><div class="card-avail-fill" style="width:100%"></div></div>
-  </div>
-    <div class="card-footer" style="margin-top:10px">
-      <div class="card-price-sentence">Ucluelet monthly cost: <strong>Coming soon</strong></div>
-    </div>
-  </div>
-</div>
 </div>
 
-      <div id="dash-load-more">
-        <button id="dash-load-more-btn" onclick="handleViewAllHomesClick()">View All Homes</button>
-        <div id="dash-page-dots">
-          <span class="dash-page-dot active"></span>
-          <span class="dash-page-dot"></span>
-          <span class="dash-page-dot"></span>
-        </div>
-      </div>
 
     </div>
 
