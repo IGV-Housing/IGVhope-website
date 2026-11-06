@@ -202,7 +202,7 @@ function getListingData(cardEl) {
     imgUrl8: imgUrl8,
     imgUrl9: imgUrl9,
     videoUrl: videoUrl,
-    sqft: (titleEl && titleEl.getAttribute('data-sqft')) || ((title.indexOf('- Unit B') !== -1 || title.indexOf('- Unit C') !== -1) ? '777' : tpl.sqft),
+    sqft: (titleEl && titleEl.getAttribute('data-sqft')) || tpl.sqft,
     landSize: tpl.landSize,
     builtIn: tpl.builtIn,
     parking: title.indexOf('- Unit A') !== -1 ? '2' : tpl.parking,
@@ -4217,7 +4217,7 @@ select.gate1-input:invalid { color: #999; }
     <span class="card-badge" style="display:none;">Ground Floor</span>
   </div>
   <div class="card-body">
-    <div class="card-title" data-listing-key="River Road - Unit A" data-sqft="Coming soon" data-video="https://www.youtube.com/embed/SKgFdyuzTrk?si=JF2eGde3J2UhgGhH" data-img="/assets/img/img_007.jpg" data-img2="/assets/img/img_012.jpg" data-img3="/assets/img/img_010.jpg" data-img4="/assets/img/img_004.jpg">3 Bedroom Home</div>
+    <div class="card-title" data-listing-key="River Road - Unit A" data-sqft="1,247" data-video="https://www.youtube.com/embed/SKgFdyuzTrk?si=JF2eGde3J2UhgGhH" data-img="/assets/img/img_007.jpg" data-img2="/assets/img/img_012.jpg" data-img3="/assets/img/img_010.jpg" data-img4="/assets/img/img_004.jpg">3 Bedroom Home</div>
     <div class="card-location" style="display:none;"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg> Port Alberni, BC</div>
     <!-- The hidden chips below are the data source for the detail page (beds / baths / type); the icon row is what shows on the tile. -->
     <div class="card-meta" style="display:none;">
@@ -4228,7 +4228,7 @@ select.gate1-input:invalid { color: #999; }
     <div class="card-specs">
       <span class="card-spec" title="3 bedrooms" aria-label="3 bedrooms"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 4v16"/><path d="M2 8h18a2 2 0 0 1 2 2v10"/><path d="M2 17h20"/><path d="M6 8v9"/></svg><span>3</span></span>
       <span class="card-spec" title="2 bathrooms" aria-label="2 bathrooms"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6 6.5 3.5a1.5 1.5 0 0 0-1-.5C4.683 3 4 3.683 4 4.5V17a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-5"/><line x1="10" x2="8" y1="5" y2="7"/><line x1="2" x2="22" y1="12" y2="12"/><line x1="7" x2="7" y1="19" y2="21"/><line x1="17" x2="17" y1="19" y2="21"/></svg><span>2</span></span>
-      <span class="card-spec" title="Square footage coming soon" aria-label="Square footage coming soon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 3H5a2 2 0 0 0-2 2v3"/><path d="M21 8V5a2 2 0 0 0-2-2h-3"/><path d="M3 16v3a2 2 0 0 0 2 2h3"/><path d="M16 21h3a2 2 0 0 0 2-2v-3"/></svg><span>Coming soon</span></span>
+      <span class="card-spec" title="1,247 square feet" aria-label="1,247 square feet"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 3H5a2 2 0 0 0-2 2v3"/><path d="M21 8V5a2 2 0 0 0-2-2h-3"/><path d="M3 16v3a2 2 0 0 0 2 2h3"/><path d="M16 21h3a2 2 0 0 0 2-2v-3"/></svg><span>1,247 sq ft</span></span>
     </div>
     <div class="card-footer" style="margin-top:10px">
       <div class="card-price-sentence">Homes of this configuration start at <strong>$3,950/mo</strong></div>
@@ -4243,7 +4243,7 @@ select.gate1-input:invalid { color: #999; }
     <span class="card-badge" style="display:none;">Ground Floor</span>
   </div>
   <div class="card-body">
-    <div class="card-title" data-listing-key="Compton Road - Unit B" data-video="https://www.youtube.com/embed/SKgFdyuzTrk?si=JF2eGde3J2UhgGhH" data-img="/assets/img/img_006.jpg" data-img2="/assets/img/img_013.jpg" data-img3="/assets/img/img_010.jpg" data-img4="/assets/img/img_004.jpg">2 Bedroom Home</div>
+    <div class="card-title" data-listing-key="Compton Road - Unit B" data-sqft="778" data-video="https://www.youtube.com/embed/SKgFdyuzTrk?si=JF2eGde3J2UhgGhH" data-img="/assets/img/img_006.jpg" data-img2="/assets/img/img_013.jpg" data-img3="/assets/img/img_010.jpg" data-img4="/assets/img/img_004.jpg">2 Bedroom Home</div>
     <div class="card-location" style="display:none;"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg> Port Alberni, BC</div>
     <!-- The hidden chips below are the data source for the detail page (beds / baths / type); the icon row is what shows on the tile. -->
     <div class="card-meta" style="display:none;">
@@ -4254,7 +4254,7 @@ select.gate1-input:invalid { color: #999; }
     <div class="card-specs">
       <span class="card-spec" title="2 bedrooms" aria-label="2 bedrooms"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 4v16"/><path d="M2 8h18a2 2 0 0 1 2 2v10"/><path d="M2 17h20"/><path d="M6 8v9"/></svg><span>2</span></span>
       <span class="card-spec" title="1 bathroom" aria-label="1 bathroom"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6 6.5 3.5a1.5 1.5 0 0 0-1-.5C4.683 3 4 3.683 4 4.5V17a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-5"/><line x1="10" x2="8" y1="5" y2="7"/><line x1="2" x2="22" y1="12" y2="12"/><line x1="7" x2="7" y1="19" y2="21"/><line x1="17" x2="17" y1="19" y2="21"/></svg><span>1</span></span>
-      <span class="card-spec" title="777 square feet" aria-label="777 square feet"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 3H5a2 2 0 0 0-2 2v3"/><path d="M21 8V5a2 2 0 0 0-2-2h-3"/><path d="M3 16v3a2 2 0 0 0 2 2h3"/><path d="M16 21h3a2 2 0 0 0 2-2v-3"/></svg><span>777 sq ft</span></span>
+      <span class="card-spec" title="778 square feet" aria-label="778 square feet"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 3H5a2 2 0 0 0-2 2v3"/><path d="M21 8V5a2 2 0 0 0-2-2h-3"/><path d="M3 16v3a2 2 0 0 0 2 2h3"/><path d="M16 21h3a2 2 0 0 0 2-2v-3"/></svg><span>778 sq ft</span></span>
     </div>
     <div class="card-footer" style="margin-top:10px">
       <div class="card-price-sentence">Homes of this configuration start at <strong>$2,300/mo</strong></div>
@@ -4269,7 +4269,7 @@ select.gate1-input:invalid { color: #999; }
     <span class="card-badge" style="display:none;">1st Floor</span>
   </div>
   <div class="card-body">
-    <div class="card-title" data-listing-key="River Road - Unit C" data-sqft="Coming soon" data-video="https://www.youtube.com/embed/SKgFdyuzTrk?si=JF2eGde3J2UhgGhH" data-img="/assets/img/img_003.jpg" data-img2="/assets/img/img_004.jpg" data-img3="/assets/img/img_012.jpg" data-img4="/assets/img/img_010.jpg">1 Bedroom Home</div>
+    <div class="card-title" data-listing-key="River Road - Unit C" data-sqft="382" data-video="https://www.youtube.com/embed/SKgFdyuzTrk?si=JF2eGde3J2UhgGhH" data-img="/assets/img/img_003.jpg" data-img2="/assets/img/img_004.jpg" data-img3="/assets/img/img_012.jpg" data-img4="/assets/img/img_010.jpg">1 Bedroom Home</div>
     <div class="card-location" style="display:none;"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg> Port Alberni, BC</div>
     <!-- The hidden chips below are the data source for the detail page (beds / baths / type); the icon row is what shows on the tile. -->
     <div class="card-meta" style="display:none;">
@@ -4280,7 +4280,7 @@ select.gate1-input:invalid { color: #999; }
     <div class="card-specs">
       <span class="card-spec" title="1 bedroom" aria-label="1 bedroom"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 4v16"/><path d="M2 8h18a2 2 0 0 1 2 2v10"/><path d="M2 17h20"/><path d="M6 8v9"/></svg><span>1</span></span>
       <span class="card-spec" title="1 bathroom" aria-label="1 bathroom"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6 6.5 3.5a1.5 1.5 0 0 0-1-.5C4.683 3 4 3.683 4 4.5V17a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-5"/><line x1="10" x2="8" y1="5" y2="7"/><line x1="2" x2="22" y1="12" y2="12"/><line x1="7" x2="7" y1="19" y2="21"/><line x1="17" x2="17" y1="19" y2="21"/></svg><span>1</span></span>
-      <span class="card-spec" title="Square footage coming soon" aria-label="Square footage coming soon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 3H5a2 2 0 0 0-2 2v3"/><path d="M21 8V5a2 2 0 0 0-2-2h-3"/><path d="M3 16v3a2 2 0 0 0 2 2h3"/><path d="M16 21h3a2 2 0 0 0 2-2v-3"/></svg><span>Coming soon</span></span>
+      <span class="card-spec" title="382 square feet" aria-label="382 square feet"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 3H5a2 2 0 0 0-2 2v3"/><path d="M21 8V5a2 2 0 0 0-2-2h-3"/><path d="M3 16v3a2 2 0 0 0 2 2h3"/><path d="M16 21h3a2 2 0 0 0 2-2v-3"/></svg><span>382 sq ft</span></span>
     </div>
     <div class="card-footer" style="margin-top:10px">
       <div class="card-price-sentence">Homes of this configuration start at <strong>$1,900/mo</strong></div>
