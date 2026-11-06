@@ -5209,6 +5209,8 @@ select.pref-input {
 .tab-lock-icon { display: none; margin-left: 4px; vertical-align: -1px; }
 .detail-tab.locked .tab-lock-icon { display: inline-block; }
 .tab-panel { padding-bottom: 32px; }
+.detail-main-title { font-family: 'Montserrat', sans-serif; font-size: 24px; font-weight: 800; color: #123D36; letter-spacing: -0.01em; line-height: 1.2; margin: 0 0 24px; }
+@media (max-width: 480px) { .detail-main-title { font-size: 20px; } }
 .gated-blur { filter: blur(7px); user-select: none; cursor: pointer; transition: filter 0.15s; }
 .gated-blur:hover { filter: blur(5px); }
 .nb-grid {
@@ -6323,13 +6325,7 @@ select.pref-input {
 
       <div id="detail-main">
 
-        <div id="detail-tabs-wrap">
-          <div id="detail-tabs" onscroll="updateTabsFade()">
-            <button class="detail-tab active" onclick="switchTab('mortgage', this)"><span class="tab-label-full">Affordability Calculator</span><span class="tab-label-short">Calculator</span><svg class="tab-lock-icon" width="10" height="10" viewBox="0 0 24 24" fill="currentColor"><path d="M12 1a5 5 0 0 0-5 5v3H6a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-9a2 2 0 0 0-2-2h-1V6a5 5 0 0 0-5-5zm0 2a3 3 0 0 1 3 3v3H9V6a3 3 0 0 1 3-3z"/></svg></button>
-          </div>
-          <div class="detail-tabs-fade left" id="detail-tabs-fade-left"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#1A5C50" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 6 9 12 15 18"/></svg></div>
-          <div class="detail-tabs-fade right" id="detail-tabs-fade-right"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#1A5C50" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 6 15 12 9 18"/></svg></div>
-        </div>
+        <h3 class="detail-main-title">Affordability Calculator</h3>
 
         <div class="tab-panel" id="tab-mortgage">
 
