@@ -3490,7 +3490,7 @@ function initProcessStepper() {
       t.querySelector('.proc-dot').innerHTML = n < cur ? TICK : String(n + 1);
     });
     panels.forEach(function (p, n) {
-      p.hidden = n !== cur;
+      p.classList.toggle('is-active', n === cur);
       p.classList.remove('swap');
       if (animate && n === cur) { void p.offsetWidth; p.classList.add('swap'); }
     });
@@ -4004,9 +4004,10 @@ select.gate1-input:invalid { color: #999; }
 .proc-house .lit { fill: #E8A24A; stroke: #E3EDE6; stroke-width: 4; stroke-linejoin: round; }
 .proc-house .heart { fill: #E8A24A; }
 .proc-house .ground { stroke: rgba(227,237,230,0.35); stroke-width: 3; stroke-linecap: round; }
-.proc-copy { position: relative; z-index: 1; max-width: min(430px, 47%); flex: 1; }
-.proc-panel { display: flex; flex-direction: column; gap: 18px; }
-.proc-panel[hidden] { display: none; }
+.proc-copy { position: relative; z-index: 1; max-width: min(430px, 47%); flex: 1; display: grid; align-content: start; }
+/* All three panels occupy the same grid cell; only the active one is visible, so the card height is the tallest step's and never changes. */
+.proc-panel { grid-area: 1 / 1; display: flex; flex-direction: column; gap: 18px; visibility: hidden; }
+.proc-panel.is-active { visibility: visible; }
 .proc-panel.swap { animation: procSwap 0.35s ease both; }
 @keyframes procSwap { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: none; } }
 .proc-chip { display: inline-block; font-size: 11px; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: #123D36; background: #E8A24A; padding: 6px 12px; border-radius: 999px; white-space: nowrap; }
@@ -4019,7 +4020,7 @@ select.gate1-input:invalid { color: #999; }
 .proc-arrow { width: 44px; height: 44px; border-radius: 50%; border: 2px solid #E3EDE6; background: #E3EDE6; color: #123D36; cursor: pointer; display: grid; place-items: center; flex-shrink: 0; padding: 0; transition: background 0.2s, border-color 0.2s; }
 .proc-arrow:hover:not(:disabled) { background: #fff; border-color: #fff; }
 .proc-arrow:disabled { opacity: 0.35; cursor: default; }
-.proc-go { height: 44px; padding: 0 22px; background: #E8A24A; color: #123D36; border: 0; border-radius: 999px; font-family: 'Montserrat', sans-serif; font-weight: 700; font-size: 13px; cursor: pointer; white-space: nowrap; }
+.proc-go { height: 44px; min-width: 128px; padding: 0 22px; background: #E8A24A; color: #123D36; border: 0; border-radius: 999px; font-family: 'Montserrat', sans-serif; font-weight: 700; font-size: 13px; cursor: pointer; white-space: nowrap; }
 .proc-go:hover { background: #f0b25f; }
 @media (max-width: 860px) {
   .proc-section { padding: 48px 0 40px; }
@@ -4316,7 +4317,7 @@ select.gate1-input:invalid { color: #999; }
       <div class="proc-ghost" id="proc-ghost" aria-hidden="true">1</div>
       <div class="proc-house" aria-hidden="true"><svg viewBox="0 0 320 270" focusable="false"><line class="ground" x1="18" y1="268" x2="302" y2="268"/><g class="g" data-g="0"><rect class="stroke" x="58" y="246" width="204" height="22" rx="3"/><line class="stroke" x1="100" y1="246" x2="100" y2="268"/><line class="stroke" x1="220" y1="246" x2="220" y2="268"/></g><g class="g" data-g="1"><rect class="stroke" x="70" y="150" width="180" height="96"/><rect class="stroke" x="146" y="188" width="30" height="58" rx="2"/><rect class="lit" x="94" y="174" width="34" height="34" rx="2"/><rect class="lit" x="192" y="174" width="34" height="34" rx="2"/></g><g class="g" data-g="2"><path class="stroke" d="M52 152 L160 66 L268 152"/><path class="stroke" d="M206 102.6V84h22v36.1"/><path class="heart" d="M160 140c-14-9-22-17-22-26a11 11 0 0 1 22-3 11 11 0 0 1 22 3c0 9-8 17-22 26z"/></g></svg></div>
       <div class="proc-copy">
-        <div class="proc-panel" role="tabpanel" id="proc-panel-0" aria-labelledby="proc-tab-0">
+        <div class="proc-panel is-active" role="tabpanel" id="proc-panel-0" aria-labelledby="proc-tab-0">
           <div><span class="proc-chip">At move-in</span></div>
           <div class="proc-verb">Secure</div>
           <p class="proc-lead">IGVhope holds the purchase price even if the market changes over the 10-year term.</p>
@@ -4326,7 +4327,7 @@ select.gate1-input:invalid { color: #999; }
             <li>IGVhope is designed to protect that price for the ten-year term, giving you certainty even if the market moves.</li>
           </ul>
         </div>
-        <div class="proc-panel" role="tabpanel" id="proc-panel-1" aria-labelledby="proc-tab-1" hidden>
+        <div class="proc-panel" role="tabpanel" id="proc-panel-1" aria-labelledby="proc-tab-1">
           <div><span class="proc-chip">Years 1 to 10</span></div>
           <div class="proc-verb">Live</div>
           <p class="proc-lead">Move into your brand-new home now while you prepare for ownership.</p>
@@ -4336,7 +4337,7 @@ select.gate1-input:invalid { color: #999; }
             <li>IGVhope supports your preparation for homeownership through annual check-ins, lending partner support and the Homeownership Academy.</li>
           </ul>
         </div>
-        <div class="proc-panel" role="tabpanel" id="proc-panel-2" aria-labelledby="proc-tab-2" hidden>
+        <div class="proc-panel" role="tabpanel" id="proc-panel-2" aria-labelledby="proc-tab-2">
           <div><span class="proc-chip">Year 10</span></div>
           <div class="proc-verb">Own</div>
           <p class="proc-lead">Build toward your own mortgage and complete your purchase at the held price in year 10.</p>
