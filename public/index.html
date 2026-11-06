@@ -335,7 +335,6 @@ function openListingDetail(cardEl) {
   if (document.getElementById('sb-type')) document.getElementById('sb-type').textContent = d.type;
   if (document.getElementById('sb-beds')) document.getElementById('sb-beds').innerHTML = d.title && d.title.indexOf('- Unit A') !== -1 ? '3 bed <span style="font-size:9px;font-weight:400;color:#aaa;">(2 main + 1 suite)</span>' : d.beds;
   if (document.getElementById('sb-baths')) document.getElementById('sb-baths').innerHTML = d.title && d.title.indexOf('- Unit A') !== -1 ? '2 bath <span style="font-size:9px;font-weight:400;color:#aaa;">(1 main + 1 suite)</span>' : d.baths;
-  if (document.getElementById('sb-region')) document.getElementById('sb-region').textContent = d.region;
   // Property summary fields
   if (document.getElementById('ps-property-type')) document.getElementById('ps-property-type').textContent = d.propertyType;
   if (document.getElementById('ps-building-type')) document.getElementById('ps-building-type').textContent = d.type;
@@ -6546,7 +6545,6 @@ select.pref-input {
         </div>
         <div class="sidebar-meta-row"><span>Bedrooms</span><strong id="sb-beds"></strong></div>
         <div class="sidebar-meta-row"><span>Bathrooms</span><strong id="sb-baths"></strong></div>
-        <div class="sidebar-meta-row"><span>Region</span><strong id="sb-region"></strong></div>
         <div class="sidebar-meta-row"><span>Mortgage Transition Period</span><strong>Year 10 transition</strong></div>
         <div class="sidebar-divider"></div>
         <button class="sidebar-cta secondary" onclick="downloadFloorplan()">
