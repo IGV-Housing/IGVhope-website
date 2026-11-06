@@ -1093,7 +1093,7 @@ function handleSubmitApplicationClick() {
 var FLOORPLAN_PDFS = {
   // 'A': '/assets/files/<3-bed-floorplan>.pdf',
   'B': '/assets/files/osprey-house-2-bed-floorplan.pdf',
-  // 'C': '/assets/files/<1-bed-floorplan>.pdf'
+  'C': '/assets/files/osprey-house-1-bed-floorplan.pdf'
 };
 var DOCUMENT_EVENT_WORKER_URL = 'https://floorplan-salesbrochure-event.igvhousing.workers.dev';
 function trackDocumentDownload(docType, unit) {
@@ -1113,9 +1113,9 @@ function downloadFloorplan() {
   var pdfUrl = unitLetter ? FLOORPLAN_PDFS[unitLetter] : null;
   /* Gate 1 (the lead form) always opens first, whether or not this home has a floorplan to give yet. */
   if (!gate1Unlocked) { openGate1(function() { downloadFloorplan(); }); return; }
-  /* No floorplan for this home yet: once Gate 1 is done, say so rather than asking for a second form. */
+  /* No floorplan for this home yet: once Gate 1 is done, say so. */
   if (!pdfUrl) { alert('Thank you. The new floorplan for this home is on its way. Please check back soon.'); return; }
-  if (!gate2Unlocked) { openGate2(function() { downloadFloorplan(); }); return; }
+  /* Gate 1 is all a floorplan needs: the file opens as soon as it is complete. */
   window.open(pdfUrl, '_blank');
   trackDocumentDownload('floorplan', unitLetter);
 }
