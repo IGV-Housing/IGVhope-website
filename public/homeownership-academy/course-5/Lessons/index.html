@@ -49,7 +49,7 @@ a { color: inherit; }
 #mobile-nav-panel.open { display: flex; }
 .mobile-nav-link { color: rgba(255,255,255,0.85); font-size: 14px; font-weight: 500; padding: 14px 0; border-bottom: 1px solid rgba(255,255,255,0.1); text-decoration: none; display: block; }
 .mobile-nav-cta { margin-top: 16px; font-family: 'Montserrat', sans-serif; font-size: 13px; font-weight: 700; letter-spacing: 0.03em; color: #123D36; background: #E8A24A; border: none; border-radius: 999px; padding: 13px 20px; cursor: pointer; width: 100%; }
-@media (max-width: 640px) { .nav-right { display: none; } #nav-burger { display: flex; } }
+@media (max-width: 1024px) { .nav-right { display: none; } #nav-burger { display: flex; } }
 
 
 /* LESSON PROGRESS STRIP */
@@ -240,6 +240,29 @@ a { color: inherit; }
 </head>
 <body>
 
+<!-- MEMBERS-LOCK: Courses 3 to 5 are for logged-in members. Fails closed: the lock stays up unless the login session says loggedIn. -->
+<div id="members-lock-overlay" style="position:fixed;inset:0;z-index:9999;background:#E3EDE6;display:flex;align-items:center;justify-content:center;text-align:center;padding:24px;">
+  <div style="max-width:440px;">
+    <div style="font-family:'Montserrat',sans-serif;font-size:11.5px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:#123D36;background:#fff;display:inline-block;padding:6px 14px;border-radius:999px;margin-bottom:18px;">Community members only</div>
+    <h1 style="font-family:'Montserrat',sans-serif;font-size:26px;font-weight:800;color:#123D36;margin:0 0 14px;">Log in to open this course</h1>
+    <p style="font-family:'Montserrat',sans-serif;font-size:15px;color:#5C6B67;line-height:1.6;margin:0 0 24px;">Courses 3 to 5 of the Homeownership Academy are for logged-in members of the IGVhope Community.</p>
+    <a id="members-lock-login" href="https://my.igvhope.com" style="display:inline-block;font-family:'Montserrat',sans-serif;font-size:15px;font-weight:700;color:#123D36;background:#da8d27;border-radius:999px;padding:14px 32px;text-decoration:none;margin:4px;">Log in</a>
+    <a href="/homeownership-academy/" style="display:inline-block;font-family:'Montserrat',sans-serif;font-size:15px;font-weight:700;color:#123D36;background:#fff;border-radius:999px;padding:14px 32px;text-decoration:none;margin:4px;">Back to the Homeownership Academy</a>
+  </div>
+</div>
+<script>
+  (function () {
+    var overlay = document.getElementById('members-lock-overlay');
+    var login = document.getElementById('members-lock-login');
+    if (login) login.href = 'https://my.igvhope.com';
+    fetch('https://magic-link.igvhousing.workers.dev/session', { credentials: 'include' })
+      .then(function (r) { return r.json(); })
+      .then(function (d) { if (d && d.loggedIn && overlay) overlay.remove(); })
+      .catch(function () { /* stay locked if the session cannot be checked */ });
+  })();
+</script>
+
+
 <nav id="dash-nav">
   <a href="/" style="cursor:pointer;display:flex;align-items:center;" title="Back to IGVhope">
     <svg width="130" height="30" viewBox="0 0 163 38" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -260,7 +283,7 @@ a { color: inherit; }
     <a class="nav-link" href="/impact">Impact</a>
         <a class="nav-link" href="/about">About</a>
     <div class="nav-right-divider"></div>
-    <a class="nav-link" id="nav-login-link" href="/login">Log in</a>
+    <a class="nav-link" id="nav-login-link" href="https://my.igvhope.com">Log in</a>
     <span class="nav-user" id="nav-user">
       <span id="nav-user-name"></span>
       <a class="nav-link" href="#" id="nav-logout-link">Log out</a>
@@ -277,7 +300,7 @@ a { color: inherit; }
     <a class="mobile-nav-link" href="/faq">FAQ</a>
     <a class="mobile-nav-link" href="/impact">Impact</a>
     <a class="mobile-nav-link" href="/about">About</a>
-    <a class="mobile-nav-link" id="mobile-nav-login-link" href="/login">Log in</a>
+    <a class="mobile-nav-link" id="mobile-nav-login-link" href="https://my.igvhope.com">Log in</a>
     <div id="mobile-nav-user" style="display:none;">
       <div class="mobile-nav-link" id="mobile-nav-user-name"></div>
       <a class="mobile-nav-link" href="#" id="mobile-nav-logout-link">Log out</a>
@@ -768,9 +791,10 @@ a { color: inherit; }
     </div>
     <div class="sitemap-col">
       <div class="sitemap-heading">IGV Divisions</div>
-      <a href="https://www.igvhousing.com" target="_blank" rel="noopener">IGV Housing</a>
-      <a href="https://www.igvbuild.com" target="_blank" rel="noopener">IGV Build Systems</a>
-      <a href="https://www.igvcapital.com" target="_blank" rel="noopener">IGV Capital</a>
+      <a href="https://www.igvhousing.com" target="_blank" rel="noopener">IGVhousing</a>
+      <a href="https://www.igvbuild.com" target="_blank" rel="noopener">IGVbuild systems</a>
+      <a href="/">IGVhope</a>
+      <a href="https://www.igvcapital.com" target="_blank" rel="noopener">IGVcapital</a>
     </div>
     <div class="sitemap-col">
       <div class="sitemap-heading">Sitemap</div>
@@ -789,7 +813,7 @@ a { color: inherit; }
         <a href="https://www.facebook.com/IGVhope/" target="_blank" rel="noopener" aria-label="Facebook">
           <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M22 12.06C22 6.5 17.52 2 12 2S2 6.5 2 12.06c0 5.02 3.66 9.18 8.44 9.94v-7.03H7.9v-2.91h2.54V9.85c0-2.51 1.49-3.9 3.77-3.9 1.09 0 2.24.2 2.24.2v2.46h-1.26c-1.24 0-1.63.77-1.63 1.56v1.89h2.78l-.44 2.91h-2.34V22c4.78-.76 8.44-4.92 8.44-9.94z"/></svg>
         </a>
-        <a href="https://www.linkedin.com/company/igvhope" target="_blank" rel="noopener" aria-label="LinkedIn">
+        <a href="https://www.linkedin.com/company/igvhousing" target="_blank" rel="noopener" aria-label="LinkedIn">
           <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M20.45 20.45h-3.55v-5.57c0-1.33-.02-3.04-1.85-3.04-1.85 0-2.14 1.45-2.14 2.94v5.67H9.36V9h3.41v1.56h.05c.48-.9 1.64-1.85 3.38-1.85 3.61 0 4.28 2.38 4.28 5.47zM5.34 7.43a2.06 2.06 0 1 1 0-4.12 2.06 2.06 0 0 1 0 4.12zM7.12 20.45H3.56V9h3.56z"/></svg>
         </a>
         <a href="https://www.instagram.com/igvhope" target="_blank" rel="noopener" aria-label="Instagram">

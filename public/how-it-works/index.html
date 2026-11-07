@@ -44,7 +44,7 @@
   @media (prefers-reduced-motion: reduce) {
     .reveal-on-scroll { opacity: 1; transform: none; transition: none; }
   }
-  body { font-family: 'Montserrat', sans-serif; color: var(--ink); background: #ffffff; line-height: 1.6; -webkit-font-smoothing: antialiased; }
+  body { font-family: 'Montserrat', sans-serif; color: var(--ink); background: #E3EDE6; line-height: 1.6; -webkit-font-smoothing: antialiased; }
   a { text-decoration: none; }
   img { max-width: 100%; display: block; }
   .wrap { max-width: 1100px; margin: 0 auto; padding: 0 32px; }
@@ -81,9 +81,9 @@
   .nav-links .nav-cta { margin-left: 10px; }
   .nav-cta { font-family: 'Montserrat', sans-serif; font-size: 12px; font-weight: 700; letter-spacing: 0.03em; color: #123D36; background: #E8A24A; border: none; border-radius: 999px; padding: 10px 22px; cursor: pointer; transition: background 0.18s; }
   .nav-cta:hover { background: #f0b269; }
-  @media (max-width: 720px) { .nav-links { display: none; } }
+  @media (max-width: 1024px) { .nav-links { display: none; } }
   #nav-burger { display: none; background: none; border: none; cursor: pointer; padding: 6px; align-items: center; justify-content: center; }
-  @media (max-width: 720px) { #nav-burger { display: flex; } }
+  @media (max-width: 1024px) { #nav-burger { display: flex; } }
   #mobile-nav-panel { display: none; flex-direction: column; position: absolute; top: 100%; left: 0; right: 0; background: #1a4848; padding: 10px 32px 24px; box-shadow: 0 12px 24px rgba(0,0,0,0.18); z-index: 400; gap: 4px; }
   #mobile-nav-panel.open { display: flex; }
   #mobile-nav-panel a { color: rgba(255,255,255,0.85); font-size: 14px; font-weight: 500; padding: 14px 0; border-bottom: 1px solid rgba(255,255,255,0.1); }
@@ -92,8 +92,6 @@
   /* ---------- Ported from Course Library: login / account dropdown ---------- */
   .nav-right-divider { width: 1px; height: 20px; background: #ce7841; margin: 0 8px; }
   #nav-login-link.hide { display: none; }
-  .nav-bell { background: none; border: none; cursor: pointer; display: flex; align-items: center; padding: 4px; position: relative; transition: opacity 0.18s; }
-  .nav-bell:hover { opacity: 0.75; }
   .nav-user { display: none; align-items: center; gap: 10px; position: relative; cursor: pointer; user-select: none; }
   .nav-user.show { display: flex; }
   .nav-user-avatar { width: 32px; height: 32px; border-radius: 50%; background: #C8683A; color: white; font-size: 13px; font-weight: 700; display: flex; align-items: center; justify-content: center; text-transform: uppercase; flex-shrink: 0; }
@@ -197,8 +195,8 @@
   .section-head.on-dark p { color: rgba(255,255,255,0.75); }
 
   /* ---------- Problem framing (not behind) ---------- */
-  .problem-section { background: #ffffff; position: relative; overflow: hidden; }
-  .path-video-section { background: #ffffff; }
+  .problem-section { background: #E3EDE6; position: relative; overflow: hidden; }
+  .path-video-section { background: #E3EDE6; }
   .path-video-card { position: relative; border-radius: 18px; overflow: hidden; aspect-ratio: 16/9; box-shadow: 0 12px 32px rgba(18,61,54,0.14); max-width: 860px; margin: 0 auto; }
   .path-video-card iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; }
   .problem-section .wrap { position: relative; z-index: 1; }
@@ -217,7 +215,7 @@
 
   /* ---------- Secure / Live / Own accordion ---------- */
   /* ---------- Intro hero ---------- */
-  .intro-hero { background: #ffffff; overflow: hidden; padding: 0; }
+  .intro-hero { background: #E3EDE6; overflow: hidden; padding: 0; }
   .intro-hero-inner { display: grid; grid-template-columns: 1fr 1fr; align-items: stretch; min-height: 560px; }
   @media (max-width: 900px) { .intro-hero-inner { grid-template-columns: 1fr; min-height: 0; } }
   .intro-hero-text { padding: 70px 56px 70px 0; margin-left: max(32px, calc((100vw - 1100px) / 2 + 32px)); max-width: 560px; }
@@ -232,11 +230,11 @@
   .intro-hero-media { position: relative; width: 100%; height: 100%; min-height: 420px; overflow: hidden; }
   @media (max-width: 900px) { .intro-hero-media { min-height: 320px; padding-left: 32px; box-sizing: border-box; } }
   .intro-hero-media img { width: 100%; height: 100%; object-fit: cover; display: block; }
-  .intro-hero-fade { position: absolute; inset: 0; background: linear-gradient(90deg, #ffffff 0%, rgba(255,255,255,0.85) 8%, rgba(255,255,255,0) 38%); pointer-events: none; }
-  @media (max-width: 900px) { .intro-hero-fade { background: linear-gradient(180deg, #ffffff 0%, rgba(255,255,255,0.85) 8%, rgba(255,255,255,0) 32%); } }
+  .intro-hero-fade { position: absolute; inset: 0; background: linear-gradient(90deg, #E3EDE6 0%, rgba(227,237,230,0.85) 8%, rgba(227,237,230,0) 38%); pointer-events: none; }
+  @media (max-width: 900px) { .intro-hero-fade { background: linear-gradient(180deg, #E3EDE6 0%, rgba(227,237,230,0.85) 8%, rgba(227,237,230,0) 32%); } }
 
   /* ---------- Why traditional buying no longer works ---------- */
-  .traditional-section { background: #ffffff; padding: 70px 0; }
+  .traditional-section { background: #E3EDE6; padding: 70px 0; }
   .traditional-grid { display: grid; grid-template-columns: 0.9fr 1.1fr; gap: 48px; align-items: center; }
   @media (max-width: 900px) { .traditional-grid { grid-template-columns: 1fr; gap: 32px; } }
   .traditional-media img { width: 100%; height: 100%; min-height: 320px; object-fit: cover; border-radius: 14px; display: block; }
@@ -287,7 +285,7 @@
 
   /* ---------- Comparison table ---------- */
   /* ---------- Support banner ---------- */
-  .support-banner-section { background: #ffffff; padding: 40px 0; }
+  .support-banner-section { background: #E3EDE6; padding: 40px 0; }
   .support-banner { display: flex; align-items: center; background: #F1F3EE; border-radius: 18px; overflow: hidden; min-height: 180px; }
   @media (max-width: 800px) { .support-banner { flex-direction: column; align-items: stretch; } }
   .support-banner-icon { flex-shrink: 0; display: flex; align-items: center; justify-content: center; padding: 32px 12px 32px 40px; }
@@ -302,10 +300,10 @@
   @media (max-width: 800px) { .support-banner-fade { background: linear-gradient(180deg, #F1F3EE 0%, rgba(241,243,238,0.8) 10%, rgba(241,243,238,0) 40%); } }
 
   /* ---------- Qualify check cards ---------- */
-  .qualify-cards-section { background: #ffffff; padding: 20px 0 60px; }
+  .qualify-cards-section { background: #E3EDE6; padding: 20px 0 60px; }
 
   /* ---------- Homeownership closer banner ---------- */
-  .closer-banner-section { background: #ffffff; padding: 0 0 50px; }
+  .closer-banner-section { background: #E3EDE6; padding: 0 0 50px; }
   .closer-banner { display: flex; align-items: center; gap: 24px; background: #F7F4EE; border-radius: 16px; padding: 28px 40px; }
   @media (max-width: 600px) { .closer-banner { padding: 24px; gap: 18px; } }
   .closer-banner-icon { flex-shrink: 0; }
@@ -328,12 +326,12 @@
   .eligibility-btn { display: inline-block; background: var(--ochre); color: var(--teal-deep); font-family: 'Montserrat', sans-serif; font-weight: 800; font-size: 14px; border: none; border-radius: 999px; padding: 14px 24px; text-decoration: none; transition: filter 0.18s; }
   .eligibility-btn:hover { filter: brightness(0.95); }
   .qualify-card-note { display: flex; align-items: center; gap: 8px; font-size: 12px; color: rgba(255,255,255,0.7); }
-  .qualify-card-sage { background: #E3EDE6; }
+  .qualify-card-sage { background: #ffffff; }
   .qualify-card-sage h3 { color: var(--teal-deep); }
   .qualify-card-sage .qualify-card-intro { color: rgba(18,61,54,0.8); }
   .qualify-card-sage .qualify-card-note { color: rgba(18,61,54,0.7); }
 
-  .compare-section { background: #ffffff; position: relative; overflow: hidden; }
+  .compare-section { background: #E3EDE6; position: relative; overflow: hidden; }
   .section-watermark { position: absolute; top: 0; right: -40px; height: 100%; opacity: 0.045; pointer-events: none; z-index: 0; }
   .section-watermark.flipped { right: auto; left: -40px; transform: scaleX(-1); }
   .section-watermark.light { opacity: 0.08; }
@@ -390,7 +388,8 @@
   @media (max-width: 480px) { .protections-cta-btn { width: 100%; box-sizing: border-box; text-align: center; } }
 
   /* ---------- Launch Course promo (pre-footer) ---------- */
-  .launch-course-section { background: var(--cream); padding: 90px 0; text-align: center; }
+  .launch-course-section { background: #E3EDE6; padding: 90px 0; text-align: center; position: relative; overflow: hidden; }
+  .launch-course-section .wrap { position: relative; z-index: 1; }
   .launch-course-eyebrow { font-size: 11px; font-weight: 800; letter-spacing: 0.18em; text-transform: uppercase; color: var(--teal); margin-bottom: 18px; }
   .launch-course-heading { font-size: clamp(28px, 4.5vw, 42px); font-weight: 800; color: var(--teal-deep); letter-spacing: -0.01em; line-height: 1.2; max-width: 720px; margin: 0 auto 20px; }
   .launch-course-sub { font-size: 16px; font-weight: 500; color: #6b6b6b; line-height: 1.7; max-width: 620px; margin: 0 auto 32px; }
@@ -400,7 +399,7 @@
   .protection-check { width: 18px; height: 18px; border-radius: 50%; background: var(--sage); color: var(--teal-deep); display: flex; align-items: center; justify-content: center; flex-shrink: 0; margin-top: 1px; }
 
   /* ---------- IGV / HOPE panels ---------- */
-  .acronym-section { background: #ffffff; padding-top: 40px; }
+  .acronym-section { background: #E3EDE6; padding-top: 40px; }
   .acronym-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
   @media (max-width: 760px) { .acronym-grid { grid-template-columns: 1fr; } }
   .acronym-panel { border-radius: 20px; padding: 44px 40px; display: flex; flex-direction: column; min-height: 460px; }
@@ -416,7 +415,7 @@
   .acronym-desc { color: rgba(255,255,255,0.82); font-size: 14px; font-weight: 500; line-height: 1.5; max-width: 340px; }
 
   /* ---------- Six Pillars ---------- */
-  .pillars-section { background: #ffffff; padding-bottom: 40px; }
+  .pillars-section { background: #E3EDE6; padding-bottom: 40px; }
   .pillars-image { width: 100%; max-width: 640px; margin: 0 auto 24px; border-radius: 16px; overflow: hidden; }
   .pillars-image img { width: 100%; display: block; }
   .pillars-caption { text-align: center; font-size: 15px; font-weight: 500; color: var(--ink); max-width: 560px; margin: 0 auto; line-height: 1.6; }
@@ -551,10 +550,7 @@
         <a class="nav-link" href="/about">About</a>
       </div>
       <div class="nav-right-divider"></div>
-      <a class="nav-link" id="nav-login-link" href="/login">Log in</a>
-      <button class="nav-bell" id="nav-bell-btn" aria-label="Notifications" style="display:none;" onclick="window.location.href='/#account-progress'">
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.75)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
-      </button>
+      <a class="nav-link" id="nav-login-link" href="https://my.igvhope.com">Log in</a>
       <span class="nav-user" id="nav-user" onclick="toggleProfileDropdown(event)">
         <div class="nav-user-avatar" id="nav-user-avatar">?</div>
         <span id="nav-user-label" style="color:rgba(255,255,255,0.85);font-size:12px;font-weight:600;">Account</span>
@@ -562,16 +558,11 @@
         <div id="profile-dropdown">
           <div class="dropdown-header">
             <div class="dropdown-header-name" id="dropdown-header-name">IGVhope Member</div>
-            <div class="dropdown-header-role">IGVhope Participant</div>
+            <div class="dropdown-header-role">IGVhope Community Member</div>
           </div>
-          <a class="dropdown-item" href="/#account-progress">
-            <span class="dropdown-item-icon"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg></span>
-            My Account
-          </a>
-          <a class="dropdown-item dropdown-item-locked" id="nav-resident-portal" aria-disabled="true" title="Available only to IGVhope Residents">
-            <span class="dropdown-item-icon"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg></span>
-            Resident Portal
-            <span class="resident-lock" style="margin-left:auto;display:inline-flex;" aria-hidden="true"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></svg></span>
+          <a class="dropdown-item" href="#" onclick="openCircleCommunity();return false;">
+            <span class="dropdown-item-icon"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 10.5 12 3l9 7.5V20a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1z"/><circle cx="12" cy="11.5" r="2.2"/><path d="M8.3 18.2c.5-1.9 2-3 3.7-3s3.2 1.1 3.7 3"/></svg></span>
+            myIGVhope
           </a>
           <div class="dropdown-divider"></div>
           <a class="dropdown-item" href="https://www.igvhousing.com" target="_blank" rel="noopener">
@@ -598,17 +589,17 @@
     <a href="/impact">Impact</a>
     <a href="/about">About</a>
     <div class="mobile-nav-divider"></div>
-    <a id="mobile-nav-login-link" href="/login">Log in</a>
+    <a id="mobile-nav-login-link" href="https://my.igvhope.com">Log in</a>
     <div id="mobile-nav-user" style="display:none;">
       <div class="mobile-nav-section-label">Account</div>
       <div class="mobile-nav-account-header">
         <div class="mobile-nav-avatar" id="mobile-nav-avatar">?</div>
         <div>
           <div class="mobile-nav-account-name" id="mobile-nav-user-name"></div>
-          <div class="mobile-nav-account-role">IGVhope Participant</div>
+          <div class="mobile-nav-account-role">IGVhope Community Member</div>
         </div>
       </div>
-      <a href="/#account-progress">My Account</a>
+      <a href="#" onclick="toggleMobileNav();openCircleCommunity();return false;">myIGVhope</a>
       <a href="https://www.igvhousing.com" target="_blank" rel="noopener">About IGV</a>
       <a href="#" id="mobile-nav-logout-link" onclick="handleNavLogout(event)">Log out</a>
     </div>
@@ -693,86 +684,6 @@
 </section>
 
 
-
-<!-- ================= SECURE / LIVE / OWN ================= -->
-<section class="pathway-section">
-  <svg class="section-watermark" viewBox="0 0 29 34" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M28.6407 17.0608L25.4418 2.57192C25.2066 1.49296 24.156 0.827731 23.1132 1.09544C22.0705 1.36316 21.4197 2.46646 21.6549 3.55353L24.9479 18.4886C25.1831 19.5595 23.8502 20.2247 23.1916 19.3648L14.2223 7.72336C13.5402 6.83909 12.176 6.52271 11.196 7.03379C10.2159 7.54488 9.97287 8.68063 10.655 9.57301L20.1418 21.8878C20.8082 22.7477 19.883 23.9484 18.9265 23.4697L5.64502 16.8499C4.72771 16.3956 3.56734 16.6552 3.04204 17.5557C2.4305 18.5941 2.83035 19.9164 3.85743 20.4275L17.2408 27.096C18.1974 27.5746 17.8681 29.0673 16.8096 29.0673H1.95224C0.870274 29.0673 0 29.9759 0 31.0874C0 32.1988 0.870274 33.1074 1.95224 33.1074H27.1667C27.9821 33.1074 28.6407 32.4259 28.6407 31.5822V17.0608Z" fill="#1A5C50"/></svg>
-  <div class="wrap">
-    <div class="section-head reveal-on-scroll">
-      <h2>The IGVhope Process</h2>
-      <p>Three simple steps. One clear process to ownership.</p>
-    </div>
-
-    <div class="pathway-track">
-      <div class="pathway-arrow arrow-1">
-        <div class="arrow-line"></div>
-        <svg class="arrow-head" width="26" height="26" viewBox="0 0 26 26" aria-hidden="true"><circle cx="13" cy="13" r="13" fill="#da8d27"/><polyline points="11,8 16,13 11,18" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-      </div>
-      <div class="pathway-arrow arrow-2">
-        <div class="arrow-line"></div>
-        <svg class="arrow-head" width="26" height="26" viewBox="0 0 26 26" aria-hidden="true"><circle cx="13" cy="13" r="13" fill="#da8d27"/><polyline points="11,8 16,13 11,18" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-      </div>
-      <div class="pathway-cards">
-
-      <div class="pathway-card reveal-on-scroll">
-        <div class="pathway-num">1</div>
-        <div class="pathway-title-row">
-          <div class="pathway-label">Secure</div>
-          <div class="pathway-icon">
-            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#123D36" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="11" width="16" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg>
-          </div>
-        </div>
-        <div class="pathway-headline">IGVhope holds the purchase price even if the market changes over the 10-year term.</div>
-        <button class="pathway-toggle" onclick="togglePathway(this, 'secure-detail')"><span class="toggle-label">See more</span><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg></button>
-        <div class="pathway-detail" id="secure-detail">
-          <p>Move into a brand-new home with no down payment required.</p>
-          <p>When your home is ready to move into, an independent valuation establishes your agreed purchase price.</p>
-          <p>IGVhope is designed to protect that price for the ten-year term, giving you certainty even if the market moves.</p>
-        </div>
-      </div>
-
-      <div class="pathway-card reveal-on-scroll">
-        <div class="pathway-num">2</div>
-        <div class="pathway-title-row">
-          <div class="pathway-label">Live</div>
-          <div class="pathway-icon">
-            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#123D36" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
-          </div>
-        </div>
-        <div class="pathway-headline">Move into your brand-new home now while you prepare for ownership.</div>
-        <button class="pathway-toggle" onclick="togglePathway(this, 'live-detail')"><span class="toggle-label">See more</span><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg></button>
-        <div class="pathway-detail" id="live-detail">
-          <p>Pay a monthly occupancy contribution, with annual increases capped under your agreement.</p>
-          <p>During the ten-year term, your home is held by a not-for-profit housing association.</p>
-          <p>IGVhope supports your preparation for homeownership through annual check-ins, lending partner support and the Homeownership Academy.</p>
-        </div>
-      </div>
-
-      <div class="pathway-card reveal-on-scroll">
-        <div class="pathway-num">3</div>
-        <div class="pathway-title-row">
-          <div class="pathway-label">Own</div>
-          <div class="pathway-icon">
-            <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#123D36" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-              <path d="M3 11l9-7 9 7"/>
-              <path d="M5 10v9a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-9"/>
-              <g transform="translate(0, -1.6)"><path d="M12 17.3s-3.6-2.1-3.6-4.5a1.8 1.8 0 0 1 3.6-0.8 1.8 1.8 0 0 1 3.6 0.8c0 2.4-3.6 4.5-3.6 4.5z" fill="#123D36" stroke="none"/></g>
-            </svg>
-          </div>
-        </div>
-        <div class="pathway-headline">Build toward your own mortgage and complete your purchase at the held price in year 10.</div>
-        <button class="pathway-toggle" onclick="togglePathway(this, 'own-detail')"><span class="toggle-label">See more</span><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg></button>
-        <div class="pathway-detail" id="own-detail">
-          <p>Your agreed purchase price is protected throughout the ten-year term, regardless of changes in market value.</p>
-          <p>IGVhope helps you build a strong payment history and prepare for your mortgage.</p>
-          <p>When your mortgage is in place at Year 10, title transfers to you and you own your home.</p>
-        </div>
-      </div>
-
-      </div>
-    </div>
-  </div>
-</section>
 
 <!-- ================= PATH VIDEO ================= -->
 <section class="path-video-section">
@@ -936,7 +847,6 @@
 
 <!-- ================= PROTECTIONS ================= -->
 <section class="protections-section">
-  <svg class="section-watermark flipped" viewBox="0 0 29 34" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M28.6407 17.0608L25.4418 2.57192C25.2066 1.49296 24.156 0.827731 23.1132 1.09544C22.0705 1.36316 21.4197 2.46646 21.6549 3.55353L24.9479 18.4886C25.1831 19.5595 23.8502 20.2247 23.1916 19.3648L14.2223 7.72336C13.5402 6.83909 12.176 6.52271 11.196 7.03379C10.2159 7.54488 9.97287 8.68063 10.655 9.57301L20.1418 21.8878C20.8082 22.7477 19.883 23.9484 18.9265 23.4697L5.64502 16.8499C4.72771 16.3956 3.56734 16.6552 3.04204 17.5557C2.4305 18.5941 2.83035 19.9164 3.85743 20.4275L17.2408 27.096C18.1974 27.5746 17.8681 29.0673 16.8096 29.0673H1.95224C0.870274 29.0673 0 29.9759 0 31.0874C0 32.1988 0.870274 33.1074 1.95224 33.1074H27.1667C27.9821 33.1074 28.6407 32.4259 28.6407 31.5822V17.0608Z" fill="#1A5C50"/></svg>
   <div class="wrap">
     <div class="section-head reveal-on-scroll">
       <h2>Your protections throughout the pathway.</h2>
@@ -993,6 +903,7 @@
 
 <!-- ================= LAUNCH COURSE PROMO ================= -->
 <section class="launch-course-section">
+  <svg class="section-watermark flipped" viewBox="0 0 29 34" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M28.6407 17.0608L25.4418 2.57192C25.2066 1.49296 24.156 0.827731 23.1132 1.09544C22.0705 1.36316 21.4197 2.46646 21.6549 3.55353L24.9479 18.4886C25.1831 19.5595 23.8502 20.2247 23.1916 19.3648L14.2223 7.72336C13.5402 6.83909 12.176 6.52271 11.196 7.03379C10.2159 7.54488 9.97287 8.68063 10.655 9.57301L20.1418 21.8878C20.8082 22.7477 19.883 23.9484 18.9265 23.4697L5.64502 16.8499C4.72771 16.3956 3.56734 16.6552 3.04204 17.5557C2.4305 18.5941 2.83035 19.9164 3.85743 20.4275L17.2408 27.096C18.1974 27.5746 17.8681 29.0673 16.8096 29.0673H1.95224C0.870274 29.0673 0 29.9759 0 31.0874C0 32.1988 0.870274 33.1074 1.95224 33.1074H27.1667C27.9821 33.1074 28.6407 32.4259 28.6407 31.5822V17.0608Z" fill="#1A5C50"/></svg>
   <div class="wrap">
     <div class="launch-course-eyebrow">Free Course</div>
     <h2 class="launch-course-heading">Build your confidence.<br>Build your future.</h2>
@@ -1013,9 +924,10 @@
     </div>
     <div class="sitemap-col">
       <div class="sitemap-heading">IGV Divisions</div>
-      <a href="https://www.igvhousing.com" target="_blank" rel="noopener">IGV Housing</a>
-      <a href="https://www.igvbuild.com" target="_blank" rel="noopener">IGV Build Systems</a>
-      <a href="https://www.igvcapital.com" target="_blank" rel="noopener">IGV Capital</a>
+      <a href="https://www.igvhousing.com" target="_blank" rel="noopener">IGVhousing</a>
+      <a href="https://www.igvbuild.com" target="_blank" rel="noopener">IGVbuild systems</a>
+      <a href="/">IGVhope</a>
+      <a href="https://www.igvcapital.com" target="_blank" rel="noopener">IGVcapital</a>
     </div>
     <div class="sitemap-col">
       <div class="sitemap-heading">Sitemap</div>
@@ -1033,7 +945,7 @@
         <a href="https://www.facebook.com/IGVhope/" target="_blank" rel="noopener" aria-label="Facebook">
           <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M22 12.06C22 6.5 17.52 2 12 2S2 6.5 2 12.06c0 5.02 3.66 9.18 8.44 9.94v-7.03H7.9v-2.91h2.54V9.85c0-2.51 1.49-3.9 3.77-3.9 1.09 0 2.24.2 2.24.2v2.46h-1.26c-1.24 0-1.63.77-1.63 1.56v1.89h2.78l-.44 2.91h-2.34V22c4.78-.76 8.44-4.92 8.44-9.94z"/></svg>
         </a>
-        <a href="https://www.linkedin.com/company/igvhope" target="_blank" rel="noopener" aria-label="LinkedIn">
+        <a href="https://www.linkedin.com/company/igvhousing" target="_blank" rel="noopener" aria-label="LinkedIn">
           <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M20.45 20.45h-3.55v-5.57c0-1.33-.02-3.04-1.85-3.04-1.85 0-2.14 1.45-2.14 2.94v5.67H9.36V9h3.41v1.56h.05c.48-.9 1.64-1.85 3.38-1.85 3.61 0 4.28 2.38 4.28 5.47zM5.34 7.43a2.06 2.06 0 1 1 0-4.12 2.06 2.06 0 0 1 0 4.12zM7.12 20.45H3.56V9h3.56z"/></svg>
         </a>
         <a href="https://www.instagram.com/igvhope" target="_blank" rel="noopener" aria-label="Instagram">
@@ -1087,7 +999,7 @@ var MAGIC_LINK_WORKER = 'https://magic-link.igvhousing.workers.dev';
    where they were, instead of a fixed default page. */
 (function setLoginReturnTo(){
   var returnPath = encodeURIComponent(window.location.pathname + window.location.search);
-  var loginUrl = '/login?return=' + returnPath;
+  var loginUrl = 'https://my.igvhope.com';
   var desktopLink = document.getElementById('nav-login-link');
   var mobileLink = document.getElementById('mobile-nav-login-link');
   if (desktopLink) desktopLink.setAttribute('href', loginUrl);
@@ -1138,6 +1050,16 @@ var MAGIC_LINK_WORKER = 'https://magic-link.igvhousing.workers.dev';
     }
   } catch (e) { /* fail quietly, nav just shows Log in as the default state */ }
 })();
+
+/* myIGVhope opens the IGVhope Community on Circle. Put the community's address in CIRCLE_COMMUNITY_URL (the homepage has the same placeholder). */
+var CIRCLE_COMMUNITY_URL = 'REPLACE_WITH_CIRCLE_COMMUNITY_URL';
+function openCircleCommunity() {
+  if (!CIRCLE_COMMUNITY_URL || CIRCLE_COMMUNITY_URL.indexOf('REPLACE_WITH') === 0) {
+    alert("The IGVhope Community isn't connected yet. Check back soon.");
+    return;
+  }
+  window.open(CIRCLE_COMMUNITY_URL, '_blank', 'noopener');
+}
 
 function toggleProfileDropdown(event) {
   event.stopPropagation();
@@ -1589,7 +1511,7 @@ elevenlabs-convai {
     <div id="subscribe-prompt-icon">
       <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#da8d27" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="display:block;"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
     </div>
-    <div id="subscribe-prompt-title">Want to be first in line?</div>
+    <div id="subscribe-prompt-title">Want us to keep you informed?</div>
     <div id="subscribe-prompt-sub">You're not currently subscribed to release updates. Subscribe and we'll email you the moment new IGVhope homes become available.</div>
     <button id="subscribe-prompt-btn" onclick="handleSubscribeConfirm()">Subscribe me</button>
     <div id="subscribe-prompt-dismiss" onclick="closeSubscribePrompt()">Not right now</div>

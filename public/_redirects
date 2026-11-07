@@ -1,4 +1,13 @@
+# Logging in now happens on the platform at my.igvhope.com.
+# Old igvhope.com/login addresses (bookmarks, emails) are sent there.
+# 302 (temporary) so browsers don't cache it forever if the address changes again.
+# Exact-match rules sit above any wildcard (*) lines, as Cloudflare recommends.
+/login https://my.igvhope.com 302
+/login/ https://my.igvhope.com 302
+
 # Old Course Library address -> The Homeownership Academy
 /course-library /homeownership-academy 301
 /course-library/ /homeownership-academy 301
 /course-library/* /homeownership-academy/:splat 301
+
+/login/* https://my.igvhope.com 302

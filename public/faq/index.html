@@ -72,9 +72,9 @@
   .nav-links .nav-cta { margin-left: 10px; }
   .nav-cta { font-family: 'Montserrat', sans-serif; font-size: 12px; font-weight: 700; letter-spacing: 0.03em; color: #123D36; background: #E8A24A; border: none; border-radius: 999px; padding: 10px 22px; cursor: pointer; transition: background 0.18s; }
   .nav-cta:hover { background: #f0b269; }
-  @media (max-width: 720px) { .nav-links { display: none; } }
+  @media (max-width: 1024px) { .nav-links { display: none; } }
   #nav-burger { display: none; background: none; border: none; cursor: pointer; padding: 6px; align-items: center; justify-content: center; }
-  @media (max-width: 720px) { #nav-burger { display: flex; } }
+  @media (max-width: 1024px) { #nav-burger { display: flex; } }
   #mobile-nav-panel { display: none; flex-direction: column; position: absolute; top: 100%; left: 0; right: 0; background: #1a4848; padding: 10px 32px 24px; box-shadow: 0 12px 24px rgba(0,0,0,0.18); z-index: 400; gap: 4px; }
   #mobile-nav-panel.open { display: flex; }
   #mobile-nav-panel a { color: rgba(255,255,255,0.85); font-size: 14px; font-weight: 500; padding: 14px 0; border-bottom: 1px solid rgba(255,255,255,0.1); }
@@ -83,8 +83,6 @@
   /* ---------- Ported from Course Library: login / account dropdown ---------- */
   .nav-right-divider { width: 1px; height: 20px; background: #ce7841; margin: 0 8px; }
   #nav-login-link.hide { display: none; }
-  .nav-bell { background: none; border: none; cursor: pointer; display: flex; align-items: center; padding: 4px; position: relative; transition: opacity 0.18s; }
-  .nav-bell:hover { opacity: 0.75; }
   .nav-user { display: none; align-items: center; gap: 10px; position: relative; cursor: pointer; user-select: none; }
   .nav-user.show { display: flex; }
   .nav-user-avatar { width: 32px; height: 32px; border-radius: 50%; background: #C8683A; color: white; font-size: 13px; font-weight: 700; display: flex; align-items: center; justify-content: center; text-transform: uppercase; flex-shrink: 0; }
@@ -397,10 +395,7 @@
         <a class="nav-link" href="/about">About</a>
       </div>
       <div class="nav-right-divider"></div>
-      <a class="nav-link" id="nav-login-link" href="/login">Log in</a>
-      <button class="nav-bell" id="nav-bell-btn" aria-label="Notifications" style="display:none;" onclick="window.location.href='/#account-progress'">
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.75)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
-      </button>
+      <a class="nav-link" id="nav-login-link" href="https://my.igvhope.com">Log in</a>
       <span class="nav-user" id="nav-user" onclick="toggleProfileDropdown(event)">
         <div class="nav-user-avatar" id="nav-user-avatar">?</div>
         <span id="nav-user-label" style="color:rgba(255,255,255,0.85);font-size:12px;font-weight:600;">Account</span>
@@ -408,16 +403,11 @@
         <div id="profile-dropdown">
           <div class="dropdown-header">
             <div class="dropdown-header-name" id="dropdown-header-name">IGVhope Member</div>
-            <div class="dropdown-header-role">IGVhope Participant</div>
+            <div class="dropdown-header-role">IGVhope Community Member</div>
           </div>
-          <a class="dropdown-item" href="/#account-progress">
-            <span class="dropdown-item-icon"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg></span>
-            My Account
-          </a>
-          <a class="dropdown-item dropdown-item-locked" id="nav-resident-portal" aria-disabled="true" title="Available only to IGVhope Residents">
-            <span class="dropdown-item-icon"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg></span>
-            Resident Portal
-            <span class="resident-lock" style="margin-left:auto;display:inline-flex;" aria-hidden="true"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></svg></span>
+          <a class="dropdown-item" href="#" onclick="openCircleCommunity();return false;">
+            <span class="dropdown-item-icon"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 10.5 12 3l9 7.5V20a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1z"/><circle cx="12" cy="11.5" r="2.2"/><path d="M8.3 18.2c.5-1.9 2-3 3.7-3s3.2 1.1 3.7 3"/></svg></span>
+            myIGVhope
           </a>
           <div class="dropdown-divider"></div>
           <a class="dropdown-item" href="https://www.igvhousing.com" target="_blank" rel="noopener">
@@ -444,17 +434,17 @@
     <a href="/impact">Impact</a>
     <a href="/about">About</a>
     <div class="mobile-nav-divider"></div>
-    <a id="mobile-nav-login-link" href="/login">Log in</a>
+    <a id="mobile-nav-login-link" href="https://my.igvhope.com">Log in</a>
     <div id="mobile-nav-user" style="display:none;">
       <div class="mobile-nav-section-label">Account</div>
       <div class="mobile-nav-account-header">
         <div class="mobile-nav-avatar" id="mobile-nav-avatar">?</div>
         <div>
           <div class="mobile-nav-account-name" id="mobile-nav-user-name"></div>
-          <div class="mobile-nav-account-role">IGVhope Participant</div>
+          <div class="mobile-nav-account-role">IGVhope Community Member</div>
         </div>
       </div>
-      <a href="/#account-progress">My Account</a>
+      <a href="#" onclick="toggleMobileNav();openCircleCommunity();return false;">myIGVhope</a>
       <a href="https://www.igvhousing.com" target="_blank" rel="noopener">About IGV</a>
       <a href="#" id="mobile-nav-logout-link" onclick="handleNavLogout(event)">Log out</a>
     </div>
@@ -535,9 +525,10 @@
     </div>
     <div class="sitemap-col">
       <div class="sitemap-heading">IGV Divisions</div>
-      <a href="https://www.igvhousing.com" target="_blank" rel="noopener">IGV Housing</a>
-      <a href="https://www.igvbuild.com" target="_blank" rel="noopener">IGV Build Systems</a>
-      <a href="https://www.igvcapital.com" target="_blank" rel="noopener">IGV Capital</a>
+      <a href="https://www.igvhousing.com" target="_blank" rel="noopener">IGVhousing</a>
+      <a href="https://www.igvbuild.com" target="_blank" rel="noopener">IGVbuild systems</a>
+      <a href="/">IGVhope</a>
+      <a href="https://www.igvcapital.com" target="_blank" rel="noopener">IGVcapital</a>
     </div>
     <div class="sitemap-col">
       <div class="sitemap-heading">Sitemap</div>
@@ -556,7 +547,7 @@
         <a href="https://www.facebook.com/IGVhope/" target="_blank" rel="noopener" aria-label="Facebook">
           <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M22 12.06C22 6.5 17.52 2 12 2S2 6.5 2 12.06c0 5.02 3.66 9.18 8.44 9.94v-7.03H7.9v-2.91h2.54V9.85c0-2.51 1.49-3.9 3.77-3.9 1.09 0 2.24.2 2.24.2v2.46h-1.26c-1.24 0-1.63.77-1.63 1.56v1.89h2.78l-.44 2.91h-2.34V22c4.78-.76 8.44-4.92 8.44-9.94z"/></svg>
         </a>
-        <a href="https://www.linkedin.com/company/igvhope" target="_blank" rel="noopener" aria-label="LinkedIn">
+        <a href="https://www.linkedin.com/company/igvhousing" target="_blank" rel="noopener" aria-label="LinkedIn">
           <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M20.45 20.45h-3.55v-5.57c0-1.33-.02-3.04-1.85-3.04-1.85 0-2.14 1.45-2.14 2.94v5.67H9.36V9h3.41v1.56h.05c.48-.9 1.64-1.85 3.38-1.85 3.61 0 4.28 2.38 4.28 5.47zM5.34 7.43a2.06 2.06 0 1 1 0-4.12 2.06 2.06 0 0 1 0 4.12zM7.12 20.45H3.56V9h3.56z"/></svg>
         </a>
         <a href="https://www.instagram.com/igvhope" target="_blank" rel="noopener" aria-label="Instagram">
@@ -647,7 +638,7 @@ var MAGIC_LINK_WORKER = 'https://magic-link.igvhousing.workers.dev';
    where they were, instead of a fixed default page. */
 (function setLoginReturnTo(){
   var returnPath = encodeURIComponent(window.location.pathname + window.location.search);
-  var loginUrl = '/login?return=' + returnPath;
+  var loginUrl = 'https://my.igvhope.com';
   var desktopLink = document.getElementById('nav-login-link');
   var mobileLink = document.getElementById('mobile-nav-login-link');
   if (desktopLink) desktopLink.setAttribute('href', loginUrl);
@@ -698,6 +689,16 @@ var MAGIC_LINK_WORKER = 'https://magic-link.igvhousing.workers.dev';
     }
   } catch (e) { /* fail quietly, nav just shows Log in as the default state */ }
 })();
+
+/* myIGVhope opens the IGVhope Community on Circle. Put the community's address in CIRCLE_COMMUNITY_URL (the homepage has the same placeholder). */
+var CIRCLE_COMMUNITY_URL = 'REPLACE_WITH_CIRCLE_COMMUNITY_URL';
+function openCircleCommunity() {
+  if (!CIRCLE_COMMUNITY_URL || CIRCLE_COMMUNITY_URL.indexOf('REPLACE_WITH') === 0) {
+    alert("The IGVhope Community isn't connected yet. Check back soon.");
+    return;
+  }
+  window.open(CIRCLE_COMMUNITY_URL, '_blank', 'noopener');
+}
 
 function toggleProfileDropdown(event) {
   event.stopPropagation();
@@ -1139,7 +1140,7 @@ elevenlabs-convai {
     <div id="subscribe-prompt-icon">
       <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#da8d27" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="display:block;"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
     </div>
-    <div id="subscribe-prompt-title">Want to be first in line?</div>
+    <div id="subscribe-prompt-title">Want us to keep you informed?</div>
     <div id="subscribe-prompt-sub">You're not currently subscribed to release updates. Subscribe and we'll email you the moment new IGVhope homes become available.</div>
     <button id="subscribe-prompt-btn" onclick="handleSubscribeConfirm()">Subscribe me</button>
     <div id="subscribe-prompt-dismiss" onclick="closeSubscribePrompt()">Not right now</div>
