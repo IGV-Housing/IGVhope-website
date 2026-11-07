@@ -849,6 +849,12 @@ function y10Calc() {
   } else {
     verdict = 'The market gain of ' + y10Fmt(saving) + ' covers ' + Math.round(saving / dpAmt * 100) + '% of your ' + y10Fmt(dpAmt) + ' down payment. The remaining ' + y10Fmt(dpAmt - saving) + ' would need to be saved separately.';
   }
+  var vdEl = document.getElementById('y10-vd');
+  if (vdEl) {
+    vdEl.style.display = saving > 0 ? 'block' : 'none';
+    document.getElementById('y10-vd-val').textContent = y10Fmt(saving);
+  }
+
   var verdictEl = document.getElementById('y10-r-verdict');
   verdictEl.innerHTML = gainCoversDP && saving > 0
     ? 'Your home\u2019s market gain of <strong>' + y10Fmt(saving) + '</strong> fully covers the <strong>' + y10Fmt(dpAmt) + '</strong> down payment, with <strong>' + y10Fmt(surplus) + '</strong> to spare. That surplus can be put toward the upfront legal and government costs of purchase: property transfer tax, legal fees, and title registration, so you enter ownership without needing additional cash reserves.'
@@ -5560,6 +5566,7 @@ select.pref-input {
  background: rgba(0,0,0,0.2); color: rgba(255,255,255,0.7);
 }
 .y10-igv-header { background: rgba(0,0,0,0.15); color: rgba(255,255,255,0.85); }
+.y10-igv-logo { display: block; height: 21px; width: auto; margin: -2.5px 0; } /* keeps this header the same height as "If you wait" so the two cards' rows line up */
 .y10-card-sub { font-size: 10px; color: rgba(255,255,255,0.5); padding: 10px 16px 0; font-weight: 500; }
 .y10-card-big { font-size: 26px; font-weight: 700; color: #C8683A; padding: 4px 16px 12px; overflow-wrap: break-word; word-break: break-word; }
 .y10-card-big-igv { color: #da8d27; }
@@ -5637,6 +5644,27 @@ select.pref-input {
  line-height: 1.5; border-top: 1px solid rgba(26,92,80,0.15); padding-top: 10px;
 }
 .y10-es-verdict strong { color: #123D36; }
+/* Potential value difference banner + three benefits, above the verdict */
+.y10-vd { margin-top: 20px; }
+.y10-vd-banner { display: grid; grid-template-columns: auto auto 1fr; align-items: center; gap: 24px; background: #FBEFDD; border: 1.5px solid rgba(218,141,39,0.35); border-radius: 12px; padding: 16px 24px; }
+.y10-vd-label { font-size: 13px; font-weight: 700; letter-spacing: 0.04em; text-transform: uppercase; color: #123D36; line-height: 1.3; max-width: 230px; padding-right: 24px; border-right: 1.5px solid rgba(200,104,58,0.45); }
+.y10-vd-val { font-size: 34px; font-weight: 800; color: #C8683A; white-space: nowrap; }
+.y10-vd-desc { font-size: 11px; color: #123D36; line-height: 1.5; }
+.y10-vd-benefits { display: grid; grid-template-columns: repeat(3, 1fr); background: #E5F0E6; border-radius: 12px; padding: 14px 8px; margin-top: 10px; }
+.y10-vd-benefit { display: flex; align-items: center; gap: 12px; padding: 0 16px; color: #1A5C50; }
+.y10-vd-benefit + .y10-vd-benefit { border-left: 1px solid rgba(26,92,80,0.18); }
+.y10-vd-benefit svg { flex-shrink: 0; }
+.y10-vd-b-title { font-size: 12px; font-weight: 700; color: #123D36; }
+.y10-vd-b-sub { font-size: 10px; color: rgba(18,61,54,0.7); margin-top: 2px; }
+@media (max-width: 760px) {
+ .y10-vd-banner { grid-template-columns: 1fr auto; gap: 8px 16px; padding: 14px 16px; }
+ .y10-vd-label { border-right: 0; padding-right: 0; max-width: none; font-size: 11px; }
+ .y10-vd-val { font-size: 26px; }
+ .y10-vd-desc { grid-column: 1 / -1; }
+ .y10-vd-benefits { grid-template-columns: 1fr; padding: 4px 8px; }
+ .y10-vd-benefit { padding: 10px 8px; }
+ .y10-vd-benefit + .y10-vd-benefit { border-left: 0; border-top: 1px solid rgba(26,92,80,0.18); }
+}
 .y10-equity-panel {
  margin-top: 16px;
  background: linear-gradient(135deg, #123D36 0%, #1A5C50 100%);
@@ -6398,10 +6426,7 @@ select.pref-input {
             <div class="y10-vs">VS.</div>
 
             <div class="y10-card y10-card-igv">
-              <div class="y10-card-header y10-igv-header">
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
-                IGVhope pathway
-              </div>
+              <div class="y10-card-header y10-igv-header"><svg class="y10-igv-logo" width="88" height="21" role="img" aria-label="IGVhope" viewBox="0 0 163 38" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M34.536 0.747925H39.4049V33.0843H32.427V2.93019C32.427 1.72954 33.3678 0.747925 34.536 0.747925Z" fill="#ffffff"/><path d="M88.8771 21.3374L96.2234 2.32986C96.5919 1.37259 97.4857 0.747925 98.4814 0.747925H104.393L91.8329 33.0843H85.9291L73.3611 0.747925H80.9191L88.8771 21.3293V21.3374Z" fill="#ffffff"/><path d="M67.5122 16.6144H72.2478V28.0855C69.1508 31.6631 64.8544 33.4478 59.374 33.4478C54.7874 33.4478 50.93 31.874 47.8174 28.7264C44.7048 25.5787 43.1445 21.6117 43.1445 16.8172C43.1445 12.0227 44.7283 8.02326 47.9036 4.81071C51.0789 1.60628 54.905 0 59.3897 0C63.8743 0 67.7709 1.52515 71.0796 4.57545L68.8294 7.93402C68.1238 8.98865 66.7282 9.28881 65.7089 8.5668C64.9641 8.03949 64.2663 7.64197 63.5921 7.37426C62.416 6.89562 61.138 6.66036 59.766 6.66036C57.116 6.66036 54.8815 7.5933 53.0625 9.45917C51.2436 11.325 50.3341 13.7831 50.3341 16.8334C50.3341 19.8837 51.2044 22.3337 52.9528 24.1671C54.7011 26.0006 56.7788 26.9173 59.1858 26.9173C61.5928 26.9173 63.6156 26.4386 65.2228 25.4814V18.9589C65.2228 17.6528 66.2421 16.5982 67.5044 16.5982L67.5122 16.6144Z" fill="#ffffff"/><path d="M28.6407 17.0608L25.4418 2.57192C25.2066 1.49296 24.156 0.827731 23.1132 1.09544C22.0705 1.36316 21.4197 2.46646 21.6549 3.55353L24.9479 18.4886C25.1831 19.5595 23.8502 20.2247 23.1916 19.3648L14.2223 7.72336C13.5402 6.83909 12.176 6.52271 11.196 7.03379C10.2159 7.54488 9.97287 8.68063 10.655 9.57301L20.1418 21.8878C20.8082 22.7477 19.883 23.9484 18.9265 23.4697L5.64502 16.8499C4.72771 16.3956 3.56734 16.6552 3.04204 17.5557C2.4305 18.5941 2.83035 19.9164 3.85743 20.4275L17.2408 27.096C18.1974 27.5746 17.8681 29.0673 16.8096 29.0673H1.95224C0.870274 29.0673 0 29.9759 0 31.0874C0 32.1988 0.870274 33.1074 1.95224 33.1074H27.1667C27.9821 33.1074 28.6407 32.4259 28.6407 31.5822V17.0608Z" fill="#FBB040"/><path d="M106.699 26.0738V33.2047H104.018V14.8624H106.699V22.4394C107.083 21.6282 107.655 20.9954 108.432 20.533C109.208 20.0706 110.039 19.8434 110.933 19.8434C112.368 19.8434 113.528 20.2977 114.414 21.2063C115.3 22.1149 115.739 23.4292 115.739 25.1409V33.2128H113.057V25.9846C113.057 23.559 112.085 22.3421 110.141 22.3421C109.216 22.3421 108.408 22.6585 107.726 23.2913C107.036 23.924 106.699 24.857 106.699 26.0738Z" fill="#ffffff"/><path d="M130.126 31.4276C128.848 32.7418 127.256 33.3989 125.343 33.3989C123.43 33.3989 121.831 32.7418 120.56 31.4276C119.283 30.1134 118.647 28.5071 118.647 26.6088C118.647 24.7104 119.283 23.1042 120.56 21.7899C121.838 20.4757 123.43 19.8186 125.343 19.8186C127.256 19.8186 128.848 20.4757 130.126 21.7899C131.404 23.1042 132.039 24.7104 132.039 26.6088C132.039 28.5071 131.404 30.1134 130.126 31.4276ZM122.458 29.724C123.218 30.5271 124.175 30.9246 125.343 30.9246C126.511 30.9246 127.468 30.5271 128.228 29.724C128.989 28.9208 129.365 27.8905 129.365 26.6169C129.365 25.3432 128.989 24.3129 128.228 23.5098C127.468 22.7067 126.511 22.3091 125.343 22.3091C124.175 22.3091 123.218 22.7067 122.458 23.5098C121.697 24.3129 121.321 25.3432 121.321 26.6169C121.321 27.8905 121.697 28.9208 122.458 29.724Z" fill="#ffffff"/><path d="M141.894 19.8362C143.603 19.8362 145.062 20.4446 146.277 21.6696C147.484 22.8946 148.096 24.5171 148.096 26.5452C148.096 28.5733 147.492 30.2283 146.292 31.4938C145.085 32.7675 143.682 33.4003 142.082 33.4003C140.483 33.4003 139.04 32.6702 137.762 31.218V38.0001H135.081V20.0228H137.762V22.3267C138.813 20.6637 140.193 19.8281 141.902 19.8281L141.894 19.8362ZM137.707 26.6426C137.707 27.9 138.076 28.9222 138.805 29.7253C139.542 30.5285 140.428 30.926 141.486 30.926C142.545 30.926 143.454 30.5285 144.238 29.7415C145.022 28.9546 145.414 27.9243 145.414 26.6588C145.414 25.3932 145.03 24.3467 144.27 23.5111C143.501 22.6756 142.584 22.2618 141.518 22.2618C140.451 22.2618 139.55 22.6756 138.813 23.5111C138.076 24.3467 137.715 25.3851 137.715 26.6426H137.707Z" fill="#ffffff"/><path d="M163 27.8253H153.019C153.082 28.7826 153.505 29.5532 154.289 30.1373C155.073 30.7214 155.967 31.0135 156.971 31.0135C158.562 31.0135 159.778 30.4943 160.609 29.4559L162.138 31.192C160.766 32.6603 158.978 33.3986 156.775 33.3986C154.987 33.3986 153.466 32.782 152.22 31.557C150.965 30.3239 150.338 28.6771 150.338 26.6084C150.338 24.5397 150.973 22.8929 152.251 21.6679C153.529 20.451 155.026 19.8345 156.759 19.8345C158.492 19.8345 159.958 20.378 161.173 21.457C162.388 22.5359 162.992 24.0286 162.992 25.927V27.8334L163 27.8253ZM153.019 25.6511H160.319C160.319 24.5478 159.981 23.696 159.315 23.1038C158.649 22.5116 157.818 22.2114 156.838 22.2114C155.857 22.2114 154.972 22.5197 154.195 23.1363C153.411 23.7528 153.019 24.5884 153.019 25.6511Z" fill="#ffffff"/></svg></div>
               <div class="y10-card-sub">Your locked price at Year 10</div>
               <div class="y10-card-big y10-card-big-igv" id="y10-locked-price">-</div>
               <div class="y10-table">
@@ -6461,10 +6486,7 @@ select.pref-input {
                 <!-- RIGHT: IGVhope -->
                 <div class="y10-vs">VS.</div>
                 <div class="y10-card y10-card-igv">
-                  <div class="y10-card-header y10-igv-header">
-                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
-                    IGVhope pathway
-                  </div>
+                  <div class="y10-card-header y10-igv-header"><svg class="y10-igv-logo" width="88" height="21" role="img" aria-label="IGVhope" viewBox="0 0 163 38" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M34.536 0.747925H39.4049V33.0843H32.427V2.93019C32.427 1.72954 33.3678 0.747925 34.536 0.747925Z" fill="#ffffff"/><path d="M88.8771 21.3374L96.2234 2.32986C96.5919 1.37259 97.4857 0.747925 98.4814 0.747925H104.393L91.8329 33.0843H85.9291L73.3611 0.747925H80.9191L88.8771 21.3293V21.3374Z" fill="#ffffff"/><path d="M67.5122 16.6144H72.2478V28.0855C69.1508 31.6631 64.8544 33.4478 59.374 33.4478C54.7874 33.4478 50.93 31.874 47.8174 28.7264C44.7048 25.5787 43.1445 21.6117 43.1445 16.8172C43.1445 12.0227 44.7283 8.02326 47.9036 4.81071C51.0789 1.60628 54.905 0 59.3897 0C63.8743 0 67.7709 1.52515 71.0796 4.57545L68.8294 7.93402C68.1238 8.98865 66.7282 9.28881 65.7089 8.5668C64.9641 8.03949 64.2663 7.64197 63.5921 7.37426C62.416 6.89562 61.138 6.66036 59.766 6.66036C57.116 6.66036 54.8815 7.5933 53.0625 9.45917C51.2436 11.325 50.3341 13.7831 50.3341 16.8334C50.3341 19.8837 51.2044 22.3337 52.9528 24.1671C54.7011 26.0006 56.7788 26.9173 59.1858 26.9173C61.5928 26.9173 63.6156 26.4386 65.2228 25.4814V18.9589C65.2228 17.6528 66.2421 16.5982 67.5044 16.5982L67.5122 16.6144Z" fill="#ffffff"/><path d="M28.6407 17.0608L25.4418 2.57192C25.2066 1.49296 24.156 0.827731 23.1132 1.09544C22.0705 1.36316 21.4197 2.46646 21.6549 3.55353L24.9479 18.4886C25.1831 19.5595 23.8502 20.2247 23.1916 19.3648L14.2223 7.72336C13.5402 6.83909 12.176 6.52271 11.196 7.03379C10.2159 7.54488 9.97287 8.68063 10.655 9.57301L20.1418 21.8878C20.8082 22.7477 19.883 23.9484 18.9265 23.4697L5.64502 16.8499C4.72771 16.3956 3.56734 16.6552 3.04204 17.5557C2.4305 18.5941 2.83035 19.9164 3.85743 20.4275L17.2408 27.096C18.1974 27.5746 17.8681 29.0673 16.8096 29.0673H1.95224C0.870274 29.0673 0 29.9759 0 31.0874C0 32.1988 0.870274 33.1074 1.95224 33.1074H27.1667C27.9821 33.1074 28.6407 32.4259 28.6407 31.5822V17.0608Z" fill="#FBB040"/><path d="M106.699 26.0738V33.2047H104.018V14.8624H106.699V22.4394C107.083 21.6282 107.655 20.9954 108.432 20.533C109.208 20.0706 110.039 19.8434 110.933 19.8434C112.368 19.8434 113.528 20.2977 114.414 21.2063C115.3 22.1149 115.739 23.4292 115.739 25.1409V33.2128H113.057V25.9846C113.057 23.559 112.085 22.3421 110.141 22.3421C109.216 22.3421 108.408 22.6585 107.726 23.2913C107.036 23.924 106.699 24.857 106.699 26.0738Z" fill="#ffffff"/><path d="M130.126 31.4276C128.848 32.7418 127.256 33.3989 125.343 33.3989C123.43 33.3989 121.831 32.7418 120.56 31.4276C119.283 30.1134 118.647 28.5071 118.647 26.6088C118.647 24.7104 119.283 23.1042 120.56 21.7899C121.838 20.4757 123.43 19.8186 125.343 19.8186C127.256 19.8186 128.848 20.4757 130.126 21.7899C131.404 23.1042 132.039 24.7104 132.039 26.6088C132.039 28.5071 131.404 30.1134 130.126 31.4276ZM122.458 29.724C123.218 30.5271 124.175 30.9246 125.343 30.9246C126.511 30.9246 127.468 30.5271 128.228 29.724C128.989 28.9208 129.365 27.8905 129.365 26.6169C129.365 25.3432 128.989 24.3129 128.228 23.5098C127.468 22.7067 126.511 22.3091 125.343 22.3091C124.175 22.3091 123.218 22.7067 122.458 23.5098C121.697 24.3129 121.321 25.3432 121.321 26.6169C121.321 27.8905 121.697 28.9208 122.458 29.724Z" fill="#ffffff"/><path d="M141.894 19.8362C143.603 19.8362 145.062 20.4446 146.277 21.6696C147.484 22.8946 148.096 24.5171 148.096 26.5452C148.096 28.5733 147.492 30.2283 146.292 31.4938C145.085 32.7675 143.682 33.4003 142.082 33.4003C140.483 33.4003 139.04 32.6702 137.762 31.218V38.0001H135.081V20.0228H137.762V22.3267C138.813 20.6637 140.193 19.8281 141.902 19.8281L141.894 19.8362ZM137.707 26.6426C137.707 27.9 138.076 28.9222 138.805 29.7253C139.542 30.5285 140.428 30.926 141.486 30.926C142.545 30.926 143.454 30.5285 144.238 29.7415C145.022 28.9546 145.414 27.9243 145.414 26.6588C145.414 25.3932 145.03 24.3467 144.27 23.5111C143.501 22.6756 142.584 22.2618 141.518 22.2618C140.451 22.2618 139.55 22.6756 138.813 23.5111C138.076 24.3467 137.715 25.3851 137.715 26.6426H137.707Z" fill="#ffffff"/><path d="M163 27.8253H153.019C153.082 28.7826 153.505 29.5532 154.289 30.1373C155.073 30.7214 155.967 31.0135 156.971 31.0135C158.562 31.0135 159.778 30.4943 160.609 29.4559L162.138 31.192C160.766 32.6603 158.978 33.3986 156.775 33.3986C154.987 33.3986 153.466 32.782 152.22 31.557C150.965 30.3239 150.338 28.6771 150.338 26.6084C150.338 24.5397 150.973 22.8929 152.251 21.6679C153.529 20.451 155.026 19.8345 156.759 19.8345C158.492 19.8345 159.958 20.378 161.173 21.457C162.388 22.5359 162.992 24.0286 162.992 25.927V27.8334L163 27.8253ZM153.019 25.6511H160.319C160.319 24.5478 159.981 23.696 159.315 23.1038C158.649 22.5116 157.818 22.2114 156.838 22.2114C155.857 22.2114 154.972 22.5197 154.195 23.1363C153.411 23.7528 153.019 24.5884 153.019 25.6511Z" fill="#ffffff"/></svg></div>
                   <div class="y10-card-sub">Your locked price at Year 10</div>
                   <div class="y10-card-big y10-card-big-igv" id="y10-igv-price">-</div>
                   <div class="y10-table">
@@ -6477,6 +6499,29 @@ select.pref-input {
                   <div style="font-size:10px; color:rgba(255,255,255,0.3); padding:8px 16px 12px; line-height:1.5;" id="y10-igv-lvr-note"></div>
                 </div>
 
+              </div>
+
+              <!-- Potential value difference at Year 10 + three benefits (filled by y10Calc) -->
+              <div class="y10-vd" id="y10-vd" style="display:none">
+                <div class="y10-vd-banner">
+                  <div class="y10-vd-label">Potential value difference at Year 10</div>
+                  <div class="y10-vd-val" id="y10-vd-val">-</div>
+                  <div class="y10-vd-desc">The difference between the illustrative market value and your agreed purchase price, which could strengthen your equity position and reduce the amount of additional funds required to complete your purchase.</div>
+                </div>
+                <div class="y10-vd-benefits">
+                  <div class="y10-vd-benefit">
+                    <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><ellipse cx="12" cy="5" rx="7" ry="2.5"/><path d="M5 5v4c0 1.4 3.1 2.5 7 2.5s7-1.1 7-2.5V5"/><path d="M5 9v4c0 1.4 3.1 2.5 7 2.5s7-1.1 7-2.5V9"/><path d="M5 13v4c0 1.4 3.1 2.5 7 2.5s7-1.1 7-2.5v-4"/></svg>
+                    <div><div class="y10-vd-b-title">A lower mortgage</div><div class="y10-vd-b-sub">Based on your held purchase price</div></div>
+                  </div>
+                  <div class="y10-vd-benefit">
+                    <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M16 3v4M8 3v4M3 10h18"/><path d="M8 15h.01M12 15h.01M16 15h.01"/></svg>
+                    <div><div class="y10-vd-b-title">Greater equity</div><div class="y10-vd-b-sub">From potential home value growth</div></div>
+                  </div>
+                  <div class="y10-vd-benefit">
+                    <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="M9 12l2 2 4-4"/></svg>
+                    <div><div class="y10-vd-b-title">A stronger financial position</div><div class="y10-vd-b-sub">For long-term security and flexibility</div></div>
+                  </div>
+                </div>
               </div>
 
               <div class="y10-es-verdict" id="y10-r-verdict" style="margin-top:16px;">-</div>
