@@ -1098,11 +1098,12 @@ function handleSubmitApplicationClick() {
     });
   });
 }
-/* The old Osprey floorplans were removed: every home configuration is getting a new one. Add each new PDF here once it is
-   uploaded to /assets/files/. Keys are the unit letter in a home's internal name: A = 3 bed 2 bath, B = 2 bed 1 bath, C = 1 bed 1 bath. */
+/* One floorplan PDF per home configuration, in /assets/files/. Keys are the unit letter in a home's internal name:
+   A = 3 bed 2 bath, B = 2 bed 1 bath, C = 1 bed 1 bath. Unit A has two versions: with the mortgage helper suite ('A-helper')
+   and without it ('A', for tiles marked data-no-helper). */
 var FLOORPLAN_PDFS = {
-  /* TEMPORARY: there is no 3 bed floorplan yet, so the 3 bed shows the 2 bed plan for now. Replace with the 3 bed PDF when it exists. */
-  'A': '/assets/files/osprey-house-2-bed-floorplan.pdf',
+  'A-helper': '/assets/files/osprey-house-3-bed-mortgage-floorplan.pdf',
+  'A': '/assets/files/osprey-house-3-bed-floorplan.pdf',
   'B': '/assets/files/osprey-house-2-bed-floorplan.pdf',
   'C': '/assets/files/osprey-house-1-bed-floorplan.pdf'
 };
@@ -1121,7 +1122,13 @@ function downloadFloorplan() {
   var title = getCurrentListingName();
   var unitMatch = title.match(/-\s*Unit\s*([A-C])/i);
   var unitLetter = unitMatch ? unitMatch[1].toUpperCase() : null;
-  var pdfUrl = unitLetter ? FLOORPLAN_PDFS[unitLetter] : null;
+  var pdfKey = unitLetter;
+  /* Unit A has the mortgage helper suite unless its tile is marked data-no-helper (the same rule getListingData uses). */
+  if (unitLetter === 'A') {
+    var keyEl = Array.prototype.find.call(document.querySelectorAll('.card-title[data-listing-key]'), function(el) { return el.getAttribute('data-listing-key') === title; });
+    if (!(keyEl && keyEl.hasAttribute('data-no-helper'))) pdfKey = 'A-helper';
+  }
+  var pdfUrl = pdfKey ? FLOORPLAN_PDFS[pdfKey] : null;
   /* Gate 1 (the lead form) always opens first, whether or not this home has a floorplan to give yet. */
   if (!gate1Unlocked) { openGate1(function() { downloadFloorplan(); }); return; }
   /* No floorplan for this home yet: once Gate 1 is done, say so. */
@@ -4349,7 +4356,7 @@ select.gate1-input:invalid { color: #999; }
     <div class="card-helper"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>Includes a mortgage helper</div>
   </div>
   <div class="card-body">
-    <div class="card-title" data-listing-key="River Road - Unit A" data-sqft="1,247" data-video="https://www.youtube.com/embed/SKgFdyuzTrk?si=JF2eGde3J2UhgGhH" data-img="/assets/img/bedroom-view.webp" data-img2="/assets/img/img_010.jpg" data-img3="/assets/img/img_004.jpg" data-img4="/assets/img/lifestyle-dog-hug.webp" data-img5="/assets/img/lifestyle-family-sofa.webp" data-img6="/assets/img/lifestyle-couple-deck.webp">3 Bedroom Home</div>
+    <div class="card-title" data-listing-key="River Road - Unit A" data-sqft="1,247" data-video="https://www.youtube.com/embed/SKgFdyuzTrk?si=JF2eGde3J2UhgGhH" data-img="/assets/img/bedroom-view.webp" data-img2="/assets/img/img_010.jpg" data-img3="/assets/img/img_004.jpg" data-img4="/assets/img/lifestyle-dog-hug.webp" data-img5="/assets/img/lifestyle-family-sofa.webp" data-img6="/assets/img/lifestyle-couple-deck.webp">3 Bedroom Home with flexible suite</div>
     <div class="card-location" style="display:none;"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg> Port Alberni, BC</div>
     <!-- The hidden chips below are the data source for the detail page (beds / baths / type); the icon row is what shows on the tile. -->
     <div class="card-meta" style="display:none;">
@@ -4364,7 +4371,7 @@ select.gate1-input:invalid { color: #999; }
     </div>
     <div class="card-footer" style="margin-top:10px">
       <div class="card-purchase-line">Purchase price from <strong>$670,000</strong></div>
-      <div class="card-price-sentence">Homes of this configuration start at <strong>$4,000/mo</strong></div>
+      <div class="card-price-sentence">Homes of this configuration start at <strong>$4,000/mo</strong>, offset by potential suite income</div>
     </div>
   </div>
 </div>
