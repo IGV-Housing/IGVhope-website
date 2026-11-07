@@ -4045,6 +4045,8 @@ select.gate1-input:invalid { color: #999; }
   .proc-copy { max-width: 100%; }
   .proc-ghost { font-size: 130px; right: 8px; top: -8px; }
   .proc-house { position: relative; right: auto; bottom: auto; width: 100%; max-width: 320px; order: 3; }
+  /* The drawing's roof starts ~1/4 of the way down its frame; pull it up over that blank band */
+  .proc-house svg { margin-top: -18%; }
   .proc-foot { order: 4; }
 }
 @media (prefers-reduced-motion: reduce) { .proc-card *, .proc-rail-fill, .proc-dot { transition: none !important; animation: none !important; } }
