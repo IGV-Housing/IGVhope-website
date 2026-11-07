@@ -177,7 +177,7 @@ a { color: inherit; }
     <div style="font-family:'Montserrat',sans-serif;font-size:11.5px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:#123D36;background:#fff;display:inline-block;padding:6px 14px;border-radius:999px;margin-bottom:18px;">Community members only</div>
     <h1 style="font-family:'Montserrat',sans-serif;font-size:26px;font-weight:800;color:#123D36;margin:0 0 14px;">Log in to open this course</h1>
     <p style="font-family:'Montserrat',sans-serif;font-size:15px;color:#5C6B67;line-height:1.6;margin:0 0 24px;">Courses 3 to 5 of the Homeownership Academy are for logged-in members of the IGVhope Community.</p>
-    <a id="members-lock-login" href="/login" style="display:inline-block;font-family:'Montserrat',sans-serif;font-size:15px;font-weight:700;color:#123D36;background:#da8d27;border-radius:999px;padding:14px 32px;text-decoration:none;margin:4px;">Log in</a>
+    <a id="members-lock-login" href="https://my.igvhope.com" style="display:inline-block;font-family:'Montserrat',sans-serif;font-size:15px;font-weight:700;color:#123D36;background:#da8d27;border-radius:999px;padding:14px 32px;text-decoration:none;margin:4px;">Log in</a>
     <a href="/homeownership-academy/" style="display:inline-block;font-family:'Montserrat',sans-serif;font-size:15px;font-weight:700;color:#123D36;background:#fff;border-radius:999px;padding:14px 32px;text-decoration:none;margin:4px;">Back to the Homeownership Academy</a>
   </div>
 </div>
@@ -185,7 +185,7 @@ a { color: inherit; }
   (function () {
     var overlay = document.getElementById('members-lock-overlay');
     var login = document.getElementById('members-lock-login');
-    if (login) login.href = '/login?return=' + encodeURIComponent(location.pathname + location.search);
+    if (login) login.href = 'https://my.igvhope.com';
     fetch('https://magic-link.igvhousing.workers.dev/session', { credentials: 'include' })
       .then(function (r) { return r.json(); })
       .then(function (d) { if (d && d.loggedIn && overlay) overlay.remove(); })
@@ -216,7 +216,7 @@ a { color: inherit; }
         <a class="nav-link" href="/about">About</a>
     </div>
     <div class="nav-right-divider"></div>
-    <a class="nav-link" id="nav-login-link" href="/login">Log in</a>
+    <a class="nav-link" id="nav-login-link" href="https://my.igvhope.com">Log in</a>
     <span class="nav-user" id="nav-user" onclick="toggleProfileDropdown(event)">
       <div class="nav-user-avatar" id="nav-user-avatar">?</div>
       <span id="nav-user-label" style="color:rgba(255,255,255,0.85);font-size:12px;font-weight:600;">Account</span>
@@ -254,7 +254,7 @@ a { color: inherit; }
     <a class="mobile-nav-link" href="/faq">FAQ</a>
     <a class="mobile-nav-link" href="/impact">Impact</a>
     <a class="mobile-nav-link" href="/about">About</a>
-    <a class="mobile-nav-link" id="mobile-nav-login-link" href="/login">Log in</a>
+    <a class="mobile-nav-link" id="mobile-nav-login-link" href="https://my.igvhope.com">Log in</a>
     <div id="mobile-nav-user" style="display:none;">
       <div class="mobile-nav-link" id="mobile-nav-user-name"></div>
       <a class="mobile-nav-link" href="#" onclick="toggleMobileNav();openCircleCommunity();return false;">myIGVhope</a>
@@ -289,7 +289,7 @@ a { color: inherit; }
 
 <div class="identify-block" id="identify-block" style="display:none;">
   <p>Log in to track your progress through this course and pick up where you left off.</p>
-  <a class="course-primary-btn" id="identify-login-link" href="/login">Log in</a>
+  <a class="course-primary-btn" id="identify-login-link" href="https://my.igvhope.com">Log in</a>
 </div>
 
 <div class="course-section">
@@ -501,7 +501,7 @@ const MAGIC_LINK_WORKER = 'https://magic-link.igvhousing.workers.dev'; // confir
       const loginBtn = document.getElementById('identify-login-link');
       if (loginBtn) {
         const returnTo = encodeURIComponent(window.location.pathname);
-        loginBtn.setAttribute('href', `/login?returnTo=${returnTo}`);
+        loginBtn.setAttribute('href', 'https://my.igvhope.com');
       }
       document.getElementById('identify-block').style.display = 'block';
     }
