@@ -35,7 +35,7 @@ igvhope/
 │   │   └── course-1 … course-5/(index.html, Lessons/index.html)
 │   └── assets/
 │       ├── img/                 (deduped across all pages)
-│       └── files/                (brochure + floorplan PDFs)
+│       └── files/                (floorplan PDFs)
 ├── wrangler.jsonc
 └── README.md
 ```
