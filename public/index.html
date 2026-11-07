@@ -5602,9 +5602,15 @@ select.pref-input {
  .y10-compare { grid-template-columns: 1fr; gap: 10px; }
  .y10-vs { margin: 0 auto; }
 }
-.y10-saving { display: flex; align-items: center; justify-content: space-between; background: rgba(218,141,39,0.12); border: 1.5px solid rgba(218,141,39,0.3); border-radius: 10px; padding: 14px 20px; margin-bottom: 24px; }
-.y10-saving-label { font-size: 12px; font-weight: 600; color: #123D36; }
-.y10-saving-val { font-size: 22px; font-weight: 700; color: #da8d27; }
+/* Same design as the "Potential value difference" banner (.y10-vd-banner): cream panel, uppercase label, divider, large amount */
+.y10-saving { display: flex; align-items: center; gap: 24px; background: #FBEFDD; border: 1.5px solid rgba(218,141,39,0.35); border-radius: 12px; padding: 16px 24px; margin-bottom: 24px; }
+.y10-saving-label { flex: 1; font-size: 13px; font-weight: 700; letter-spacing: 0.04em; text-transform: uppercase; color: #123D36; line-height: 1.3; padding-right: 24px; border-right: 1.5px solid rgba(200,104,58,0.45); }
+.y10-saving-val { font-size: 34px; font-weight: 800; color: #C8683A; white-space: nowrap; }
+@media (max-width: 760px) {
+ .y10-saving { flex-direction: column; align-items: flex-start; gap: 8px; padding: 14px 16px; }
+ .y10-saving-label { border-right: 0; padding-right: 0; font-size: 11px; }
+ .y10-saving-val { font-size: 26px; }
+}
 .y10-mortgage-intro { font-size: 12px; color: #666; line-height: 1.6; margin-bottom: 16px; }
 .y10-mortgage-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 10px; margin-bottom: 16px; }
 @media (max-width: 640px) {
