@@ -1137,13 +1137,6 @@ function downloadFloorplan() {
   window.open(pdfUrl, '_blank');
   trackDocumentDownload('floorplan', unitLetter);
 }
-var BROCHURE_PDF_URL = '/assets/files/osprey-sales-brochure.pdf';
-function downloadBrochure() {
-  if (!gate1Unlocked) { openGate1(function() { downloadBrochure(); }); return; }
-  if (!gate2Unlocked) { openGate2(function() { downloadBrochure(); }); return; }
-  window.open(BROCHURE_PDF_URL, '_blank');
-  trackDocumentDownload('brochure');
-}
 function bookTour() {
   if (!gate1Unlocked) { openGate1(function() { bookTour(); }); return; }
   if (!gate2Unlocked) { openGate2(function() { bookTour(); }); return; }
