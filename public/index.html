@@ -6860,6 +6860,15 @@ elevenlabs-convai {
       <label class="gate1-field-label" for="gate1-email">Email <span class="gate1-required">*</span></label>
       <input class="gate1-input" type="email" id="gate1-email" placeholder="john@email.com" required>
       <div class="gate1-error" id="gate1-email-error">Please enter a valid email address.</div>
+      <label id="gate1-call-label" for="gate1-prefers-call">
+        <input type="checkbox" id="gate1-prefers-call" onchange="gate1TogglePhoneBox()">
+        <span>Would you prefer a phone call?</span>
+      </label>
+      <div id="gate1-call-phone-wrap" hidden>
+        <label class="gate1-field-label" for="gate1-call-phone">Phone number <span class="gate1-required">*</span></label>
+        <input class="gate1-input" type="tel" id="gate1-call-phone" placeholder="(250) 555-0123">
+        <div class="gate1-error" id="gate1-call-phone-error">Please enter your phone number.</div>
+      </div>
       <label class="gate1-field-label" for="gate1-postal">Postal code <span class="gate1-required">*</span></label>
       <input class="gate1-input" type="text" id="gate1-postal" placeholder="V9Y 1G1" required>
       <div class="gate1-error" id="gate1-postal-error">Please enter your postal code.</div>
@@ -6872,15 +6881,6 @@ elevenlabs-convai {
         <input type="checkbox" id="gate1-marketing">
         <span>I would like to receive marketing emails from IGVhope about new listings, releases and updates.</span>
       </label>
-      <label id="gate1-call-label" for="gate1-prefers-call">
-        <input type="checkbox" id="gate1-prefers-call" onchange="gate1TogglePhoneBox()">
-        <span>Would you prefer a phone call?</span>
-      </label>
-      <div id="gate1-call-phone-wrap" hidden>
-        <label class="gate1-field-label" for="gate1-call-phone">Phone number <span class="gate1-required">*</span></label>
-        <input class="gate1-input" type="tel" id="gate1-call-phone" placeholder="(250) 555-0123">
-        <div class="gate1-error" id="gate1-call-phone-error">Please enter your phone number.</div>
-      </div>
       <button type="submit" id="gate1-submit-btn">Continue</button>
     </form>
   </div>

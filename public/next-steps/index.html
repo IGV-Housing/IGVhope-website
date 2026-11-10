@@ -451,6 +451,16 @@
         <input class="qualify-input" type="email" id="qualify-email" placeholder="john@email.com" required>
         <div class="qualify-error" id="qualify-email-error">Please enter a valid email address.</div>
 
+        <label class="qualify-consent" for="qualify-prefers-call">
+          <input type="checkbox" id="qualify-prefers-call" onchange="qualifyTogglePhoneBox()">
+          <span>Would you prefer a phone call?</span>
+        </label>
+        <div id="qualify-call-phone-wrap" hidden>
+          <label class="qualify-field-label" for="qualify-call-phone">Phone number <span class="qualify-required">*</span></label>
+          <input class="qualify-input" type="tel" id="qualify-call-phone" placeholder="(250) 555-0123">
+          <div class="qualify-error" id="qualify-call-phone-error">Please enter your phone number.</div>
+        </div>
+
         <label class="qualify-field-label" for="qualify-postal">Postal code <span class="qualify-required">*</span></label>
         <input class="qualify-input" type="text" id="qualify-postal" placeholder="V9Y 1G1" required>
         <div class="qualify-error" id="qualify-postal-error">Please enter your postal code.</div>
@@ -465,16 +475,6 @@
           <input type="checkbox" id="qualify-marketing">
           <span>I would like to receive marketing emails from IGVhope about new listings, releases and updates.</span>
         </label>
-
-        <label class="qualify-consent" for="qualify-prefers-call">
-          <input type="checkbox" id="qualify-prefers-call" onchange="qualifyTogglePhoneBox()">
-          <span>Would you prefer a phone call?</span>
-        </label>
-        <div id="qualify-call-phone-wrap" hidden>
-          <label class="qualify-field-label" for="qualify-call-phone">Phone number <span class="qualify-required">*</span></label>
-          <input class="qualify-input" type="tel" id="qualify-call-phone" placeholder="(250) 555-0123">
-          <div class="qualify-error" id="qualify-call-phone-error">Please enter your phone number.</div>
-        </div>
 
         <div class="qualify-nav">
           <button type="button" class="qualify-next-btn" onclick="qualifyNextStep(1)">Continue</button>
