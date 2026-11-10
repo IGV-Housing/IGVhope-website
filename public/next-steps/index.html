@@ -242,7 +242,7 @@
   .qualify-result-booking-note { font-size: 13px; color: #5b6b67; line-height: 1.6; }
   .qualify-result-booking-note strong { color: var(--teal-deep); word-break: break-all; }
   #qualify-result-cal[hidden] { display: none; }
-  .qualify-result-cta.qualify-result-secondary { background: none; padding: 0; margin-top: 16px; font-size: 13px; color: var(--teal-deep); text-decoration: underline; display: block; }
+  .qualify-result-cta.qualify-result-secondary { background: none; padding: 0; margin: 16px auto 0; font-size: 13px; color: var(--teal-deep); text-decoration: underline; display: block; }
   .qualify-result-cta.qualify-result-secondary:hover { background: none; }
 
   @media (max-width: 560px) {
@@ -663,8 +663,8 @@
         <div class="qualify-result-booking-about">We'll walk you through the IGVhope program and the benefits of the IGVhope Community. Times are Pacific Time (PT).</div>
         <div class="qualify-result-booking-note">We'll email your confirmation and the joining details to <strong id="qualify-result-email"></strong>. If it doesn't arrive within a few minutes, please check your spam folder.</div>
       </div>
-      <button type="button" class="qualify-result-cta" id="qualify-result-cal" onclick="qualifyDownloadCalendar()" hidden>Add to my calendar</button>
-      <a href="/how-it-works" class="qualify-result-cta" id="qualify-result-link">See how IGVhope works</a>
+      <a href="/impact" class="qualify-result-cta" id="qualify-result-link">Learn more about our community impact</a>
+      <button type="button" class="qualify-result-cta qualify-result-secondary" id="qualify-result-cal" onclick="qualifyDownloadCalendar()" hidden>Add the webinar to my calendar</button>
     </div>
   </div>
 </div>
@@ -1275,9 +1275,8 @@ function qualifyFinish(slotLabel, startMs) {
     document.getElementById('qualify-result-when').textContent = slotLabel;
     document.getElementById('qualify-result-email').textContent = qualifyCapturedEmail;
     document.getElementById('qualify-result-booking').hidden = false;
-    /* Booked: the calendar button is the main action and the link becomes a quiet second option. */
+    /* Booked: offer the calendar download as a quiet option under the main button. */
     document.getElementById('qualify-result-cal').hidden = !qualifyBookedStart;
-    if (qualifyBookedStart) document.getElementById('qualify-result-link').classList.add('qualify-result-secondary');
   }
   document.getElementById('qualify-result').classList.add('active');
 }
