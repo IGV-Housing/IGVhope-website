@@ -157,11 +157,11 @@
   /* ---------- Self-Qualify Wizard ---------- */
   #qualify-overlay { display: none; position: fixed; inset: 0; background: rgba(18,61,54,0.55); backdrop-filter: blur(2px); z-index: 1000; align-items: center; justify-content: center; padding: 20px; }
   #qualify-overlay.open { display: flex; }
-  #qualify-modal { background: #ffffff; border-radius: 20px; width: 100%; max-width: 560px; max-height: 90vh; overflow-y: auto; position: relative; padding: 40px 36px 32px; }
+  #qualify-modal { background: #ffffff; border-radius: 20px; width: 100%; max-width: 560px; max-height: 94vh; overflow-y: auto; position: relative; padding: 30px 36px 24px; }
   #qualify-close { position: absolute; top: 18px; right: 18px; width: 34px; height: 34px; border-radius: 50%; border: none; background: var(--cream); font-size: 20px; line-height: 1; color: var(--teal-deep); cursor: pointer; display: flex; align-items: center; justify-content: center; }
   #qualify-close:hover { background: #E3EDE6; }
 
-  .qualify-progress { display: flex; gap: 6px; margin-bottom: 24px; }
+  .qualify-progress { display: flex; gap: 6px; margin-bottom: 16px; }
   .qualify-progress-seg { flex: 1; height: 5px; border-radius: 3px; background: var(--cream); overflow: hidden; }
   .qualify-progress-seg .fill { height: 100%; width: 0%; background: var(--ochre); transition: width 0.3s ease; }
   .qualify-progress-seg.done .fill { width: 100%; }
@@ -204,6 +204,20 @@
   #qualify-phone-row[hidden] + .qualify-field-label { margin-top: 0; }
   #qualify-call-phone-wrap { margin-top: 14px; }
   #qualify-call-phone-wrap .qualify-field-label { margin-top: 0; }
+
+  /* Step 1 is the longest form, so it is tightened up to fit on one screen without scrolling. */
+  .qualify-compact .qualify-sub { margin-bottom: 14px; font-size: 13px; line-height: 1.5; }
+  .qualify-compact .qualify-field-label { margin-top: 11px; margin-bottom: 5px; }
+  .qualify-compact .qualify-name-row { margin-top: 11px; }
+  .qualify-compact .qualify-name-field .qualify-field-label { margin-top: 0; }
+  .qualify-compact .qualify-input { padding: 9px 12px; }
+  .qualify-compact .qualify-consent { margin-top: 12px; }
+  .qualify-compact .qualify-consent span { font-size: 12px; line-height: 1.45; }
+  .qualify-compact .qualify-nav { margin-top: 18px; }
+  /* Phone number (only shown if they want a call) sits beside the postal code to save a row. */
+  .qualify-row2 { display: grid; grid-auto-flow: column; grid-auto-columns: 1fr; gap: 12px; margin-top: 11px; }
+  .qualify-compact .qualify-row2 .qualify-field-label, .qualify-compact #qualify-call-phone-wrap .qualify-field-label { margin-top: 0; }
+  .qualify-compact #qualify-call-phone-wrap { margin-top: 0; }
 
   .qualify-webinar { display: none; }
   .qualify-webinar.active { display: block; }
@@ -417,7 +431,7 @@
       <div class="qualify-honeypot"><input type="text" name="website" id="qualify-honeypot" tabindex="-1" autocomplete="off" aria-hidden="true"></div>
 
       <!-- STEP 1 (Gate 1) -->
-      <div class="qualify-step active" data-step="1">
+      <div class="qualify-step qualify-compact active" data-step="1">
         <div class="qualify-step-label">Step 1 of 3</div>
         <div class="qualify-title">Let us serve you best</div>
         <div class="qualify-sub">Tell us more about yourself so we can personalize your experience and keep you in the loop.</div>
@@ -455,15 +469,18 @@
           <input type="checkbox" id="qualify-prefers-call" onchange="qualifyTogglePhoneBox()">
           <span>Would you prefer a phone call?</span>
         </label>
-        <div id="qualify-call-phone-wrap" hidden>
-          <label class="qualify-field-label" for="qualify-call-phone">Phone number <span class="qualify-required">*</span></label>
-          <input class="qualify-input" type="tel" id="qualify-call-phone" placeholder="(250) 555-0123">
-          <div class="qualify-error" id="qualify-call-phone-error">Please enter your phone number.</div>
+        <div class="qualify-row2">
+          <div id="qualify-call-phone-wrap" hidden>
+            <label class="qualify-field-label" for="qualify-call-phone">Phone number <span class="qualify-required">*</span></label>
+            <input class="qualify-input" type="tel" id="qualify-call-phone" placeholder="(250) 555-0123">
+            <div class="qualify-error" id="qualify-call-phone-error">Please enter your phone number.</div>
+          </div>
+          <div class="qualify-postal-field">
+            <label class="qualify-field-label" for="qualify-postal">Postal code <span class="qualify-required">*</span></label>
+            <input class="qualify-input" type="text" id="qualify-postal" placeholder="V9Y 1G1" required>
+            <div class="qualify-error" id="qualify-postal-error">Please enter your postal code.</div>
+          </div>
         </div>
-
-        <label class="qualify-field-label" for="qualify-postal">Postal code <span class="qualify-required">*</span></label>
-        <input class="qualify-input" type="text" id="qualify-postal" placeholder="V9Y 1G1" required>
-        <div class="qualify-error" id="qualify-postal-error">Please enter your postal code.</div>
 
         <label class="qualify-consent" id="qualify-consent-label" for="qualify-consent">
           <input type="checkbox" id="qualify-consent" required>
