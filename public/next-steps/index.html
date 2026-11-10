@@ -157,11 +157,11 @@
   /* ---------- Self-Qualify Wizard ---------- */
   #qualify-overlay { display: none; position: fixed; inset: 0; background: rgba(18,61,54,0.55); backdrop-filter: blur(2px); z-index: 1000; align-items: center; justify-content: center; padding: 20px; }
   #qualify-overlay.open { display: flex; }
-  #qualify-modal { background: #ffffff; border-radius: 20px; width: 100%; max-width: 560px; max-height: 90vh; overflow-y: auto; position: relative; padding: 40px 36px 32px; }
+  #qualify-modal { background: #ffffff; border-radius: 20px; width: 100%; max-width: 560px; max-height: 94vh; overflow-y: auto; position: relative; padding: 30px 36px 24px; }
   #qualify-close { position: absolute; top: 18px; right: 18px; width: 34px; height: 34px; border-radius: 50%; border: none; background: var(--cream); font-size: 20px; line-height: 1; color: var(--teal-deep); cursor: pointer; display: flex; align-items: center; justify-content: center; }
   #qualify-close:hover { background: #E3EDE6; }
 
-  .qualify-progress { display: flex; gap: 6px; margin-bottom: 24px; }
+  .qualify-progress { display: flex; gap: 6px; margin-bottom: 16px; }
   .qualify-progress-seg { flex: 1; height: 5px; border-radius: 3px; background: var(--cream); overflow: hidden; }
   .qualify-progress-seg .fill { height: 100%; width: 0%; background: var(--ochre); transition: width 0.3s ease; }
   .qualify-progress-seg.done .fill { width: 100%; }
@@ -201,6 +201,32 @@
   .qualify-next-btn:hover { background: #f0b269; }
   .qualify-next-btn:disabled { opacity: 0.6; cursor: default; }
 
+  #qualify-phone-row[hidden] + .qualify-field-label { margin-top: 0; }
+  #qualify-call-phone-wrap { margin-top: 14px; }
+  #qualify-call-phone-wrap .qualify-field-label { margin-top: 0; }
+
+  /* Step 1 is the longest form, so it is tightened up to fit on one screen without scrolling. */
+  .qualify-compact .qualify-sub { margin-bottom: 14px; font-size: 13px; line-height: 1.5; }
+  .qualify-compact .qualify-field-label { margin-top: 11px; margin-bottom: 5px; }
+  .qualify-compact .qualify-name-row { margin-top: 11px; }
+  .qualify-compact .qualify-name-field .qualify-field-label { margin-top: 0; }
+  .qualify-compact .qualify-input { padding: 9px 12px; }
+  .qualify-compact .qualify-consent { margin-top: 12px; }
+  .qualify-compact .qualify-consent span { font-size: 12px; line-height: 1.45; }
+  .qualify-compact .qualify-nav { margin-top: 18px; }
+  /* Phone number (only shown if they want a call) sits beside the postal code to save a row. */
+  .qualify-row2 { display: grid; grid-auto-flow: column; grid-auto-columns: 1fr; gap: 12px; margin-top: 11px; }
+  .qualify-compact .qualify-row2 .qualify-field-label, .qualify-compact #qualify-call-phone-wrap .qualify-field-label { margin-top: 0; }
+  .qualify-compact #qualify-call-phone-wrap { margin-top: 0; }
+
+  .qualify-webinar { display: none; }
+  .qualify-webinar.active { display: block; }
+  .webinar-day { font-size: 13px; font-weight: 700; color: var(--teal-deep); margin: 18px 0 8px; }
+  .webinar-day:first-child { margin-top: 0; }
+  .webinar-times { display: flex; flex-wrap: wrap; gap: 10px; }
+  .webinar-slot { flex: 1 1 130px; display: flex; align-items: center; gap: 8px; padding: 11px 13px; border: 1.5px solid #DCE4E0; border-radius: 9px; font-size: 14px; color: var(--ink); cursor: pointer; background: #ffffff; }
+  .webinar-slot input { accent-color: var(--ochre); width: 16px; height: 16px; margin: 0; cursor: pointer; }
+  .webinar-slot:has(input:checked) { border-color: var(--teal-deep); background: var(--cream); font-weight: 700; }
   .qualify-result { display: none; text-align: center; padding: 12px 0 0; }
   .qualify-result.active { display: block; }
   .qualify-result-icon { width: 60px; height: 60px; border-radius: 50%; background: var(--teal-deep); display: flex; align-items: center; justify-content: center; margin: 0 auto 20px; }
@@ -208,6 +234,16 @@
   .qualify-result p { font-size: 14px; color: #5b6b67; line-height: 1.7; max-width: 400px; margin: 0 auto 26px; }
   .qualify-result-cta { font-family: 'Montserrat', sans-serif; font-size: 14px; font-weight: 700; color: #123D36; background: var(--ochre); border: none; border-radius: 999px; padding: 14px 28px; cursor: pointer; text-decoration: none; display: inline-block; }
   .qualify-result-cta:hover { background: #f0b269; }
+  .qualify-result-booking { background: var(--cream); border-radius: 12px; padding: 16px 18px; margin: 0 auto 22px; max-width: 400px; }
+  .qualify-result-booking[hidden] { display: none; }
+  .qualify-result-booking-label { font-size: 11px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--ochre); margin-bottom: 6px; }
+  .qualify-result-booking-when { font-size: 16px; font-weight: 800; color: var(--teal-deep); line-height: 1.35; margin-bottom: 8px; }
+  .qualify-result-booking-about { font-size: 13px; color: var(--ink); line-height: 1.6; margin-bottom: 10px; padding-bottom: 10px; border-bottom: 1px solid #E3EDE6; }
+  .qualify-result-booking-note { font-size: 13px; color: #5b6b67; line-height: 1.6; }
+  .qualify-result-booking-note strong { color: var(--teal-deep); word-break: break-all; }
+  #qualify-result-cal[hidden] { display: none; }
+  .qualify-result-cta.qualify-result-secondary { background: none; padding: 0; margin: 16px auto 0; font-size: 13px; color: var(--teal-deep); text-decoration: underline; display: block; }
+  .qualify-result-cta.qualify-result-secondary:hover { background: none; }
 
   @media (max-width: 560px) {
     #qualify-modal { padding: 32px 22px 26px; border-radius: 16px; }
@@ -405,7 +441,7 @@
       <div class="qualify-honeypot"><input type="text" name="website" id="qualify-honeypot" tabindex="-1" autocomplete="off" aria-hidden="true"></div>
 
       <!-- STEP 1 (Gate 1) -->
-      <div class="qualify-step active" data-step="1">
+      <div class="qualify-step qualify-compact active" data-step="1">
         <div class="qualify-step-label">Step 1 of 3</div>
         <div class="qualify-title">Let us serve you best</div>
         <div class="qualify-sub">Tell us more about yourself so we can personalize your experience and keep you in the loop.</div>
@@ -439,9 +475,22 @@
         <input class="qualify-input" type="email" id="qualify-email" placeholder="john@email.com" required>
         <div class="qualify-error" id="qualify-email-error">Please enter a valid email address.</div>
 
-        <label class="qualify-field-label" for="qualify-postal">Postal code <span class="qualify-required">*</span></label>
-        <input class="qualify-input" type="text" id="qualify-postal" placeholder="V9Y 1G1" required>
-        <div class="qualify-error" id="qualify-postal-error">Please enter your postal code.</div>
+        <label class="qualify-consent" for="qualify-prefers-call">
+          <input type="checkbox" id="qualify-prefers-call" onchange="qualifyTogglePhoneBox()">
+          <span>Would you prefer a phone call?</span>
+        </label>
+        <div class="qualify-row2">
+          <div id="qualify-call-phone-wrap" hidden>
+            <label class="qualify-field-label" for="qualify-call-phone">Phone number <span class="qualify-required">*</span></label>
+            <input class="qualify-input" type="tel" id="qualify-call-phone" placeholder="(250) 555-0123">
+            <div class="qualify-error" id="qualify-call-phone-error">Please enter your phone number.</div>
+          </div>
+          <div class="qualify-postal-field">
+            <label class="qualify-field-label" for="qualify-postal">Postal code <span class="qualify-required">*</span></label>
+            <input class="qualify-input" type="text" id="qualify-postal" placeholder="V9Y 1G1" required>
+            <div class="qualify-error" id="qualify-postal-error">Please enter your postal code.</div>
+          </div>
+        </div>
 
         <label class="qualify-consent" id="qualify-consent-label" for="qualify-consent">
           <input type="checkbox" id="qualify-consent" required>
@@ -465,9 +514,11 @@
         <div class="qualify-title">Let's find your perfect fit</div>
         <div class="qualify-sub">A few more details helps us match you to the best homes for you.</div>
 
-        <label class="qualify-field-label" for="qualify-phone">Phone number <span class="qualify-required">*</span></label>
-        <input class="qualify-input" type="tel" id="qualify-phone" placeholder="(250) 555-0123" required>
-        <div class="qualify-error" id="qualify-phone-error">Please enter your phone number.</div>
+        <div id="qualify-phone-row">
+          <label class="qualify-field-label" for="qualify-phone">Phone number <span class="qualify-required">*</span></label>
+          <input class="qualify-input" type="tel" id="qualify-phone" placeholder="(250) 555-0123" required>
+          <div class="qualify-error" id="qualify-phone-error">Please enter your phone number.</div>
+        </div>
 
         <label class="qualify-field-label" for="qualify-bedrooms">How many bedrooms do you need? <span class="qualify-required">*</span></label>
         <select class="qualify-input" id="qualify-bedrooms" required>
@@ -518,7 +569,7 @@
         <div class="qualify-error" id="qualify-phone-consent-error">Please confirm your consent to continue.</div>
 
         <div class="qualify-nav">
-          <button type="button" class="qualify-back-btn" onclick="qualifyBackStep(2)">Back</button>
+          <button type="button" class="qualify-back-btn" id="qualify-step2-back" onclick="qualifyBackStep(2)">Back</button>
           <button type="button" class="qualify-next-btn" onclick="qualifyNextStep(2)">Continue</button>
         </div>
       </div>
@@ -586,14 +637,34 @@
       </div>
     </form>
 
+    <!-- WEBINAR OFFER (shown after Step 3 once the webinar form is connected) -->
+    <div class="qualify-webinar" id="qualify-webinar">
+      <div class="qualify-step-label">Free webinar</div>
+      <div class="qualify-title">Join a free IGVhope webinar</div>
+      <div class="qualify-sub">We'll walk you through the program and the benefits of the IGVhope Community. Pick a time that suits you (Pacific time).</div>
+      <div id="qualify-webinar-slots"></div>
+      <div class="qualify-error" id="qualify-webinar-error">Please choose a time, or skip for now.</div>
+      <div class="qualify-nav">
+        <button type="button" class="qualify-back-btn" onclick="qualifyFinish('')">Skip for now</button>
+        <button type="button" class="qualify-next-btn" id="qualify-webinar-btn" onclick="qualifyReserveWebinar()">Reserve my spot</button>
+      </div>
+    </div>
+
     <!-- RESULT STATE -->
     <div class="qualify-result" id="qualify-result">
       <div class="qualify-result-icon">
         <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><polyline points="4 12.5 9.5 18 20 6"/></svg>
       </div>
       <h3>Thanks, you're all set.</h3>
-      <p>Someone from our team will follow up shortly. In the meantime, you can start browsing homes or begin your application whenever you're ready.</p>
-      <a href="/" class="qualify-result-cta">Search IGVhope Homes</a>
+      <p id="qualify-result-text">We've received your eligibility check. Our team will review your answers and follow up with you shortly.</p>
+      <div class="qualify-result-booking" id="qualify-result-booking" hidden>
+        <div class="qualify-result-booking-label">You're booked in for the free IGVhope webinar</div>
+        <div class="qualify-result-booking-when" id="qualify-result-when"></div>
+        <div class="qualify-result-booking-about">We'll walk you through the IGVhope program and the benefits of the IGVhope Community. Times are Pacific Time (PT).</div>
+        <div class="qualify-result-booking-note">We'll email your confirmation and the joining details to <strong id="qualify-result-email"></strong>. If it doesn't arrive within a few minutes, please check your spam folder.</div>
+      </div>
+      <a href="/impact" class="qualify-result-cta" id="qualify-result-link">Learn more about our community impact</a>
+      <button type="button" class="qualify-result-cta qualify-result-secondary" id="qualify-result-cal" onclick="qualifyDownloadCalendar()" hidden>Add the webinar to my calendar</button>
     </div>
   </div>
 </div>
@@ -743,6 +814,7 @@ var MAGIC_LINK_WORKER = 'https://magic-link.igvhousing.workers.dev';
     var res = await fetch(MAGIC_LINK_WORKER + '/session', { credentials: 'include' });
     var data = await res.json();
     if (data.loggedIn) {
+      if (typeof qualifySessionEmailKnown === 'function') qualifySessionEmailKnown(data.email || '');
       var displayName = data.firstName || (data.email ? data.email.split('@')[0] : 'Member');
       var initial = displayName.charAt(0).toUpperCase();
 
@@ -811,6 +883,41 @@ var HUBSPOT_SUBSCRIPTION_ACCOUNT_CREATION = 3124593253;
 var HUBSPOT_SUBSCRIPTION_PHONE_COMMS = 3124581278;
 
 var qualifyCapturedEmail = '';
+var qualifyCapturedPhone = '';
+
+/* Free webinar offered after the last step. Create a HubSpot form with an "email" field and an
+   "igvhope_webinar_slot" text property, then paste its GUID here. Until then the offer stays hidden
+   (add ?webinar=preview to the address to see it without saving anything). */
+var HUBSPOT_WEBINAR_FORM_GUID = 'b1425121-3f4f-40c0-ad72-fdb0120c4e58';
+
+/* Webinar days and the hours (24h) offered on each, in Pacific time. All three days fall in Pacific
+   Standard Time (UTC-8), so a 11:00 start is 19:00 UTC. */
+var WEBINAR_DAYS = [
+  { y: 2026, m: 12, d: 8,  weekday: 'Tuesday',  month: 'December', hours: [11, 13] },
+  { y: 2027, m: 1,  d: 28, weekday: 'Thursday', month: 'January',  hours: [11, 13] },
+  { y: 2027, m: 2,  d: 25, weekday: 'Thursday', month: 'February', hours: [13, 15] }
+];
+
+function webinarTimeLabel(h) {
+  return ((h + 11) % 12 + 1) + ':00 ' + (h < 12 ? 'AM' : 'PM');
+}
+
+/* Days that still have at least one slot starting 7 or more days from now. */
+function webinarUpcomingDays() {
+  var cutoff = Date.now() + 7 * 24 * 60 * 60 * 1000;
+  var days = [];
+  WEBINAR_DAYS.forEach(function(day) {
+    var hours = day.hours.filter(function(h) { return Date.UTC(day.y, day.m - 1, day.d, h + 8) >= cutoff; });
+    if (hours.length) days.push({ y: day.y, m: day.m, d: day.d, weekday: day.weekday, month: day.month, hours: hours });
+  });
+  return days;
+}
+
+function webinarOfferAvailable() {
+  var configured = HUBSPOT_WEBINAR_FORM_GUID.indexOf('REPLACE_WITH') !== 0;
+  var preview = /[?&]webinar=preview(&|$)/.test(window.location.search);
+  return (configured || preview) && webinarUpcomingDays().length > 0;
+}
 
 function getHubspotUtk() {
   var match = document.cookie.match(/(?:^|;\s*)hubspotutk=([^;]+)/);
@@ -818,7 +925,11 @@ function getHubspotUtk() {
 }
 
 function submitToHubspot(formGuid, fields, legalConsentOptions) {
-  var url = 'https://api-na3.hsforms.com/submissions/v3/integration/submit/' + HUBSPOT_PORTAL_ID + '/' + formGuid;
+  if (!formGuid || formGuid.indexOf('REPLACE_WITH') === 0) {
+    console.warn('HubSpot form GUID not set yet - skipping submission. Fields that would have been sent:', fields);
+    return Promise.resolve();
+  }
+  var url ='https://api-na3.hsforms.com/submissions/v3/integration/submit/' + HUBSPOT_PORTAL_ID + '/' + formGuid;
   var payload = {
     fields: fields.map(function(f) { return { name: f.name, value: f.value }; }),
     context: {
@@ -847,10 +958,51 @@ function submitToHubspot(formGuid, fields, legalConsentOptions) {
   });
 }
 
+/* Someone who already completed Gate 1 (this browser saved their email, or they are logged in) is not asked
+   for those details again: the form opens on Step 2. */
+var GATE_VISITOR_EMAIL_KEY = 'igvhope_visitor_email';
+var GATE_VISITOR_NAME_KEY = 'igvhope_visitor_name';
+var qualifySessionEmail = '';
+var qualifyStep1Skipped = false;
+
+function getSavedVisitorEmail() {
+  try { return localStorage.getItem(GATE_VISITOR_EMAIL_KEY) || ''; } catch (e) { return ''; }
+}
+
+function saveVisitorDetails(email, firstName) {
+  try {
+    if (email) localStorage.setItem(GATE_VISITOR_EMAIL_KEY, email.trim().toLowerCase());
+    if (firstName) localStorage.setItem(GATE_VISITOR_NAME_KEY, firstName.trim());
+  } catch (e) { console.warn('Could not remember visitor details:', e); }
+}
+
+function qualifyStartStep() {
+  var knownEmail = qualifySessionEmail || getSavedVisitorEmail();
+  if (knownEmail) {
+    qualifyCapturedEmail = knownEmail;
+    qualifyStep1Skipped = true;
+    qualifyShowStep(2);
+  } else {
+    qualifyStep1Skipped = false;
+    qualifyShowStep(1);
+  }
+}
+
+/* The login check finishes after the page loads, so it may arrive when the form is already open on Step 1. */
+function qualifySessionEmailKnown(email) {
+  qualifySessionEmail = email || '';
+  var overlay = document.getElementById('qualify-overlay');
+  var emailInput = document.getElementById('qualify-email');
+  var onStep1 = document.querySelector('.qualify-step.active[data-step="1"]');
+  if (qualifySessionEmail && overlay && overlay.classList.contains('open') && onStep1 && emailInput && !emailInput.value.trim()) {
+    qualifyStartStep();
+  }
+}
+
 function openQualifyModal() {
   document.getElementById('qualify-overlay').classList.add('open');
   document.body.style.overflow = 'hidden';
-  qualifyShowStep(1);
+  qualifyStartStep();
 }
 
 function closeQualifyModal() {
@@ -881,6 +1033,30 @@ function qualifyShowStep(stepNum) {
     step.classList.toggle('active', step.getAttribute('data-step') === String(stepNum));
   });
   qualifySetProgress(stepNum);
+  if (stepNum === 2) qualifyPrepareStep2();
+}
+
+/* Step 2 asks for a phone number unless Step 1 already collected one; Back is hidden when Step 1 was skipped. */
+function qualifyPrepareStep2() {
+  var phoneRow = document.getElementById('qualify-phone-row');
+  var phoneInput = document.getElementById('qualify-phone');
+  var backBtn = document.getElementById('qualify-step2-back');
+  if (qualifyCapturedPhone) {
+    phoneInput.value = qualifyCapturedPhone;
+    phoneRow.hidden = true;
+  } else {
+    phoneRow.hidden = false;
+  }
+  if (backBtn) backBtn.style.display = qualifyStep1Skipped ? 'none' : '';
+}
+
+function qualifyTogglePhoneBox() {
+  var wrap = document.getElementById('qualify-call-phone-wrap');
+  wrap.hidden = !document.getElementById('qualify-prefers-call').checked;
+  if (wrap.hidden) {
+    document.getElementById('qualify-call-phone-error').classList.remove('show');
+    document.getElementById('qualify-call-phone').classList.remove('qualify-invalid');
+  }
 }
 
 function qualifyIsBot() {
@@ -909,7 +1085,12 @@ function qualifyHandleStep1() {
   var emailValid = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(emailInput.value.trim());
   var postalValid = postalInput.value.trim().length > 0;
   var consentValid = consentInput.checked;
+  var prefersCall = document.getElementById('qualify-prefers-call').checked;
+  var callPhoneInput = document.getElementById('qualify-call-phone');
+  var callPhoneValid = !prefersCall || callPhoneInput.value.trim().length > 0;
 
+  document.getElementById('qualify-call-phone-error').classList.toggle('show', !callPhoneValid);
+  callPhoneInput.classList.toggle('qualify-invalid', !callPhoneValid);
   document.getElementById('qualify-segment-error').classList.toggle('show', !segmentValid);
   segmentInput.classList.toggle('qualify-invalid', !segmentValid);
   document.getElementById('qualify-first-name-error').classList.toggle('show', !firstNameValid);
@@ -923,21 +1104,31 @@ function qualifyHandleStep1() {
   document.getElementById('qualify-consent-error').classList.toggle('show', !consentValid);
   consentLabel.classList.toggle('qualify-invalid', !consentValid);
 
-  if (!segmentValid || !firstNameValid || !lastNameValid || !emailValid || !postalValid || !consentValid) return;
+  if (!segmentValid || !firstNameValid || !lastNameValid || !emailValid || !postalValid || !consentValid || !callPhoneValid) return;
 
   qualifyCapturedEmail = emailInput.value.trim();
+  qualifyCapturedPhone = prefersCall ? callPhoneInput.value.trim() : '';
   var marketingInput = document.getElementById('qualify-marketing');
   var marketingChecked = !!(marketingInput && marketingInput.checked);
 
+  /* Remember them on this browser, so Gate 1 is not asked again here or on the homepage. */
+  if (!qualifyIsBot()) saveVisitorDetails(qualifyCapturedEmail, firstNameInput.value.trim());
+
   if (!qualifyIsBot()) {
-    submitToHubspot(HUBSPOT_GATE1_FORM_GUID, [
+    var gate1Fields = [
       { name: 'firstname', value: firstNameInput.value.trim() },
       { name: 'lastname', value: lastNameInput.value.trim() },
       { name: 'email', value: qualifyCapturedEmail },
       { name: 'zip', value: postalInput.value.trim() },
       { name: 'igvhope_g1_pathway_type', value: segmentInput.value },
       { name: 'igvhope_portal_role', value: 'Next Steps Self-Qualify' }
-    ], {
+    ];
+    /* Only sent when they ask for a call, so everyone else's submission is unchanged. */
+    if (prefersCall) {
+      gate1Fields.push({ name: 'igvhope_g1_prefers_phone_call', value: 'true' });
+      gate1Fields.push({ name: 'phone', value: qualifyCapturedPhone });
+    }
+    submitToHubspot(HUBSPOT_GATE1_FORM_GUID, gate1Fields, {
       consent: {
         consentToProcess: consentInput.checked,
         text: "I consent to IGV Housing collecting, storing and using my personal information in accordance with the Privacy Policy.",
@@ -1032,6 +1223,92 @@ function qualifyBackStep(currentStep) {
   qualifyShowStep(currentStep - 1);
 }
 
+/* ---- WEBINAR OFFER (after Gate 3) ---- */
+function qualifyShowWebinar() {
+  var html = '';
+  webinarUpcomingDays().forEach(function(day) {
+    html += '<div class="webinar-day">' + day.weekday + ', ' + day.month + ' ' + day.d + ', ' + day.y + '</div><div class="webinar-times">';
+    day.hours.forEach(function(h) {
+      var label = day.weekday + ', ' + day.month + ' ' + day.d + ', ' + day.y + ' at ' + webinarTimeLabel(h) + ' PT';
+      var startMs = Date.UTC(day.y, day.m - 1, day.d, h + 8);
+      html += '<label class="webinar-slot"><input type="radio" name="qualify-webinar-slot" value="' + label + '" data-start="' + startMs + '"><span>' + webinarTimeLabel(h) + '</span></label>';
+    });
+    html += '</div>';
+  });
+  document.getElementById('qualify-webinar-slots').innerHTML = html;
+  document.querySelector('.qualify-progress').style.display = 'none';
+  document.getElementById('qualify-webinar').classList.add('active');
+}
+
+function qualifyReserveWebinar() {
+  var picked = document.querySelector('input[name="qualify-webinar-slot"]:checked');
+  var errorEl = document.getElementById('qualify-webinar-error');
+  errorEl.textContent = 'Please choose a time, or skip for now.';
+  if (!picked) { errorEl.classList.add('show'); return; }
+  errorEl.classList.remove('show');
+  var btn = document.getElementById('qualify-webinar-btn');
+  btn.disabled = true;
+  btn.textContent = 'Reserving...';
+  submitToHubspot(HUBSPOT_WEBINAR_FORM_GUID, [
+    { name: 'email', value: qualifyCapturedEmail },
+    { name: 'igvhope_webinar_slot', value: picked.value }
+  ]).then(function() {
+    qualifyFinish(picked.value, Number(picked.getAttribute('data-start')));
+  }).catch(function() {
+    btn.disabled = false;
+    btn.textContent = 'Reserve my spot';
+    errorEl.textContent = "Sorry, we couldn't save your spot just now. Please try again.";
+    errorEl.classList.add('show');
+  });
+}
+
+/* Last screen. slotLabel is the webinar time they reserved, or '' if they skipped or were not offered one. */
+var qualifyBookedStart = 0;
+var QUALIFY_WEBINAR_MINUTES = 60;
+
+function qualifyFinish(slotLabel, startMs) {
+  document.getElementById('qualify-form').style.display = 'none';
+  document.querySelector('.qualify-progress').style.display = 'none';
+  document.getElementById('qualify-webinar').classList.remove('active');
+  if (slotLabel) {
+    qualifyBookedStart = startMs || 0;
+    document.getElementById('qualify-result-when').textContent = slotLabel;
+    document.getElementById('qualify-result-email').textContent = qualifyCapturedEmail;
+    document.getElementById('qualify-result-booking').hidden = false;
+    /* Booked: offer the calendar download as a quiet option under the main button. */
+    document.getElementById('qualify-result-cal').hidden = !qualifyBookedStart;
+  }
+  document.getElementById('qualify-result').classList.add('active');
+}
+
+/* Downloads a calendar file (.ics) for the webinar they booked. */
+function qualifyDownloadCalendar() {
+  if (!qualifyBookedStart) return;
+  function stamp(ms) { return new Date(ms).toISOString().replace(/[-:]/g, '').replace(/\.\d{3}/, ''); }
+  var lines = [
+    'BEGIN:VCALENDAR',
+    'VERSION:2.0',
+    'PRODID:-//IGVhope//Webinar//EN',
+    'BEGIN:VEVENT',
+    'UID:webinar-' + qualifyBookedStart + '@igvhope.com',
+    'DTSTAMP:' + stamp(Date.now()),
+    'DTSTART:' + stamp(qualifyBookedStart),
+    'DTEND:' + stamp(qualifyBookedStart + QUALIFY_WEBINAR_MINUTES * 60000),
+    'SUMMARY:IGVhope webinar',
+    'DESCRIPTION:Free webinar on the IGVhope program and the benefits of the IGVhope Community. We will email the joining details.',
+    'END:VEVENT',
+    'END:VCALENDAR'
+  ];
+  var blob = new Blob([lines.join('\r\n')], { type: 'text/calendar;charset=utf-8' });
+  var a = document.createElement('a');
+  a.href = URL.createObjectURL(blob);
+  a.download = 'igvhope-webinar.ics';
+  document.body.appendChild(a);
+  a.click();
+  document.body.removeChild(a);
+  setTimeout(function() { URL.revokeObjectURL(a.href); }, 1000);
+}
+
 /* ---- STEP 3 (Gate 3) ---- */
 document.getElementById('qualify-form').addEventListener('submit', function(e) {
   e.preventDefault();
@@ -1061,10 +1338,11 @@ document.getElementById('qualify-form').addEventListener('submit', function(e) {
 
   if (!residencyValid || !individualIncomeValid || !householdIncomeValid || !debtValid || !workStabilityValid) return;
 
+  /* Everyone who gets this far is offered the free webinar, unless it isn't open yet. */
   var finishUp = function() {
     document.getElementById('qualify-form').style.display = 'none';
-    document.querySelector('.qualify-progress').style.display = 'none';
-    document.getElementById('qualify-result').classList.add('active');
+    if (qualifyIsBot() || !webinarOfferAvailable()) { qualifyFinish(''); return; }
+    qualifyShowWebinar();
   };
 
   if (!qualifyIsBot()) {
