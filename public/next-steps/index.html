@@ -234,6 +234,15 @@
   .qualify-result p { font-size: 14px; color: #5b6b67; line-height: 1.7; max-width: 400px; margin: 0 auto 26px; }
   .qualify-result-cta { font-family: 'Montserrat', sans-serif; font-size: 14px; font-weight: 700; color: #123D36; background: var(--ochre); border: none; border-radius: 999px; padding: 14px 28px; cursor: pointer; text-decoration: none; display: inline-block; }
   .qualify-result-cta:hover { background: #f0b269; }
+  .qualify-result-booking { background: var(--cream); border-radius: 12px; padding: 16px 18px; margin: 0 auto 22px; max-width: 400px; }
+  .qualify-result-booking[hidden] { display: none; }
+  .qualify-result-booking-label { font-size: 11px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--ochre); margin-bottom: 6px; }
+  .qualify-result-booking-when { font-size: 16px; font-weight: 800; color: var(--teal-deep); line-height: 1.35; margin-bottom: 8px; }
+  .qualify-result-booking-note { font-size: 13px; color: #5b6b67; line-height: 1.6; }
+  .qualify-result-booking-note strong { color: var(--teal-deep); word-break: break-all; }
+  #qualify-result-cal[hidden] { display: none; }
+  .qualify-result-cta.qualify-result-secondary { background: none; padding: 0; margin-top: 16px; font-size: 13px; color: var(--teal-deep); text-decoration: underline; display: block; }
+  .qualify-result-cta.qualify-result-secondary:hover { background: none; }
 
   @media (max-width: 560px) {
     #qualify-modal { padding: 32px 22px 26px; border-radius: 16px; }
@@ -646,8 +655,14 @@
         <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><polyline points="4 12.5 9.5 18 20 6"/></svg>
       </div>
       <h3>Thanks, you're all set.</h3>
-      <p id="qualify-result-text">Someone from our team will follow up shortly. In the meantime, you can start browsing homes or begin your application whenever you're ready.</p>
-      <a href="/" class="qualify-result-cta">Search IGVhope Homes</a>
+      <p id="qualify-result-text">We've received your eligibility check. Our team will review your answers and follow up with you shortly.</p>
+      <div class="qualify-result-booking" id="qualify-result-booking" hidden>
+        <div class="qualify-result-booking-label">You're booked in for the free IGVhope webinar</div>
+        <div class="qualify-result-booking-when" id="qualify-result-when"></div>
+        <div class="qualify-result-booking-note">We'll email your confirmation and the joining details to <strong id="qualify-result-email"></strong>. If it doesn't arrive within a few minutes, please check your spam folder.</div>
+      </div>
+      <button type="button" class="qualify-result-cta" id="qualify-result-cal" onclick="qualifyDownloadCalendar()" hidden>Add to my calendar</button>
+      <a href="/how-it-works" class="qualify-result-cta" id="qualify-result-link">See how IGVhope works</a>
     </div>
   </div>
 </div>
@@ -1213,7 +1228,8 @@ function qualifyShowWebinar() {
     html += '<div class="webinar-day">' + day.weekday + ', ' + day.month + ' ' + day.d + ', ' + day.y + '</div><div class="webinar-times">';
     day.hours.forEach(function(h) {
       var label = day.weekday + ', ' + day.month + ' ' + day.d + ', ' + day.y + ' at ' + webinarTimeLabel(h) + ' PT';
-      html += '<label class="webinar-slot"><input type="radio" name="qualify-webinar-slot" value="' + label + '"><span>' + webinarTimeLabel(h) + '</span></label>';
+      var startMs = Date.UTC(day.y, day.m - 1, day.d, h + 8);
+      html += '<label class="webinar-slot"><input type="radio" name="qualify-webinar-slot" value="' + label + '" data-start="' + startMs + '"><span>' + webinarTimeLabel(h) + '</span></label>';
     });
     html += '</div>';
   });
@@ -1235,7 +1251,7 @@ function qualifyReserveWebinar() {
     { name: 'email', value: qualifyCapturedEmail },
     { name: 'igvhope_webinar_slot', value: picked.value }
   ]).then(function() {
-    qualifyFinish(picked.value);
+    qualifyFinish(picked.value, Number(picked.getAttribute('data-start')));
   }).catch(function() {
     btn.disabled = false;
     btn.textContent = 'Reserve my spot';
@@ -1245,14 +1261,51 @@ function qualifyReserveWebinar() {
 }
 
 /* Last screen. slotLabel is the webinar time they reserved, or '' if they skipped or were not offered one. */
-function qualifyFinish(slotLabel) {
+var qualifyBookedStart = 0;
+var QUALIFY_WEBINAR_MINUTES = 60;
+
+function qualifyFinish(slotLabel, startMs) {
   document.getElementById('qualify-form').style.display = 'none';
   document.querySelector('.qualify-progress').style.display = 'none';
   document.getElementById('qualify-webinar').classList.remove('active');
   if (slotLabel) {
-    document.getElementById('qualify-result-text').textContent = "You're booked in for the free IGVhope webinar on " + slotLabel + ". We'll email you the details. In the meantime, you can start browsing homes whenever you're ready.";
+    qualifyBookedStart = startMs || 0;
+    document.getElementById('qualify-result-when').textContent = slotLabel;
+    document.getElementById('qualify-result-email').textContent = qualifyCapturedEmail;
+    document.getElementById('qualify-result-booking').hidden = false;
+    /* Booked: the calendar button is the main action and the link becomes a quiet second option. */
+    document.getElementById('qualify-result-cal').hidden = !qualifyBookedStart;
+    if (qualifyBookedStart) document.getElementById('qualify-result-link').classList.add('qualify-result-secondary');
   }
   document.getElementById('qualify-result').classList.add('active');
+}
+
+/* Downloads a calendar file (.ics) for the webinar they booked. */
+function qualifyDownloadCalendar() {
+  if (!qualifyBookedStart) return;
+  function stamp(ms) { return new Date(ms).toISOString().replace(/[-:]/g, '').replace(/\.\d{3}/, ''); }
+  var lines = [
+    'BEGIN:VCALENDAR',
+    'VERSION:2.0',
+    'PRODID:-//IGVhope//Webinar//EN',
+    'BEGIN:VEVENT',
+    'UID:webinar-' + qualifyBookedStart + '@igvhope.com',
+    'DTSTAMP:' + stamp(Date.now()),
+    'DTSTART:' + stamp(qualifyBookedStart),
+    'DTEND:' + stamp(qualifyBookedStart + QUALIFY_WEBINAR_MINUTES * 60000),
+    'SUMMARY:IGVhope webinar',
+    'DESCRIPTION:Free webinar on the IGVhope program and the benefits of the IGVhope Community. We will email the joining details.',
+    'END:VEVENT',
+    'END:VCALENDAR'
+  ];
+  var blob = new Blob([lines.join('\r\n')], { type: 'text/calendar;charset=utf-8' });
+  var a = document.createElement('a');
+  a.href = URL.createObjectURL(blob);
+  a.download = 'igvhope-webinar.ics';
+  document.body.appendChild(a);
+  a.click();
+  document.body.removeChild(a);
+  setTimeout(function() { URL.revokeObjectURL(a.href); }, 1000);
 }
 
 /* ---- STEP 3 (Gate 3) ---- */
