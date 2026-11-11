@@ -1852,6 +1852,7 @@ function openWebinarOffer(callback) {
   document.getElementById('webinar-slots').innerHTML = html;
   document.getElementById('webinar-slots').style.display = '';
   document.getElementById('webinar-skip-btn').style.display = '';
+  document.getElementById('webinar-done-icon').style.display = 'none';
   document.getElementById('webinar-title').textContent = 'Join a free IGVhope webinar';
   document.getElementById('webinar-sub').textContent = "We'll walk you through the program and the benefits of the IGVhope Community. Pick a time that suits you (Pacific time).";
   document.getElementById('webinar-error').classList.remove('show');
@@ -1862,7 +1863,21 @@ function openWebinarOffer(callback) {
   document.getElementById('webinar-overlay').classList.add('open');
 }
 
-/* Closing, or choosing Skip, carries on with whatever the person was doing before Gate 3. */
+/* Skip for now: confirm Gate 3 is done and what happens next, then Continue carries on as before. */
+function skipWebinarOffer() {
+  document.getElementById('webinar-done-icon').style.display = '';
+  document.getElementById('webinar-title').textContent = "You're all set";
+  document.getElementById('webinar-sub').textContent = "We've received your eligibility check. An IGVhope Navigator will reach out to you within 3 business days.";
+  document.getElementById('webinar-slots').style.display = 'none';
+  document.getElementById('webinar-skip-btn').style.display = 'none';
+  document.getElementById('webinar-error').classList.remove('show');
+  var btn = document.getElementById('webinar-submit-btn');
+  btn.disabled = false;
+  btn.textContent = 'Continue';
+  btn.onclick = closeWebinarOffer;
+}
+
+/* Closing (or Continue after booking or skipping) carries on with whatever the person was doing before Gate 3. */
 function closeWebinarOffer() {
   document.getElementById('webinar-overlay').classList.remove('open');
   var next = pendingWebinarCallback;
@@ -1884,7 +1899,7 @@ function reserveWebinarSlot() {
     { name: 'igvhope_webinar_slot', value: picked.value }
   ]).then(function() {
     document.getElementById('webinar-title').textContent = "You're booked in";
-    document.getElementById('webinar-sub').textContent = picked.value + ". We'll email you the details.";
+    document.getElementById('webinar-sub').textContent = "We've received your eligibility check, and you're booked in for " + picked.value + ". We'll email you the details.";
     document.getElementById('webinar-slots').style.display = 'none';
     document.getElementById('webinar-skip-btn').style.display = 'none';
     btn.disabled = false;
@@ -6956,12 +6971,13 @@ elevenlabs-convai {
 <div id="webinar-overlay" onclick="if(event.target===this)closeWebinarOffer();">
   <div id="webinar-modal">
     <button id="webinar-close" onclick="closeWebinarOffer()" aria-label="Close">&times;</button>
+    <div class="app-confirm-icon" id="webinar-done-icon" style="display:none;"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#1A5C50" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></div>
     <div id="webinar-title">Join a free IGVhope webinar</div>
     <div id="webinar-sub">We'll walk you through the program and the benefits of the IGVhope Community. Pick a time that suits you (Pacific time).</div>
     <div id="webinar-slots"></div>
     <div class="gate1-error" id="webinar-error">Please choose a time, or skip for now.</div>
     <button type="button" id="webinar-submit-btn" onclick="reserveWebinarSlot()">Reserve my spot</button>
-    <button type="button" id="webinar-skip-btn" onclick="closeWebinarOffer()">Skip for now</button>
+    <button type="button" id="webinar-skip-btn" onclick="skipWebinarOffer()">Skip for now</button>
   </div>
 </div>
 
