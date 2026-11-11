@@ -486,6 +486,20 @@
   .ecosystem-parent-logo img { display: block; height: 52px; width: auto; }
   .ecosystem-parent-text h3 { font-size: 15.5px; font-weight: 800; color: #ffffff; margin-bottom: 4px; }
   .ecosystem-parent-text p { font-size: 13px; font-weight: 500; color: rgba(255,255,255,0.78); line-height: 1.55; max-width: 520px; }
+  /* Burger mode: the IGVhousing panel stays pinned to the bottom of the screen while the division cards scroll
+     past, then settles in its own place at the end of the section. 'clip' (not 'hidden') keeps the background
+     shapes trimmed without stopping the panel from sticking. */
+  @media (max-width: 1024px) {
+    .ecosystem-section { overflow: clip; }
+    .ecosystem-parent { position: sticky; bottom: 16px; z-index: 3; box-shadow: 0 12px 30px rgba(0,0,0,0.22); }
+  }
+  /* Phones: a pinned element can't rise above its container's top plus its own top margin, so a large margin
+     (offset by the cards' negative bottom margin, leaving the same 24px gap) holds the panel back until the
+     IGVbuild logo bar is fully on screen. */
+  @media (max-width: 860px) {
+    .ecosystem-parent { margin-top: 94px; }
+    .ecosystem-grid { margin-bottom: -70px; }
+  }
 
   /* ---------- Built on Experience ---------- */
   .experience-section { background: #ffffff; }
@@ -923,6 +937,8 @@
       <p>Click on the logos below to learn more about each division of our group.</p>
     </div>
 
+    <!-- Holds the cards and the IGVhousing panel, so in burger mode the panel only starts pinning once the cards are on screen -->
+    <div class="ecosystem-stack">
     <div class="ecosystem-grid reveal-on-scroll">
       <div class="ecosystem-card build">
         <a class="ecosystem-logo-strip" href="https://www.igvbuild.com" target="_blank" rel="noopener">
@@ -981,6 +997,7 @@
         <h3>With <span style="color:var(--ochre);">One</span> integrated housing platform. <span style="color:var(--ochre);">One</span> purpose.</h3>
         <p>Making homes easier to build and possible to own.</p>
       </div>
+    </div>
     </div>
   </div>
 </section>
