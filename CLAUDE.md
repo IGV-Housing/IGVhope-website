@@ -36,6 +36,7 @@ Both templates independently duplicate the footer (`<footer id="dash-footer">` w
 - **Google Analytics (GA4)**: `gtag.js`, measurement ID `G-V63WBYFEY8`, inserted right after `<meta charset="UTF-8">` on every page.
 - **Mapbox**: the `pk.eyJ1...` token embedded in a few pages is a public token (safe client-side) — GitHub push protection flags it anyway; that's expected, not a real leak.
 - **ElevenLabs**: the `<elevenlabs-convai>` voice widget appears near the end of `<body>` on most pages.
+- **Free webinar offer**: slots are chosen after Gate 3 (homepage and `next-steps`) and after Gate 1 from "Keep Me Updated" (homepage, `about`, `faq`, `how-it-works`). The dates (`WEBINAR_DAYS`) and the booking form GUID (`HUBSPOT_WEBINAR_FORM_GUID`) are duplicated inline in all five pages, so a date or form change must be made in each. Slots less than 7 days away are hidden automatically. Add `?webinar=preview` to a page address to see the offer without saving anything.
 
 ### robots.txt / sitemap.xml
 

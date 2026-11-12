@@ -1474,8 +1474,12 @@ function gate1TogglePhoneBox() {
   }
 }
 
-function openGate1(callback) {
+/* Set when Gate 1 is opened from Keep Me Updated: after they submit, they are offered the free webinar. */
+var gate1KeepMeUpdated = false;
+
+function openGate1(callback, options) {
   pendingGate1Callback = (typeof callback === 'function') ? callback : null;
+  gate1KeepMeUpdated = !!(options && options.keepMeUpdated);
   document.getElementById('gate1-overlay').classList.add('open');
 }
 
@@ -1591,10 +1595,19 @@ function handleGate1Submit(e) {
   if (!userLoggedIn) {
     updateNavForSession({ loggedIn: true, firstName: gate1CapturedFirstName, email: gate1CapturedEmail });
   }
-  if (!gate1CreateAccountFlow) { openSessionSavedPopup(); }
+  var createAccountFlow = gate1CreateAccountFlow;
+  var afterGate1Callback = pendingGate1Callback;
+  var fromKeepMeUpdated = gate1KeepMeUpdated;
   gate1CreateAccountFlow = false;
-  if (pendingGate1Callback) pendingGate1Callback();
   pendingGate1Callback = null;
+  gate1KeepMeUpdated = false;
+  var afterGate1 = function() {
+    if (!createAccountFlow) openSessionSavedPopup();
+    if (afterGate1Callback) afterGate1Callback();
+  };
+  /* Keep Me Updated: offer the free webinar first, then carry on with the usual next popup. */
+  if (fromKeepMeUpdated && !isBot && webinarOfferAvailable()) openWebinarOffer(afterGate1, 'gate1');
+  else afterGate1();
 }
 
 var pendingGate2Callback = null;
@@ -1838,8 +1851,12 @@ function webinarOfferAvailable() {
   return (configured || preview) && webinarUpcomingDays().length > 0;
 }
 
-function openWebinarOffer(callback) {
+/* 'gate3' (after the eligibility check) or 'gate1' (after Keep Me Updated); only the wording after booking or skipping differs. */
+var webinarMode = 'gate3';
+
+function openWebinarOffer(callback, mode) {
   pendingWebinarCallback = (typeof callback === 'function') ? callback : null;
+  webinarMode = (mode === 'gate1') ? 'gate1' : 'gate3';
   var html = '';
   webinarUpcomingDays().forEach(function(day) {
     html += '<div class="webinar-day">' + day.weekday + ', ' + day.month + ' ' + day.d + ', ' + day.y + '</div><div class="webinar-times">';
@@ -1865,6 +1882,8 @@ function openWebinarOffer(callback) {
 
 /* Skip for now: confirm Gate 3 is done and what happens next, then Continue carries on as before. */
 function skipWebinarOffer() {
+  /* No eligibility check was done in this case, so there is nothing to confirm: just carry on. */
+  if (webinarMode === 'gate1') { closeWebinarOffer(); return; }
   document.getElementById('webinar-done-icon').style.display = '';
   document.getElementById('webinar-title').textContent = "You're all set";
   document.getElementById('webinar-sub').textContent = "We've received your eligibility check. An IGVhope Navigator will reach out to you within 3 business days.";
@@ -1899,7 +1918,9 @@ function reserveWebinarSlot() {
     { name: 'igvhope_webinar_slot', value: picked.value }
   ]).then(function() {
     document.getElementById('webinar-title').textContent = "You're booked in";
-    document.getElementById('webinar-sub').textContent = "We've received your eligibility check, and you're booked in for " + picked.value + ". We'll email you the details.";
+    document.getElementById('webinar-sub').textContent = (webinarMode === 'gate1')
+      ? "You're booked in for " + picked.value + ". We'll email you the details."
+      : "We've received your eligibility check, and you're booked in for " + picked.value + ". We'll email you the details.";
     document.getElementById('webinar-slots').style.display = 'none';
     document.getElementById('webinar-skip-btn').style.display = 'none';
     btn.disabled = false;
@@ -2066,11 +2087,11 @@ var SUBSCRIPTION_STATUS_WORKER_URL = 'https://consent-tracker.igvhousing.workers
 function handleNewReleasesBannerClick() {
   /* Gate 1 only for people who have not done it yet; everyone else gets their marketing subscription checked. */
   if (!userLoggedIn && !gate1Unlocked) {
-    openGate1();
+    openGate1(null, { keepMeUpdated: true });
     return;
   }
   if (!gate1CapturedEmail || !SUBSCRIPTION_STATUS_WORKER_URL || SUBSCRIPTION_STATUS_WORKER_URL.indexOf('REPLACE_WITH') === 0) {
-    openGate1();
+    openGate1(null, { keepMeUpdated: true });
     return;
   }
   fetch(SUBSCRIPTION_STATUS_WORKER_URL + '/check', {

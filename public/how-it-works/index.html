@@ -1254,10 +1254,15 @@ function handleGate1Submit(e) {
 
   userLoggedIn = true;
   updateNavForSession({ loggedIn: true, firstName: gate1CapturedFirstName, email: gate1CapturedEmail });
-  openSessionSavedPopup();
-
-  if (pendingGate1Callback) pendingGate1Callback();
+  var afterGate1Callback = pendingGate1Callback;
   pendingGate1Callback = null;
+  var afterGate1 = function() {
+    openSessionSavedPopup();
+    if (afterGate1Callback) afterGate1Callback();
+  };
+  /* Offer the free webinar first, then carry on with the usual next popup. */
+  if (!isBot && webinarOfferAvailable()) openWebinarOffer(afterGate1);
+  else afterGate1();
 }
 
 function openSessionSavedPopup() {
@@ -1278,6 +1283,98 @@ function resendSessionSavedEmail() {
   if (resendEl) resendEl.innerHTML = 'Sending...';
   requestMagicLinkWithRetry(gate1CapturedEmail, 2).then(function() {
     if (resendEl) resendEl.innerHTML = 'Email sent. Check your inbox.';
+  });
+}
+
+/* ---- Free webinar offer (shown after Gate 1 from Keep Me Updated) ----
+   Same dates and HubSpot form as the homepage and Next Steps pages; keep all of them in step.
+   Days and hours (24h) are Pacific time; all three days fall in Pacific Standard Time (UTC-8). */
+var HUBSPOT_WEBINAR_FORM_GUID = 'b1425121-3f4f-40c0-ad72-fdb0120c4e58';
+var WEBINAR_DAYS = [
+  { y: 2026, m: 12, d: 8,  weekday: 'Tuesday',  month: 'December', hours: [11, 13] },
+  { y: 2027, m: 1,  d: 28, weekday: 'Thursday', month: 'January',  hours: [11, 13] },
+  { y: 2027, m: 2,  d: 25, weekday: 'Thursday', month: 'February', hours: [13, 15] }
+];
+var pendingWebinarCallback = null;
+
+function webinarTimeLabel(h) {
+  return ((h + 11) % 12 + 1) + ':00 ' + (h < 12 ? 'AM' : 'PM');
+}
+
+/* Days that still have at least one slot starting 7 or more days from now. */
+function webinarUpcomingDays() {
+  var cutoff = Date.now() + 7 * 24 * 60 * 60 * 1000;
+  var days = [];
+  WEBINAR_DAYS.forEach(function(day) {
+    var hours = day.hours.filter(function(h) { return Date.UTC(day.y, day.m - 1, day.d, h + 8) >= cutoff; });
+    if (hours.length) days.push({ y: day.y, m: day.m, d: day.d, weekday: day.weekday, month: day.month, hours: hours });
+  });
+  return days;
+}
+
+function webinarOfferAvailable() {
+  var configured = HUBSPOT_WEBINAR_FORM_GUID.indexOf('REPLACE_WITH') !== 0;
+  var preview = /[?&]webinar=preview(&|$)/.test(window.location.search);
+  return (configured || preview) && webinarUpcomingDays().length > 0;
+}
+
+function openWebinarOffer(callback) {
+  pendingWebinarCallback = (typeof callback === 'function') ? callback : null;
+  var html = '';
+  webinarUpcomingDays().forEach(function(day) {
+    html += '<div class="webinar-day">' + day.weekday + ', ' + day.month + ' ' + day.d + ', ' + day.y + '</div><div class="webinar-times">';
+    day.hours.forEach(function(h) {
+      var label = day.weekday + ', ' + day.month + ' ' + day.d + ', ' + day.y + ' at ' + webinarTimeLabel(h) + ' PT';
+      html += '<label class="webinar-slot"><input type="radio" name="webinar-slot" value="' + label + '"><span>' + webinarTimeLabel(h) + '</span></label>';
+    });
+    html += '</div>';
+  });
+  document.getElementById('webinar-slots').innerHTML = html;
+  document.getElementById('webinar-slots').style.display = '';
+  document.getElementById('webinar-skip-btn').style.display = '';
+  document.getElementById('webinar-title').textContent = 'Join a free IGVhope webinar';
+  document.getElementById('webinar-sub').textContent = "We'll walk you through the program and the benefits of the IGVhope Community. Pick a time that suits you (Pacific time).";
+  document.getElementById('webinar-error').classList.remove('show');
+  var btn = document.getElementById('webinar-submit-btn');
+  btn.disabled = false;
+  btn.textContent = 'Reserve my spot';
+  btn.onclick = reserveWebinarSlot;
+  document.getElementById('webinar-overlay').classList.add('open');
+}
+
+/* Closing, skipping, or Continue after booking carries on with the usual next popup. */
+function closeWebinarOffer() {
+  document.getElementById('webinar-overlay').classList.remove('open');
+  var next = pendingWebinarCallback;
+  pendingWebinarCallback = null;
+  if (next) next();
+}
+
+function reserveWebinarSlot() {
+  var picked = document.querySelector('input[name="webinar-slot"]:checked');
+  var errorEl = document.getElementById('webinar-error');
+  errorEl.textContent = 'Please choose a time, or skip for now.';
+  if (!picked) { errorEl.classList.add('show'); return; }
+  errorEl.classList.remove('show');
+  var btn = document.getElementById('webinar-submit-btn');
+  btn.disabled = true;
+  btn.textContent = 'Reserving...';
+  submitToHubspot(HUBSPOT_WEBINAR_FORM_GUID, [
+    { name: 'email', value: gate1CapturedEmail },
+    { name: 'igvhope_webinar_slot', value: picked.value }
+  ]).then(function() {
+    document.getElementById('webinar-title').textContent = "You're booked in";
+    document.getElementById('webinar-sub').textContent = "You're booked in for " + picked.value + ". We'll email you the details.";
+    document.getElementById('webinar-slots').style.display = 'none';
+    document.getElementById('webinar-skip-btn').style.display = 'none';
+    btn.disabled = false;
+    btn.textContent = 'Continue';
+    btn.onclick = closeWebinarOffer;
+  }).catch(function() {
+    btn.disabled = false;
+    btn.textContent = 'Reserve my spot';
+    errorEl.textContent = "Sorry, we couldn't save your spot just now. Please try again.";
+    errorEl.classList.add('show');
   });
 }
 
@@ -1426,6 +1523,40 @@ elevenlabs-convai {
 </style>
 
 <elevenlabs-convai agent-id="agent_0501kw59avpvfjh8ggc3qhg7rv2z"></elevenlabs-convai>
+
+<!-- Free webinar offer, shown after Gate 1 from Keep Me Updated -->
+<style>
+  #webinar-overlay { display: none; position: fixed; inset: 0; background: rgba(18,61,54,0.55); z-index: 3000; align-items: center; justify-content: center; padding: 20px; }
+  #webinar-overlay.open { display: flex; }
+  #webinar-modal { position: relative; background: white; border-radius: 16px; padding: 32px 28px; width: 100%; max-width: 380px; max-height: 90vh; overflow-y: auto; box-shadow: 0 24px 60px rgba(0,0,0,0.25); }
+  #webinar-close { position: absolute; top: 14px; right: 14px; background: none; border: none; font-size: 20px; line-height: 1; color: #999; cursor: pointer; padding: 4px; }
+  #webinar-close:hover { color: #123D36; }
+  #webinar-title { font-family: 'Montserrat', sans-serif; font-size: 18px; font-weight: 700; color: #123D36; margin-bottom: 6px; }
+  #webinar-sub { font-family: 'Montserrat', sans-serif; font-size: 12px; font-weight: 500; color: #666; line-height: 1.5; margin-bottom: 20px; }
+  .webinar-day { font-family: 'Montserrat', sans-serif; font-size: 12px; font-weight: 700; color: #123D36; margin: 14px 0 8px; }
+  .webinar-day:first-child { margin-top: 0; }
+  .webinar-times { display: flex; gap: 10px; }
+  .webinar-slot { flex: 1; display: flex; align-items: center; gap: 8px; font-family: 'Montserrat', sans-serif; font-size: 13px; font-weight: 500; color: #123D36; padding: 10px 12px; border: 1.5px solid rgba(26,92,80,0.25); border-radius: 8px; cursor: pointer; }
+  .webinar-slot input { accent-color: #1A5C50; margin: 0; cursor: pointer; }
+  .webinar-slot:has(input:checked) { border-color: #1A5C50; background: rgba(26,92,80,0.07); font-weight: 700; }
+  #webinar-error { margin-top: 12px; }
+  #webinar-submit-btn { width: 100%; margin-top: 18px; font-family: 'Montserrat', sans-serif; font-size: 13px; font-weight: 700; letter-spacing: 0.03em; color: white; background: #1A5C50; border: none; border-radius: 999px; padding: 13px; cursor: pointer; transition: background 0.18s, opacity 0.18s; }
+  #webinar-submit-btn:hover { background: #123D36; }
+  #webinar-submit-btn:disabled { opacity: 0.6; cursor: default; }
+  #webinar-skip-btn { display: block; width: 100%; margin-top: 10px; background: none; border: none; font-family: 'Montserrat', sans-serif; font-size: 12px; font-weight: 600; color: #666; text-decoration: underline; cursor: pointer; padding: 6px; }
+  #webinar-skip-btn:hover { color: #123D36; }
+</style>
+<div id="webinar-overlay" onclick="if(event.target===this)closeWebinarOffer();">
+  <div id="webinar-modal">
+    <button id="webinar-close" onclick="closeWebinarOffer()" aria-label="Close">&times;</button>
+    <div id="webinar-title">Join a free IGVhope webinar</div>
+    <div id="webinar-sub">We'll walk you through the program and the benefits of the IGVhope Community. Pick a time that suits you (Pacific time).</div>
+    <div id="webinar-slots"></div>
+    <div class="gate1-error" id="webinar-error">Please choose a time, or skip for now.</div>
+    <button type="button" id="webinar-submit-btn" onclick="reserveWebinarSlot()">Reserve my spot</button>
+    <button type="button" id="webinar-skip-btn" onclick="closeWebinarOffer()">Skip for now</button>
+  </div>
+</div>
 
 <!-- ================= Ported from homepage.html: Keep Me Updated flow ================= -->
 <div id="gate1-overlay" onclick="if(event.target===this)closeGate1();">
