@@ -245,29 +245,34 @@
   .w-faq summary { cursor: pointer; font-weight: 700; color: var(--teal-deep); padding: 12px 0; min-height: 44px; display: flex; align-items: center; font-size: 15px; }
   .w-faq details p { padding: 0 0 14px; color: #4A625B; font-size: 14.5px; line-height: 1.65; }
 
-  /* timeline */
-  .w-tl { list-style: none; background: #fff; border-radius: 16px; overflow: hidden; box-shadow: 0 1px 2px rgba(18,61,54,.06), 0 8px 24px rgba(18,61,54,.08); margin-top: 8px; }
-  .w-tl-head, .w-tl li { display: grid; grid-template-columns: minmax(0, 1.1fr) minmax(0, 1.4fr) minmax(0, 1.3fr) minmax(0, .9fr); }
-  .w-tl-head { background: var(--teal-deep); color: #fff; font-size: 12px; font-weight: 800; letter-spacing: 0.08em; text-transform: uppercase; }
-  .w-tl-head div, .w-tl li > div { padding: 14px 16px; font-size: 14.5px; line-height: 1.55; }
-  .w-tl li { border-top: 1px solid #CFDDD5; }
-  .w-tl-wrap > .w-tl-head { border-radius: 16px 16px 0 0; }
-  .w-tl-wrap .w-tl { margin-top: 0; border-radius: 0 0 16px 16px; }
-  .w-step { display: flex; gap: 12px; align-items: flex-start; }
-  .w-dot { flex: none; width: 30px; height: 30px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 800; font-size: 14px; background: #E3EDE6; color: var(--teal-deep); }
-  .w-tl li.now .w-dot { background: #E8A24A; }
-  .w-step b { display: block; line-height: 1.3; color: var(--teal-deep); }
-  .w-step small { display: block; font-size: 13px; color: #5b6b67; }
-  .w-lbl { display: none; font-size: 11px; font-weight: 800; letter-spacing: 0.06em; text-transform: uppercase; color: #5b6b67; }
-  @media (max-width: 760px) {
-    .w-tl-head { display: none; }
-    .w-tl-wrap > .w-tl-head + .w-tl { border-radius: 16px; }
-    .w-tl li { grid-template-columns: 1fr; }
-    .w-tl li > div { padding: 6px 16px; }
-    .w-tl li > div:first-child { padding-top: 16px; }
-    .w-tl li > div:last-child { padding-bottom: 16px; }
-    .w-lbl { display: block; }
-  }
+  /* your 10 years: tap through the stops */
+  .yr-tabs { display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); gap: 10px; }
+  .yr-tab { all: unset; box-sizing: border-box; cursor: pointer; display: flex; flex-direction: column; align-items: center; gap: 8px; padding: 14px 8px 12px; border-radius: 18px; background: #fff; border: 2px solid #CFDDD5; font-family: 'Montserrat', sans-serif; text-align: center; transition: transform 0.2s, border-color 0.2s, background 0.2s, box-shadow 0.2s; }
+  .yr-tab:hover { border-color: var(--teal-mid); transform: translateY(-2px); }
+  .yr-tab:focus-visible, .yr-next:focus-visible { outline: 3px solid #DA8D27; outline-offset: 3px; }
+  .yr-tab[aria-selected="true"] { background: var(--teal-deep); border-color: var(--teal-deep); box-shadow: 0 12px 26px rgba(18,61,54,0.28); }
+  .yr-num { width: 34px; height: 34px; border-radius: 50%; display: grid; place-items: center; font-weight: 800; font-size: 14px; background: #FFF1DC; color: #9A5A10; transition: background 0.2s, color 0.2s; }
+  .yr-tab[aria-selected="true"] .yr-num { background: #E8A24A; color: var(--teal-deep); }
+  .yr-when { font-size: 13px; font-weight: 800; color: var(--teal-deep); line-height: 1.25; }
+  .yr-tab[aria-selected="true"] .yr-when { color: #fff; }
+  .yr-card { position: relative; overflow: hidden; margin-top: 18px; border-radius: 28px; padding: 36px 44px 40px; color: #fff; background: radial-gradient(circle at 92% 8%, rgba(232,162,74,0.42), transparent 42%), radial-gradient(circle at 4% 100%, rgba(232,162,74,0.16), transparent 40%), linear-gradient(135deg, #123D36 0%, #1A5C50 100%); box-shadow: 0 22px 44px rgba(18,61,54,0.28); }
+  .yr-line { height: 6px; border-radius: 6px; background: rgba(255,255,255,0.16); margin-bottom: 30px; overflow: hidden; }
+  .yr-fill { display: block; height: 100%; width: 0; border-radius: 6px; background: linear-gradient(90deg, #E8A24A, #f5c47f); transition: width 0.5s ease; }
+  .yr-panels { display: grid; }
+  .yr-panel { grid-area: 1 / 1; display: flex; flex-direction: column; gap: 26px; visibility: hidden; }
+  .yr-panel.is-active { visibility: visible; animation: yrIn 0.45s ease both; }
+  @keyframes yrIn { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: none; } }
+  .yr-big { display: block; font-size: clamp(44px, 6.5vw, 76px); font-weight: 800; line-height: 1; letter-spacing: -0.03em; color: #E8A24A; text-shadow: 0 6px 30px rgba(232,162,74,0.35); margin-bottom: 12px; }
+  .yr-head h3 { font-size: clamp(20px, 2.4vw, 28px); font-weight: 800; color: #fff; line-height: 1.2; }
+  .yr-cols { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; margin: 0; }
+  .yr-cols > div { background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.14); border-radius: 18px; padding: 18px 20px; }
+  .yr-cols dt { font-size: 11px; font-weight: 800; letter-spacing: 0.12em; text-transform: uppercase; color: #E8A24A; margin-bottom: 8px; }
+  .yr-cols dd { margin: 0; font-size: 15px; font-weight: 500; line-height: 1.65; color: rgba(255,255,255,0.92); }
+  .yr-next { margin-top: 28px; height: 46px; padding: 0 26px; border: 0; border-radius: 999px; background: #E8A24A; color: var(--teal-deep); font-family: 'Montserrat', sans-serif; font-size: 13px; font-weight: 800; letter-spacing: 0.04em; cursor: pointer; transition: background 0.18s, transform 0.18s; }
+  .yr-next:hover { background: #f0b269; transform: translateY(-1px); }
+  @media (max-width: 900px) { .yr-tabs { grid-template-columns: repeat(3, minmax(0, 1fr)); } .yr-cols { grid-template-columns: 1fr; } }
+  @media (max-width: 700px) { .yr-card { padding: 26px 22px 30px; border-radius: 22px; } .yr-line { margin-bottom: 22px; } .yr-next { width: 100%; } }
+  @media (prefers-reduced-motion: reduce) { .yr-panel.is-active, .yr-fill, .yr-tab { animation: none !important; transition: none !important; } }
 
   /* files */
   .w-files { list-style: none; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; margin-top: 24px; }
@@ -639,18 +644,71 @@
     <div class="w-sec-head">
       <div class="w-eyebrow">Your 10 years</div>
       <h2>Your 10 years, step by step</h2>
-      <p class="w-lede">What happens, what you do, and who helps, from today to Year 10.</p>
+      <p class="w-lede">Tap each stop to see what happens, what you do, and who helps, from today to Year 10.</p>
     </div>
-    <div class="w-tl-wrap">
-      <div class="w-tl-head" aria-hidden="true"><div>When</div><div>What happens</div><div>What you do</div><div>Who helps</div></div>
-      <ol class="w-tl">
-        <li class="now"><div class="w-step"><span class="w-dot">1</span><span><b>Today</b><small>The webinar and your next conversation</small></span></div><div><span class="w-lbl">What happens</span>You learn how the program works and what it means for you.</div><div><span class="w-lbl">What you do</span>Ask anything. Keep this page. Book a meeting with Sabrina.</div><div><span class="w-lbl">Who helps</span>Sabrina</div></li>
-        <li><div class="w-step"><span class="w-dot">2</span><span><b>Move in</b></span></div><div><span class="w-lbl">What happens</span>You move into your new home under the Occupancy Agreement.</div><div><span class="w-lbl">What you do</span>Pay your monthly occupancy contributions and settle in.</div><div><span class="w-lbl">Who helps</span>Our team, your resident portal</div></li>
-        <li><div class="w-step"><span class="w-dot">3</span><span><b>The home gets its own title</b><small>Year 2</small></span></div><div><span class="w-lbl">What happens</span>The program is designed so that you are offered the Ownership Agreement in Year 2, once your home has its own title.</div><div><span class="w-lbl">What you do</span>Read it with your own lawyer, then sign.</div><div><span class="w-lbl">Who helps</span>Our team, your lawyer</div></li>
-        <li><div class="w-step"><span class="w-dot">4</span><span><b>Get mortgage-ready</b><small>Years 1 to 8</small></span></div><div><span class="w-lbl">What happens</span>You build a strong payment track record and get ready to apply for a mortgage.</div><div><span class="w-lbl">What you do</span>Use the free courses in the Homeownership Academy.</div><div><span class="w-lbl">Who helps</span>Our team, through annual check-ins</div></li>
-        <li><div class="w-step"><span class="w-dot">5</span><span><b>Talk to mortgage partners</b><small>Year 9</small></span></div><div><span class="w-lbl">What happens</span>Early conversations with mortgage partners, and support with your mortgage application.</div><div><span class="w-lbl">What you do</span>Gather your papers and apply, with our support.</div><div><span class="w-lbl">Who helps</span>Our team</div></li>
-        <li><div class="w-step"><span class="w-dot">6</span><span><b>Complete your purchase</b><small>Year 10</small></span></div><div><span class="w-lbl">What happens</span>IGVhope is designed to help you be ready to complete your purchase and move to your own mortgage. Legal title transfers to you, and the home and any change in its value become yours.</div><div><span class="w-lbl">What you do</span>Complete your purchase with your own mortgage.</div><div><span class="w-lbl">Who helps</span>Our team, your lawyer</div></li>
-      </ol>
+    <div class="yr" id="yr-app">
+      <div class="yr-tabs" role="tablist" aria-label="Your 10 years, stage by stage">
+        <button class="yr-tab" type="button" role="tab" id="yr-tab-0" aria-controls="yr-panel-0" aria-selected="true" tabindex="0"><span class="yr-num">1</span><span class="yr-when">Today</span></button>
+        <button class="yr-tab" type="button" role="tab" id="yr-tab-1" aria-controls="yr-panel-1" aria-selected="false" tabindex="-1"><span class="yr-num">2</span><span class="yr-when">Move in</span></button>
+        <button class="yr-tab" type="button" role="tab" id="yr-tab-2" aria-controls="yr-panel-2" aria-selected="false" tabindex="-1"><span class="yr-num">3</span><span class="yr-when">Year 2</span></button>
+        <button class="yr-tab" type="button" role="tab" id="yr-tab-3" aria-controls="yr-panel-3" aria-selected="false" tabindex="-1"><span class="yr-num">4</span><span class="yr-when">Years 1 to 8</span></button>
+        <button class="yr-tab" type="button" role="tab" id="yr-tab-4" aria-controls="yr-panel-4" aria-selected="false" tabindex="-1"><span class="yr-num">5</span><span class="yr-when">Year 9</span></button>
+        <button class="yr-tab" type="button" role="tab" id="yr-tab-5" aria-controls="yr-panel-5" aria-selected="false" tabindex="-1"><span class="yr-num">6</span><span class="yr-when">Year 10</span></button>
+      </div>
+      <div class="yr-card">
+        <div class="yr-line" aria-hidden="true"><span class="yr-fill" id="yr-fill"></span></div>
+        <div class="yr-panels">
+          <div class="yr-panel is-active" role="tabpanel" id="yr-panel-0" aria-labelledby="yr-tab-0">
+            <div class="yr-head"><span class="yr-big">Today</span><h3>The webinar and your next conversation</h3></div>
+            <dl class="yr-cols">
+              <div><dt>What happens</dt><dd>You learn how the program works and what it means for you.</dd></div>
+              <div><dt>What you do</dt><dd>Ask anything. Keep this page. Book a meeting with Sabrina.</dd></div>
+              <div><dt>Who helps</dt><dd>Sabrina</dd></div>
+            </dl>
+          </div>
+          <div class="yr-panel" role="tabpanel" id="yr-panel-1" aria-labelledby="yr-tab-1">
+            <div class="yr-head"><span class="yr-big">Move in</span><h3>Move in</h3></div>
+            <dl class="yr-cols">
+              <div><dt>What happens</dt><dd>You move into your new home under the Occupancy Agreement.</dd></div>
+              <div><dt>What you do</dt><dd>Pay your monthly occupancy contributions and settle in.</dd></div>
+              <div><dt>Who helps</dt><dd>Our team, your resident portal</dd></div>
+            </dl>
+          </div>
+          <div class="yr-panel" role="tabpanel" id="yr-panel-2" aria-labelledby="yr-tab-2">
+            <div class="yr-head"><span class="yr-big">Year 2</span><h3>The home gets its own title</h3></div>
+            <dl class="yr-cols">
+              <div><dt>What happens</dt><dd>The program is designed so that you are offered the Ownership Agreement in Year 2, once your home has its own title.</dd></div>
+              <div><dt>What you do</dt><dd>Read it with your own lawyer, then sign.</dd></div>
+              <div><dt>Who helps</dt><dd>Our team, your lawyer</dd></div>
+            </dl>
+          </div>
+          <div class="yr-panel" role="tabpanel" id="yr-panel-3" aria-labelledby="yr-tab-3">
+            <div class="yr-head"><span class="yr-big">Years 1 to 8</span><h3>Get mortgage-ready</h3></div>
+            <dl class="yr-cols">
+              <div><dt>What happens</dt><dd>You build a strong payment track record and get ready to apply for a mortgage.</dd></div>
+              <div><dt>What you do</dt><dd>Use the free courses in the Homeownership Academy.</dd></div>
+              <div><dt>Who helps</dt><dd>Our team, through annual check-ins</dd></div>
+            </dl>
+          </div>
+          <div class="yr-panel" role="tabpanel" id="yr-panel-4" aria-labelledby="yr-tab-4">
+            <div class="yr-head"><span class="yr-big">Year 9</span><h3>Talk to mortgage partners</h3></div>
+            <dl class="yr-cols">
+              <div><dt>What happens</dt><dd>Early conversations with mortgage partners, and support with your mortgage application.</dd></div>
+              <div><dt>What you do</dt><dd>Gather your papers and apply, with our support.</dd></div>
+              <div><dt>Who helps</dt><dd>Our team</dd></div>
+            </dl>
+          </div>
+          <div class="yr-panel" role="tabpanel" id="yr-panel-5" aria-labelledby="yr-tab-5">
+            <div class="yr-head"><span class="yr-big">Year 10</span><h3>Complete your purchase</h3></div>
+            <dl class="yr-cols">
+              <div><dt>What happens</dt><dd>IGVhope is designed to help you be ready to complete your purchase and move to your own mortgage. Legal title transfers to you, and the home and any change in its value become yours.</dd></div>
+              <div><dt>What you do</dt><dd>Complete your purchase with your own mortgage.</dd></div>
+              <div><dt>Who helps</dt><dd>Our team, your lawyer</dd></div>
+            </dl>
+          </div>
+        </div>
+        <button class="yr-next" type="button" id="yr-next">Next: Move in</button>
+      </div>
     </div>
     <p class="w-small">The Homeownership Academy supports you from your first questions right through to your mortgage. <a href="/homeownership-academy">Open the course library</a></p>
   </div>
@@ -1049,7 +1107,41 @@ document.addEventListener('DOMContentLoaded', initProcessStepper);
   show(0, false);
 })();
 
-/* 4. Image viewer: any element with data-img opens the picture full size. */
+/* 4. Your 10 years: tap through the stops */
+(function setUpYearStops() {
+  var root = document.getElementById('yr-app');
+  if (!root) return;
+  var tabs = Array.prototype.slice.call(root.querySelectorAll('.yr-tab'));
+  var panels = Array.prototype.slice.call(root.querySelectorAll('.yr-panel'));
+  var names = ['Today', 'Move in', 'Year 2', 'Years 1 to 8', 'Year 9', 'Year 10'];
+  var nextBtn = document.getElementById('yr-next');
+  var fill = document.getElementById('yr-fill');
+  var cur = 0;
+  function show(i, focus) {
+    cur = Math.max(0, Math.min(tabs.length - 1, i));
+    tabs.forEach(function(t, n) {
+      t.setAttribute('aria-selected', n === cur ? 'true' : 'false');
+      t.tabIndex = n === cur ? 0 : -1;
+    });
+    panels.forEach(function(p, n) { p.classList.toggle('is-active', n === cur); });
+    fill.style.width = (cur === 0 ? 6 : (cur / (tabs.length - 1)) * 100) + '%';
+    nextBtn.textContent = cur === tabs.length - 1 ? 'Start over' : 'Next: ' + names[cur + 1];
+    if (focus) tabs[cur].focus();
+  }
+  tabs.forEach(function(t, n) {
+    t.addEventListener('click', function() { show(n, false); });
+    t.addEventListener('keydown', function(e) {
+      var d = (e.key === 'ArrowRight' || e.key === 'ArrowDown') ? 1 : (e.key === 'ArrowLeft' || e.key === 'ArrowUp') ? -1 : 0;
+      if (!d) return;
+      e.preventDefault();
+      show((cur + d + tabs.length) % tabs.length, true);
+    });
+  });
+  nextBtn.addEventListener('click', function() { show(cur === tabs.length - 1 ? 0 : cur + 1, false); });
+  show(0, false);
+})();
+
+/* 5. Image viewer: any element with data-img opens the picture full size. */
 (function setUpViewer() {
   var lb = document.getElementById('lb'), img = document.getElementById('lb-img'), cap = document.getElementById('lb-cap');
   var closeBtn = document.getElementById('lb-close'), opener = null;
