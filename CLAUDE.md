@@ -37,6 +37,7 @@ Both templates independently duplicate the footer (`<footer id="dash-footer">` w
 - **Mapbox**: the `pk.eyJ1...` token embedded in a few pages is a public token (safe client-side) — GitHub push protection flags it anyway; that's expected, not a real leak.
 - **ElevenLabs**: the `<elevenlabs-convai>` voice widget appears near the end of `<body>` on most pages.
 - **Free webinar offer**: slots are chosen after Gate 3 (homepage and `next-steps`) and after Gate 1 from "Keep Me Updated" (homepage, `about`, `faq`, `how-it-works`). The dates (`WEBINAR_DAYS`) and the booking form GUID (`HUBSPOT_WEBINAR_FORM_GUID`) are duplicated inline in all five pages, so a date or form change must be made in each. Slots less than 7 days away are hidden automatically. Add `?webinar=preview` to a page address to see the offer without saving anything.
+- **Welcome page (`/welcome`)**: the page a webinar QR code points to. It is `noindex` and deliberately left out of `sitemap.xml`; don't link it from the main nav or footer. Its two calls to action are set by placeholders in its script: `SABRINA_MEETING_URL` (until set, "Book a meeting" opens an email to the team) and `HUBSPOT_COMMUNITY_FORM_GUID` (an email-only HubSpot form that triggers the portal invitation; until set, the button opens an email instead). Its images and four videos live in `public/welcome/media/` (about 23MB, mostly the videos). The content came from the "IGVhope Welcome Onboarding Page" draft, minus the sections that draft still marks as unconfirmed.
 
 ### robots.txt / sitemap.xml
 
