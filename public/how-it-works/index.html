@@ -109,6 +109,8 @@
   .dropdown-item.danger .dropdown-item-icon { color: #C0392B; }
   .dropdown-divider { height: 1px; background: rgba(18,61,54,0.1); margin: 4px 0; }
   .mobile-nav-divider { height: 1px; background: rgba(255,255,255,0.18); margin: 4px 0 2px; }
+  /* The link above the divider already draws a line, so drop it to leave just one. */
+  #mobile-nav-panel > :has(+ .mobile-nav-divider) { border-bottom: none; }
   .mobile-nav-section-label { font-size: 10px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: rgba(255,255,255,0.4); padding: 14px 0 4px; }
   .mobile-nav-account-header { display: flex; align-items: center; gap: 12px; padding: 6px 0 14px; border-bottom: none; }
   .mobile-nav-avatar { width: 36px; height: 36px; border-radius: 50%; background: #C8683A; color: white; font-size: 14px; font-weight: 700; display: flex; align-items: center; justify-content: center; text-transform: uppercase; flex-shrink: 0; }
