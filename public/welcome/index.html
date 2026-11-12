@@ -118,9 +118,6 @@
   .w-sec h2 { font-weight: 800; font-size: clamp(26px, 3.4vw, 36px); line-height: 1.18; letter-spacing: -0.01em; color: var(--teal-deep); }
   .w-sec h2::after { content: ""; display: block; width: 56px; height: 3px; background: #E8A24A; border-radius: 2px; margin-top: 16px; }
   .w-lede { font-size: 16px; font-weight: 500; color: #4A625B; line-height: 1.65; margin-top: 16px; }
-  .w-sub { font-size: 20px; font-weight: 800; color: var(--teal-deep); line-height: 1.25; margin: 48px 0 14px; }
-  .w-sub:first-of-type { margin-top: 0; }
-  .w-block + .w-block { margin-top: 64px; }
   .w-text { font-size: 15.5px; font-weight: 500; line-height: 1.7; color: var(--ink); max-width: 760px; }
   .w-text + .w-text { margin-top: 10px; }
   .w-small { font-size: 13px; font-weight: 500; color: #4A625B; line-height: 1.6; margin-top: 12px; max-width: 760px; }
@@ -174,40 +171,7 @@
 
   .w-ico { width: 22px; height: 22px; flex: none; color: #DA8D27; }
 
-  /* zoomable images, illustrations, plans */
-  .w-zoom { display: block; width: 100%; padding: 0; border: 1px solid #CFDDD5; background: #fff; border-radius: 14px; overflow: hidden; cursor: zoom-in; text-align: left; font: inherit; color: inherit; }
-  .w-zoom img { display: block; width: 100%; height: auto; }
-  .w-zoom span { display: block; padding: 10px 14px; font-size: 14px; font-weight: 700; }
-  .w-cuts { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 24px; margin-top: 20px; }
-  .w-cuts figure { display: flex; flex-direction: column; gap: 10px; }
-  .w-cuts figcaption { font-size: 14px; font-weight: 500; color: #4A625B; line-height: 1.6; }
-  .w-cuts figcaption b { display: block; color: var(--teal-deep); font-size: 16px; margin-bottom: 2px; }
-  @media (max-width: 700px) { .w-cuts { grid-template-columns: 1fr; } }
-
-  .w-units { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; margin-top: 16px; }
-  @media (max-width: 700px) { .w-units { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
-  .w-unit { background: #fff; border: 1px solid #CFDDD5; border-radius: 14px; padding: 16px; display: flex; flex-direction: column; gap: 4px; text-align: left; font: inherit; color: inherit; cursor: pointer; min-height: 44px; }
-  .w-unit:hover { border-color: var(--teal-mid); }
-  .w-unit[aria-pressed="true"] { border: 2px solid var(--teal-mid); background: #F2F8F4; padding: 15px; }
-  .w-unit .floor { font-size: 11px; font-weight: 800; letter-spacing: 0.08em; text-transform: uppercase; color: #9A5A10; }
-  .w-unit .size { font-size: 26px; font-weight: 800; color: var(--teal-deep); font-variant-numeric: tabular-nums; }
-  .w-unit ul { margin: 4px 0 0; padding-left: 18px; font-size: 13.5px; color: #4A625B; }
-  .w-plan { background: #fff; border-radius: 16px; padding: 22px; margin-top: 16px; display: flex; flex-direction: column; gap: 12px; box-shadow: 0 1px 2px rgba(18,61,54,.06), 0 8px 24px rgba(18,61,54,.08); }
-  .w-plan b { font-size: 18px; font-weight: 800; color: var(--teal-deep); }
-  .w-plan .w-zoom[hidden] { display: none; }
-  .w-plan-btns { display: flex; flex-wrap: wrap; gap: 10px; }
-  .w-plan-btns .w-btn { min-height: 44px; padding: 10px 20px; font-size: 12px; }
-
-  .w-inside { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; margin-top: 20px; max-width: 760px; }
-  .w-pages { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; margin-top: 16px; max-width: 760px; }
-  @media (max-width: 560px) { .w-inside, .w-pages { grid-template-columns: 1fr; } }
-
-  /* video thumbnails and players */
-  .w-thumbvid { position: relative; display: block; border-radius: 14px; overflow: hidden; aspect-ratio: 16/9; background: #000; }
-  .w-thumbvid img { width: 100%; height: 100%; object-fit: cover; filter: brightness(.7); }
-  .w-thumbvid .play { position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 8px; color: #fff; font-weight: 700; font-size: 15px; text-align: center; padding: 12px; }
-  .w-thumbvid .play svg { width: 52px; height: 52px; }
-  .w-thumbvid small { font-weight: 500; opacity: .9; font-size: 12.5px; }
+  /* videos */
   .w-vids { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 20px; margin-top: 20px; }
   .w-vids figure { display: flex; flex-direction: column; gap: 8px; }
   .w-vids video { width: 100%; aspect-ratio: 16/9; border-radius: 14px; background: #000; display: block; }
@@ -489,7 +453,6 @@
     </div>
     <div class="w-glance">
       <a href="#how"><b>How IGVhope works</b><span>Three simple steps: Secure, Live, Own.</span></a>
-      <a href="#homes"><b>The homes</b><span>The building, the types of home, and what comes with them.</span></a>
       <a href="#pay"><b>What you'll pay</b><span>What it costs to start, every month and at Year 10.</span></a>
       <a href="#change"><b>If life changes</b><span>Your protections throughout the process.</span></a>
       <a href="#agreements"><b>What you agree to</b><span>Two agreements, explained in plain words.</span></a>
@@ -552,95 +515,8 @@
   </div>
 </section>
 
-<!-- ================= THE HOMES ================= -->
-<section class="w-sec" id="homes">
-  <div class="wrap">
-    <div class="w-sec-head">
-      <div class="w-eyebrow">Is it right for you?</div>
-      <h2>The homes</h2>
-      <p class="w-lede">The building, the types of home inside, and what comes with them.</p>
-    </div>
-
-    <div class="w-block" id="building">
-      <h3 class="w-sub">One building, many ways to live</h3>
-      <p class="w-text">The Osprey is a building of independent homes. Each home is self-contained, with its own private entry.</p>
-      <p class="w-text">The same building is set up differently in each town. These illustrations show how.</p>
-      <div class="w-cuts">
-        <figure>
-          <button class="w-zoom" type="button" data-img="media/cut-through-one-plan.jpg" data-cap="Port Alberni: the fourplex"><img width="1600" height="888" loading="lazy" src="media/cut-through-one-plan.jpg" alt="Illustration of a two-storey building cut open to show four homes: a 3-bedroom or dual-key home and a 2-bedroom home on each floor. The lower floor homes are accessible."></button>
-          <figcaption><b>Port Alberni: the fourplex</b>Four homes: a 3-bedroom home and a 2-bedroom home on each floor, with the lower floor homes accessible.</figcaption>
-        </figure>
-        <figure>
-          <button class="w-zoom" type="button" data-img="media/cut-through-sixplex.jpg" data-cap="Ucluelet: the six-plex"><img width="1683" height="935" loading="lazy" src="media/cut-through-sixplex.jpg" alt="Illustration of a two-storey building cut open to show six homes: a 1-bedroom home and two 2-bedroom homes on each floor. The lower floor 2-bedroom homes are accessible."></button>
-          <figcaption><b>Ucluelet: the six-plex</b>Six homes: 1-bedroom and 2-bedroom homes, with accessible 2-bedroom homes on the lower floor. There are no 3-bedroom homes. If your family needs three bedrooms, there is an option to own a 2-bedroom home and the 1-bedroom home next to it. Our team can talk this through with you.</figcaption>
-        </figure>
-      </div>
-      <p class="w-small">Illustrations, not the exact buildings. Green shows the homes offered through IGVhope. If you would like a closer look inside, "The IGV Osprey" with Jodie is waiting for you in <a href="#v-osprey">Videos and files</a>.</p>
-    </div>
-
-    <div class="w-block" id="fit">
-      <h3 class="w-sub">The types of home inside</h3>
-      <p class="w-text"><b>Ucluelet: the six-plex.</b> Six homes, three on each floor. Tap a home to see its floor plan and features.</p>
-      <div class="w-units" role="group" aria-label="Homes in the six-plex">
-        <button class="w-unit" type="button" data-home="a" aria-pressed="true"><span class="floor">Ground floor · Home A</span><span class="size">865 ft²</span><ul><li>2 bedrooms</li><li>1 bathroom</li><li>93 ft² rear deck</li></ul></button>
-        <button class="w-unit" type="button" data-home="b" aria-pressed="false"><span class="floor">Ground floor · Home B</span><span class="size">778 ft²</span><ul><li>2 bedrooms</li><li>1 bathroom with a bathtub</li><li>Kitchen with island seating</li></ul></button>
-        <button class="w-unit" type="button" data-home="c" aria-pressed="false"><span class="floor">Ground floor · Home C</span><span class="size">382 ft²</span><ul><li>1 bedroom</li><li>1 bathroom with a shower</li><li>Integrated kitchen</li></ul></button>
-        <button class="w-unit" type="button" data-home="d" aria-pressed="false"><span class="floor">Upper floor · Home D</span><span class="size">865 ft²</span><ul><li>2 bedrooms</li><li>1 bathroom</li><li>93 ft² rear balcony</li></ul></button>
-        <button class="w-unit" type="button" data-home="e" aria-pressed="false"><span class="floor">Upper floor · Home E</span><span class="size">778 ft²</span><ul><li>2 bedrooms</li><li>1 bathroom with a bathtub</li><li>139 ft² front deck</li></ul></button>
-        <button class="w-unit" type="button" data-home="f" aria-pressed="false"><span class="floor">Upper floor · Home F</span><span class="size">382 ft²</span><ul><li>1 bedroom</li><li>1 bathroom with a shower</li><li>139 ft² front deck</li></ul></button>
-      </div>
-      <div class="w-plan" id="plan-panel" aria-live="polite">
-        <b id="pp-title">Home A, ground floor: 865 ft²</b>
-        <p class="w-text" id="pp-detail" style="margin:0">2 bedrooms and 1 bathroom. Open living and dining, a kitchen with island seating, and direct access to the rear deck.</p>
-        <button class="w-zoom pp-img" type="button" data-for="a" data-img="media/sixplex-unit-a.jpg" data-cap="Home A, ground floor: 865 ft² interior"><img width="2000" height="1334" loading="lazy" src="media/sixplex-unit-a.jpg" alt="Floor plan of Home A, highlighted within the ground floor of the six-plex."></button>
-        <button class="w-zoom pp-img" type="button" data-for="b" hidden data-img="media/sixplex-unit-b.jpg" data-cap="Home B, ground floor: 778 ft² interior"><img width="2000" height="1334" loading="lazy" src="media/sixplex-unit-b.jpg" alt="Floor plan of Home B, highlighted within the ground floor of the six-plex."></button>
-        <button class="w-zoom pp-img" type="button" data-for="c" hidden data-img="media/sixplex-unit-c.jpg" data-cap="Home C, ground floor: 382 ft² interior"><img width="2000" height="1334" loading="lazy" src="media/sixplex-unit-c.jpg" alt="Floor plan of Home C, highlighted within the ground floor of the six-plex."></button>
-        <button class="w-zoom pp-img" type="button" data-for="d" hidden data-img="media/sixplex-unit-d.jpg" data-cap="Home D, upper floor: 865 ft² interior"><img width="2000" height="1334" loading="lazy" src="media/sixplex-unit-d.jpg" alt="Floor plan of Home D, highlighted within the upper floor of the six-plex."></button>
-        <button class="w-zoom pp-img" type="button" data-for="e" hidden data-img="media/sixplex-unit-e.jpg" data-cap="Home E, upper floor: 778 ft² interior"><img width="2000" height="1334" loading="lazy" src="media/sixplex-unit-e.jpg" alt="Floor plan of Home E, highlighted within the upper floor of the six-plex."></button>
-        <button class="w-zoom pp-img" type="button" data-for="f" hidden data-img="media/sixplex-unit-f.jpg" data-cap="Home F, upper floor: 382 ft² interior"><img width="2000" height="1334" loading="lazy" src="media/sixplex-unit-f.jpg" alt="Floor plan of Home F, highlighted within the upper floor of the six-plex."></button>
-        <div class="w-plan-btns">
-          <button class="w-btn w-btn-line" type="button" data-img="media/sixplex-level1.jpg" data-cap="Six-plex, ground floor: Homes A, B and C">See the whole ground floor</button>
-          <button class="w-btn w-btn-line" type="button" data-img="media/sixplex-level2.jpg" data-cap="Six-plex, upper floor: Homes D, E and F">See the whole upper floor</button>
-        </div>
-      </div>
-      <p class="w-small">Sizes are interior living space from the design team's plans, rounded to the nearest square foot. Decks and balconies are extra. Furniture is shown for illustration, and plans may still change.</p>
-      <p class="w-small"><a href="/">See the homes available now on igvhope.com</a></p>
-    </div>
-
-    <div class="w-block" id="inside">
-      <h3 class="w-sub">What comes with the home</h3>
-      <p class="w-text">The Osprey's standard appliance package includes a Samsung dishwasher, electric range, over-the-range microwave and French door fridge, plus a front-load washer and electric dryer.</p>
-      <div class="w-inside">
-        <a class="w-thumbvid" href="#v-osprey"><img width="1280" height="720" loading="lazy" src="media/osprey-jodie-poster.jpg" alt=""><span class="play"><svg viewBox="0 0 64 64" aria-hidden="true"><circle cx="32" cy="32" r="30" fill="none" stroke="#fff" stroke-width="3"></circle><path d="M26 20l18 12-18 12z" fill="#fff"></path></svg>The Osprey, with Jodie<small>27 seconds</small></span></a>
-        <a class="w-thumbvid" href="#v-kitchen"><img width="1280" height="720" loading="lazy" src="media/supply-chains-kitchen-poster.jpg" alt=""><span class="play"><svg viewBox="0 0 64 64" aria-hidden="true"><circle cx="32" cy="32" r="30" fill="none" stroke="#fff" stroke-width="3"></circle><path d="M26 20l18 12-18 12z" fill="#fff"></path></svg>A standard IGV kitchen, with Sarah<small>48 seconds</small></span></a>
-      </div>
-      <div class="w-pages">
-        <button class="w-zoom" type="button" data-img="media/catalogue-p27.jpg" data-cap="The standard appliance package"><img width="935" height="1210" loading="lazy" src="media/catalogue-p27.jpg" alt="Catalogue page: Samsung dishwasher, electric range, over-the-range microwave and French door fridge."><span>The appliances</span></button>
-        <button class="w-zoom" type="button" data-img="media/catalogue-p28.jpg" data-cap="Washer and dryer, and what's included"><img width="935" height="1210" loading="lazy" src="media/catalogue-p28.jpg" alt="Catalogue page: Samsung front-load washer and electric dryer."><span>Washer and dryer</span></button>
-      </div>
-    </div>
-
-    <div class="w-block" id="built">
-      <h3 class="w-sub">How the homes are built</h3>
-      <p class="w-text">Each home is built in sections indoors, in IGV's factory, then delivered and assembled on site.</p>
-      <div class="w-inside">
-        <a class="w-thumbvid" href="#v-anim"><img width="1280" height="720" loading="lazy" src="media/factory-to-site-animation-poster.jpg" alt=""><span class="play"><svg viewBox="0 0 64 64" aria-hidden="true"><circle cx="32" cy="32" r="30" fill="none" stroke="#fff" stroke-width="3"></circle><path d="M26 20l18 12-18 12z" fill="#fff"></path></svg>From factory to street<small>1 minute 40</small></span></a>
-        <a class="w-thumbvid" href="#v-factory"><img width="1280" height="720" loading="lazy" src="media/factory-one-minute-poster.jpg" alt=""><span class="play"><svg viewBox="0 0 64 64" aria-hidden="true"><circle cx="32" cy="32" r="30" fill="none" stroke="#fff" stroke-width="3"></circle><path d="M26 20l18 12-18 12z" fill="#fff"></path></svg>Inside the factory<small>1 minute</small></span></a>
-      </div>
-    </div>
-
-    <div class="w-block" id="community">
-      <h3 class="w-sub">The communities</h3>
-      <div class="w-twocol" style="margin-top:0">
-        <div class="w-card"><b>Port Alberni</b><p>Port Alberni is a vibrant and growing community where natural beauty and community spirit come together. Set between Mt. Arrowsmith and the picturesque Alberni Inlet, it offers breathtaking scenery and an abundance of outdoor adventures year-round. Beyond its stunning surroundings, Port Alberni is known for its friendly residents, strong community values, and growing opportunities for families and individuals to thrive. With excellent recreational facilities, local shops and restaurants, healthcare services, a hospital, schools, and cultural amenities, Port Alberni provides the perfect balance of connection, convenience, and lifestyle, making it an exceptional place to call home.</p></div>
-        <div class="w-card"><b>Ucluelet</b><p>Ucluelet, "Ukee", offers a unique balance of natural wonder, close community connection, and quality of life. Nestled along the stunning West Coast of Vancouver Island, this vibrant community is known for its dramatic ocean views, which include a brilliant "storm watching" season, lush rainforests, and endless opportunities to enjoy the outdoors. Residents are drawn not only to its spectacular surroundings but also to its welcoming atmosphere, strong community values, and slower pace of life. With access to local shops and services, schools, healthcare, recreation, and a thriving arts and tourism sector, Ucluelet provides the amenities needed for everyday living while maintaining its distinct coastal character. It is a place where individuals and families can establish roots, embrace a healthy lifestyle, and experience a true sense of home.</p></div>
-      </div>
-    </div>
-  </div>
-</section>
-
 <!-- ================= WHAT YOU'LL PAY ================= -->
-<section class="w-sec tint" id="pay">
+<section class="w-sec" id="pay">
   <div class="wrap">
     <div class="w-feature w-pay">
       <div class="k">Most asked</div>
@@ -658,7 +534,7 @@
 </section>
 
 <!-- ================= IF LIFE CHANGES ================= -->
-<section class="w-sec" id="change">
+<section class="w-sec tint" id="change">
   <div class="wrap">
     <div class="w-feature w-change">
       <div class="k">Your protections throughout the process</div>
@@ -685,7 +561,7 @@
 </section>
 
 <!-- ================= WHAT YOU AGREE TO ================= -->
-<section class="w-sec tint" id="agreements">
+<section class="w-sec" id="agreements">
   <div class="wrap">
     <div class="w-sec-head">
       <div class="w-eyebrow">What you agree to</div>
@@ -701,7 +577,7 @@
 </section>
 
 <!-- ================= YOUR 10 YEARS ================= -->
-<section class="w-sec" id="years">
+<section class="w-sec tint" id="years">
   <div class="wrap">
     <div class="w-sec-head">
       <div class="w-eyebrow">Your 10 years</div>
@@ -724,7 +600,7 @@
 </section>
 
 <!-- ================= VIDEOS AND FILES ================= -->
-<section class="w-sec tint" id="files">
+<section class="w-sec" id="files">
   <div class="wrap">
     <div class="w-sec-head">
       <div class="w-eyebrow">Your files</div>
@@ -1082,26 +958,7 @@ function initProcessStepper() {
 }
 document.addEventListener('DOMContentLoaded', initProcessStepper);
 
-/* 3. Six-plex home picker */
-var HOMES = {
-  a: { t: 'Home A, ground floor: 865 ft²', d: '2 bedrooms and 1 bathroom. Open living and dining, a kitchen with island seating, and direct access to the rear deck.' },
-  b: { t: 'Home B, ground floor: 778 ft²', d: '2 bedrooms and 1 bathroom with a bathtub. Open living and dining, and a kitchen with island seating.' },
-  c: { t: 'Home C, ground floor: 382 ft²', d: 'A separate bedroom and 1 bathroom with a shower. Open living and dining, with an integrated kitchen.' },
-  d: { t: 'Home D, upper floor: 865 ft²', d: '2 bedrooms and 1 bathroom. Open living and dining, a kitchen with island seating, and a private rear balcony.' },
-  e: { t: 'Home E, upper floor: 778 ft²', d: '2 bedrooms and 1 bathroom with a bathtub. Open living and dining, and a private front deck.' },
-  f: { t: 'Home F, upper floor: 382 ft²', d: 'A separate bedroom and 1 bathroom with a shower. Open living and dining, and a private front deck.' }
-};
-document.querySelectorAll('button.w-unit').forEach(function(btn) {
-  btn.addEventListener('click', function() {
-    var k = btn.getAttribute('data-home'), h = HOMES[k];
-    document.querySelectorAll('button.w-unit').forEach(function(x) { x.setAttribute('aria-pressed', x === btn ? 'true' : 'false'); });
-    document.getElementById('pp-title').textContent = h.t;
-    document.getElementById('pp-detail').textContent = h.d;
-    document.querySelectorAll('.pp-img').forEach(function(x) { x.hidden = x.getAttribute('data-for') !== k; });
-  });
-});
-
-/* 4. Image viewer: any element with data-img opens the picture full size. */
+/* 3. Image viewer: any element with data-img opens the picture full size. */
 (function setUpViewer() {
   var lb = document.getElementById('lb'), img = document.getElementById('lb-img'), cap = document.getElementById('lb-cap');
   var closeBtn = document.getElementById('lb-close'), opener = null;
