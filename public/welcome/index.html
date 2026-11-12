@@ -245,19 +245,21 @@
   .w-faq summary { cursor: pointer; font-weight: 700; color: var(--teal-deep); padding: 12px 0; min-height: 44px; display: flex; align-items: center; font-size: 15px; }
   .w-faq details p { padding: 0 0 14px; color: #4A625B; font-size: 14.5px; line-height: 1.65; }
 
-  /* your 10 years: tap through the stops */
-  .yr-tabs { display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); gap: 10px; }
-  .yr-tab { all: unset; box-sizing: border-box; cursor: pointer; display: flex; flex-direction: column; align-items: center; gap: 8px; padding: 14px 8px 12px; border-radius: 18px; background: #fff; border: 2px solid #CFDDD5; font-family: 'Montserrat', sans-serif; text-align: center; transition: transform 0.2s, border-color 0.2s, background 0.2s, box-shadow 0.2s; }
-  .yr-tab:hover { border-color: var(--teal-mid); transform: translateY(-2px); }
+  /* your 10 years: a path of six steps */
+  .yr-tabs { position: relative; display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); }
+  .yr-tabs::before, .yr-fill { content: ""; position: absolute; top: 21px; left: calc(100% / 12); height: 4px; border-radius: 4px; }
+  .yr-tabs::before { right: calc(100% / 12); background: rgba(18,61,54,0.16); }
+  .yr-fill { width: 0; background: linear-gradient(90deg, #123D36, #DA8D27); transition: width 0.45s ease; }
+  .yr-tab { all: unset; box-sizing: border-box; cursor: pointer; position: relative; z-index: 1; display: flex; flex-direction: column; align-items: center; gap: 10px; padding: 0 4px; font-family: 'Montserrat', sans-serif; text-align: center; }
   .yr-tab:focus-visible, .yr-next:focus-visible { outline: 3px solid #DA8D27; outline-offset: 3px; }
-  .yr-tab[aria-selected="true"] { background: var(--teal-deep); border-color: var(--teal-deep); box-shadow: 0 12px 26px rgba(18,61,54,0.28); }
-  .yr-num { width: 34px; height: 34px; border-radius: 50%; display: grid; place-items: center; font-weight: 800; font-size: 14px; background: #FFF1DC; color: #9A5A10; transition: background 0.2s, color 0.2s; }
-  .yr-tab[aria-selected="true"] .yr-num { background: #E8A24A; color: var(--teal-deep); }
-  .yr-when { font-size: 13px; font-weight: 800; color: var(--teal-deep); line-height: 1.25; }
-  .yr-tab[aria-selected="true"] .yr-when { color: #fff; }
+  .yr-num { width: 46px; height: 46px; border-radius: 50%; display: grid; place-items: center; font-weight: 800; font-size: 17px; background: #fff; color: var(--teal-deep); border: 3px solid rgba(18,61,54,0.18); transition: all 0.25s; }
+  .yr-tab:hover .yr-num { border-color: var(--teal-mid); }
+  .yr-tab.done .yr-num { background: #1A5C50; border-color: #1A5C50; color: #fff; }
+  .yr-tab[aria-selected="true"] .yr-num { background: var(--teal-deep); border-color: #DA8D27; color: #fff; box-shadow: 0 0 0 7px rgba(218,141,39,0.25); }
+  .yr-when { font-size: 13px; font-weight: 800; line-height: 1.3; color: rgba(18,61,54,0.5); transition: color 0.2s; }
+  .yr-tab.done .yr-when, .yr-tab[aria-selected="true"] .yr-when { color: var(--teal-deep); }
+  .yr-step { display: inline-block; font-size: 11px; font-weight: 800; letter-spacing: 0.14em; text-transform: uppercase; color: var(--teal-deep); background: #E8A24A; padding: 6px 12px; border-radius: 999px; margin-bottom: 16px; }
   .yr-card { position: relative; overflow: hidden; margin-top: 18px; border-radius: 28px; padding: 36px 44px 40px; color: #fff; background: radial-gradient(circle at 92% 8%, rgba(232,162,74,0.42), transparent 42%), radial-gradient(circle at 4% 100%, rgba(232,162,74,0.16), transparent 40%), linear-gradient(135deg, #123D36 0%, #1A5C50 100%); box-shadow: 0 22px 44px rgba(18,61,54,0.28); }
-  .yr-line { height: 6px; border-radius: 6px; background: rgba(255,255,255,0.16); margin-bottom: 30px; overflow: hidden; }
-  .yr-fill { display: block; height: 100%; width: 0; border-radius: 6px; background: linear-gradient(90deg, #E8A24A, #f5c47f); transition: width 0.5s ease; }
   .yr-panels { display: grid; }
   .yr-panel { grid-area: 1 / 1; display: flex; flex-direction: column; gap: 26px; visibility: hidden; }
   .yr-panel.is-active { visibility: visible; animation: yrIn 0.45s ease both; }
@@ -270,8 +272,15 @@
   .yr-cols dd { margin: 0; font-size: 15px; font-weight: 500; line-height: 1.65; color: rgba(255,255,255,0.92); }
   .yr-next { margin-top: 28px; height: 46px; padding: 0 26px; border: 0; border-radius: 999px; background: #E8A24A; color: var(--teal-deep); font-family: 'Montserrat', sans-serif; font-size: 13px; font-weight: 800; letter-spacing: 0.04em; cursor: pointer; transition: background 0.18s, transform 0.18s; }
   .yr-next:hover { background: #f0b269; transform: translateY(-1px); }
-  @media (max-width: 900px) { .yr-tabs { grid-template-columns: repeat(3, minmax(0, 1fr)); } .yr-cols { grid-template-columns: 1fr; } }
-  @media (max-width: 700px) { .yr-card { padding: 26px 22px 30px; border-radius: 22px; } .yr-line { margin-bottom: 22px; } .yr-next { width: 100%; } }
+  @media (max-width: 900px) { .yr-cols { grid-template-columns: 1fr; } }
+  @media (max-width: 700px) { .yr-card { padding: 26px 22px 30px; border-radius: 22px; } .yr-next { width: 100%; } }
+  /* On phones the six steps are numbered circles only; the card underneath names the step. */
+  @media (max-width: 560px) {
+    .yr-tabs::before, .yr-fill { top: 16px; }
+    .yr-num { width: 36px; height: 36px; font-size: 14px; }
+    .yr-tab[aria-selected="true"] .yr-num { box-shadow: 0 0 0 5px rgba(218,141,39,0.25); }
+    .yr-when { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+  }
   @media (prefers-reduced-motion: reduce) { .yr-panel.is-active, .yr-fill, .yr-tab { animation: none !important; transition: none !important; } }
 
   /* files */
@@ -648,6 +657,7 @@
     </div>
     <div class="yr" id="yr-app">
       <div class="yr-tabs" role="tablist" aria-label="Your 10 years, stage by stage">
+        <span class="yr-fill" id="yr-fill" aria-hidden="true"></span>
         <button class="yr-tab" type="button" role="tab" id="yr-tab-0" aria-controls="yr-panel-0" aria-selected="true" tabindex="0"><span class="yr-num">1</span><span class="yr-when">Today</span></button>
         <button class="yr-tab" type="button" role="tab" id="yr-tab-1" aria-controls="yr-panel-1" aria-selected="false" tabindex="-1"><span class="yr-num">2</span><span class="yr-when">Move in</span></button>
         <button class="yr-tab" type="button" role="tab" id="yr-tab-2" aria-controls="yr-panel-2" aria-selected="false" tabindex="-1"><span class="yr-num">3</span><span class="yr-when">Year 2</span></button>
@@ -656,10 +666,9 @@
         <button class="yr-tab" type="button" role="tab" id="yr-tab-5" aria-controls="yr-panel-5" aria-selected="false" tabindex="-1"><span class="yr-num">6</span><span class="yr-when">Year 10</span></button>
       </div>
       <div class="yr-card">
-        <div class="yr-line" aria-hidden="true"><span class="yr-fill" id="yr-fill"></span></div>
         <div class="yr-panels">
           <div class="yr-panel is-active" role="tabpanel" id="yr-panel-0" aria-labelledby="yr-tab-0">
-            <div class="yr-head"><span class="yr-big">Today</span><h3>The webinar and your next conversation</h3></div>
+            <div class="yr-head"><span class="yr-step">Step 1 of 6</span><span class="yr-big">Today</span><h3>The webinar and your next conversation</h3></div>
             <dl class="yr-cols">
               <div><dt>What happens</dt><dd>You learn how the program works and what it means for you.</dd></div>
               <div><dt>What you do</dt><dd>Ask anything. Keep this page. Book a meeting with Sabrina.</dd></div>
@@ -667,7 +676,7 @@
             </dl>
           </div>
           <div class="yr-panel" role="tabpanel" id="yr-panel-1" aria-labelledby="yr-tab-1">
-            <div class="yr-head"><span class="yr-big">Move in</span><h3>Move in</h3></div>
+            <div class="yr-head"><span class="yr-step">Step 2 of 6</span><span class="yr-big">Move in</span><h3>Move in</h3></div>
             <dl class="yr-cols">
               <div><dt>What happens</dt><dd>You move into your new home under the Occupancy Agreement.</dd></div>
               <div><dt>What you do</dt><dd>Pay your monthly occupancy contributions and settle in.</dd></div>
@@ -675,7 +684,7 @@
             </dl>
           </div>
           <div class="yr-panel" role="tabpanel" id="yr-panel-2" aria-labelledby="yr-tab-2">
-            <div class="yr-head"><span class="yr-big">Year 2</span><h3>The home gets its own title</h3></div>
+            <div class="yr-head"><span class="yr-step">Step 3 of 6</span><span class="yr-big">Year 2</span><h3>The home gets its own title</h3></div>
             <dl class="yr-cols">
               <div><dt>What happens</dt><dd>The program is designed so that you are offered the Ownership Agreement in Year 2, once your home has its own title.</dd></div>
               <div><dt>What you do</dt><dd>Read it with your own lawyer, then sign.</dd></div>
@@ -683,7 +692,7 @@
             </dl>
           </div>
           <div class="yr-panel" role="tabpanel" id="yr-panel-3" aria-labelledby="yr-tab-3">
-            <div class="yr-head"><span class="yr-big">Years 1 to 8</span><h3>Get mortgage-ready</h3></div>
+            <div class="yr-head"><span class="yr-step">Step 4 of 6</span><span class="yr-big">Years 1 to 8</span><h3>Get mortgage-ready</h3></div>
             <dl class="yr-cols">
               <div><dt>What happens</dt><dd>You build a strong payment track record and get ready to apply for a mortgage.</dd></div>
               <div><dt>What you do</dt><dd>Use the free courses in the Homeownership Academy.</dd></div>
@@ -691,7 +700,7 @@
             </dl>
           </div>
           <div class="yr-panel" role="tabpanel" id="yr-panel-4" aria-labelledby="yr-tab-4">
-            <div class="yr-head"><span class="yr-big">Year 9</span><h3>Talk to mortgage partners</h3></div>
+            <div class="yr-head"><span class="yr-step">Step 5 of 6</span><span class="yr-big">Year 9</span><h3>Talk to mortgage partners</h3></div>
             <dl class="yr-cols">
               <div><dt>What happens</dt><dd>Early conversations with mortgage partners, and support with your mortgage application.</dd></div>
               <div><dt>What you do</dt><dd>Gather your papers and apply, with our support.</dd></div>
@@ -699,7 +708,7 @@
             </dl>
           </div>
           <div class="yr-panel" role="tabpanel" id="yr-panel-5" aria-labelledby="yr-tab-5">
-            <div class="yr-head"><span class="yr-big">Year 10</span><h3>Complete your purchase</h3></div>
+            <div class="yr-head"><span class="yr-step">Step 6 of 6</span><span class="yr-big">Year 10</span><h3>Complete your purchase</h3></div>
             <dl class="yr-cols">
               <div><dt>What happens</dt><dd>IGVhope is designed to help you be ready to complete your purchase and move to your own mortgage. Legal title transfers to you, and the home and any change in its value become yours.</dd></div>
               <div><dt>What you do</dt><dd>Complete your purchase with your own mortgage.</dd></div>
@@ -1114,17 +1123,21 @@ document.addEventListener('DOMContentLoaded', initProcessStepper);
   var tabs = Array.prototype.slice.call(root.querySelectorAll('.yr-tab'));
   var panels = Array.prototype.slice.call(root.querySelectorAll('.yr-panel'));
   var names = ['Today', 'Move in', 'Year 2', 'Years 1 to 8', 'Year 9', 'Year 10'];
+  var TICK = '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="5 12 10 17 19 7"/></svg>';
   var nextBtn = document.getElementById('yr-next');
   var fill = document.getElementById('yr-fill');
   var cur = 0;
   function show(i, focus) {
     cur = Math.max(0, Math.min(tabs.length - 1, i));
     tabs.forEach(function(t, n) {
+      t.classList.toggle('done', n < cur);
       t.setAttribute('aria-selected', n === cur ? 'true' : 'false');
       t.tabIndex = n === cur ? 0 : -1;
+      t.querySelector('.yr-num').innerHTML = n < cur ? TICK : String(n + 1);
     });
     panels.forEach(function(p, n) { p.classList.toggle('is-active', n === cur); });
-    fill.style.width = (cur === 0 ? 6 : (cur / (tabs.length - 1)) * 100) + '%';
+    /* The line runs between the first and last circle, which sit half a column in from each edge. */
+    fill.style.width = 'calc(' + (cur / (tabs.length - 1)) + ' * (100% - 100% / ' + tabs.length + '))';
     nextBtn.textContent = cur === tabs.length - 1 ? 'Start over' : 'Next: ' + names[cur + 1];
     if (focus) tabs[cur].focus();
   }
