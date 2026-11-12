@@ -85,6 +85,8 @@
   @media (max-width: 1024px) { #nav-burger { display: flex; } }
   #mobile-nav-panel { display: none; flex-direction: column; position: absolute; top: 100%; left: 0; right: 0; background: #1a4848; padding: 10px 32px 24px; box-shadow: 0 12px 24px rgba(0,0,0,0.18); z-index: 400; gap: 4px; }
   #mobile-nav-panel.open { display: flex; }
+  /* Log in is the last link before the Find Your Home button, so it gets no line under it. */
+  #mobile-nav-panel #mobile-nav-login-link { border-bottom: none; }
   #mobile-nav-panel a { color: rgba(255,255,255,0.85); font-size: 14px; font-weight: 500; padding: 14px 0; border-bottom: 1px solid rgba(255,255,255,0.1); }
   #mobile-nav-panel .nav-cta { margin-top: 14px; width: 100%; }
 
