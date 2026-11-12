@@ -172,23 +172,7 @@
   .w-glance b { font-size: 16px; font-weight: 800; color: var(--teal-deep); }
   .w-glance span { font-size: 13.5px; font-weight: 500; color: #4A625B; line-height: 1.5; }
 
-  /* process */
-  .w-process { list-style: none; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 28px; position: relative; margin-top: 8px; }
-  .w-process::before { content: ""; position: absolute; left: 18px; right: calc((100% - 56px) / 3 - 18px); top: 17px; height: 2px; background: #DA8D27; }
-  .w-process li { position: relative; display: flex; flex-direction: column; gap: 14px; }
-  .w-pnum { width: 36px; height: 36px; border-radius: 50%; background: var(--teal-deep); color: #fff; font-weight: 800; display: flex; align-items: center; justify-content: center; position: relative; z-index: 1; box-shadow: 0 0 0 5px #fff; }
-  .w-sec.tint .w-pnum { box-shadow: 0 0 0 5px #E3EDE6; }
-  .w-process h3 { display: flex; align-items: center; gap: 8px; font-size: 22px; font-weight: 800; color: var(--teal-deep); margin-bottom: 6px; }
-  .w-process p { font-size: 15px; font-weight: 500; line-height: 1.6; }
   .w-ico { width: 22px; height: 22px; flex: none; color: #DA8D27; }
-  .w-process details { margin-top: 10px; }
-  .w-process summary { cursor: pointer; font-weight: 700; color: var(--teal-mid); min-height: 36px; display: inline-flex; align-items: center; font-size: 14px; }
-  .w-process details p { color: #4A625B; font-size: 14.5px; margin-top: 4px; }
-  @media (max-width: 760px) {
-    .w-process { grid-template-columns: 1fr; gap: 24px; }
-    .w-process::before { left: 17px; right: auto; top: 18px; bottom: 18px; width: 2px; height: auto; }
-    .w-process li { flex-direction: row; align-items: flex-start; gap: 16px; }
-  }
 
   /* zoomable images, illustrations, plans */
   .w-zoom { display: block; width: 100%; padding: 0; border: 1px solid #CFDDD5; background: #fff; border-radius: 14px; overflow: hidden; cursor: zoom-in; text-align: left; font: inherit; color: inherit; }
@@ -299,6 +283,66 @@
   .w-files .kind { font-size: 11px; font-weight: 800; letter-spacing: 0.08em; text-transform: uppercase; color: #9A5A10; }
   .w-files b { font-size: 15px; font-weight: 700; color: var(--teal-deep); }
   @media (max-width: 560px) { .w-files { grid-template-columns: 1fr; } }
+
+/* ---- The IGVhope Process: one step at a time (rail, evergreen card, house that builds) ---- */
+.proc-section { background: #E3EDE6; position: relative; overflow: hidden; padding: 72px 0 80px; }
+.proc-wrap { position: relative; z-index: 1; max-width: 1100px; margin: 0 auto; padding: 0 32px; }
+.proc-eyebrow { text-align: center; font-size: 11px; font-weight: 800; letter-spacing: 0.16em; text-transform: uppercase; color: #8a8a7e; margin-bottom: 14px; }
+.proc-head h2 { text-align: center; font-family: 'Montserrat', sans-serif; font-size: 28px; font-weight: 800; color: #123D36; letter-spacing: -0.01em; margin: 0; }
+.proc-rail { position: relative; margin-top: 44px; display: grid; grid-template-columns: repeat(3, 1fr); }
+.proc-rail-track, .proc-rail-fill { position: absolute; top: 25px; left: 16.667%; height: 4px; border-radius: 4px; }
+.proc-rail-track { right: 16.667%; background: rgba(18,61,54,0.16); }
+.proc-rail-fill { width: 0; background: linear-gradient(90deg, #123D36, #da8d27); transition: width 0.45s ease; }
+.proc-node { all: unset; box-sizing: border-box; cursor: pointer; display: flex; flex-direction: column; align-items: center; gap: 12px; padding: 0 8px; position: relative; z-index: 1; font-family: 'Montserrat', sans-serif; }
+.proc-dot { width: 54px; height: 54px; border-radius: 50%; display: grid; place-items: center; font-weight: 800; font-size: 18px; background: #fff; color: #123D36; border: 3px solid rgba(18,61,54,0.18); transition: all 0.25s; }
+.proc-node.done .proc-dot { background: #1A5C50; border-color: #1A5C50; color: #fff; }
+.proc-node[aria-selected="true"] .proc-dot { background: #123D36; border-color: #da8d27; color: #fff; box-shadow: 0 0 0 7px rgba(218,141,39,0.25); }
+.proc-nlabel { font-size: 20px; font-weight: 800; color: rgba(18,61,54,0.45); transition: color 0.2s; }
+.proc-node[aria-selected="true"] .proc-nlabel, .proc-node.done .proc-nlabel { color: #123D36; }
+.proc-node:focus-visible, .proc-arrow:focus-visible, .proc-go:focus-visible { outline: 3px solid #da8d27; outline-offset: 3px; }
+.proc-card { margin-top: 32px; position: relative; overflow: hidden; background: #123D36; color: #fff; border-radius: 26px; box-shadow: 0 22px 44px rgba(18,61,54,0.28); min-height: 480px; padding: 44px 44px 40px; display: flex; flex-direction: column; gap: 18px; }
+.proc-ghost { position: absolute; z-index: 0; right: 24px; top: -12px; font-size: clamp(140px, 19vw, 220px); font-weight: 800; line-height: 0.8; color: rgba(255,255,255,0.06); pointer-events: none; user-select: none; }
+.proc-house { position: absolute; z-index: 0; right: -60px; bottom: 39px; width: min(580px, 52%); pointer-events: none; }
+.proc-house svg { display: block; width: 100%; height: auto; overflow: visible; }
+.proc-house .g { transition: opacity 0.5s ease; }
+.proc-house .stroke { fill: none; stroke: #E3EDE6; stroke-width: 4; stroke-linecap: round; stroke-linejoin: round; }
+.proc-house .lit { fill: #E8A24A; stroke: #E3EDE6; stroke-width: 4; stroke-linejoin: round; }
+.proc-house .heart { fill: #E8A24A; }
+.proc-house .ground { stroke: rgba(227,237,230,0.35); stroke-width: 3; stroke-linecap: round; }
+.proc-copy { position: relative; z-index: 1; max-width: min(430px, 47%); flex: 1; display: grid; align-content: start; }
+/* All three panels occupy the same grid cell; only the active one is visible, so the card height is the tallest step's and never changes. */
+.proc-panel { grid-area: 1 / 1; display: flex; flex-direction: column; gap: 18px; visibility: hidden; }
+.proc-panel.is-active { visibility: visible; }
+.proc-panel.swap { animation: procSwap 0.35s ease both; }
+@keyframes procSwap { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: none; } }
+.proc-chip { display: inline-block; font-size: 11px; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: #123D36; background: #E8A24A; padding: 6px 12px; border-radius: 999px; white-space: nowrap; }
+.proc-verb { font-size: 40px; font-weight: 700; letter-spacing: -0.01em; line-height: 1.18; color: #E8A24A; }
+.proc-lead { font-size: 19px; font-weight: 600; line-height: 1.4; color: #fff; margin: 0; }
+.proc-pts { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 12px; color: rgba(255,255,255,0.84); }
+.proc-pts li { position: relative; padding-left: 26px; font-size: 14px; line-height: 1.6; }
+.proc-pts li::before { content: ''; position: absolute; left: 0; top: 7px; width: 12px; height: 7px; border-left: 2.5px solid #E8A24A; border-bottom: 2.5px solid #E8A24A; transform: rotate(-45deg); }
+.proc-foot { position: relative; z-index: 1; display: flex; align-items: center; gap: 10px; margin-top: auto; }
+.proc-arrow { width: 44px; height: 44px; border-radius: 50%; border: 2px solid #E3EDE6; background: #E3EDE6; color: #123D36; cursor: pointer; display: grid; place-items: center; flex-shrink: 0; padding: 0; transition: background 0.2s, border-color 0.2s; }
+.proc-arrow:hover:not(:disabled) { background: #fff; border-color: #fff; }
+.proc-arrow:disabled { opacity: 0.35; cursor: default; }
+.proc-go { height: 44px; min-width: 128px; padding: 0 22px; background: #E8A24A; color: #123D36; border: 0; border-radius: 999px; font-family: 'Montserrat', sans-serif; font-weight: 700; font-size: 13px; cursor: pointer; white-space: nowrap; }
+.proc-go:hover { background: #f0b25f; }
+@media (max-width: 860px) {
+  .proc-section { padding: 48px 0 80px; }
+  .proc-wrap { padding: 0 16px; }
+  .proc-nlabel { font-size: 15px; }
+  .proc-dot { width: 46px; height: 46px; font-size: 16px; }
+  .proc-rail-track, .proc-rail-fill { top: 21px; }
+  .proc-card { padding: 26px 20px; min-height: 0; }
+  .proc-copy { max-width: 100%; }
+  .proc-ghost { font-size: 130px; right: 8px; top: -8px; }
+  .proc-house { position: relative; right: auto; bottom: auto; width: 100%; max-width: 320px; order: 3; }
+  /* The drawing's roof starts ~1/4 of the way down its frame; pull it up over that blank band */
+  .proc-house svg { margin-top: -18%; }
+  .proc-foot { order: 4; }
+}
+@media (prefers-reduced-motion: reduce) { .proc-card *, .proc-rail-fill, .proc-dot { transition: none !important; animation: none !important; } }
+  #how { scroll-margin-top: 76px; }
 
   /* closing call to action */
   .w-final { background: radial-gradient(circle at 85% 0%, rgba(232,162,74,0.10), transparent 45%), linear-gradient(165deg, var(--teal-deep) 0%, #0d2b25 70%); padding: 84px 0; text-align: center; scroll-margin-top: 76px; }
@@ -455,40 +499,56 @@
   </div>
 </section>
 
-<!-- ================= HOW IGVHOPE WORKS ================= -->
-<section class="w-sec tint" id="how">
-  <div class="wrap">
-    <div class="w-sec-head">
-      <div class="w-eyebrow">The program</div>
-      <h2>How IGVhope works</h2>
-      <p class="w-lede">Three simple steps. One clear process to ownership.</p>
+<!-- ================= HOW IGVHOPE WORKS (same stepper as the homepage) ================= -->
+<section class="proc-section" id="how">
+  <div class="proc-wrap">
+    <div class="proc-head">
+      <div class="proc-eyebrow">The IGVhope Process</div>
+      <h2>Three simple steps. One clear process to ownership.</h2>
     </div>
-    <ol class="w-process">
-      <li>
-        <span class="w-pnum">1</span>
-        <div>
-          <h3><svg class="w-ico" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="11" width="14" height="9" rx="2"></rect><path d="M8 11V8a4 4 0 0 1 8 0v3"></path></svg>Secure</h3>
-          <p>IGVhope is designed to hold your price steady, even if the market moves.</p>
-          <details><summary>See more</summary><p>Move into a brand-new home with no down payment required. When your home is ready to move in, an independent valuation holds the purchase price. The IGVhope program is built so that when your home becomes available to purchase, the price is held at that valuation, not the market price years later.</p></details>
+    <div class="proc-rail" role="tablist" aria-label="The IGVhope Process">
+      <span class="proc-rail-track"></span><span class="proc-rail-fill" id="proc-fill"></span>
+      <button class="proc-node" role="tab" id="proc-tab-0" aria-controls="proc-panel-0" data-step="0" aria-selected="true" tabindex="0"><span class="proc-dot">1</span><span class="proc-nlabel">Secure</span></button>
+      <button class="proc-node" role="tab" id="proc-tab-1" aria-controls="proc-panel-1" data-step="1" aria-selected="false" tabindex="-1"><span class="proc-dot">2</span><span class="proc-nlabel">Live</span></button>
+      <button class="proc-node" role="tab" id="proc-tab-2" aria-controls="proc-panel-2" data-step="2" aria-selected="false" tabindex="-1"><span class="proc-dot">3</span><span class="proc-nlabel">Own</span></button>
+    </div>
+    <div class="proc-card">
+      <div class="proc-ghost" id="proc-ghost" aria-hidden="true">1</div>
+      <div class="proc-house" aria-hidden="true"><svg viewBox="0 0 320 270" focusable="false"><line class="ground" x1="18" y1="268" x2="302" y2="268"/><g class="g" data-g="0"><rect class="stroke" x="58" y="246" width="204" height="22" rx="3"/><line class="stroke" x1="100" y1="246" x2="100" y2="268"/><line class="stroke" x1="220" y1="246" x2="220" y2="268"/></g><g class="g" data-g="1"><rect class="stroke" x="70" y="150" width="180" height="96"/><rect class="stroke" x="146" y="188" width="30" height="58" rx="2"/><rect class="lit" x="94" y="174" width="34" height="34" rx="2"/><rect class="lit" x="192" y="174" width="34" height="34" rx="2"/></g><g class="g" data-g="2"><path class="stroke" d="M52 152 L160 66 L268 152"/><path class="stroke" d="M206 102.6V84h22v36.1"/><path class="heart" d="M160 140c-14-9-22-17-22-26a11 11 0 0 1 22-3 11 11 0 0 1 22 3c0 9-8 17-22 26z"/></g></svg></div>
+      <div class="proc-copy">
+        <div class="proc-panel is-active" role="tabpanel" id="proc-panel-0" aria-labelledby="proc-tab-0">
+          <div><span class="proc-chip">At move-in</span></div>
+          <div class="proc-verb">Secure</div>
+          <p class="proc-lead">IGVhope holds the purchase price even if the market changes over the 10-year term.</p>
+          <ul class="proc-pts">
+            <li>Move into a brand-new home with no down payment required.</li>
+            <li>When your home is ready to move into, an independent valuation establishes your agreed purchase price.</li>
+            <li>IGVhope is designed to protect that price for the ten-year term, giving you certainty even if the market moves.</li>
+          </ul>
         </div>
-      </li>
-      <li>
-        <span class="w-pnum">2</span>
-        <div>
-          <h3><svg class="w-ico" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 11l8-6 8 6"></path><path d="M6 10v9h12v-9"></path><path d="M10 19v-5h4v5"></path></svg>Live</h3>
-          <p>Move in to your brand new home. Clear monthly payments and security.</p>
-          <details><summary>See more</summary><p>You pay a predictable monthly occupancy contribution, with annual increases capped, so you know what to expect. During the ten years, your home is held by a not-for-profit housing association. While you live there, we help you prepare for homeownership through annual check-ins, lending partner support, and the Homeownership Academy.</p></details>
+        <div class="proc-panel" role="tabpanel" id="proc-panel-1" aria-labelledby="proc-tab-1">
+          <div><span class="proc-chip">Years 1 to 10</span></div>
+          <div class="proc-verb">Live</div>
+          <p class="proc-lead">Move into your brand-new home now while you prepare for ownership.</p>
+          <ul class="proc-pts">
+            <li>During the ten-year term, your home is held by a not-for-profit housing association.</li>
+            <li>Pay a monthly occupancy contribution, with annual increases capped under your agreement.</li>
+            <li>IGVhope supports your preparation for homeownership through annual check-ins, lending partner support and the Homeownership Academy.</li>
+          </ul>
         </div>
-      </li>
-      <li>
-        <span class="w-pnum">3</span>
-        <div>
-          <h3><svg class="w-ico" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="8" cy="14" r="3.5"></circle><path d="M10.5 11.5L19 3"></path><path d="M16 6l2 2"></path></svg>Own</h3>
-          <p>Work toward your own mortgage, completing your purchase at year ten at your agreed price.</p>
-          <details><summary>See more</summary><p>The market may change, but your agreed purchase price is held for the ten-year term. Along the way, IGVhope helps you build a strong payment history and prepare for your transition to your mortgage. When your mortgage is in place at Year 10, title transfers to you, and you then own your home.</p></details>
+        <div class="proc-panel" role="tabpanel" id="proc-panel-2" aria-labelledby="proc-tab-2">
+          <div><span class="proc-chip">Year 10</span></div>
+          <div class="proc-verb">Own</div>
+          <p class="proc-lead">Build toward your own mortgage and complete your purchase at the held price in year 10.</p>
+          <ul class="proc-pts">
+            <li>Your agreed purchase price is protected throughout the ten-year term, regardless of changes in market value.</li>
+            <li>IGVhope helps you build a strong payment history and prepare for your mortgage.</li>
+            <li>When your mortgage is in place at Year 10, title transfers to you and you own your home.</li>
+          </ul>
         </div>
-      </li>
-    </ol>
+      </div>
+      <div class="proc-foot"><button class="proc-arrow" id="proc-prev" aria-label="Previous step" disabled><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="15 18 9 12 15 6"/></svg></button><button class="proc-arrow" id="proc-next" aria-label="Next step"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg></button><button class="proc-go" id="proc-go" type="button">Next: Live</button></div>
+    </div>
   </div>
 </section>
 
@@ -695,8 +755,8 @@
     <h2>Ready for your next step?</h2>
     <p>Talk it through with Sabrina, and join the IGVhope Community to start gaining access to benefits while you wait for homes to come online in your area.</p>
     <div class="w-final-btns">
-      <a class="w-btn w-btn-orange js-book" href="mailto:support@igvhope.com?subject=Book%20a%20meeting%20with%20Sabrina">Book a meeting with Sabrina</a>
-      <a class="w-btn w-btn-line" href="#join" id="join-jump">Join the IGVhope Community</a>
+      <a class="w-btn w-btn-orange" href="#join" id="join-jump">Join the IGVhope Community</a>
+      <a class="w-btn w-btn-line js-book" href="mailto:support@igvhope.com?subject=Book%20a%20meeting%20with%20Sabrina">Book a meeting with Sabrina</a>
     </div>
     <small>Take the time you need. Talk it over with the people you trust.</small>
   </div>
@@ -975,6 +1035,52 @@ function submitToHubspot(formGuid, fields) {
     setTimeout(function() { if (document.getElementById('join-form-wrap').style.display !== 'none') input.focus({ preventScroll: true }); }, 500);
   });
 })();
+
+/* The IGVhope Process: one step at a time. Rail, panels, house stages and the Next button all follow one step index. */
+function initProcessStepper() {
+  var root = document.getElementById('how');
+  if (!root) return;
+  var tabs = Array.prototype.slice.call(root.querySelectorAll('.proc-node'));
+  var panels = Array.prototype.slice.call(root.querySelectorAll('.proc-panel'));
+  var names = ['Secure', 'Live', 'Own'];
+  var cur = 0;
+  var TICK = '<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="5 12 10 17 19 7"/></svg>';
+  function show(i, animate, focus) {
+    cur = Math.max(0, Math.min(tabs.length - 1, i));
+    tabs.forEach(function (t, n) {
+      t.classList.toggle('done', n < cur);
+      t.setAttribute('aria-selected', n === cur ? 'true' : 'false');
+      t.tabIndex = n === cur ? 0 : -1;
+      t.querySelector('.proc-dot').innerHTML = n < cur ? TICK : String(n + 1);
+    });
+    panels.forEach(function (p, n) {
+      p.classList.toggle('is-active', n === cur);
+      p.classList.remove('swap');
+      if (animate && n === cur) { void p.offsetWidth; p.classList.add('swap'); }
+    });
+    root.querySelector('#proc-fill').style.width = 'calc(' + (cur / (tabs.length - 1)) + ' * 66.667%)';
+    root.querySelector('#proc-ghost').textContent = String(cur + 1);
+    root.querySelectorAll('.proc-house .g').forEach(function (g) { g.style.opacity = (+g.getAttribute('data-g') <= cur) ? 1 : 0.14; });
+    root.querySelector('#proc-prev').disabled = cur === 0;
+    root.querySelector('#proc-next').disabled = cur === tabs.length - 1;
+    root.querySelector('#proc-go').textContent = cur === tabs.length - 1 ? 'Start over' : 'Next: ' + names[cur + 1];
+    if (focus) tabs[cur].focus();
+  }
+  tabs.forEach(function (t, n) {
+    t.addEventListener('click', function () { show(n, true, false); });
+    t.addEventListener('keydown', function (e) {
+      var d = (e.key === 'ArrowRight' || e.key === 'ArrowDown') ? 1 : (e.key === 'ArrowLeft' || e.key === 'ArrowUp') ? -1 : 0;
+      if (!d) return;
+      e.preventDefault();
+      show((cur + d + tabs.length) % tabs.length, false, true);
+    });
+  });
+  root.querySelector('#proc-prev').addEventListener('click', function () { show(cur - 1, true, false); });
+  root.querySelector('#proc-next').addEventListener('click', function () { show(cur + 1, true, false); });
+  root.querySelector('#proc-go').addEventListener('click', function () { show(cur === tabs.length - 1 ? 0 : cur + 1, true, false); });
+  show(0, false, false);
+}
+document.addEventListener('DOMContentLoaded', initProcessStepper);
 
 /* 3. Six-plex home picker */
 var HOMES = {
