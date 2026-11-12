@@ -1218,6 +1218,7 @@ function handleGate1Submit(e) {
 
   var marketingInput = document.getElementById('gate1-marketing');
   var marketingChecked = !!(marketingInput && marketingInput.checked);
+  setSessionSavedMessage(marketingChecked);
 
   if (!isBot) {
     gate1SubmissionPromise = submitToHubspot(HUBSPOT_GATE1_FORM_GUID, [
@@ -1263,6 +1264,16 @@ function handleGate1Submit(e) {
   /* Offer the free webinar first, then carry on with the usual next popup. */
   if (!isBot && webinarOfferAvailable()) openWebinarOffer(afterGate1);
   else afterGate1();
+}
+
+/* Says what they signed up for: release updates if they ticked the marketing box, otherwise just that their details are saved. */
+function setSessionSavedMessage(subscribed) {
+  var titleEl = document.getElementById('session-saved-title');
+  var subEl = document.getElementById('session-saved-sub');
+  if (titleEl) titleEl.textContent = subscribed ? "You're subscribed!" : "You're all set";
+  if (subEl) subEl.textContent = subscribed
+    ? "Thanks for signing up. We'll email you the moment new IGVhope homes become available."
+    : "Thanks, we've saved your details under this email address.";
 }
 
 function openSessionSavedPopup() {
@@ -1616,7 +1627,7 @@ elevenlabs-convai {
       <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#1A5C50" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="display:block;"><polyline points="20 6 9 17 4 12"/></svg>
     </div>
     <div id="session-saved-title">You're all set</div>
-    <div id="session-saved-sub">We've saved your details under this email address, so nothing gets lost. Just enter your email next time to get a secure sign-in link.</div>
+    <div id="session-saved-sub">Thanks, we've saved your details under this email address.</div>
     <button id="session-saved-btn" onclick="closeSessionSavedPopup()">Got it, keep browsing</button>
   </div>
 </div>
