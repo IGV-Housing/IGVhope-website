@@ -344,7 +344,8 @@
   /* Homes: the homepage's four home tiles, each opening its sales brochure. */
   .w-homes { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 16px; margin-top: 32px; }
   .w-homes + .w-vids { margin-top: 44px; }
-  .w-home { display: flex; flex-direction: column; border-radius: 16px; overflow: hidden; background: #123D36; color: #fff; text-decoration: none; box-shadow: 0 6px 18px rgba(18,61,54,0.22); transition: transform 0.2s ease, box-shadow 0.2s ease; }
+  /* position: relative keeps the hidden "(opens in a new tab)" text inside each card, so it never widens the page on phones */
+  .w-home { position: relative; display: flex; flex-direction: column; border-radius: 16px; overflow: hidden; background: #123D36; color: #fff; text-decoration: none; box-shadow: 0 6px 18px rgba(18,61,54,0.22); transition: transform 0.2s ease, box-shadow 0.2s ease; }
   .w-home:hover { transform: translateY(-3px); box-shadow: 0 14px 30px rgba(18,61,54,0.32); }
   .w-home:focus-visible { outline: 3px solid #E8A24A; outline-offset: 3px; }
   .w-home-img { position: relative; display: flex; align-items: flex-end; height: 170px; padding: 10px 12px; background-size: cover; background-position: center; }
