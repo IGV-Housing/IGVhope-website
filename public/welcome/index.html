@@ -162,6 +162,9 @@
   .w-join .hint { font-size: 12.5px; font-weight: 500; color: #5b6b67; line-height: 1.55; margin-top: 8px; }
   .w-join .err { display: none; font-size: 12.5px; font-weight: 600; color: #C0392B; margin-top: 8px; }
   .w-join .err.show { display: block; }
+  /* Not a mistake in the form, just what happens next (contact support, sign in, use your invitation) */
+  .w-join .err.note { color: var(--teal-deep); font-weight: 500; background: #EEF5F2; border-radius: 10px; padding: 12px 14px; line-height: 1.55; }
+  .w-join .err a { color: var(--teal-deep); font-weight: 700; text-decoration: underline; text-underline-offset: 2px; }
   .w-join .w-btn { width: 100%; margin-top: 16px; }
   .w-join-done { display: none; text-align: center; padding: 8px 0; }
   .w-join-done.show { display: block; }
@@ -169,7 +172,6 @@
   .w-join-done h3 { font-size: 20px; font-weight: 800; color: var(--teal-deep); }
   .w-join-done p { margin-top: 8px; }
   .w-join-done strong { word-break: break-all; color: var(--teal-deep); }
-  .w-join-done-link { font-weight: 700; color: var(--teal-deep); text-decoration: underline; text-underline-offset: 3px; }
   @media (max-width: 900px) { .w-hero-grid { grid-template-columns: 1fr; gap: 36px; } .w-hero { padding: 56px 0; } }
   @media (max-width: 560px) { .w-join { padding: 24px 20px; } }
 
@@ -685,9 +687,9 @@
         </div>
         <div class="w-join-done" id="join-done" aria-live="polite">
           <div class="tick"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#1A5C50" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></div>
-          <h3>You're on your way</h3>
-          <p>We've opened <span class="keep-case">myIGVhope</span> in a new tab so you can finish signing up with <strong id="join-done-email"></strong>.</p>
-          <p><a id="join-done-link" class="w-join-done-link" href="https://my.igvhope.com/join" target="_blank" rel="noopener">Didn't open? Continue to <span class="keep-case">myIGVhope</span> &rarr;</a></p>
+          <h3>Check your email</h3>
+          <p>We've sent your <span class="keep-case">myIGVhope</span> account creation email to <strong id="join-done-email"></strong>. Open it and choose a password to join.</p>
+          <p>If it doesn't arrive within a few minutes, please check your spam folder.</p>
         </div>
       </div>
     </div>
@@ -1304,16 +1306,26 @@ var SABRINA_MEETING_URL = 'REPLACE_WITH_SABRINA_MEETING_URL';
 })();
 
 /* 2. Join myIGVhope.
-   Visitors enter their email and are sent to the myIGVhope sign-up page in a new tab, with the email passed along.
-   The platform then tells HubSpot to move them to the Advocacy stage, so the website itself sends nothing to HubSpot.
-   MYIGVHOPE_SIGNUP_URL is the sign-up page; MYIGVHOPE_EMAIL_PARAM is the name the platform reads the email from. */
-var MYIGVHOPE_SIGNUP_URL = 'https://my.igvhope.com/join';
-var MYIGVHOPE_EMAIL_PARAM = 'email';
+   Visitors enter their email and the page asks the myIGVhope platform (MYIGVHOPE_JOIN_URL). If their HubSpot contact has
+   a completed Gate 3, the platform sends them the IGVhope Account Creation email; they open it and choose a password, and
+   the platform moves them to Advocacy in HubSpot. Otherwise nothing is sent and they're told what to do instead. The
+   website itself sends nothing to HubSpot. */
+var MYIGVHOPE_JOIN_URL = 'https://my.igvhope.com/api/portal/welcome-join';
+var SUPPORT_LINK = '<a href="mailto:support@igvhope.com">support@igvhope.com</a>';
+var JOIN_MESSAGES = {
+  support: "We couldn't find completed details for this email. Please contact " + SUPPORT_LINK + " and we'll help you join.",
+  signin: 'You already have a <span class="keep-case">myIGVhope</span> account. <a href="https://my.igvhope.com" target="_blank" rel="noopener">Sign in at my.igvhope.com</a>, or use Forgot password there if you need to.',
+  invited: "We've already sent you an invitation to <span class=\"keep-case\">myIGVhope</span>. Use the link in that email to set up your account, or contact " + SUPPORT_LINK + '.',
+  wait: "We've just emailed you. Please wait a minute before trying again.",
+  closed: 'Joining <span class="keep-case">myIGVhope</span> online isn\'t open just now. Please contact ' + SUPPORT_LINK + '.'
+};
 
 (function setUpJoinForm() {
   var form = document.getElementById('join-form');
   var input = document.getElementById('join-email');
   var errorEl = document.getElementById('join-error');
+  var btn = document.getElementById('join-btn');
+  var btnHtml = btn.innerHTML;
 
   /* Returning visitors: fill in the email they already gave us on the site. */
   try {
@@ -1321,32 +1333,45 @@ var MYIGVHOPE_EMAIL_PARAM = 'email';
     if (saved) input.value = saved;
   } catch (e) {}
 
-  function signupLink(email) {
-    var url = new URL(MYIGVHOPE_SIGNUP_URL);
-    if (MYIGVHOPE_EMAIL_PARAM) url.searchParams.set(MYIGVHOPE_EMAIL_PARAM, email);
-    return url.toString();
-  }
-
-  function showDone(email, link) {
+  function showDone(email) {
     document.getElementById('join-done-email').textContent = email;
-    document.getElementById('join-done-link').setAttribute('href', link);
     document.getElementById('join-form-wrap').style.display = 'none';
     document.getElementById('join-done').classList.add('show');
+  }
+  /* note: what happens next (not a mistake); otherwise an error. html is one of this page's own messages. */
+  function showMessage(html, note) {
+    errorEl.innerHTML = html;
+    errorEl.classList.add('show');
+    errorEl.classList.toggle('note', !!note);
+  }
+  function busy(on) {
+    btn.disabled = on;
+    btn.innerHTML = on ? 'Checking...' : btnHtml;
   }
 
   form.addEventListener('submit', function(e) {
     e.preventDefault();
     var email = input.value.trim();
     var valid = email.length > 0 && input.checkValidity();
-    errorEl.textContent = 'Please enter a valid email address.';
-    errorEl.classList.toggle('show', !valid);
+    errorEl.classList.remove('show', 'note');
     input.classList.toggle('invalid', !valid);
-    if (!valid) return;
+    if (!valid) { showMessage('Please enter a valid email address.'); return; }
 
     try { localStorage.setItem('igvhope_visitor_email', email); } catch (err) {}
-    var link = signupLink(email);
-    window.open(link, '_blank', 'noopener');
-    showDone(email, link);
+    busy(true);
+    fetch(MYIGVHOPE_JOIN_URL, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ email: email }) })
+      .then(function(res) { return res.json().catch(function() { return {}; }); })
+      .then(function(data) {
+        busy(false);
+        if (data.status === 'sent') { showDone(email); return; }
+        if (JOIN_MESSAGES[data.status]) { showMessage(JOIN_MESSAGES[data.status], true); return; }
+        if (data.status === 'email') { input.classList.add('invalid'); showMessage('Please enter a valid email address.'); return; }
+        showMessage("Sorry, we couldn't check your details just now. Please try again in a moment.");
+      })
+      .catch(function() {
+        busy(false);
+        showMessage("Sorry, we couldn't check your details just now. Please check your connection and try again.");
+      });
   });
 
   /* The closing button, and the 'Join myIGVhope' step in Your 10 years, take people back up to the form and put the cursor in it. */
