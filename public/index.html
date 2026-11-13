@@ -45,6 +45,8 @@
  background: #F0EDE6;
  font-family: 'Montserrat', sans-serif;
  }
+  /* Brand names keep their own capitals inside labels and buttons set to all caps (myIGVhope, not MYIGVHOPE). */
+  .keep-case { text-transform: none; }
 </style>
 
 <script>
@@ -1872,7 +1874,7 @@ function openWebinarOffer(callback, mode) {
   document.getElementById('webinar-skip-btn').style.display = '';
   document.getElementById('webinar-done-icon').style.display = 'none';
   document.getElementById('webinar-title').textContent = 'Join a free IGVhope webinar';
-  document.getElementById('webinar-sub').textContent = "We'll walk you through the program and the benefits of the IGVhope Community. Pick a time that suits you (Pacific time).";
+  document.getElementById('webinar-sub').textContent = "We'll walk you through the program and the benefits of IGVhope's Community Platform. Pick a time that suits you (Pacific time).";
   document.getElementById('webinar-error').classList.remove('show');
   var btn = document.getElementById('webinar-submit-btn');
   btn.disabled = false;
@@ -2657,6 +2659,29 @@ function performWithdrawEOI(dealId) {
     });
 }
 
+/* Links straight to a home: /?home=2-bed opens that home's details, and adding #calculator also scrolls
+   to its Affordability Calculator. The Welcome page uses this. Keys are home configurations, not addresses. */
+var HOME_LINKS = {
+  '3-bed-suite': 'River Road - Unit A',
+  '3-bed': 'Compton Road - Unit A',
+  '2-bed': 'Compton Road - Unit B',
+  '1-bed': 'River Road - Unit C'
+};
+document.addEventListener('DOMContentLoaded', function() {
+  var key = null;
+  try { key = new URLSearchParams(window.location.search).get('home'); } catch (e) {}
+  var card = key && HOME_LINKS[key] ? findListingCardByTitle(HOME_LINKS[key]) : null;
+  if (!card) return;
+  openListingDetail(card);
+  if (window.location.hash !== '#calculator') return;
+  /* The details panel opens after a short colour wipe (about 350ms), so wait for it before scrolling. */
+  setTimeout(function() {
+    var target = document.getElementById('affordability-calculator');
+    var body = document.getElementById('detail-body');
+    if (!target || !body) return;
+    body.scrollTo({ top: target.getBoundingClientRect().top - body.getBoundingClientRect().top + body.scrollTop - 16, behavior: 'smooth' });
+  }, 700);
+});
 function findListingCardByTitle(title) {
   var match = null;
   document.querySelectorAll('.listing-card').forEach(function(card) {
@@ -3030,8 +3055,8 @@ function renderProgress(progressData, prefsData, applications) {
       done: !!(progressData && progressData.communityOnboarded),
       current: !!(progressData && progressData.eligibilityConfirmed) && !(progressData && progressData.communityOnboarded),
       label: 'Step 8',
-      title: 'Onboarding into the IGVhope Community',
-      detail: 'Once your eligibility is confirmed, we\'ll bring you into the IGVhope Community on Circle, where you can connect with other participants, get support along the way, and stay in the loop on what\'s next.',
+      title: 'Onboarding into myIGVhope',
+      detail: 'Once your eligibility is confirmed, we\'ll bring you into myIGVhope, IGVhope\x27s Community Platform, where you can connect with other participants, get support along the way, and stay in the loop on what\'s next.',
       hasCircleButton: true
     }
   ];
@@ -3062,7 +3087,7 @@ function renderProgress(progressData, prefsData, applications) {
     var circleHtml = (step.hasCircleButton && step.current) ?
       '<button class="verifast-btn" onclick="openCircleCommunity()">' +
         '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>' +
-        'Join the IGVhope Community on Circle' +
+        'Join myIGVhope' +
       '</button>' +
       '<div class="verifast-note">Opens in a new tab on Circle, our community platform.</div>'
       : '';
@@ -3210,7 +3235,7 @@ function openVerifastScreening() {
 
 function openCircleCommunity() {
   if (!CIRCLE_COMMUNITY_URL || CIRCLE_COMMUNITY_URL.indexOf('REPLACE_WITH') === 0) {
-    alert("The IGVhope Community isn't connected yet. Check back soon.");
+    alert("myIGVhope isn't connected yet. Check back soon.");
     return;
   }
   window.open(CIRCLE_COMMUNITY_URL, '_blank', 'noopener');
@@ -4372,7 +4397,7 @@ select.gate1-input:invalid { color: #999; }
           <div id="profile-dropdown">
             <div class="dropdown-header">
               <div class="dropdown-header-name" id="dropdown-header-name">IGVhope Member</div>
-              <div class="dropdown-header-role">IGVhope Community Member</div>
+              <div class="dropdown-header-role">myIGVhope Member</div>
             </div>
             <a class="dropdown-item" href="https://my.igvhope.com">
               <span class="dropdown-item-icon"><svg width="15" height="15" viewBox="2.72 2.72 18.55 18.55" fill="none" stroke="currentColor" stroke-width="1.55" stroke-linecap="round" stroke-linejoin="round"><path d="M3.5 10.5L12 4l8.5 6.5"/><path d="M5.5 9v10.5h13V9"/><circle cx="12" cy="12.4" r="2.1"/><path d="M8.6 19.5c.5-2 1.8-3.1 3.4-3.1s2.9 1.1 3.4 3.1"/></svg></span>
@@ -4410,7 +4435,7 @@ select.gate1-input:invalid { color: #999; }
           <div class="mobile-nav-avatar" id="mobile-nav-avatar">?</div>
           <div class="mobile-nav-account-info">
             <div id="mobile-nav-account-name" class="mobile-nav-account-name"></div>
-            <div class="mobile-nav-account-role">IGVhope Community Member</div>
+            <div class="mobile-nav-account-role"><span class="keep-case">myIGVhope</span> Member</div>
           </div>
         </div>
         <a class="mobile-nav-link mobile-nav-sublink" href="https://my.igvhope.com">myIGVhope</a>
@@ -6557,7 +6582,7 @@ select.pref-input {
 
       <div id="detail-main">
 
-        <h3 class="detail-main-title">Affordability Calculator</h3>
+        <h3 class="detail-main-title" id="affordability-calculator">Affordability Calculator</h3>
 
         <div class="tab-panel" id="tab-mortgage">
 
@@ -7005,7 +7030,7 @@ elevenlabs-convai {
     <button id="webinar-close" onclick="closeWebinarOffer()" aria-label="Close">&times;</button>
     <div class="app-confirm-icon" id="webinar-done-icon" style="display:none;"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#1A5C50" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></div>
     <div id="webinar-title">Join a free IGVhope webinar</div>
-    <div id="webinar-sub">We'll walk you through the program and the benefits of the IGVhope Community. Pick a time that suits you (Pacific time).</div>
+    <div id="webinar-sub">We'll walk you through the program and the benefits of IGVhope's Community Platform. Pick a time that suits you (Pacific time).</div>
     <div id="webinar-slots"></div>
     <div class="gate1-error" id="webinar-error">Please choose a time, or skip for now.</div>
     <button type="button" id="webinar-submit-btn" onclick="reserveWebinarSlot()">Reserve my spot</button>
@@ -7137,7 +7162,7 @@ elevenlabs-convai {
   <div id="save-login-modal">
     <button id="save-login-close" onclick="closeSaveLogin()" aria-label="Close">&times;</button>
     <div id="save-login-title">Save this home</div>
-    <div id="save-login-sub">Saving a home is only available for IGVhope Community members. Log in to save this home to your account.</div>
+    <div id="save-login-sub">Saving a home is only available for myIGVhope members. Log in to save this home to your account.</div>
     <div id="save-login-choices" style="display:flex; flex-direction:column; gap:10px; margin-top:18px;">
       <button id="save-login-signin-btn" onclick="handleSaveLoginGoToLogin()">Log In</button>
     </div>
