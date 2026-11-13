@@ -169,6 +169,7 @@
   .w-join-done h3 { font-size: 20px; font-weight: 800; color: var(--teal-deep); }
   .w-join-done p { margin-top: 8px; }
   .w-join-done strong { word-break: break-all; color: var(--teal-deep); }
+  .w-join-done-link { font-weight: 700; color: var(--teal-deep); text-decoration: underline; text-underline-offset: 3px; }
   @media (max-width: 900px) { .w-hero-grid { grid-template-columns: 1fr; gap: 36px; } .w-hero { padding: 56px 0; } }
   @media (max-width: 560px) { .w-join { padding: 24px 20px; } }
 
@@ -685,7 +686,8 @@
         <div class="w-join-done" id="join-done" aria-live="polite">
           <div class="tick"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#1A5C50" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></div>
           <h3>You're on your way</h3>
-          <p>We'll send your myIGVhope invitation to <strong id="join-done-email"></strong>. If it doesn't arrive within a few minutes, please check your spam folder.</p>
+          <p>We've opened <span class="keep-case">myIGVhope</span> in a new tab so you can finish signing up with <strong id="join-done-email"></strong>.</p>
+          <p><a id="join-done-link" class="w-join-done-link" href="https://my.igvhope.com/join" target="_blank" rel="noopener">Didn't open? Continue to <span class="keep-case">myIGVhope</span> &rarr;</a></p>
         </div>
       </div>
     </div>
@@ -750,7 +752,7 @@
       <a href="#change"><b>If life changes</b><span>Your protections throughout the process.</span></a>
       <a href="#agreements"><b>What you agree to</b><span>Two agreements, explained in plain words.</span></a>
       <a href="#years"><b>Your 10 years</b><span>What happens, what you do and who helps.</span></a>
-      <a href="#files"><b>Videos and files</b><span>Sales brochures for every home, and short films.</span></a>
+      <a href="#files"><b>Files and videos</b><span>Sales brochures for every home, and short films.</span></a>
     </nav>
   </div>
 </section>
@@ -1049,7 +1051,7 @@
   <div class="wrap">
     <div class="w-sec-head">
       <div class="w-eyebrow">Your files</div>
-      <h2>Videos and files</h2>
+      <h2>Files and videos</h2>
       <p class="w-lede">Everything from this page in one place, ready for whenever you would like another look.</p>
     </div>
     <!-- The four home configurations, matching the homepage tiles. Each opens its sales brochure in a new tab once the PDF is
@@ -1302,44 +1304,16 @@ var SABRINA_MEETING_URL = 'REPLACE_WITH_SABRINA_MEETING_URL';
 })();
 
 /* 2. Join myIGVhope.
-   Visitors enter the email they used at Gate 3, which sends their own portal invitation request to HubSpot.
-   Create a HubSpot form with just an "email" field, paste its GUID here, and point a workflow at it that sends the
-   invitation. Until then the button opens an email to the team with the address filled in. */
-var HUBSPOT_PORTAL_ID = '342997618';
-var HUBSPOT_COMMUNITY_FORM_GUID = 'REPLACE_WITH_COMMUNITY_FORM_GUID';
-
-function getHubspotUtk() {
-  var match = document.cookie.match(/(?:^|;\s*)hubspotutk=([^;]+)/);
-  return match ? match[1] : null;
-}
-
-function submitToHubspot(formGuid, fields) {
-  var url = 'https://api-na3.hsforms.com/submissions/v3/integration/submit/' + HUBSPOT_PORTAL_ID + '/' + formGuid;
-  var payload = {
-    fields: fields.map(function(f) { return { name: f.name, value: f.value }; }),
-    context: { pageUri: window.location.href, pageName: document.title }
-  };
-  var utk = getHubspotUtk();
-  if (utk) payload.context.hutk = utk;
-  return fetch(url, {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify(payload)
-  }).then(function(res) {
-    if (!res.ok) {
-      return res.json().then(function(err) {
-        console.error('HubSpot submission failed:', res.status, err);
-        throw new Error('HubSpot submission failed: ' + res.status);
-      });
-    }
-  });
-}
+   Visitors enter their email and are sent to the myIGVhope sign-up page in a new tab, with the email passed along.
+   The platform then tells HubSpot to move them to the Advocacy stage, so the website itself sends nothing to HubSpot.
+   MYIGVHOPE_SIGNUP_URL is the sign-up page; MYIGVHOPE_EMAIL_PARAM is the name the platform reads the email from. */
+var MYIGVHOPE_SIGNUP_URL = 'https://my.igvhope.com/join';
+var MYIGVHOPE_EMAIL_PARAM = 'email';
 
 (function setUpJoinForm() {
   var form = document.getElementById('join-form');
   var input = document.getElementById('join-email');
   var errorEl = document.getElementById('join-error');
-  var btn = document.getElementById('join-btn');
 
   /* Returning visitors: fill in the email they already gave us on the site. */
   try {
@@ -1347,8 +1321,15 @@ function submitToHubspot(formGuid, fields) {
     if (saved) input.value = saved;
   } catch (e) {}
 
-  function showDone(email) {
+  function signupLink(email) {
+    var url = new URL(MYIGVHOPE_SIGNUP_URL);
+    if (MYIGVHOPE_EMAIL_PARAM) url.searchParams.set(MYIGVHOPE_EMAIL_PARAM, email);
+    return url.toString();
+  }
+
+  function showDone(email, link) {
     document.getElementById('join-done-email').textContent = email;
+    document.getElementById('join-done-link').setAttribute('href', link);
     document.getElementById('join-form-wrap').style.display = 'none';
     document.getElementById('join-done').classList.add('show');
   }
@@ -1362,22 +1343,10 @@ function submitToHubspot(formGuid, fields) {
     input.classList.toggle('invalid', !valid);
     if (!valid) return;
 
-    if (HUBSPOT_COMMUNITY_FORM_GUID.indexOf('REPLACE_WITH') === 0) {
-      window.location.href = 'mailto:support@igvhope.com?subject=' + encodeURIComponent('Please add me to myIGVhope') +
-        '&body=' + encodeURIComponent('Please send my myIGVhope invitation to: ' + email);
-      return;
-    }
-
-    btn.disabled = true;
-    btn.textContent = 'Sending...';
-    submitToHubspot(HUBSPOT_COMMUNITY_FORM_GUID, [{ name: 'email', value: email }]).then(function() {
-      showDone(email);
-    }).catch(function() {
-      btn.disabled = false;
-      btn.innerHTML = '<span class=\"keep-case\">Join myIGVhope</span>';
-      errorEl.textContent = "Sorry, we couldn't send that just now. Please try again.";
-      errorEl.classList.add('show');
-    });
+    try { localStorage.setItem('igvhope_visitor_email', email); } catch (err) {}
+    var link = signupLink(email);
+    window.open(link, '_blank', 'noopener');
+    showDone(email, link);
   });
 
   /* The closing button, and the 'Join myIGVhope' step in Your 10 years, take people back up to the form and put the cursor in it. */
