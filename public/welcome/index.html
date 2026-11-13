@@ -162,6 +162,42 @@
   @media (max-width: 900px) { .w-hero-grid { grid-template-columns: 1fr; gap: 36px; } .w-hero { padding: 56px 0; } }
   @media (max-width: 560px) { .w-join { padding: 24px 20px; } }
 
+  /* Inside myIGVhope: screenshots of the Community Platform, under the Join box in the hero. */
+  .w-show { margin-top: 72px; padding-top: 56px; border-top: 1px solid rgba(255,255,255,0.1); }
+  .w-show-head { margin-bottom: 28px; }
+  .w-show-head h2 { font-size: clamp(24px, 3vw, 32px); font-weight: 800; line-height: 1.2; letter-spacing: -0.01em; color: #fff; }
+  .w-show-head h2::after { display: none; }
+  .w-shot { margin: 0; }
+  .w-shot-frame { all: unset; box-sizing: border-box; display: block; width: 100%; cursor: zoom-in; border-radius: 14px; overflow: hidden; background: #F4F1EA; border: 1px solid rgba(255,255,255,0.16); box-shadow: 0 28px 60px rgba(0,0,0,0.38), 0 0 0 6px rgba(255,255,255,0.03); transition: transform 0.3s ease, box-shadow 0.3s ease; }
+  .w-shot-frame:hover { transform: translateY(-4px); box-shadow: 0 36px 70px rgba(0,0,0,0.45), 0 0 0 6px rgba(232,162,74,0.12); }
+  .w-shot-frame:focus-visible { outline: 3px solid #E8A24A; outline-offset: 4px; }
+  .w-shot-bar { display: flex; gap: 6px; padding: 9px 12px; background: #E9E4DA; border-bottom: 1px solid rgba(0,0,0,0.06); }
+  .w-shot-bar i { width: 8px; height: 8px; border-radius: 50%; background: rgba(18,61,54,0.22); }
+  .w-shot-bar i:first-child { background: #E8A24A; }
+  .w-shot-frame img { display: block; width: 100%; height: auto; }
+  .w-shot figcaption { display: flex; flex-direction: column; gap: 6px; }
+  .w-shot figcaption b { font-size: 16px; font-weight: 800; color: #fff; line-height: 1.3; }
+  .w-shot figcaption > span { font-size: 14px; font-weight: 500; line-height: 1.6; color: rgba(255,255,255,0.72); }
+  .w-shot-lead { display: grid; grid-template-columns: minmax(0, 1.65fr) minmax(0, 1fr); gap: 44px; align-items: center; }
+  .w-shot-lead figcaption { gap: 12px; }
+  .w-shot-lead .w-shot-kicker { font-size: 11px; font-weight: 800; letter-spacing: 0.18em; text-transform: uppercase; color: #E8A24A; }
+  .w-shot-lead figcaption b { font-size: clamp(22px, 2.4vw, 28px); line-height: 1.2; }
+  .w-shot-lead figcaption > span:not(.w-shot-kicker):not(.w-shot-tags) { font-size: 15px; }
+  .w-shot-tags { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 4px; }
+  .w-shot-tags em { font-style: normal; font-size: 11.5px; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; color: #fff; padding: 6px 12px; border-radius: 999px; border: 1px solid rgba(255,255,255,0.2); background: rgba(255,255,255,0.05); }
+  .w-show-row { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 28px; margin-top: 56px; }
+  .w-show-row .w-shot { display: flex; flex-direction: column; gap: 18px; }
+  /* Same frame shape for all three, so the captions line up (the price screen is a little wider than the others). */
+  .w-show-row .w-shot-frame img { aspect-ratio: 2000 / 1236; object-fit: contain; }
+  @media (max-width: 900px) {
+    .w-show { margin-top: 48px; padding-top: 40px; }
+    .w-shot-lead { grid-template-columns: 1fr; gap: 24px; }
+    /* Phones and tablets: the three smaller screens swipe sideways. */
+    .w-show-row { display: flex; gap: 16px; margin: 40px -32px 0; padding: 0 32px 8px; scroll-padding: 0 32px; overflow-x: auto; scroll-snap-type: x mandatory; scrollbar-width: none; }
+    .w-show-row::-webkit-scrollbar { display: none; }
+    .w-show-row .w-shot { flex: 0 0 78%; scroll-snap-align: start; }
+  }
+
   /* overview cards */
   .w-glance { display: grid; grid-template-columns: repeat(auto-fit, minmax(210px, 1fr)); gap: 14px; margin-top: 36px; }
   .w-glance a { display: flex; flex-direction: column; gap: 6px; background: #fff; border-radius: 14px; padding: 20px; box-shadow: 0 1px 2px rgba(18,61,54,.06), 0 8px 24px rgba(18,61,54,.08); border: 1px solid transparent; color: var(--ink); }
@@ -282,6 +318,31 @@
   .yr-next:hover { background: #f0b269; transform: translateY(-1px); }
   @media (max-width: 900px) { .yr-cols { grid-template-columns: 1fr; } }
   @media (max-width: 700px) { .yr-card { padding: 26px 22px 30px; border-radius: 22px; } .yr-next { width: 100%; } }
+  /* What happens / What you do / Who helps: one glass panel on the dark card rather than three white tiles.
+     Hairline dividers between the columns, small gold outline icons beside fine labels, gold numerals for the
+     steps and outline chips for the people. */
+  .yr-cols { gap: 0; background: linear-gradient(180deg, rgba(255,255,255,0.09), rgba(255,255,255,0.04)); border: 1px solid rgba(255,255,255,0.14); border-radius: 22px; box-shadow: inset 0 1px 0 rgba(255,255,255,0.08), 0 24px 50px rgba(0,0,0,0.18); -webkit-backdrop-filter: blur(8px); backdrop-filter: blur(8px); }
+  .yr-box { display: grid; grid-template-columns: auto 1fr; align-content: start; align-items: center; column-gap: 12px; row-gap: 18px; background: none; box-shadow: none; border-radius: 0; padding: 30px 30px 32px; color: #fff; }
+  .yr-box > :nth-child(n+3) { grid-column: 1 / -1; }
+  .yr-box + .yr-box { border-left: 1px solid rgba(255,255,255,0.12); }
+  .yr-box::before { display: none; }
+  .yr-icon { width: 34px; height: 34px; border-radius: 50%; background: rgba(232,162,74,0.08); border: 1px solid rgba(232,162,74,0.55); color: #E8A24A; }
+  .yr-icon svg { width: 16px; height: 16px; stroke-width: 1.8; }
+  .yr-box h4 { font-size: 11px; font-weight: 700; letter-spacing: 0.2em; color: rgba(255,255,255,0.7); }
+  .yr-box p { font-size: 16px; font-weight: 500; line-height: 1.65; color: rgba(255,255,255,0.92); }
+  .yr-checks { counter-reset: yrc; gap: 0; }
+  .yr-checks li { counter-increment: yrc; padding: 11px 0 11px 34px; font-size: 15.5px; font-weight: 500; color: rgba(255,255,255,0.92); border-top: 1px solid rgba(255,255,255,0.1); }
+  .yr-checks li:first-child { border-top: 0; padding-top: 0; }
+  .yr-checks li::before { content: counter(yrc, decimal-leading-zero); width: auto; height: auto; top: 14px; border-radius: 0; background: none; font-size: 11.5px; font-weight: 800; letter-spacing: 0.08em; line-height: 1.5; color: #E8A24A; }
+  .yr-checks li:first-child::before { top: 3px; }
+  .yr-checks li:only-child { padding-left: 0; }
+  .yr-checks li:only-child::before { display: none; }
+  .yr-chip { background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.18); color: #fff; font-size: 14.5px; font-weight: 600; padding: 5px 16px 5px 5px; }
+  .yr-chip i { width: 28px; height: 28px; background: #E8A24A; color: #123D36; }
+  @media (max-width: 900px) {
+    .yr-box { padding: 24px 22px 26px; }
+    .yr-box + .yr-box { border-left: 0; border-top: 1px solid rgba(255,255,255,0.12); }
+  }
   /* On phones the six steps are numbered circles only; the card underneath names the step. */
   @media (max-width: 560px) {
     .yr-tabs::before, .yr-fill { top: 16px; }
@@ -491,6 +552,49 @@
         </div>
       </div>
     </div>
+
+    <!-- Inside myIGVhope: screenshots of the IGVhope Community Platform, Benefits first, to sell joining. Tap any to see it full size. -->
+    <div class="w-show">
+      <div class="w-show-head">
+        <div class="w-eyebrow">Inside myIGVhope</div>
+        <h2>A look inside the IGVhope Community Platform</h2>
+      </div>
+      <figure class="w-shot w-shot-lead">
+        <button type="button" class="w-shot-frame" data-img="/welcome/media/community-benefits.webp" data-cap="Buying Group Benefits: member discounts and perks on thousands of brands" aria-label="View the Buying Group Benefits screen full size">
+          <span class="w-shot-bar" aria-hidden="true"><i></i><i></i><i></i></span>
+          <img src="/welcome/media/community-benefits.webp" alt="The myIGVhope Buying Group Benefits screen, showing member deals from brands such as BetterHelp, Apple, DoorDash and Samsung" loading="lazy" width="2000" height="1236">
+        </button>
+        <figcaption>
+          <span class="w-shot-kicker">Member benefits</span>
+          <b>Save on the things you buy every day</b>
+          <span>As part of the IGVhope buying group, members get discounts and perks on thousands of brands, all in one place. Every dollar saved helps your household budget on the way to owning your home.</span>
+          <span class="w-shot-tags" aria-label="Deal categories"><em>Tech</em><em>Food</em><em>Travel</em><em>Wellness</em><em>Shoes</em></span>
+        </figcaption>
+      </figure>
+      <div class="w-show-row">
+        <figure class="w-shot">
+          <button type="button" class="w-shot-frame" data-img="/welcome/media/community-home.webp" data-cap="Home: your home, tasks and visits in one place" aria-label="View the Home screen full size">
+            <span class="w-shot-bar" aria-hidden="true"><i></i><i></i><i></i></span>
+            <img src="/welcome/media/community-home.webp" alt="The myIGVhope Home screen, with buttons to pay your contribution, report a repair and see news and events" loading="lazy" width="2000" height="1236">
+          </button>
+          <figcaption><b>Your home, in one place</b><span>Pay your contribution, report a repair and see upcoming visits.</span></figcaption>
+        </figure>
+        <figure class="w-shot">
+          <button type="button" class="w-shot-frame" data-img="/welcome/media/community-feed.webp" data-cap="Feed: your IGVhope neighbours and your questions" aria-label="View the community Feed screen full size">
+            <span class="w-shot-bar" aria-hidden="true"><i></i><i></i><i></i></span>
+            <img src="/welcome/media/community-feed.webp" alt="The myIGVhope community Feed, where members post questions, wins, swaps and tips" loading="lazy" width="2000" height="1236">
+          </button>
+          <figcaption><b>Your neighbours</b><span>Ask questions, share wins and swap with people on the same path.</span></figcaption>
+        </figure>
+        <figure class="w-shot">
+          <button type="button" class="w-shot-frame" data-img="/welcome/media/community-journey.webp" data-cap="Your price and the market: your agreed price against a similar home at Year 10" aria-label="View the price and journey screen full size">
+            <span class="w-shot-bar" aria-hidden="true"><i></i><i></i><i></i></span>
+            <img src="/welcome/media/community-journey.webp" alt="The myIGVhope journey view, comparing an agreed purchase price with a similar home at Year 10 and showing progress from move-in to mortgage" loading="lazy" width="2000" height="1052">
+          </button>
+          <figcaption><b>Your price and your path</b><span>Track your 10 years and see your agreed price against the market.</span></figcaption>
+        </figure>
+      </div>
+    </div>
   </div>
 </section>
 
@@ -684,7 +788,7 @@
             <div class="yr-cols">
               <div class="yr-box yr-box-happens"><span class="yr-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3l1.9 5.1L19 10l-5.1 1.9L12 17l-1.9-5.1L5 10l5.1-1.9z"/><path d="M19 15l.8 2.2L22 18l-2.2.8L19 21l-.8-2.2L16 18l2.2-.8z"/></svg></span><h4>What happens</h4><p>You move into your new home under the Occupancy Agreement.</p></div>
               <div class="yr-box yr-box-do"><span class="yr-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M8 12.5l3 3 5-6"/></svg></span><h4>What you do</h4><ul class="yr-checks"><li>Pay your monthly occupancy contributions and settle in.</li></ul></div>
-              <div class="yr-box yr-box-who"><span class="yr-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="9" cy="8" r="3.2"/><path d="M3 20c0-3.5 2.7-6 6-6s6 2.5 6 6"/><circle cx="17" cy="9" r="2.5"/><path d="M16 14c2.8.3 5 2.6 5 6"/></svg></span><h4>Who helps</h4><div class="yr-chips"><span class="yr-chip"><i><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="9" cy="8" r="3"/><path d="M3 20c0-3.5 2.7-6 6-6s6 2.5 6 6"/><circle cx="17" cy="9" r="2.4"/><path d="M16 14c2.8.3 5 2.6 5 6"/></svg></i>Our team</span><span class="yr-chip"><i><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="12" rx="2"/><path d="M8 21h8M12 17v4"/></svg></i>Your resident portal</span></div></div>
+              <div class="yr-box yr-box-who"><span class="yr-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="9" cy="8" r="3.2"/><path d="M3 20c0-3.5 2.7-6 6-6s6 2.5 6 6"/><circle cx="17" cy="9" r="2.5"/><path d="M16 14c2.8.3 5 2.6 5 6"/></svg></span><h4>Who helps</h4><div class="yr-chips"><span class="yr-chip"><i><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="9" cy="8" r="3"/><path d="M3 20c0-3.5 2.7-6 6-6s6 2.5 6 6"/><circle cx="17" cy="9" r="2.4"/><path d="M16 14c2.8.3 5 2.6 5 6"/></svg></i>Our team</span><span class="yr-chip"><i><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="12" rx="2"/><path d="M8 21h8M12 17v4"/></svg></i>myIGVhope Community Platform</span></div></div>
             </div>
           </div>
           <div class="yr-panel" role="tabpanel" id="yr-panel-2" aria-labelledby="yr-tab-2">
