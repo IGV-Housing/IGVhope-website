@@ -1,0 +1,15 @@
+{
+  "name": "igvhope-employer-pack-build",
+  "private": true,
+  "type": "module",
+  "description": "Builds the downloadable Employer Pack (PDFs, Word files, PNGs) into public/assets/files/employer-pack. Run: npm install, then npm run build.",
+  "scripts": {
+    "build": "node build.mjs"
+  },
+  "dependencies": {
+    "@fontsource/montserrat": "^5.1.0",
+    "docx": "^9.0.0",
+    "jszip": "^3.10.2",
+    "qrcode": "^1.5.4"
+  }
+}

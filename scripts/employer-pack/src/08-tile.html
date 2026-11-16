@@ -1,0 +1,29 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><title>Social tile: proudly supporting our staff</title>
+<style>{{FONTS_ONLY}}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{width:1080px;height:1080px;overflow:hidden;font-family:'Montserrat',sans-serif}
+.t{width:1080px;height:1080px;position:relative;background:#123D36;overflow:hidden;color:#fff}
+.photo{position:absolute;inset:0;background:url('{{IMG:hero-couple-v10-1600.jpg}}') 62% 30%/cover no-repeat}
+.photo::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(18,61,54,.82) 0,rgba(18,61,54,.3) 26%,rgba(18,61,54,.55) 44%,rgba(18,61,54,.95) 64%,#123D36 100%)}
+.top{position:absolute;left:72px;right:72px;top:64px;display:flex;align-items:center;justify-content:space-between;z-index:2}
+.logo{width:220px}
+.logo svg{width:100%;height:auto}
+.badge{background:#E8A24A;color:#123D36;font-weight:800;font-size:22px;letter-spacing:.12em;text-transform:uppercase;padding:14px 26px;border-radius:999px;white-space:nowrap}
+.copy{position:absolute;left:72px;right:72px;bottom:72px;z-index:2}
+.copy h1{font-size:86px;line-height:1.02;font-weight:800;letter-spacing:-.03em}
+.copy h1 em{font-style:normal;color:#E8A24A}
+.copy p{font-size:33px;line-height:1.38;font-weight:500;margin-top:30px;color:#e3eee8;max-width:900px}
+.row{display:flex;align-items:center;justify-content:space-between;margin-top:40px}
+.pill{background:#E8A24A;color:#123D36;font-weight:800;font-size:30px;padding:20px 38px;border-radius:60px;white-space:nowrap}
+.fine{font-size:20px;line-height:1.35;color:#a9c0ac;white-space:nowrap;text-align:right}
+</style></head><body>
+<div class="t">
+  <div class="photo"></div>
+  <div class="top"><div class="logo">{{LOGO_WHITE}}</div><div class="badge">Proudly supporting IGVhope</div></div>
+  <div class="copy">
+    <h1>We believe all of you deserve <em>your own home.</em></h1>
+    <p>That's why we're backing our team's journey to homeownership. Move in with no down payment. Own it later.</p>
+    <div class="row"><div class="pill">Learn more at {{URL}}</div><div class="fine">Eligibility and terms apply.</div></div>
+  </div>
+</div>
+</body></html>
