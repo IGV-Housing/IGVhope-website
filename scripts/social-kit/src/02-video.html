@@ -1,0 +1,164 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><title>Secure, Live, Own: the house is built</title>
+<style>{{BASE}}
+html,body{width:1080px;height:var(--H,1080px);overflow:hidden;background:#123D36}
+.v{width:1080px;height:var(--H,1080px);position:relative;overflow:hidden;background:linear-gradient(160deg,#123D36 0%,#1A5C50 100%);color:#fff;--ty:636px}
+.glow{position:absolute;width:900px;height:900px;border-radius:50%;background:radial-gradient(circle,rgba(232,162,74,.28),rgba(232,162,74,0) 66%);left:300px;top:100px}
+.logo{position:absolute;left:72px;top:64px;width:210px;z-index:5}
+.stepper{position:absolute;left:72px;right:72px;top:160px;display:flex;gap:16px;z-index:5;opacity:0}
+.stepper div{flex:1;height:10px;border-radius:6px;background:rgba(255,255,255,.2);position:relative;overflow:hidden}
+.stepper div i{position:absolute;left:0;top:0;bottom:0;width:0;background:#E8A24A}
+.labels{position:absolute;left:72px;right:72px;top:182px;display:flex;gap:16px;z-index:5;opacity:0}
+.labels span{flex:1;font-size:24px;font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:rgba(255,255,255,.45)}
+
+/* the house */
+.house{position:absolute;left:50%;top:224px;width:470px;margin-left:-235px;opacity:0}
+.house svg{display:block;width:100%;height:auto;overflow:visible}
+.house.ghost{opacity:0}
+.house .stroke{fill:none;stroke:#E3EDE6;stroke-width:4;stroke-linecap:round;stroke-linejoin:round}
+.house .lit{fill:#E8A24A;stroke:#E3EDE6;stroke-width:4;stroke-linejoin:round}
+.house .heart{fill:#E8A24A}
+.house .ground{stroke:rgba(227,237,230,.5);stroke-width:3;stroke-linecap:round}
+.house.ghost .g{opacity:.14}
+.house.ghost .ground{opacity:.3}
+
+/* scenes */
+.sc{position:absolute;left:72px;right:72px;top:0;bottom:130px;display:flex;flex-direction:column;justify-content:center;opacity:0}
+.sc h1{font-size:98px;line-height:1.04;font-weight:800;letter-spacing:-.03em}
+.sc h1 em{font-style:normal;color:#E8A24A}
+.ln{opacity:0}
+.step,.end{top:var(--ty);bottom:100px;justify-content:flex-start;align-items:flex-start}
+.num{font-size:32px;font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:#E8A24A}
+.name{font-size:104px;line-height:1;font-weight:800;letter-spacing:-.035em;margin-top:4px}
+.msg{font-size:42px;line-height:1.28;font-weight:500;margin-top:12px;color:#e3eee8;max-width:930px}
+.end h1{font-size:84px}
+.end .sub{font-size:38px;line-height:1.3;font-weight:500;margin-top:16px;color:#e3eee8;max-width:930px}
+.end .pill{margin-top:26px;font-size:34px;padding:20px 42px}
+.foot{position:absolute;left:72px;right:72px;bottom:44px;font-size:22px;line-height:1.4;color:#b9cfc5;z-index:5}
+
+/* vertical 9:16 */
+.tall .v{--ty:1130px}
+.tall .house{top:380px;width:780px;margin-left:-390px}
+.tall .name{font-size:150px}
+.tall .msg{font-size:54px}
+.tall .step,.tall .end{bottom:220px}
+.tall .sc h1{font-size:128px}
+.tall .end h1{font-size:124px}
+.tall .end .sub{font-size:50px}
+.tall .glow{top:600px}
+</style></head><body>
+<div class="v" id="v">
+  <div class="glow" id="glow"></div>
+  <div class="logo">{{LOGO_WHITE}}</div>
+  <div class="stepper" id="stepper"><div><i></i></div><div><i></i></div><div><i></i></div></div>
+  <div class="labels" id="labels"><span>1 Secure</span><span>2 Live</span><span>3 Own</span></div>
+
+  <div class="house ghost" id="ghost">{{HOUSE_RAW}}</div>
+  <div class="house" id="house">{{HOUSE_RAW}}</div>
+
+  <div class="sc" id="sc0"><h1><span class="ln">You're not behind.</span><br><span class="ln">The process got harder.</span><br><span class="ln"><em>So we changed the process.</em></span></h1></div>
+
+  <div class="sc step" id="sc1"><div class="num">Step 1</div><div class="name">Secure</div><div class="msg">Your price is set by independent valuation and held for 10 years.</div></div>
+  <div class="sc step" id="sc2"><div class="num">Step 2</div><div class="name">Live</div><div class="msg">Move into a brand-new home now. No down payment to start.</div></div>
+  <div class="sc step" id="sc3"><div class="num">Step 3</div><div class="name">Own</div><div class="msg">In Year 10, buy your home at the held price with your own mortgage.</div></div>
+
+  <div class="sc end" id="sc4"><h1><span class="ln">A new way to own.</span></h1>
+    <div class="sub ln">Fundamentally different from other homeownership processes.</div>
+    <div class="ln"><span class="pill">igvhope.com</span></div></div>
+
+  <div class="foot">No upfront down payment. Standard move-in costs may apply. Eligibility and terms apply.</div>
+</div>
+<script>
+const TOTAL = 24.0;
+const ease = (x) => 1 - Math.pow(1 - Math.min(1, Math.max(0, x)), 3);
+const seg = (t, a, b) => Math.min(1, Math.max(0, (t - a) / (b - a)));
+const el = (id) => document.getElementById(id);
+const sc = [0, 1, 2, 3, 4].map((i) => el('sc' + i));
+// Timeline (seconds): hook, three 4.6s steps, then the end card.
+const HOOK_END = 4.4;
+const STEPS = [[4.2, 8.8], [8.8, 13.4], [13.4, 18.0]];
+const END_START = 18.0;
+
+// House pieces: every outline is drawn on with a dash, windows then fill with light, the heart pops in last.
+const live = el('house');
+const ground = live.querySelector('.ground');
+const g = [0, 1, 2].map((k) => Array.from(live.querySelectorAll('g[data-g="' + k + '"] > *')));
+live.querySelectorAll('.stroke,.lit,.ground,.heart').forEach((e) => {
+  e.setAttribute('pathLength', '1');
+  e.style.strokeDasharray = '1';
+  e.style.strokeDashoffset = '1';
+  e.style.opacity = '0';
+});
+const heart = g[2][g[2].length - 1];
+heart.style.transformBox = 'fill-box';
+heart.style.transformOrigin = 'center';
+heart.style.strokeDasharray = 'none';
+function draw(e, t, a, b) {
+  const p = ease(seg(t, a, b));
+  e.style.strokeDashoffset = 1 - p;
+  e.style.opacity = p > 0 ? 1 : 0;
+}
+const popScale = (p) => (p <= 0 ? 0 : p >= 1 ? 1 : 1 + 2.70158 * Math.pow(p - 1, 3) + 1.70158 * Math.pow(p - 1, 2));
+
+function fadeScene(node, t, a, b) {
+  const inn = ease(seg(t, a, a + 0.5)), out = 1 - ease(seg(t, b - 0.4, b));
+  node.style.opacity = Math.min(inn, out);
+  node.style.transform = 'translateY(' + ((1 - inn) * 40) + 'px)';
+}
+
+function render(t) {
+  t = t % TOTAL;
+  // hook: three lines, each given time to be read
+  fadeScene(sc[0], t, 0.0, HOOK_END);
+  const lns = sc[0].querySelectorAll('.ln');
+  [0.2, 1.3, 2.4].forEach((s, i) => { const p = ease(seg(t, s, s + 0.6)); lns[i].style.opacity = p; lns[i].style.display = 'inline-block'; lns[i].style.transform = 'translateY(' + ((1 - p) * 30) + 'px)'; });
+
+  // house visibility: ghost appears with step 1 and fades out at the end of the loop
+  const houseShow = Math.min(ease(seg(t, STEPS[0][0] - 0.2, STEPS[0][0] + 0.6)), 1 - ease(seg(t, TOTAL - 0.5, TOTAL)));
+  el('ghost').style.opacity = houseShow;
+  live.style.opacity = houseShow;
+
+  // Step 1: ground and foundation
+  const s1 = STEPS[0][0];
+  draw(ground, t, s1 + 0.3, s1 + 1.3);
+  g[0].forEach((e, i) => draw(e, t, s1 + 0.9 + i * 0.4, s1 + 2.1 + i * 0.4));
+  // Step 2: walls, door, windows light up
+  const s2 = STEPS[1][0];
+  draw(g[1][0], t, s2 + 0.3, s2 + 1.7);
+  draw(g[1][1], t, s2 + 1.3, s2 + 2.1);
+  [2, 3].forEach((k, i) => {
+    draw(g[1][k], t, s2 + 1.8 + i * 0.25, s2 + 2.5 + i * 0.25);
+    g[1][k].style.fillOpacity = ease(seg(t, s2 + 2.4 + i * 0.25, s2 + 3.1 + i * 0.25));
+  });
+  // Step 3: roof, chimney, then the heart
+  const s3 = STEPS[2][0];
+  draw(g[2][0], t, s3 + 0.3, s3 + 1.8);
+  draw(g[2][1], t, s3 + 1.4, s3 + 2.2);
+  const hp = seg(t, s3 + 2.4, s3 + 3.1);
+  heart.style.opacity = hp > 0 ? 1 : 0;
+  const pulse = (t > s3 + 3.1 && t < END_START + 1.5) ? 1 + 0.05 * Math.sin((t - s3 - 3.1) * 6) : 1;
+  heart.style.transform = 'scale(' + (popScale(hp) * pulse) + ')';
+
+  // text for each step
+  STEPS.forEach(([a, b], i) => fadeScene(sc[i + 1], t, a, b));
+
+  // stepper
+  const show = Math.min(ease(seg(t, STEPS[0][0] - 0.2, STEPS[0][0] + 0.3)), 1 - ease(seg(t, END_START - 0.4, END_START)));
+  el('stepper').style.opacity = show; el('labels').style.opacity = show;
+  const fills = el('stepper').querySelectorAll('i');
+  STEPS.forEach(([a], i) => { fills[i].style.width = (ease(seg(t, a, a + 0.7)) * 100) + '%'; });
+  el('labels').querySelectorAll('span').forEach((s, i) => { s.style.color = t >= STEPS[i][0] ? '#ffffff' : 'rgba(255,255,255,.45)'; });
+
+  // end card (the finished house stays on screen above it)
+  const end = sc[4];
+  const inn = ease(seg(t, END_START, END_START + 0.5)), out = 1 - ease(seg(t, TOTAL - 0.5, TOTAL));
+  end.style.opacity = Math.min(inn, out);
+  end.querySelectorAll('.ln').forEach((n, i) => { const p = ease(seg(t, END_START + 0.2 + i * 0.7, END_START + 0.9 + i * 0.7)); n.style.opacity = p; n.style.transform = 'translateY(' + ((1 - p) * 30) + 'px)'; n.style.display = n.tagName === 'DIV' ? 'block' : 'inline-block'; });
+
+  el('glow').style.transform = 'translate(' + (Math.sin(t / TOTAL * Math.PI * 2) * 60) + 'px,' + (Math.cos(t / TOTAL * Math.PI * 2) * 40) + 'px)';
+}
+window.render = render; window.TOTAL = TOTAL;
+const q = new URLSearchParams(location.search);
+if (q.get('h')) { document.documentElement.style.setProperty('--H', q.get('h') + 'px'); if (+q.get('h') > 1500) document.body.classList.add('tall'); }
+if (q.get('play')) { const s = performance.now(); (function loop() { render((performance.now() - s) / 1000); requestAnimationFrame(loop); })(); } else render(0);
+</script>
+</body></html>

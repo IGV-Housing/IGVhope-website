@@ -1,0 +1,124 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><title>I checked my eligibility: carousel</title>
+<style>{{BASE}}
+html,body{width:1080px;background:#fff}
+.slide{width:1080px;height:1350px;position:relative;overflow:hidden;color:#fff;background:linear-gradient(160deg,#123D36 0%,#1A5C50 100%);padding:80px}
+.logo{position:absolute;left:80px;top:68px;width:200px;z-index:3}
+.count{position:absolute;right:80px;top:78px;font-size:24px;font-weight:700;letter-spacing:.1em;color:#a9c0ac;z-index:3}
+.swipe{position:absolute;left:80px;bottom:72px;z-index:3}
+.swipe .pill{font-size:28px;padding:18px 36px}
+h1{font-size:104px;line-height:1.02;font-weight:800;letter-spacing:-.03em}
+h2{font-size:78px;line-height:1.06;font-weight:800;letter-spacing:-.025em}
+em{font-style:normal;color:var(--amber)}
+.lead{font-size:42px;line-height:1.38;font-weight:500;margin-top:36px;color:#e3eee8}
+.fine{position:absolute;left:80px;right:80px;bottom:54px;font-size:21px;line-height:1.4;color:#a9c0ac;z-index:3}
+
+/* 1 cover */
+.s1{padding:0}
+.s1 .photo{position:absolute;inset:0;background:url('{{IMG:hero-couple-v10-1600.jpg}}') 62% 28%/cover no-repeat}
+.s1 .photo::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(18,61,54,.8) 0,rgba(18,61,54,.25) 24%,rgba(18,61,54,.55) 44%,rgba(18,61,54,.96) 66%,#123D36 100%)}
+.s1 .copy{position:absolute;left:80px;right:80px;bottom:170px;z-index:2}
+
+/* 2 three minutes */
+.s2 .big{font-size:520px;line-height:.82;font-weight:800;color:var(--amber);letter-spacing:-.06em;margin:70px 0 0 -18px}
+.s2 .unit{font-size:120px;font-weight:800;letter-spacing:-.03em;margin-top:6px}
+.s2 .lead{margin-top:44px}
+.s2 .glow{position:absolute;right:-260px;top:300px;width:900px;height:900px;border-radius:50%;background:radial-gradient(circle,rgba(232,162,74,.28),rgba(232,162,74,0) 66%)}
+
+/* 3 team replied */
+.s3{background:var(--cream);color:var(--deep)}
+.s3 .count{color:#6b7f79}
+.s3 .lead{color:#35504a;font-size:48px}
+.s3 .mail{width:380px;height:380px;border-radius:50%;background:var(--deep);display:flex;align-items:center;justify-content:center;margin:80px 0 70px}
+.s3 .mail svg{width:190px;height:190px;fill:none;stroke:var(--amber);stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+.s3 h2{color:var(--deep)}
+
+/* 4 benefits */
+.s4{background:var(--mint);color:var(--deep)}
+.s4 .count{color:#6b7f79}
+.s4 .rows{margin-top:44px;display:flex;flex-direction:column;gap:22px}
+.s4 .r{background:#fff;border-radius:36px;padding:28px 36px;display:flex;gap:34px;align-items:center}
+.s4 .ic{width:104px;height:104px;border-radius:50%;background:var(--teal);display:flex;align-items:center;justify-content:center;flex:none}
+.s4 .ic svg{width:56px;height:56px;fill:none;stroke:#fff;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.s4 .r h3{font-size:42px;line-height:1.15;font-weight:800;color:var(--deep);letter-spacing:-.01em}
+.s4 .r p{font-size:30px;line-height:1.38;font-weight:500;margin-top:8px;color:#35504a}
+
+/* 5 the home */
+.s5 .three{display:grid;grid-template-columns:repeat(3,1fr);gap:26px;margin-top:56px}
+.s5 .h{background:rgba(255,255,255,.1);border:2px solid rgba(255,255,255,.22);border-radius:36px;padding:36px 22px 40px;text-align:center}
+.s5 .h .hs{width:100%;max-width:230px;margin:0 auto 22px}
+.s5 .h .hs svg{width:100%;height:auto;overflow:visible}
+.s5 .h b{display:block;font-size:44px;font-weight:800;letter-spacing:-.01em}
+.s5 .h span{display:block;font-size:26px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--amber);margin-top:6px}
+.house .stroke{fill:none;stroke:#E3EDE6;stroke-width:4;stroke-linecap:round;stroke-linejoin:round}
+.house .lit{fill:#E8A24A;stroke:#E3EDE6;stroke-width:4;stroke-linejoin:round}
+.house .heart{fill:#E8A24A}
+.house .ground{stroke:rgba(227,237,230,.35);stroke-width:3;stroke-linecap:round}
+.s5 .lead{margin-top:44px;font-size:38px}
+
+/* 6 your turn */
+.s6 .qr{width:430px;background:#fff;border-radius:40px;padding:34px;margin:64px 0 50px;border:10px solid var(--amber)}
+.s6 .qr svg{width:100%;height:auto}
+.s6 .url{font-size:46px;font-weight:800;color:var(--amber);margin-top:6px}
+.s6 .row{display:flex;gap:56px;align-items:center}
+</style></head><body>
+
+<div class="slide s1">
+  <div class="photo"></div>
+  <div class="logo">{{LOGO_WHITE}}</div><div class="count">1 / 6</div>
+  <div class="copy"><h1>I checked my eligibility. <em>Here's what happened.</em></h1></div>
+  <div class="swipe"><span class="pill">Swipe &rarr;</span></div>
+</div>
+
+<div class="slide s2">
+  <div class="glow"></div>
+  <div class="logo">{{LOGO_WHITE}}</div><div class="count">2 / 6</div>
+  <div style="margin-top:118px"><h2>It took about</h2></div>
+  <div class="big">3</div>
+  <div class="unit">minutes.</div>
+  <p class="lead">And it has no impact on my credit score.</p>
+  <div class="swipe"><span class="pill">Swipe &rarr;</span></div>
+</div>
+
+<div class="slide s3">
+  <div class="logo">{{LOGO_WHITE_DEEP}}</div><div class="count">3 / 6</div>
+  <div style="margin-top:118px"><h2>Then the team got back to me.</h2></div>
+  <div class="mail"><svg viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg></div>
+  <p class="lead" style="margin-top:0">Within 3 business days, they confirmed what they had and explained my next step.</p>
+  <div class="swipe"><span class="pill">Swipe &rarr;</span></div>
+</div>
+
+<div class="slide s4">
+  <div class="logo">{{LOGO_WHITE_DEEP}}</div><div class="count">4 / 6</div>
+  <div style="margin-top:118px"><h2>And I got more than an answer.</h2></div>
+  <div class="rows">
+    <div class="r"><div class="ic"><svg viewBox="0 0 24 24"><path d="M2 9l10-5 10 5-10 5z"/><path d="M6 11.5V16c0 1.5 2.7 3 6 3s6-1.5 6-3v-4.5"/></svg></div><div><h3>A free Homeownership Academy</h3><p>Build my credit and strengthen my finances while I wait.</p></div></div>
+    <div class="r"><div class="ic"><svg viewBox="0 0 24 24"><circle cx="9" cy="8" r="3.2"/><path d="M3 20c0-3.3 2.7-6 6-6s6 2.7 6 6"/><circle cx="17" cy="9" r="2.5"/><path d="M16 14.2c2.9.2 5 2.5 5 5.3"/></svg></div><div><h3>The IGVhope Community</h3><p>Member benefits while homes are being built.</p></div></div>
+    <div class="r"><div class="ic"><svg viewBox="0 0 24 24"><path d="M3 4h2l2.4 11.2a1 1 0 0 0 1 .8h8.9a1 1 0 0 0 1-.8L20 8H6"/><circle cx="9" cy="20" r="1.4"/><circle cx="17" cy="20" r="1.4"/></svg></div><div><h3>Buying power on everyday things</h3><p>Negotiated member discounts, plus group buying on household essentials.</p></div></div>
+  </div>
+  <div class="swipe"><span class="pill">Swipe &rarr;</span></div>
+</div>
+
+<div class="slide s5">
+  <div class="logo">{{LOGO_WHITE}}</div><div class="count">5 / 6</div>
+  <div style="margin-top:118px"><h2>And the home itself? <em>No down payment to move in.</em></h2></div>
+  <div class="three">
+    <div class="h"><div class="hs house">{{HOUSE:0}}</div><b>Secure</b><span>Price held 10 years</span></div>
+    <div class="h"><div class="hs house">{{HOUSE:1}}</div><b>Live</b><span>Move in now</span></div>
+    <div class="h"><div class="hs house">{{HOUSE:2}}</div><b>Own</b><span>Buy at Year 10</span></div>
+  </div>
+  <p class="lead">Your price is set by independent valuation and held for ten years. In Year 10, you buy with your own mortgage.</p>
+  <div class="swipe"><span class="pill">Swipe &rarr;</span></div>
+</div>
+
+<div class="slide s6">
+  <div class="logo">{{LOGO_WHITE}}</div><div class="count">6 / 6</div>
+  <div style="margin-top:118px"><h1>Your turn. <em>Check yours.</em></h1></div>
+  <p class="lead" style="margin-top:24px">It takes about 3 minutes and has no impact on your credit score.</p>
+  <div class="row">
+    <a class="qr" style="display:block" href="https://www.igvhope.com/next-steps">{{QR:social-carousel@next-steps}}</a>
+    <div><div class="pill" style="font-size:34px;padding:24px 40px">Scan or visit</div><div class="url">igvhope.com</div></div>
+  </div>
+  <div class="fine">Eligibility and terms apply. Member benefits are for IGVhope Community members and may change. IGVhope participation and future mortgage approval are subject to eligibility and the terms of your agreement.</div>
+</div>
+
+</body></html>

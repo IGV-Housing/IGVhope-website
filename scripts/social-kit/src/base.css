@@ -1,0 +1,7 @@
+{{FONTS_ONLY}}
+:root{--teal:#1A5C50;--deep:#123D36;--amber:#E8A24A;--ochre-dark:#A9610A;--cream:#F5F1E8;--sage:#A9C0AC;--mint:#E3EDE6;--ink:#1c2b28}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{font-family:'Montserrat',sans-serif;color:#fff;background:#123D36;-webkit-font-smoothing:antialiased}
+svg{display:block}
+.logo svg{width:100%;height:auto}
+.pill{display:inline-block;background:var(--amber);color:var(--deep);font-weight:800;letter-spacing:.01em;border-radius:999px;white-space:nowrap}
