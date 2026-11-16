@@ -2,8 +2,7 @@
 
 Builds the downloadable Social Kit for program participants: a webinar tile, the Secure / Live / Own
 house-building video (square and vertical), an "I checked my eligibility" carousel and a caption pack (Word).
-The only output published on the site is `public/assets/files/IGVhope-Social-Kit.zip`; the loose files
-live in `dist/` (git-ignored).
+Nothing is published on the website: the zip is written to `dist/IGVhope-Social-Kit.zip` (git-ignored) for upload to myIGVhope.
 
 ```
 cd scripts/social-kit
@@ -17,4 +16,4 @@ node build.mjs tile        # or: video | carousel | captions
 - Webinar dates, links and the contact email are in `CONFIG` at the top of `build.mjs`. Update the dates when the
   site's `WEBINAR_DAYS` change, then rebuild.
 - Each QR code carries its own `utm_medium` so GA4 shows which post drove the visit.
-- Every build re-creates the zip from `dist/`, so there is only ever one downloadable copy.
+- Every build re-creates the zip in `dist/` from the loose files there.

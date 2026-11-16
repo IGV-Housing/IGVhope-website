@@ -20,7 +20,7 @@ const ffmpegPath = require('@ffmpeg-installer/ffmpeg').path;
 const here = path.dirname(fileURLToPath(import.meta.url));
 const repo = path.resolve(here, '../..');
 const outDir = path.join(here, 'dist/IGVhope-Social-Kit');
-const zipPath = path.join(repo, 'public/assets/files/IGVhope-Social-Kit.zip');
+const zipPath = path.join(here, 'dist/IGVhope-Social-Kit.zip'); // kept out of public/: these kits are shared through myIGVhope, not the website
 const tmpDir = fs.mkdtempSync(path.join(os.tmpdir(), 'igvhope-social-'));
 
 // ---- Settings: change links, dates and contact details here, then rebuild ----

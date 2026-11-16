@@ -13,9 +13,9 @@ import { buildWordDocs } from './docx-assets.mjs';
 
 const here = path.dirname(fileURLToPath(import.meta.url));
 const repo = path.resolve(here, '../..');
-// Built files are kept in dist/ (git-ignored, never served). Only the zip goes into public/.
+// Built files and the zip are kept in dist/ (git-ignored, never served by the website).
 const outDir = path.join(here, 'dist/IGVhope-Employer-Pack');
-const zipPath = path.join(repo, 'public/assets/files/IGVhope-Employer-Pack.zip');
+const zipPath = path.join(here, 'dist/IGVhope-Employer-Pack.zip'); // kept out of public/: these kits are shared through myIGVhope, not the website
 const tmpDir = fs.mkdtempSync(path.join(os.tmpdir(), 'igvhope-pack-'));
 
 // ---- Settings: change links and contact details here, then rebuild ----
